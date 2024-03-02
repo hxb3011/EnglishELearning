@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Launch Browser",
+            "request": "launch",
+            "type": "msedge",
+            "url": "http://localhost:62280",
+            "preLaunchTask": {
+                "type": "docker-compose",
+                "dockerCompose": {
+                    "up": {
+                        "detached": true,
+                        "build": true
+                    },
+                    "files": [
+                        "${workspaceFolder}/docker-compose.yml"
+                    ]
+                }
+            }
+        }
+    ]
+}

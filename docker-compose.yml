@@ -1,0 +1,31 @@
+version: '3'
+name: web2elearning
+services:
+  mysql:
+    container_name: "ELearning-DBServer"
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: Hello|11
+      MYSQL_DATABASE: ELearning
+      MYSQL_USER: user0
+      MYSQL_PASSWORD: Hello|11
+    volumes:
+      - ./db:/var/lib/mysql:rw
+      # - mysql_data:/var/lib/mysql
+  php:
+    container_name: "ELearning-WebServer"
+    image: php:7.2-apache
+    # build:
+    #   context: .
+    #   dockerfile_inline: |
+    #     FROM php:7.2-apache
+    #     COPY src/ /var/www/html/
+    volumes:
+      - ./src:/var/www/html:ro
+    ports:
+      - 62280:80
+    depends_on:
+      - mysql
+
+# volumes:
+#   mysql_data:
