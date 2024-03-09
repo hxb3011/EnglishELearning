@@ -1,7 +1,6 @@
 <?php
 require('./header.php')
 ?>
-
     <div>
         <div class="banner" style="background-image: url('../assets/images/banner-main.png');">
             <div class="container banner-content">
@@ -341,3 +340,5 @@ require('./header.php')
 <?php
 require('./footer.php')
 ?>
+</body>
+</html>
