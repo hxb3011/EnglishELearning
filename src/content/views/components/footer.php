@@ -4,7 +4,7 @@
             <div class="col-md-3">
                 <div class="d-flex">
                     <a class="navbar-brand header__navbar-brand" href="#">
-                        <img src="../assets/images/icon.png" class="header__navbar-logo" alt="Logo">
+                        <img src="../../public/images/icon.png" class="header__navbar-logo" alt="Logo">
                         ELearning
                     </a>
                 </div>

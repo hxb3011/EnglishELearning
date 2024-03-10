@@ -1,6 +1,9 @@
-<?php require("./header.php") ?>
+<?php 
+    $title = "Đăng nhập - Học tiếng anh Vocala";
+    require("./components/header.php") 
+?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="../clients/css/login/authenticate.css">
+<link rel="stylesheet" href="../../public/css/login/authenticate.css">
 <div class="container-authen">
         <div class="forms-container">
             <div class="signin-signup">
@@ -80,7 +83,7 @@
                     <p>Bạn chưa có tài khoản, hãy đăng ký ở dưới đây</p>
                     <button class="btn btn-transaparent" id="sign-up-btn">Sign Up</button>
                 </div>
-                <img src="../assets/images/log.svg" class="image" alt="">
+                <img src="../../public/images/log.svg" class="image" alt="">
             </div>
 
             <div class="panel right-panel">
@@ -89,7 +92,7 @@
                     <p>Đăng nhập ở đây</p>
                     <button class="btn btn-transaparent" id="sign-in-btn">Sign In</button>
                 </div>
-                <img src="../assets/images/register.svg" class="image" alt="">
+                <img src="../../public/images/register.svg" class="image" alt="">
             </div>
         </div>
     </div>
@@ -126,7 +129,7 @@
             })
         }) 
     </script>
-    <?php require('./footer.php') ?>
+    <?php require('./components/footer.php') ?>
 </body>
 </html>
 
