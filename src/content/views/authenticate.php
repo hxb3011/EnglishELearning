@@ -19,6 +19,7 @@
                         <input class="input" type="password" placeholder="Password" required>
                         <i class="fa-solid fa-eye" data-index="0"></i>
                     </div>
+                    <a href="#" class="btn-link">Forgot password?</a>
                     <input type="submit" value="login" class="btn solid">
 
                     <p class="social-text">Or Sign in with social platforms</p>
