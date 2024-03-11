@@ -45,7 +45,7 @@ require "../components/header.php";
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="courses-section__content__course-item">
-                                <img src="../../../public/images/blog2.png" class="courses-section__content__course-item-image">
+                                <img src="../../../public/images/blog4.png" class="courses-section__content__course-item-image">
 
                                 </img>
                                 <div class="courses-section__content__course-item__info d-flex justify-content-between flex-column p-4">
