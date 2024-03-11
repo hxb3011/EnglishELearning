@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../public/css/home/home_main.css">
     <link rel="icon" type="image/x-icon" href="../../public/images/logo-icon.png">
+    <link rel="stylesheet" href="../../public/css/header/header.css">
 </head>
 
 <body>
@@ -53,4 +54,28 @@
                 </div>
             </div>
         </nav>
+
+        <?php 
+            $currentURI = $_SERVER['REQUEST_URI'];
+            $currentPage = explode('/', $currentURI);
+            foreach ($currentPage as $key => $value) {
+                if (strpos($value, '.php') !== false) {
+                    $currentPage = explode('.', $value)[0];
+                }
+            }
+        ?>
+        <div class="navigation">
+            <div class="container">
+                <?php
+                    echo "<ul>";
+                    echo "<li><a href='../home.php' class='nav-link'>Home </a></li>";
+                    if ($currentPage != 'home'){
+                        echo " > ";
+                    }
+                    if ($currentPage == 'bloglist'){
+                        echo "<li><a href='../bloglist.php' class='nav-link'>Blog </a></li>";
+                    }
+                ?>
+            </div>
+        </div>
     </div>

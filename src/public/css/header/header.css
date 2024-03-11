@@ -1,0 +1,21 @@
+/* header.css */
+
+.navigation {
+    background-color: #E8E8E8;
+    opacity: .9;
+    height: 100%;
+}
+
+.navigation ul {
+    display: inline-block;
+    height: 55px;
+}
+
+.navigation ul li {
+    display: inline-block;
+}
+
+.navigation ul li a {
+    line-height: 55px;
+    font-size: 1.6rem;
+}
