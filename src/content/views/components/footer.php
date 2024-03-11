@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../../public/css/footer/footer.css">
 <footer class="footer">
     <div class="container">
         <div class="row">
@@ -67,4 +68,20 @@
             </div>
         </div>
     </div>
+    <!-- Back to Top -->
+    <button id="back-to-top" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></button>
 </footer>
+<script>
+    let backToTop = document.getElementById('back-to-top');
+    window.onscroll = function() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            backToTop.style.display = 'block';
+        } else {
+            backToTop.style.display = 'none';
+        }
+    }
+    backToTop.onclick = function() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome
+    }
+</script>
