@@ -2,7 +2,6 @@
     $title = "Đăng nhập - Học tiếng anh Vocala";
     require("./components/header.php") 
 ?>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="../../public/css/login/authenticate.css">
 <div class="container-authen">
         <div class="forms-container">
