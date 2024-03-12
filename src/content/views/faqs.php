@@ -3,16 +3,6 @@ $title = "Faqs - Hệ thống học tiếng anh Vocala";
 require('./components/header.php')
 ?>
 <link rel="stylesheet" href="../../public/css/faqs/faqs.css">
-<div class="breadcrumb__container">
-    <div class="container">
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item breadcrumb__item"><a href="#">Trang chủ</a></li>
-                <li class="breadcrumb-item breadcrumb__item active" aria-current="page">FAQs</li>
-            </ol>
-        </nav>
-    </div>
-</div>
 <div class="container ">
     <div class="section-heading section-heading--lg mb-5 pb-5">FAQs</div>
     <div class="d-flex">
@@ -117,7 +107,7 @@ require('./components/header.php')
             </div>
         </div>
     </div>
-    <div class=""><img class="w-50" src="../assets/images/faqs.png" alt="insert_vector_faqs"></div>
+    <div class=""><img class="w-50" src="../../public/images/faqs.jpg" alt="insert_vector_faqs"></div>
 </div>
 
 <?php require('./components/footer.php') ?>

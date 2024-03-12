@@ -61,7 +61,7 @@
                 </ul>
             </div>
             <div class="col-md-3">
-                <p class="footer_text">Address: 2321 New Design Str, Lorem Ipsum10 Hudson Yards, USA</p>
+                <p class="footer_text">Address: 273 Đ. An Dương Vương, Phường 3, Quận 5, Thành phố Hồ Chí Minh</p>
                 <p class="footer_text"><img src="" class="footer-icon" alt="">Tel:+ (123) 2500-567-8988</p>
                 <p class="footer_text"><img src="" class="footer-icon" alt="">Phone:+ (123) 2500-567-8988</p>
 

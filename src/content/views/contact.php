@@ -3,16 +3,6 @@ $title = "Liên hệ - Hệ thống học tiếng anh Vocala";
 require('./components/header.php')
 ?>
 <link rel="stylesheet" href="../../public/css/contact/contact.css">
-<div class="breadcrumb__container">
-    <div class="container">
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item breadcrumb__item"><a href="#">Trang chủ</a></li>
-                <li class="breadcrumb-item breadcrumb__item active" aria-current="page">Liên hệ</li>
-            </ol>
-        </nav>
-    </div>
-</div>
 <div class="container">
     <div class="direct-section mb-5">
         <div class="d-flex justify-content-space-between">
@@ -25,14 +15,14 @@ require('./components/header.php')
                 </div>
                 <div class="col">
                     <div class="section-wrapper ">
-                        <img src="../assets/images/icon-phone.png" alt="" class="category-icon">
+                        <img src="../../public/images/icon-phone.png" alt="" class="category-icon">
                         <div>
                             <p class="direct__detail--name">Điện thoại</p>
                             <p class="direct__detail--value">(123) 456 7890</p>
                         </div>
                     </div>
                     <div class="section-wrapper">
-                        <img src="../assets/images/mail.png" alt="" class="category-icon">
+                        <img src="../../public/images/mail.png" alt="" class="category-icon">
                         <div>
                             <p class="direct__detail--name">Email</p>
                             <p class="direct__detail--value">contact@elearning.com</p>
@@ -67,7 +57,7 @@ require('./components/header.php')
                         <p class="mb-0">Save my name, email in this brower for the next time I comment</p>
                     </div>
                     <div>
-                        <button type="submit" class="contact__button mt-3"> Comment</button>
+                        <button type="submit" class="contact__button mt-3">Send email</button>
                     </div>
                 </form>
             </div>
