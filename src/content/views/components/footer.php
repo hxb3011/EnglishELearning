@@ -67,6 +67,8 @@
 
             </div>
         </div>
+        <hr>
+        <span class="copyright d-flex justify-content-center">Copyright © 2024 LMS | Powered by TeamDev</span>
     </div>
     <!-- Back to Top -->
     <button id="back-to-top" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></button>

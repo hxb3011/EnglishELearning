@@ -3,7 +3,7 @@ $title = "Faqs - Hệ thống học tiếng anh Vocala";
 require('./components/header.php')
 ?>
 <link rel="stylesheet" href="../../public/css/faqs/faqs.css">
-<div class="container ">
+<div class="container mt-5 mb-5">
     <div class="section-heading section-heading--lg mb-5 pb-5">FAQs</div>
     <div class="d-flex">
         <div class="accordion col me-5" id="accordion_Col_1">
