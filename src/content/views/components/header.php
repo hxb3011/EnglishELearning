@@ -65,7 +65,8 @@
                 }
             }
         ?>
-        <div class="navigation">
+        <!-- Cập nhật lại sau-->
+        <!-- <div class="navigation">
             <div class="container">
                 <?php
                     echo "<ul>";
@@ -78,5 +79,5 @@
                     }
                 ?>
             </div>
-        </div>
+        </div> -->
     </div>
