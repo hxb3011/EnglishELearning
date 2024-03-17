@@ -66,6 +66,7 @@ input {
     border-radius: 1rem;
 }
 .section-wrapper img{
+    margin-bottom: 0;
     padding: 0.5rem;
     width: 7rem;
     height: 7rem;
