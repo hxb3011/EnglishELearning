@@ -17,3 +17,11 @@
     background-color: #ff6a00;
     color: #fff;
 }
+
+.copyright {
+    background-color: #f4f4f4;
+    text-align: center;
+    font-size: 1.9rem;
+    font-weight: 500;
+    color: #333;
+}

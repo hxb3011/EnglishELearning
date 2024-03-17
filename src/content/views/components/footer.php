@@ -1,3 +1,6 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="../../public/css/footer/footer.css">
 <footer class="footer">
     <div class="container">
@@ -67,6 +70,8 @@
 
             </div>
         </div>
+        <hr>
+        <span class="copyright d-flex justify-content-center">Copyright © 2024 LMS | Powered by TeamDev</span>
     </div>
     <!-- Back to Top -->
     <button id="back-to-top" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></button>

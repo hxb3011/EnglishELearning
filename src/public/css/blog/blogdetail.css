@@ -1,0 +1,248 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set a base font size and family */
+body {
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+.mr-3 {
+    margin-right: 2.2rem !important;
+}
+
+.fa-brands {
+    cursor: pointer;
+}
+
+.pl-3 {
+    padding-left: 1rem !important;
+}
+
+.pagination .page-link {
+    color: #000;
+    background-color: #fff;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: black; 
+    border-color: black; 
+    color: white;
+}
+
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
+        border-radius: 50%;
+}
+
+.recent-post h3 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #000;
+}
+
+.recent-post img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.recent-post .pl-3 h4{
+    max-height: 100%;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #000;
+}
+
+.tags h3 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #000;
+}
+
+.tags a {
+    font-size: 1.3rem;
+}
+
+.tags-relative .icon-prev {
+    position: relative;
+}
+
+.tags-relative .page-link {
+    line-height: 100%;
+    width: 50%;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+}
+
+.tags-relative .page-link i {
+    padding: 1.8rem 1.8rem;
+    background-color: #ccc;
+    border-radius: 5px;
+}
+
+.tags-relative .prev {
+    border: 1px solid #DCDCDC;
+    border-radius: 15px;
+    padding-bottom: 15px;
+    width: 40%;
+    margin-right: 15px;
+}
+
+.tags-relative .title-prev {
+    margin-top: 5px;
+}
+
+.tags-relative .title-prev p{
+    font-size: 1.8rem;
+    font-weight: 200;
+}
+
+.tags-relative .title-prev span{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.tags-relative .next {
+    border: 1px solid #DCDCDC;
+    border-radius: 15px;
+    padding-bottom: 15px;
+    position: relative;
+    width: 40%;
+}
+
+.tags-relative .icon-next{
+    position: absolute;
+    top: 25%;
+    left: 50%;
+}
+
+.tags-relative .title-next p{
+    font-size: 1.8rem;
+    font-weight: 200;
+}
+
+.tags-relative .title-next {
+    margin-top: 5px;
+    position: absolute;
+    left: 5px;
+}
+
+.tags-relative .title-next span{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.media .media-body .author{
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.media .media-body .date{
+    font-size: 1.5rem;
+}
+
+.media .media-body .reply{
+    text-decoration: none;
+    font-weight: 600;
+    color: #000;
+}
+
+.media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.comment > .ml-5 {
+    margin-left: 5rem;
+}
+
+.form-cmt .input-author {
+    width: 100%;
+    height: 50px;
+    display: flex;
+}
+
+.form-cmt .input-author input[type="text"] {
+    width: 90%;
+    height: 100%;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.form-cmt .input-author input[type="email"] {
+    width: 100%;
+    height: 100%;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.form-cmt .input-area textarea {
+    width: 100%;
+    height: 100%;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.form-cmt form > button {
+    width: 25%;
+    height: 50px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #ff782d;
+    border: none;
+    border-radius: 2.2rem;
+}
+
+.form-cmt form > button:hover {
+    background-color: #ffa04d;
+    color: #fff;
+}
+
+.active {
+    color: #ff782d;
+}
+
+@media screen and (max-width:890px){
+    
+    .tags-relative .icon-prev .page-link{
+        bottom: 50%;
+        left: 50%;
+        width: 25%;
+        height: 50px;
+        padding-left: 1.5rem;
+        transform: translateY(150%);
+    }
+
+    .tags-relative .prev .title-prev{
+        font-size: 1.2rem;
+        width: 25%;
+        right: 50%;
+    }
+
+    .tags-relative .next .title-next {
+        font-size: 1.2rem;
+        width: 50%;
+    }
+    
+    .tags-relative .icon-next .page-link{
+        bottom: 50%;
+        left: 10%;
+        width: 25%;
+        height: 50px;
+        padding-left: 1.5rem;
+        transform: translateY(48%);
+    }
+    
+}

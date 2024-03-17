@@ -3,7 +3,7 @@ $title = "Liên hệ - Hệ thống học tiếng anh Vocala";
 require('./components/header.php')
 ?>
 <link rel="stylesheet" href="../../public/css/contact/contact.css">
-<div class="container">
+<div class="container mt-5">
     <div class="direct-section mb-5">
         <div class="d-flex justify-content-space-between">
             <div class="section__container pe-5 me-5 ">
