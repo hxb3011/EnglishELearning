@@ -1,5 +1,5 @@
 <?php
-require('./components/header.php')
+require_once(APP_ROOT.'/src/content/views/components/header.php');
 ?>
     <div>
         <div class="banner" style="background-image: url('../../public/images/banner-main.png');">
@@ -338,7 +338,7 @@ require('./components/header.php')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <?php
-require('./components/footer.php')
+require_once(APP_ROOT.'/src/content/views/components/footer.php');
 ?>
 </body>
 </html>
