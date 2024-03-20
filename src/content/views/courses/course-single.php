@@ -18,4 +18,17 @@ require_once(APP_ROOT."/content/views/components/header.php");
 
     </div>
 </div>
+<div class="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-lg-9">
+                
+            </div>
+            <div class="col-md-3 col-lg-3">
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php require_once(APP_ROOT."/content/views/components/footer.php");  ?>

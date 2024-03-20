@@ -30,20 +30,20 @@
                 </button>
                 <div class="collapse navbar-collapse header__navbar-menu-wrapper" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0 header__navbar-menu">
-                        <li class="nav-item header__navbar-menu__item active">
-                            <a class="nav-link <?php if ($activeNav == "home") echo 'active' ?>" aria-current="page" href="/">Trang chủ</a>
+                        <li class="nav-item header__navbar-menu__item <?php if ($activeNav == "home") echo 'active' ?>">
+                            <a class="nav-link " aria-current="page" href="/">Trang chủ</a>
                         </li>
-                        <li class="nav-item header__navbar-menu__item">
-                            <a class="nav-link <?php if ($activeNav == "courses") echo 'active' ?> " href="/courses/all">Khóa học</a>
+                        <li class="nav-item header__navbar-menu__item <?php if ($activeNav == "courses") echo 'active' ?>">
+                            <a class="nav-link  " href="/courses/all">Khóa học</a>
                         </li>
-                        <li class="nav-item header__navbar-menu__item">
-                            <a class="nav-link <?php if ($activeNav == "blog") echo 'active' ?>" href="/blog/all">Blog</a>
+                        <li class="nav-item header__navbar-menu__item <?php if ($activeNav == "blog") echo 'active' ?>">
+                            <a class="nav-link " href="/blog/all">Blog</a>
                         </li>
-                        <li class="nav-item header__navbar-menu__item">
-                            <a class="nav-link <?php if ($activeNav == "faqs") echo 'active' ?>" href="/home/faqs">FAQs</a>
+                        <li class="nav-item header__navbar-menu__item <?php if ($activeNav == "faqs") echo 'active' ?>">
+                            <a class="nav-link " href="/home/faqs">FAQs</a>
                         </li>
-                        <li class="nav-item header__navbar-menu__item">
-                            <a class="nav-link <?php if ($activeNav == "contact") echo 'active' ?>" href="/home/contact">Liên hệ</a>
+                        <li class="nav-item header__navbar-menu__item <?php if ($activeNav == "contact") echo 'active' ?>">
+                            <a class="nav-link " href="/home/contact">Liên hệ</a>
                         </li>
                     </ul>
                     <div class="d-flex header__auth justify-content-end align-items-center">
