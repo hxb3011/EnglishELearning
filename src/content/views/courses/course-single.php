@@ -1,6 +1,6 @@
 <?php
 $title = "Tên khóa học";
-require "../components/header.php";
+require_once(APP_ROOT."/content/views/components/header.php"); 
 ?>
 <div class="breadcrumb-wrapper" style="background-color: #f0f0f0; padding-top:0.6rem;">
     <div class="container">
@@ -18,6 +18,4 @@ require "../components/header.php";
 
     </div>
 </div>
-<?php
-require "../components/footer.php";
-?>
+<?php require_once(APP_ROOT."/content/views/components/footer.php");  ?>

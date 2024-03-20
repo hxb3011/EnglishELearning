@@ -1,14 +1,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/englishelearning/src/public/css/footer/footer.css">
+<link rel="stylesheet" href="/public/css/footer/footer.css">
 <footer class="footer">
     <div class="container">
         <div class="row">
             <div class="col-md-3">
                 <div class="d-flex">
                     <a class="navbar-brand header__navbar-brand" href="#">
-                        <img src="/englishelearning/src/public/images/icon.png" class="header__navbar-logo" alt="Logo">
+                        <img src="/public/images/icon.png" class="header__navbar-logo" alt="Logo">
                         ELearning
                     </a>
                 </div>

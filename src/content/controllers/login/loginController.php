@@ -4,7 +4,7 @@ class loginController {
         echo 'Login Page';
     }
     public function register() {
-        require_once './src/content/views/register.php';
+        require_once '/content/views/register.php';
     }
     public function logout() {
         session_start();
@@ -12,7 +12,7 @@ class loginController {
         header('Location: /');
     }
     public function checkLogin() {
-        require_once './src/content/models/userModel.php';
+        require_once '/content/models/userModel.php';
         // $user = new UserModel();
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -26,7 +26,7 @@ class loginController {
         }
     }
     public function checkRegister() {
-        require_once './src/content/models/userModel.php';
+        require_once '/content/models/userModel.php';
         // $user = new UserModel();
         $username = $_POST['username'];
         $password = $_POST['password'];
