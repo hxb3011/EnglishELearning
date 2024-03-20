@@ -1,6 +1,6 @@
 <?php 
     $title = "Đăng nhập - Học tiếng anh Vocala";
-    require("./components/header.php") 
+    require_once(APP_ROOT."/content/views/components/header.php"); 
 ?>
 <link rel="stylesheet" href="../../public/css/login/authenticate.css">
 <div class="container-authen">
@@ -129,7 +129,7 @@
             })
         }) 
     </script>
-    <?php require('./components/footer.php') ?>
+    <?php require_once(APP_ROOT."/content/views/components/footer.php");  ?>
 </body>
 </html>
 

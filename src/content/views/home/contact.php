@@ -1,9 +1,10 @@
 <?php
 $title = "Liên hệ - Hệ thống học tiếng anh Vocala";
-require('./components/header.php')
+$activeNav = "contact";
+require_once(APP_ROOT.'/content/views/components/header.php');
 ?>
-<link rel="stylesheet" href="../../public/css/contact/contact.css">
-<div class="container">
+<link rel="stylesheet" href="/public/css/contact/contact.css">
+<div class="container mt-5">
     <div class="direct-section mb-5">
         <div class="d-flex justify-content-space-between">
             <div class="section__container pe-5 me-5 ">
@@ -15,14 +16,14 @@ require('./components/header.php')
                 </div>
                 <div class="col">
                     <div class="section-wrapper ">
-                        <img src="../../public/images/icon-phone.png" alt="" class="category-icon">
+                        <img src="/public/images/icon-phone.png" alt="" class="category-icon">
                         <div>
                             <p class="direct__detail--name">Điện thoại</p>
                             <p class="direct__detail--value">(123) 456 7890</p>
                         </div>
                     </div>
                     <div class="section-wrapper">
-                        <img src="../../public/images/mail.png" alt="" class="category-icon">
+                        <img src="/public/images/mail.png" alt="" class="category-icon">
                         <div>
                             <p class="direct__detail--name">Email</p>
                             <p class="direct__detail--value">contact@elearning.com</p>
@@ -64,7 +65,9 @@ require('./components/header.php')
         </div>
     </div>
 </div>
-<?php require('./components/footer.php') ?>
+<?php
+require_once(APP_ROOT.'/content/views/components/footer.php');
+?>
 </body>
 
 </html>
