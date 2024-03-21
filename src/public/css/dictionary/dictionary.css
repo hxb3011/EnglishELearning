@@ -1,3 +1,50 @@
-.flash_card{
-    
+/*----  Main Style  ----*/
+.pretitle{
+    margin:0;
+    padding:0;
+}
+.word_title{
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-transform: capitalize;
+    color: #000000;
+    font-family: Exo, 'Source Sans Pro';
+    white-space: nowrap;
+}
+
+.word_pronouce{
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #555555;
+    font-family: Jost, 'Source Sans Pro';
+    white-space: nowrap;
+}
+.word_definition{
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #000000;
+    font-family: Jost, 'Source Sans Pro';
+}
+.flashcard__container .card{
+    background: #FFFFFF;
+    -webkit-transition:all .6s ease; 
+    -moz-transition:all .6s ease; 
+    -o-transition:all .6s ease;
+    -ms-transition:all .6s ease; 
+    transition: all 0.6s ease;
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.40);
+    height:380px;
+}
+.flashcard__container .card:hover{
+    background: #fff;
+    box-shadow: 0px 15px 26px rgba(0, 0, 0, 0.50);
+    transform:scale(1.05);
+    -webkit-transition: all 0.6s ease-in;
+    -moz-transition: all 0.6s ease-in;
+    -ms-transition: all 0.6s ease-in;
+    -o-transition: all 0.6s ease-in;
+    transition: all 0.6s ease;
 }
