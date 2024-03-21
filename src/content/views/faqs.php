@@ -107,7 +107,7 @@ require('./components/header.php')
             </div>
         </div>
     </div>
-    <div class=""><img class="w-50" src="../../public/images/faqs.jpg" alt="insert_vector_faqs"></div>
+    <div class=""><img class="w-50" src="../../public/images/faqs.png" alt="insert_vector_faqs"></div>
 </div>
 
 <?php require('./components/footer.php') ?>
