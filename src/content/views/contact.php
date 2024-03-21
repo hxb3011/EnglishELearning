@@ -15,14 +15,14 @@ require('./components/header.php')
                 </div>
                 <div class="col">
                     <div class="section-wrapper ">
-                        <img src="../../public/images/icon-phone.png" alt="" class="category-icon">
+                        <img src="../../public/images/icon-phone.png" alt="" class="category-icon mb-0">
                         <div>
                             <p class="direct__detail--name">Điện thoại</p>
-                            <p class="direct__detail--value">(123) 456 7890</p>
+                            <p class="direct__detail--value">(123) 456 7890</p> 
                         </div>
-                    </div>
+                    </div>  
                     <div class="section-wrapper">
-                        <img src="../../public/images/mail.png" alt="" class="category-icon">
+                        <img src="../../public/images/mail.png" alt="" class="category-icon mb-0">
                         <div>
                             <p class="direct__detail--name">Email</p>
                             <p class="direct__detail--value">contact@elearning.com</p>
