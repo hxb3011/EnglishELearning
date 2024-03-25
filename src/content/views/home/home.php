@@ -1,8 +1,9 @@
 <?php
-require_once(APP_ROOT.'/src/content/views/components/header.php');
+$activeNav = "home";
+require_once(APP_ROOT.'/content/views/components/header.php');
 ?>
     <div>
-        <div class="banner" style="background-image: url('../../public/images/banner-main.png');">
+        <div class="banner" style="background-image: url('/public/images/banner-main.png');">
             <div class="container banner-content">
                 <div>
                     <h1 class="banner-heading">
@@ -35,7 +36,7 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                 <div class="row mt-5">
                     <div class="col-md-3">
                         <div class="category-wrapper">
-                            <img src="../../public/images/icon-paint.png" alt="" class="category-icon">
+                            <img src="/public/images/icon-paint.png" alt="" class="category-icon">
                             <div>
                                 <p class="category-name">
                                     Toeic
@@ -46,7 +47,7 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                     </div>
                     <div class="col-md-3">
                         <div class="category-wrapper">
-                            <img src="../../public/images/icon-paint.png" alt="" class="category-icon">
+                            <img src="/public/images/icon-paint.png" alt="" class="category-icon">
                             <div>
                                 <p class="category-name">
                                     Toeic
@@ -57,7 +58,7 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                     </div>
                     <div class="col-md-3">
                         <div class="category-wrapper">
-                            <img src="../../public/images/icon-paint.png" alt="" class="category-icon">
+                            <img src="/public/images/icon-paint.png" alt="" class="category-icon">
                             <div>
                                 <p class="category-name">
                                     Toeic
@@ -68,7 +69,7 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                     </div>
                     <div class="col-md-3">
                         <div class="category-wrapper">
-                            <img src="../../public/images/icon-paint.png" alt="" class="category-icon">
+                            <img src="/public/images/icon-paint.png" alt="" class="category-icon">
                             <div>
                                 <p class="category-name">
                                     Toeic
@@ -97,7 +98,7 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                     <div class="col-md-4">
                         <div class="course-wrapper card">
                             <a href="#" class="course-link">
-                                <img src="../../public/images/blog.png" alt="" class="card-top-img course__banner">
+                                <img src="/public/images/blog.png" alt="" class="card-top-img course__banner">
                                 <p class="course-instructor mt-2">by Hoàng Lâm</p>
                                 <div class="card-body">
                                     <h5 class="card-title course-name">
@@ -105,11 +106,11 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                                     </h5>
                                     <div class="d-flex justify-content-start align-items-center mt-4">
                                         <div class="d-flex justify-content-center align-items-center">
-                                            <img src="../../public/images/icon-calendar.png" class="course-info__icon me-2" alt="">
+                                            <img src="/public/images/icon-calendar.png" class="course-info__icon me-2" alt="">
                                             <span class="course-info"> 2 Tuần </span>
                                         </div>
                                         <div class="d-flex justify-content-start align-items-center ms-3">
-                                            <img src="../../public/images/icon-graduation.png" class="course-info__icon me-2">
+                                            <img src="/public/images/icon-graduation.png" class="course-info__icon me-2">
                                             <span class="course-info "> 156 Học viên </span>
                                         </div>
                                     </div>
@@ -126,7 +127,7 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                     <div class="col-md-4">
                         <div class="course-wrapper card">
                             <a href="#" class="course-link">
-                                <img src="../../public/images/blog.png" alt="" class="card-top-img course__banner">
+                                <img src="/public/images/blog.png" alt="" class="card-top-img course__banner">
                                 <p class="course-instructor mt-2">by Hoàng Lâm</p>
                                 <div class="card-body">
                                     <h5 class="card-title course-name">
@@ -134,11 +135,11 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                                     </h5>
                                     <div class="d-flex justify-content-start align-items-center mt-4">
                                         <div class="d-flex justify-content-center align-items-center">
-                                            <img src="../../public/images/icon-calendar.png" class="course-info__icon me-2" alt="">
+                                            <img src="/public/images/icon-calendar.png" class="course-info__icon me-2" alt="">
                                             <span class="course-info"> 2 Tuần </span>
                                         </div>
                                         <div class="d-flex justify-content-start align-items-center ms-3">
-                                            <img src="../../public/images/icon-graduation.png" class="course-info__icon me-2">
+                                            <img src="/public/images/icon-graduation.png" class="course-info__icon me-2">
                                             <span class="course-info "> 156 Học viên </span>
                                         </div>
                                     </div>
@@ -155,7 +156,7 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                     <div class="col-md-4">
                         <div class="course-wrapper card">
                             <a href="#" class="course-link">
-                                <img src="../../public/images/blog.png" alt="" class="card-top-img course__banner">
+                                <img src="/public/images/blog.png" alt="" class="card-top-img course__banner">
                                 <p class="course-instructor mt-2">by Hoàng Lâm</p>
                                 <div class="card-body">
                                     <h5 class="card-title course-name">
@@ -163,11 +164,11 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                                     </h5>
                                     <div class="d-flex justify-content-start align-items-center mt-4">
                                         <div class="d-flex justify-content-center align-items-center">
-                                            <img src="../../public/images/icon-calendar.png" class="course-info__icon me-2" alt="">
+                                            <img src="/public/images/icon-calendar.png" class="course-info__icon me-2" alt="">
                                             <span class="course-info"> 2 Tuần </span>
                                         </div>
                                         <div class="d-flex justify-content-start align-items-center ms-3">
-                                            <img src="../../public/images/icon-graduation.png" class="course-info__icon me-2">
+                                            <img src="/public/images/icon-graduation.png" class="course-info__icon me-2">
                                             <span class="course-info "> 156 Học viên </span>
                                         </div>
                                     </div>
@@ -229,7 +230,7 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                 <div class="row mt-5">
                     <div class="col-md-3">
                         <div class="card feedback-wrapper">
-                            <img src="../../public/images/icon-blog.png" class="feedback-icon" alt="">
+                            <img src="/public/images/icon-blog.png" class="feedback-icon" alt="">
                             <p class="feedback-content" align="jusitify">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
                             <h3 class="card-title feedback-own">Lê Tấn Minh Toàn</h3>
                             <p class="card-text feedback-own_role">Học viên</p>
@@ -237,7 +238,7 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                     </div>
                     <div class="col-md-3">
                         <div class="card feedback-wrapper">
-                            <img src="../../public/images/icon-blog.png" class="feedback-icon" alt="">
+                            <img src="/public/images/icon-blog.png" class="feedback-icon" alt="">
                             <p class="feedback-content" align="jusitify">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
                             <h3 class="card-title feedback-own">Lê Tấn Minh Toàn</h3>
                             <p class="card-text feedback-own_role">Học viên</p>
@@ -245,7 +246,7 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                     </div>
                     <div class="col-md-3">
                         <div class="card feedback-wrapper">
-                            <img src="../../public/images/icon-blog.png" class="feedback-icon" alt="">
+                            <img src="/public/images/icon-blog.png" class="feedback-icon" alt="">
                             <p class="feedback-content" align="jusitify">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
                             <h3 class="card-title feedback-own">Lê Tấn Minh Toàn</h3>
                             <p class="card-text feedback-own_role">Học viên</p>
@@ -253,7 +254,7 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                     </div>
                     <div class="col-md-3">
                         <div class="card feedback-wrapper">
-                            <img src="../../public/images/icon-blog.png" class="feedback-icon" alt="">
+                            <img src="/public/images/icon-blog.png" class="feedback-icon" alt="">
                             <p class="feedback-content" align="jusitify">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
                             <h3 class="card-title feedback-own">Lê Tấn Minh Toàn</h3>
                             <p class="card-text feedback-own_role">Học viên</p>
@@ -278,13 +279,13 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                 <div class="row mt-5">
                     <div class="col-md-4">
                         <div class="card blog-wrapper">
-                            <img src="../../public/images/banner-2.png" alt="" class="blog-image card-top-image">
+                            <img src="/public/images/banner-2.png" alt="" class="blog-image card-top-image">
                             <div class="card-body">
                                 <h3 class="card-title blog-title">
                                     Vì sao tôi lựa chọn EduPress ?
                                 </h3>
                                 <div class="d-flex justify-content-start align-items-center">
-                                    <img src="../../public/images/icon-calendar.png" class="calendar" alt="">
+                                    <img src="/public/images/icon-calendar.png" class="calendar" alt="">
                                     <p class="blogdate">25 / 05 / 2023</p>
                                 </div>
 
@@ -296,13 +297,13 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                     </div>
                     <div class="col-md-4">
                         <div class="card blog-wrapper">
-                            <img src="../../public/images/banner-2.png" alt="" class="blog-image card-top-image">
+                            <img src="/public/images/banner-2.png" alt="" class="blog-image card-top-image">
                             <div class="card-body">
                                 <h3 class="card-title blog-title">
                                     Vì sao tôi lựa chọn EduPress ?
                                 </h3>
                                 <div class="d-flex justify-content-start align-items-center">
-                                    <img src="../../public/images/icon-calendar.png" class="calendar" alt="">
+                                    <img src="/public/images/icon-calendar.png" class="calendar" alt="">
                                     <p class="blogdate">25 / 05 / 2023</p>
                                 </div>
 
@@ -314,13 +315,13 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
                     </div>
                     <div class="col-md-4">
                         <div class="card blog-wrapper">
-                            <img src="../../public/images/banner-2.png" alt="" class="blog-image card-top-image">
+                            <img src="/public/images/banner-2.png" alt="" class="blog-image card-top-image">
                             <div class="card-body">
                                 <h3 class="card-title blog-title">
                                     Vì sao tôi lựa chọn EduPress ?
                                 </h3>
                                 <div class="d-flex justify-content-start align-items-center">
-                                    <img src="../../public/images/icon-calendar.png" class="calendar" alt="">
+                                    <img src="/public/images/icon-calendar.png" class="calendar" alt="">
                                     <p class="blogdate">25 / 05 / 2023</p>
                                 </div>
 
@@ -338,7 +339,7 @@ require_once(APP_ROOT.'/src/content/views/components/header.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <?php
-require_once(APP_ROOT.'/src/content/views/components/footer.php');
+require_once(APP_ROOT.'/content/views/components/footer.php');
 ?>
 </body>
 </html>

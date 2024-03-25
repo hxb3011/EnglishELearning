@@ -34,16 +34,14 @@ class App {
         // Xử lý controller
         if (!empty($urlArr[0])) {
             $this->__controller = $urlArr[0];
-        }else {
-            $this->__controller = $this->__controller;
         }
-
         // Kiểm tra file controller tồn tại không
-        if (file_exists('src/content/controllers/'.$this->__controller.'/'.$this->__controller.'Controller.php')) {
-            require_once 'src/content/controllers/'.$this->__controller.'/'.$this->__controller.'Controller.php';
+        if (file_exists('./content/controllers/'.$this->__controller.'/'.$this->__controller.'Controller.php')) {
+            require_once './content/controllers/'.$this->__controller.'/'.$this->__controller.'Controller.php';
             // Kiểm tra và khởi tạo class Controller
             if (class_exists($this->__controller.'Controller')){
-                $this->__controller = new ($this->__controller.'Controller');
+                $controller_name = $this->__controller.'Controller';
+                $this->__controller =new $controller_name;
                 unset($urlArr[0]);
             }else{
                 $this->loadErrors();
@@ -70,6 +68,6 @@ class App {
     }
 
     public function loadErrors($errorName='404') {
-        require_once 'src/content/views/error'.$errorName.'.php';
+        require_once './content/views/error'.$errorName.'.php';
     }
 }

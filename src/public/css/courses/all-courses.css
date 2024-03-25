@@ -42,15 +42,14 @@ input {
 
 /* End of breadcrump*/
 /* Course-section */
-.courses-section__head {}
 
 .courses-section__header {
   margin-right: 45rem;
   font-size: 3.6rem;
   font-weight: 600;
   line-height: 1.2000000212;
-  text-transform: capitalize;
   color: #000000;
+  text-transform: capitalize;
   font-family: Exo, 'Source Sans Pro';
   white-space: nowrap;
   flex-shrink: 0;

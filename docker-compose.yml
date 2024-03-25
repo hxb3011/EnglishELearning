@@ -24,8 +24,8 @@ services:
       - ./src:/var/www/html:ro
     ports:
       - 62280:80
+    command: ["sh", "-c", "a2enmod rewrite && apache2-foreground"]
     depends_on:
       - mysql
-
 volumes:
   mysql_data:

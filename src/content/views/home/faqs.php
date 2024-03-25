@@ -1,8 +1,9 @@
 <?php
 $title = "Faqs - Hệ thống học tiếng anh Vocala";
-require('./components/header.php')
+$activeNav = "faqs";
+require_once(APP_ROOT."/content/views/components/header.php"); 
 ?>
-<link rel="stylesheet" href="../../public/css/faqs/faqs.css">
+<link rel="stylesheet" href="/public/css/faqs/faqs.css">
 <div class="container mt-5 mb-5">
     <div class="section-heading section-heading--lg mb-5 pb-5">FAQs</div>
     <div class="d-flex">
@@ -107,9 +108,9 @@ require('./components/header.php')
             </div>
         </div>
     </div>
-    <div class=""><img class="w-50" src="../../public/images/faqs.png" alt="insert_vector_faqs"></div>
+    <div class=""><img class="w-50" src="/public/images/faqs.jpg" alt="insert_vector_faqs"></div>
 </div>
 
-<?php require('./components/footer.php') ?>
+<?php require_once(APP_ROOT."/content/views/components/footer.php");  ?>
 </body>
 </html>

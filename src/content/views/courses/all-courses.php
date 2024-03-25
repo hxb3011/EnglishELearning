@@ -1,10 +1,11 @@
 <?php
 $title = "E-learning - Tất cả khóa học";
-require "../components/header.php";
+$activeNav="courses";
+require_once(APP_ROOT."/content/views/components/header.php"); 
 ?>
-<link rel="stylesheet" href="../../../public/css/home/home_main.css">
-<link rel="stylesheet" href="../../../public/css/courses/all-courses.css">
-<link rel="stylesheet" href="../../../public/css/pagination.css">
+<link rel="stylesheet" href="/public/css/home/home_main.css">
+<link rel="stylesheet" href="/public/css/courses/all-courses.css">
+<link rel="stylesheet" href="/public/css/pagination.css">
 <div class="wrapper">
     <div class="breadcrumb-wrapper">
         <div class="container">
@@ -45,7 +46,7 @@ require "../components/header.php";
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="courses-section__content__course-item">
-                                <img src="../../../public/images/blog4.png" class="courses-section__content__course-item-image">
+                                <img src="/public/images/blog4.png" class="courses-section__content__course-item-image">
 
                                 </img>
                                 <div class="courses-section__content__course-item__info d-flex justify-content-between flex-column p-4">
@@ -159,9 +160,7 @@ require "../components/header.php";
         </div>
     </div>
 </div>
-<?php
-require "../components/footer.php";
-?>
+<?php require_once(APP_ROOT."/content/views/components/footer.php");  ?>
 </body>
 
 </html>
