@@ -15,8 +15,10 @@
 </head>
 
 <body>
-
-    <div class="header">
+    <?php
+        if(!isset($hideHeader)):
+    ?>
+    <div class="header ">
         <nav class="navbar navbar-expand-lg  header__navbar">
             <div class="container">
                 <div class="header__navbar__brand-wrapper">
@@ -80,3 +82,4 @@
             </div>
         </div> -->
     </div>
+    <?php  endif ?>
