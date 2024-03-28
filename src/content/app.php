@@ -44,6 +44,7 @@ class App {
                 $this->__controller =new $controller_name;
                 unset($urlArr[0]);
             }else{
+                echo "Lỗi không tìm thấy controller";
                 $this->loadErrors();
             }
         } else {
