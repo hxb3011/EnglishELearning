@@ -48,8 +48,8 @@
                             <a class="nav-link " href="/home/contact">Liên hệ</a>
                         </li>
                     </ul>
-                    <div class="d-flex header__auth justify-content-end align-items-center">
-                        <a href="/login/auth" class="header__auth-link">
+                    <div class="d-flex header__auth <?php if ($activeNav == "login") echo 'active' ?> justify-content-end align-items-center ">
+                        <a href="/authen/auth" class="header__auth-link">
                             Login/Register
                         </a>
                     </div>

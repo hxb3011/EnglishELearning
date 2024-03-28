@@ -1,16 +1,24 @@
 <?php
-class loginController {
-    public function index() {
-        echo 'Login Page';
+class authenController {
+
+    public function __construct() {
+        
     }
-    public function register() {
-        require_once '/content/views/register.php';
+    
+    public function auth() {
+        require_once(APP_ROOT . '/content/views/login/authenticate.php');
     }
+
+    public function forgetpassword() {
+        require_once(APP_ROOT . '/content/views/login/forgetpassword.php');
+    }
+
     public function logout() {
         session_start();
         session_destroy();
         header('Location: /');
     }
+    
     public function checkLogin() {
         require_once '/content/models/userModel.php';
         // $user = new UserModel();

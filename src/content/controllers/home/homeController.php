@@ -16,5 +16,8 @@ class homeController {
     {
         require_once './content/views/home/faqs.php';
     }
+    public function blog(){
+        require_once './content/views/blog/bloglist.php';
+    }
 
 }
