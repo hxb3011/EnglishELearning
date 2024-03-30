@@ -1,5 +1,6 @@
 <?php 
     $title = "Đăng nhập - Học tiếng anh Vocala";
+    $activeNav = "login";
     require_once(APP_ROOT."/content/views/components/header.php"); 
 ?>
 <link rel="stylesheet" href="../../public/css/login/authenticate.css">
@@ -18,7 +19,7 @@
                         <input class="input" type="password" placeholder="Password" required>
                         <i class="fa-solid fa-eye" data-index="0"></i>
                     </div>
-                    <a href="#" class="btn-link">Forgot password?</a>
+                    <a href="/login/forgetpassword" class="btn-link">Forgot password?</a>
                     <input type="submit" value="login" class="btn solid">
 
                     <p class="social-text">Or Sign in with social platforms</p>

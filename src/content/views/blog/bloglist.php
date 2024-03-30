@@ -1,6 +1,6 @@
 <?php
 $title = "Blog - Hệ thống học tiếng anh Vocala";
-$activeNav == "blog";
+$activeNav = "blog";
 require_once(APP_ROOT . "/content/views/components/header.php");
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
