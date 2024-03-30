@@ -24,8 +24,14 @@ services:
       - ./src:/var/www/html:ro
     ports:
       - 62280:80
-    command: ["sh", "-c", "a2enmod rewrite && apache2-foreground"]
+    command: [ "sh", "-c", "a2enmod rewrite && apache2-foreground" ]
     depends_on:
       - mysql
+  composer_installation:
+    container_name: composer_installation
+    image: composer
+    volumes:
+      - ./src:/app
+    command: composer install --ignore-platform-reqs
 volumes:
   mysql_data:
