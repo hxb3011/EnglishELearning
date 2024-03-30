@@ -1,32 +1,47 @@
 version: '3'
-name: web2elearning
+name: enelearn
+networks:
+  enelearn:
+    driver: bridge
 services:
-  mysql:
-    container_name: "ELearning-DBServer"
-    image: mysql:latest
+  db:
+    container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: Hello|11
-      MYSQL_DATABASE: ELearning
+      MYSQL_DATABASE: enelearnsys
       MYSQL_USER: user0
       MYSQL_PASSWORD: Hello|11
+    image: mysql:8.3
+    networks:
+      - enelearn
+    ports:
+      - 63306:3306
     volumes:
       - ./db:/var/lib/mysql:rw
-      # - mysql_data:/var/lib/mysql
-  php:
-    container_name: "ELearning-WebServer"
-    image: php:7.2-apache
-    # build:
-    #   context: .
-    #   dockerfile_inline: |
-    #     FROM php:7.2-apache
-    #     COPY src/ /var/www/html/
-    volumes:
-      - ./src:/var/www/html:ro
+    # - mysql_data:/var/lib/mysql
+  ws:
+    build:
+      context: .
+      dockerfile_inline: 
+        FROM php:8.3-apache
+        RUN a2enmod rewrite
+        RUN docker-php-ext-install mysqli
+      # COPY src/ /var/www/html/
+    container_name: ws
+    depends_on:
+      - db
+    environment:
+      WSM_DBHELPER_SERVER: db
+      WSM_DBHELPER_USERNAME: user0
+      WSM_DBHELPER_PASSWORD: Hello|11
+      WSM_DBHELPER_DATABASE: enelearnsys
+  # image: php:8.3-apache
+    networks:
+      - enelearn
     ports:
       - 62280:80
-    command: [ "sh", "-c", "a2enmod rewrite && apache2-foreground" ]
-    depends_on:
-      - mysql
+    volumes:
+      - ./src:/var/www/html:ro
   composer_installation:
     container_name: composer_installation
     image: composer
