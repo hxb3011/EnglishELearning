@@ -27,11 +27,11 @@ services:
     command: [ "sh", "-c", "a2enmod rewrite && apache2-foreground" ]
     depends_on:
       - mysql
-  composer_installation:
-    container_name: composer_installation
-    image: composer
-    volumes:
-      - ./:/app
-    command: composer install --ignore-platform-reqs
+  # composer_installation:
+  #   container_name: composer_installation
+  #   image: composer
+  #   volumes:
+  #     - ./:/app
+  #   command: composer install --ignore-platform-reqs
 volumes:
   mysql_data:
