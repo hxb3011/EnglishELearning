@@ -2,9 +2,12 @@
 - Visual Studio Code
 - Docker Desktop
 
+# Mở project
+vscode:Open Workspace from File... > Mở file: ./EnglishELearning.code-workspace
+
 # Khởi chạy [txt]
-- vscode:> Run > Start Debugging
-- vscode:> Run > Run Without Debugging
+- vscode:Run > Start Debugging
+- vscode:Run > Run Without Debugging
 
 # Cây dự án [txt]
 - .vscode/
@@ -12,7 +15,114 @@
 - db/
     - */*.* (docker-dbserver-bind)
 - src/
+    - _controllers/
+        - module01/
+            - submodule01/
+                - (submodule*)
+                - *.php
+            - submodule02/
+                - (submodule*)
+                - *.php
+            - submodule**/
+                - (submodule*)
+                - *.php
+            - *.php
+        - module02/
+            - submodule01/
+                - (submodule*)
+                - *.php
+            - submodule02/
+                - (submodule*)
+                - *.php
+            - submodule**/
+                - (submodule*)
+                - *.php
+            - *.php
+        - module**/
+            - submodule01/
+                - (submodule*)
+                - *.php
+            - submodule02/
+                - (submodule*)
+                - *.php
+            - submodule**/
+                - (submodule*)
+                - *.php
+            - *.php
+        - *.php
+    - _models/
+        - module01/
+            - submodule01/
+                - (submodule*)
+                - *.php
+            - submodule02/
+                - (submodule*)
+                - *.php
+            - submodule**/
+                - (submodule*)
+                - *.php
+            - *.php
+        - module02/
+            - submodule01/
+                - (submodule*)
+                - *.php
+            - submodule02/
+                - (submodule*)
+                - *.php
+            - submodule**/
+                - (submodule*)
+                - *.php
+            - *.php
+        - module**/
+            - submodule01/
+                - (submodule*)
+                - *.php
+            - submodule02/
+                - (submodule*)
+                - *.php
+            - submodule**/
+                - (submodule*)
+                - *.php
+            - *.php
+        - *.php
+    - _views/
+        - module01/
+            - submodule01/
+                - (submodule*)
+                - *.php
+            - submodule02/
+                - (submodule*)
+                - *.php
+            - submodule**/
+                - (submodule*)
+                - *.php
+            - *.php
+        - module02/
+            - submodule01/
+                - (submodule*)
+                - *.php
+            - submodule02/
+                - (submodule*)
+                - *.php
+            - submodule**/
+                - (submodule*)
+                - *.php
+            - *.php
+        - module**/
+            - submodule01/
+                - (submodule*)
+                - *.php
+            - submodule02/
+                - (submodule*)
+                - *.php
+            - submodule**/
+                - (submodule*)
+                - *.php
+            - *.php
+        - *.php
     - assets/
+        - fonts/
+            - *.* (fonts)
         - images/
             - *.* (images)
         - sounds/
@@ -89,110 +199,10 @@
                 - *.js
             - *.js
         - *.js
-    - controllers/
-        - module01/
-            - submodule01/
-                - (submodule*)
-                - *.php
-            - submodule02/
-                - (submodule*)
-                - *.php
-            - submodule**/
-                - (submodule*)
-                - *.php
-            - *.php
-        - module02/
-            - submodule01/
-                - (submodule*)
-                - *.php
-            - submodule02/
-                - (submodule*)
-                - *.php
-            - submodule**/
-                - (submodule*)
-                - *.php
-            - *.php
-        - module**/
-            - submodule01/
-                - (submodule*)
-                - *.php
-            - submodule02/
-                - (submodule*)
-                - *.php
-            - submodule**/
-                - (submodule*)
-                - *.php
-            - *.php
-        - *.php
-    - models/
-        - module01/
-            - submodule01/
-                - (submodule*)
-                - *.php
-            - submodule02/
-                - (submodule*)
-                - *.php
-            - submodule**/
-                - (submodule*)
-                - *.php
-            - *.php
-        - module02/
-            - submodule01/
-                - (submodule*)
-                - *.php
-            - submodule02/
-                - (submodule*)
-                - *.php
-            - submodule**/
-                - (submodule*)
-                - *.php
-            - *.php
-        - module**/
-            - submodule01/
-                - (submodule*)
-                - *.php
-            - submodule02/
-                - (submodule*)
-                - *.php
-            - submodule**/
-                - (submodule*)
-                - *.php
-            - *.php
-        - *.php
-    - views/
-        - module01/
-            - submodule01/
-                - (submodule*)
-                - *.php
-            - submodule02/
-                - (submodule*)
-                - *.php
-            - submodule**/
-                - (submodule*)
-                - *.php
-            - *.php
-        - module02/
-            - submodule01/
-                - (submodule*)
-                - *.php
-            - submodule02/
-                - (submodule*)
-                - *.php
-            - submodule**/
-                - (submodule*)
-                - *.php
-            - *.php
-        - module**/
-            - submodule01/
-                - (submodule*)
-                - *.php
-            - submodule02/
-                - (submodule*)
-                - *.php
-            - submodule**/
-                - (submodule*)
-                - *.php
-            - *.php
-        - *.php
-    - index.php
+    - _error.php
+    - _layout.php
+    - .htaccess
 - docker-compose.yml
+- EnglishELearning.code-workspace
+- preload.sql
+- readme.md

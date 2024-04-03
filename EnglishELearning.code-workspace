@@ -1,0 +1,80 @@
+{
+	"folders": [
+		{
+			"name": ":project",
+			"path": "."
+		},
+		{
+			"name": "assets",
+			"path": "src/assets"
+		},
+		{
+			"name": "clients",
+			"path": "src/clients"
+		},
+		{
+			"name": "controllers",
+			"path": "src/_controllers"
+		},
+		{
+			"name": "lib",
+			"path": "src/_lib"
+		},
+		{
+			"name": "models",
+			"path": "src/_models"
+		},
+		{
+			"name": "views",
+			"path": "src/_views"
+		}
+	],
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Launch",
+				"request": "launch",
+				"type": "msedge",
+				"url": "http://localhost:62280",
+				"preLaunchTask": "Docker Compose (Up)",
+				"postDebugTask": "Docker Compose (Down)"
+			}
+		],
+		"compounds": []
+	},
+	"settings": {
+		"php.version": "8.3"
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "Docker Compose (Up)",
+				"type": "docker-compose",
+				"dockerCompose": {
+					"up": {
+						"detached": true,
+						"build": true
+					},
+					"files": [
+						"${workspaceFolder}/docker-compose.yml"
+					]
+				}
+			},
+			{
+				"label": "Docker Compose (Down)",
+				"type": "docker-compose",
+				"dockerCompose": {
+					"down": {
+						"removeImages": "local",
+						"removeVolumes": false
+					},
+					"files": [
+						"${workspaceFolder}/docker-compose.yml"
+					]
+				}
+			}
+		]
+	}
+}

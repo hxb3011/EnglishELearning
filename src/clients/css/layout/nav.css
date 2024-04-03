@@ -1,0 +1,2 @@
+@import "./nav.desktop.css";
+@import "./nav.phone.css" only screen and (max-width: 400px);

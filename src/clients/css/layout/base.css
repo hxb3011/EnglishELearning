@@ -1,0 +1,48 @@
+:root {
+    font-size: 1px;
+    /* phone|tablet|desktop|tv|watch */
+    --idiom: "desktop";
+}
+
+body {
+    background-color: var(--mdc-background);
+    inset: 0;
+    margin: 0;
+    position: fixed;
+    z-index: 0;
+}
+
+main {
+    position: absolute;
+    overflow-y: scroll;
+    z-index: 1;
+}
+
+nav {
+    z-index: 1;
+}
+
+scrim {
+    display: none;
+    inset: 0;
+    position: absolute;
+    background-color: var(--mdc-scrim);
+    opacity: 0.4;
+    z-index: 2;
+}
+
+nav.drawer {
+    z-index: 3;
+}
+
+nav.drawer:not(._closed) ~ scrim {
+    display: block;
+}
+
+@media only screen and (max-width: 400px) {
+    :root {
+        font-size: calc(100vw / 400);
+        /* phone|tablet|desktop|tv|watch */
+        --idiom: "phone";
+    }
+}

@@ -1,0 +1,14 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI} ^/_
+RewriteRule ^.*$ _error.php?ersp=404&uri=%{REQUEST_URI} [R=404,END]
+
+RewriteCond %{REQUEST_URI} ^/(index.php|([^/]+))?([#?].*)?$
+RewriteRule ^((\?[^#?]+)?(#[^#]+)?)?$ _controllers/index.php$0 [END]
+
+RewriteCond %{REQUEST_URI} !^/(assets|clients)
+RewriteRule ^.*$ _controllers/$0 [END]
+
+ErrorDocument 403 _error.php?ersp=403&uri=%{REQUEST_URI}
+ErrorDocument 404 _error.php?ersp=404&uri=%{REQUEST_URI}
+ErrorDocument 500 _error.php?ersp=500&uri=%{REQUEST_URI}

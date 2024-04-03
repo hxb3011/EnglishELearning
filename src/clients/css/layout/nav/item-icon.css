@@ -1,0 +1,46 @@
+
+/* mdi-book-open */
+nav>a.nav.-item.-dictionary::before {
+    content: "\F0B63";
+}
+
+nav>a.nav.-item.-dictionary._selected::before {
+    content: "\F00BD";
+}
+
+/* mdi-book-multiple */
+nav>a.nav.-item.-courses::before {
+    content: "\F0436";
+}
+
+nav>a.nav.-item.-courses._selected::before {
+    content: "\F00BB";
+}
+
+/* mdi-comment-text-multiple */
+nav>a.nav.-item.-blogs::before {
+    content: "\F0861";
+}
+
+nav>a.nav.-item.-blogs._selected::before {
+    content: "\F0860";
+}
+
+/* mdi-account-circle */
+nav>a.nav.-item.-profile::before {
+    content: "\F0B55";
+}
+
+nav>a.nav.-item.-profile._selected::before {
+    content: "\F0009";
+}
+
+/* mdi-magnify */
+nav>a.nav.-item.-search._action::before {
+    content: "\F0349";
+}
+
+/* mdi-arrow-left */
+nav>a.nav.-item.-back._action::before {
+    content: "\F004D";
+}
