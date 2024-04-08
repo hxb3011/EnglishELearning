@@ -1,0 +1,140 @@
+main>card {
+    background-color: var(--mdc-surface-container);
+    border-radius: 24rem;
+    box-sizing: border-box;
+    color: var(--mdc-on-surface-container);
+    display: block;
+    margin: 4rem;
+    padding: 32rem;
+    unicode-bidi: isolate;
+}
+
+main>card.section {
+    padding: 20rem;
+}
+
+main>card.section>.heading {
+    align-items: start;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    padding: 0 100rem 0 0;
+    position: relative;
+    height: 50rem;
+}
+
+main>card.section>.heading::before {
+    display: block;
+    font-size: 20rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-transform: capitalize;
+    color: var(--mdc-on-surface);
+    content: attr(title);
+    font-family: Exo, 'Source Sans Pro';
+    white-space: nowrap;
+}
+
+main>card.section>.heading::after {
+    display: block;
+    font-size: 11.25rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 2rem;
+    color: var(--mdc-on-surface-variant);
+    content: attr(sub-title);
+    font-family: Jost, 'Source Sans Pro';
+    white-space: nowrap;
+}
+
+main>card.section>.heading>a {
+    background-color: var(--mdc-surface-container);
+    border: solid 1.25rem var(--mdc-outline-variant);
+    border-radius: 12.5rem;
+    bottom: 0;
+    box-sizing: border-box;
+    color: var(--mdc-surface-tint);
+    font-family: Jost, 'Source Sans Pro';
+    font-size: 11.25rem;
+    font-weight: 500;
+    height: 25rem;
+    line-height: 25rem;
+    margin: 12.5rem 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    white-space: nowrap;
+    width: 100rem;
+}
+
+main>card.section>.heading>a:active {
+    background-color: var(--mdc-surface-container-highest);
+    border: solid 1.25rem var(--mdc-surface-tint);
+}
+
+main>card.section>.heading>a:is(:focus, :hover) {
+    background-color: var(--mdc-surface-container-highest);
+    border: solid 1.25rem var(--mdc-outline);
+}
+
+main>card.banner {
+    align-items: start;
+    display: flex;
+    flex-flow: column nowrap;
+    height: calc(35 * (100em - 16rem) / 96);
+    inset: auto 0;
+    justify-content: center;
+    padding: 4em;
+    position: relative;
+}
+
+main>card.banner>h1 {
+    color: var(--mdc-on-primary-fixed);
+    font-family: Exo, 'Source Sans Pro';
+    font-size: 4.2em;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
+    text-transform: capitalize;
+    width: 60%;
+}
+
+main>card.banner>p {
+    color: var(--mdc-on-primary-fixed-variant);
+    font-family: Jost, 'Source Sans Pro';
+    font-size: 1.675em;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    padding: .8em .5em;
+    width: 47.5%;
+}
+
+main>card.banner>a {
+    background-color: var(--mdc-primary);
+    border-radius: 1.2em;
+    color: var(--mdc-on-primary);
+    font-family: Jost, 'Source Sans Pro';
+    font-size: 1.6em;
+    font-weight: 500;
+    height: 2.4em;
+    line-height: 2.4em;
+    margin: 0;
+    padding: 0 1.2em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    white-space: nowrap;
+}
+
+main>card.banner>a:active {
+    background-color: var(--mdc-primary-fixed-dim);
+    color: var(--mdc-on-primary-fixed-variant);
+}
+
+main>card.banner>a:is(:focus, :hover) {
+    background-color: var(--mdc-primary-fixed);
+    color: var(--mdc-on-primary-fixed);
+}

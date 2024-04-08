@@ -20,7 +20,7 @@ nav.drawer._closed {
     display: none;
 }
 
-nav.drawer>a.nav.-item {
+nav.drawer>a.nav-item {
     border-radius: 28rem;
     box-sizing: border-box;
     height: 56rem;
@@ -31,8 +31,8 @@ nav.drawer>a.nav.-item {
     width: initial;
 }
 
-nav.drawer>a.nav.-item::before,
-nav.drawer>a.nav.-item._action::before {
+nav.drawer>a.nav-item::before,
+nav.drawer>a.nav-item._action::before {
     background: none;
     border-radius: 28rem;
     color: var(--mdc-on-surface-variant);
@@ -44,51 +44,51 @@ nav.drawer>a.nav.-item._action::before {
     text-align: center;
 }
 
-nav.drawer>a.nav.-item.-back._action {
+nav.drawer>a.nav-item.-back._action {
     background-color: var(--mdc-surface-container-high);
 }
 
-nav.drawer>a.nav.-item:is(:active, :focus, :hover, ._action:is(:active, :focus, :hover)) {
+nav.drawer>a.nav-item:is(:active, :focus, :hover, ._action:is(:active, :focus, :hover)) {
     background-color: var(--mdc-surface-container-highest);
 }
 
-nav.drawer>a.nav.-item._selected {
+nav.drawer>a.nav-item._selected {
     background-color: var(--mdc-secondary-container);
 }
 
-nav.drawer>a.nav.-item._selected:active {
+nav.drawer>a.nav-item._selected:active {
     background-color: var(--mdc-surface-variant);
 }
 
-nav.drawer>a.nav.-item._selected:is(:focus, :hover) {
+nav.drawer>a.nav-item._selected:is(:focus, :hover) {
     background-color: var(--mdc-secondary-fixed-dim);
 }
 
-nav.drawer>a.nav.-item:active::before {
+nav.drawer>a.nav-item:active::before {
     color: var(--mdc-on-surface);
 }
 
-nav.drawer>a.nav.-item:is(:focus, :hover)::before {
+nav.drawer>a.nav-item:is(:focus, :hover)::before {
     color: var(--mdc-on-surface);
     text-shadow: 0 0 1rem var(--mdc-on-surface);
 }
 
-nav.drawer>a.nav.-item._selected::before {
+nav.drawer>a.nav-item._selected::before {
     color: var(--mdc-on-secondary-container);
 }
 
-nav.drawer>a.nav.-item._selected:active::before {
+nav.drawer>a.nav-item._selected:active::before {
     color: var(--mdc-on-surface-variant);
     text-shadow: none;
 }
 
-nav.drawer>a.nav.-item._selected:is(:focus, :hover)::before {
+nav.drawer>a.nav-item._selected:is(:focus, :hover)::before {
     color: var(--mdc-on-secondary-fixed-variant);
     text-shadow: 0 0 1rem var(--mdc-on-secondary-fixed-variant);
 }
 
-nav.drawer>a.nav.-item::after,
-nav.drawer>a.nav.-item._action::after {
+nav.drawer>a.nav-item::after,
+nav.drawer>a.nav-item._action::after {
     border-radius: 28rem;
     box-sizing: border-box;
     color: var(--mdc-on-surface-variant);
@@ -104,31 +104,31 @@ nav.drawer>a.nav.-item._action::after {
     text-align: start;
 }
 
-nav.drawer>a.nav.-item:active::after {
+nav.drawer>a.nav-item:active::after {
     color: var(--mdc-on-surface);
 }
 
-nav.drawer>a.nav.-item:is(:focus, :hover)::after {
+nav.drawer>a.nav-item:is(:focus, :hover)::after {
     color: var(--mdc-on-surface);
     font-family: "Roboto Black";
 }
 
-nav.drawer>a.nav.-item._selected::after {
+nav.drawer>a.nav-item._selected::after {
     color: var(--mdc-on-secondary-container);
     font-family: "Roboto Bold";
 }
 
-nav.drawer>a.nav.-item._selected:active::after {
+nav.drawer>a.nav-item._selected:active::after {
     color: var(--mdc-on-surface);
     font-family: "Roboto Medium";
 }
 
-nav.drawer>a.nav.-item._selected:is(:focus, :hover)::after {
+nav.drawer>a.nav-item._selected:is(:focus, :hover)::after {
     color: var(--mdc-on-surface);
     font-family: "Roboto Black";
 }
 
-nav.drawer>a.nav.-item.-profile {
+nav.drawer>a.nav-item.-profile {
     position: absolute;
     bottom: 0;
     align-self: flex-end;

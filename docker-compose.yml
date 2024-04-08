@@ -5,7 +5,7 @@ networks:
   enelearn:
     driver: bridge
     name: enelearn
-    
+
 services:
   db:
     container_name: db

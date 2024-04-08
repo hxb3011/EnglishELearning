@@ -1,7 +1,7 @@
 :root {
     font-size: 1px;
     /* phone|tablet|desktop|tv|watch */
-    --idiom: "desktop";
+    --idiom: "tablet";
 }
 
 body {
@@ -13,6 +13,13 @@ body {
 }
 
 main {
+    align-content: start;
+    align-items: center;
+    background-color: var(--mdc-background);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    padding: 4rem;
     position: absolute;
     overflow-y: scroll;
     z-index: 1;
@@ -35,8 +42,32 @@ nav.drawer {
     z-index: 3;
 }
 
-nav.drawer:not(._closed) ~ scrim {
+nav.drawer:not(._closed)~scrim {
     display: block;
+}
+
+@media only screen and (min-width: 680px) {
+    :root {
+        font-size: calc(100vw / 680);
+        /* phone|tablet|desktop|tv|watch */
+        --idiom: "tablet";
+    }
+}
+
+@media only screen and (min-width: 880px) {
+    :root {
+        font-size: calc(100vw / 880);
+        /* phone|tablet|desktop|tv|watch */
+        --idiom: "desktop";
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    :root {
+        font-size: 1px;
+        /* phone|tablet|desktop|tv|watch */
+        --idiom: "phone";
+    }
 }
 
 @media only screen and (max-width: 400px) {

@@ -1,0 +1,124 @@
+.top{
+    background-color: black;
+    padding: 4.0rem 0 4.0rem 0;
+}
+.course_category{
+    color: white;
+    padding: 0.8rem 1.8rem 0.8rem 1.8rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+    background-color: rgb(134, 134, 134);
+    border-radius: 0.8rem;
+}
+.course_tutor{
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+}
+.course_name{
+    font-size: 2.6rem;
+    color: white;
+    text-transform: capitalize;
+    font-family: Exo, 'Source Sans Pro';
+}
+.course_info{ 
+    color: white;
+    font-size: 1.6rem;
+    text-transform: capitalize;
+    font-family: Exo, 'Source Sans Pro';
+}
+.course_info i {
+    color: #ff782d;
+
+}
+.course__wrapper{
+    border-radius: 1.2rem;
+    overflow: hidden;
+}
+.course__img{
+    width: 100%;
+    aspect-ratio: 1/0.8;
+}
+.course_price{
+    color: #fc0000;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    font-family: Exo, 'Source Sans Pro';
+}
+.course_gobtn{
+    color: white;
+    background-color: #fc0000;
+    padding: 0.8rem 1.4rem 0.8rem 1.4rem;
+    border-radius: 1.2rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    font-family: Exo, 'Source Sans Pro';    
+}
+.course_gobtn:hover{
+    background-color: #e10000;
+    color: rgb(255, 251, 251);
+
+}
+/**  Course Tab */
+.main-body{
+    margin-top: 42px;
+}
+.course_nav{
+    border: 0.16rem solid rgb(210, 210, 210);
+    border-top-left-radius: 0.8rem;
+    border-top-right-radius: 0.8rem;
+    overflow: hidden;
+
+}
+
+.course_tab-item{
+    font-size: 2rem;
+    text-transform: capitalize;
+    font-family: Exo, 'Source Sans Pro';    
+    color:black;
+    padding: 1rem 1.4rem 1rem 1.4rem;
+
+}
+.course_tab-item.active{
+    color: #ff782d !important;
+}
+.course_tab-item:hover{
+    color: #ff782d !important;
+}
+
+/** End Course Tab */
+
+/** Course Tab Content */
+.course_tabContent{
+    background-color: rgb(240, 237, 237);
+    border-bottom-left-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
+    padding: 2rem;
+}
+#nav-tong-quan{
+    font-size: 1.6rem;
+    text-transform: capitalize;
+    font-family: 'Source Sans Pro';  
+    font-weight: 400;
+}
+
+.course_lesson{
+    background: white;
+    border-radius: 0.8rem;
+}
+.course_lesson-title a{
+    text-transform: capitalize;
+    font-family: 'Source Sans Pro'; 
+    font-size: 1.6rem;
+    color: black;
+    text-decoration: none;
+}
+.course_lesson_duration{
+    text-transform: capitalize;
+    font-family: 'Source Sans Pro'; 
+    font-size: 1.6rem;
+
+}
+/* End Course Tab Content */

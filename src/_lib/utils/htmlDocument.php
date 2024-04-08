@@ -46,6 +46,19 @@ if (!defined("__UTILS__HTML_DOCUMENT__")) {
             }
         }
 
+        public final function style(string $path, string|null $integrity = null, string|null $crossorigin = null)
+        {
+            if (isset($integrity))
+            {
+                $path .= "\" integrity=\"" . $integrity . "\" crossorigin=\"";
+                if (!isset($crossorigin)) $crossorigin = "anonymous";
+                $path .= $crossorigin;
+            }
+            ?>
+            <link rel="stylesheet" href="<?= $path ?>">
+            <?
+        }
+
         public final function styles(string ...$paths)
         {
             foreach ($paths as $value) {
@@ -53,6 +66,19 @@ if (!defined("__UTILS__HTML_DOCUMENT__")) {
                 <link rel="stylesheet" href="<?= $value ?>">
                 <?
             }
+        }
+
+        public final function script(string $path, string|null $integrity = null, string|null $crossorigin = null)
+        {
+            if (isset($integrity))
+            {
+                $path .= "\" integrity=\"" . $integrity . "\" crossorigin=\"";
+                if (!isset($crossorigin)) $crossorigin = "anonymous";
+                $path .= $crossorigin;
+            }
+            ?>
+            <script src="<?= $path ?>"></script>
+            <?
         }
 
         public final function scripts(string ...$paths)

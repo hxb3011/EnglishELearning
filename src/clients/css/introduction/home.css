@@ -1,0 +1,583 @@
+@import url("https://fonts.googleapis.com/css?family=Exo%3A600%2C700");
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C600%2C700");
+@import url("https://fonts.googleapis.com/css?family=Jost%3A400%2C500");
+
+main {
+    --dp: 10rem;
+    /* font-size: 62.5%; */
+}
+
+main>card.banner {
+    background-image: url("/assets/images/banner-main.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+main>card.banner>a {
+    margin: 1.6em .4em;
+}
+
+main>card.banner>a:is(:focus, :hover) {
+    transform: scale(1.0625);
+}
+
+main>card.banner>a:active {
+    transform: scale(1);
+}
+
+main>card.section>.heading>a:is(:focus, :hover) {
+    transform: scale(1.0625);
+}
+
+main>card.section>.heading>a:active {
+    transform: scale(1);
+}
+
+main>card.categories {
+    height: 400rem;
+    width: calc(50em - 12rem);
+}
+
+main>card.categories>.content {
+    align-items: center;
+    display: flex;
+    flex-flow: column wrap;
+    height: 320rem;
+    justify-content: start;
+    overflow-x: scroll;
+    padding: 4rem;
+    margin: 0 -8rem -8rem;
+    width: calc(100% + 16rem);
+}
+
+main>card.categories>.content>.item {
+    align-items: center;
+    background-color: var(--mdc-surface);
+    border: solid 1rem var(--mdc-outline-variant);
+    border-radius: 12rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 148rem;
+    justify-content: center;
+    margin: 4rem;
+    padding: 60rem 4rem 4rem;
+    position: relative;
+    white-space: nowrap;
+    width: 100rem;
+}
+
+main>card.categories>.content>.item::before {
+    color: var(--mdc-on-surface);
+    content: attr(name);
+    font-family: Exo, 'Source Sans Pro';
+    font-size: 15rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+main>card.categories>.content>.item::after {
+    color: var(--mdc-on-surface-variant);
+    content: attr(description);
+    font-family: Jost, 'Source Sans Pro';
+    font-size: 12rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+main>card.categories>.content>.item:is(:focus, :hover) {
+    transform: scale(1.0625, 1.0625);
+}
+
+main>card.categories>.content>.item>img {
+    align-items: center;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 28rem;
+    justify-content: center;
+    object-fit: contain;
+    position: absolute;
+    top: 32rem;
+    width: 28rem;
+}
+
+main>card.courses {
+    height: 400rem;
+    width: calc(50em - 12rem);
+}
+
+main>card.courses>.content {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 0 -8rem;
+    overflow-x: scroll;
+    width: calc(100% + 16rem);
+}
+
+main>card.courses>.content>a {
+    align-items: start;
+    background-color: var(--mdc-surface);
+    border-radius: 12rem;
+    box-sizing: border-box;
+    color: var(--mdc-on-surface);
+    display: flex;
+    flex-flow: column nowrap;
+    font-family: Jost, 'Source Sans Pro';
+    font-weight: 400;
+    height: 240rem;
+    justify-content: start;
+    margin: 4rem;
+    padding: 8rem;
+    position: relative;
+    unicode-bidi: isolate;
+    text-decoration: none;
+    width: 140rem;
+}
+
+main>card.courses>.content>a:is(:focus, :hover) {
+    transform: scale(1.0625);
+}
+
+main>card.courses>.content>a:active {
+    transform: scale(1);
+}
+
+main>card.courses>.content>a>img.banner {
+    border-radius: 4rem;
+    height: 124rem;
+    width: 124rem;
+}
+
+main>card.courses>.content>a>p.name {
+    font-family: Exo, 'Source Sans Pro';
+    font-size: 13rem;
+    font-weight: 700;
+    padding: 4rem 0;
+}
+
+main>card.courses>.content>a>p.name::before {
+    display: block;
+    color: var(--mdc-on-surface-variant);
+    content: attr(instructor);
+    font-size: 8rem;
+    padding: 4rem 0;
+}
+
+main>card.courses>.content>a>.data {
+    bottom: 20rem;
+    font-size: 8rem;
+    height: 16rem;
+    line-height: 16rem;
+    position: absolute;
+}
+
+main>card.courses>.content>a>.data>.mdi {
+    font-size: 8rem;
+    height: 16rem;
+    line-height: 16rem;
+    height: 16rem;
+    padding: 0 8rem 0 16rem;
+    position: relative;
+}
+
+main>card.courses>.content>a>.data>.mdi::before {
+    font-size: 12rem;
+    height: 16rem;
+    left: 0;
+    line-height: 16rem;
+    position: absolute;
+}
+
+main>card.courses>.content>a>p.footer {
+    border-top: solid 1rem var(--mdc-on-surface);
+    bottom: 4rem;
+    color: var(--mdc-on-surface);
+    display: flex;
+    flex-flow: row nowrap;
+    font-size: 8rem;
+    height: 16rem;
+    justify-content: space-between;
+    line-height: 16rem;
+    position: absolute;
+    width: calc(100% - 16rem);
+}
+
+main>card.courses>.content>a>p.footer::before {
+    display: block;
+    color: var(--mdc-error);
+    content: attr(price);
+    font-size: 12rem;
+}
+
+main>card.courses>.content>a:is(:focus, :hover)>:is(.name, .footer) {
+    color: var(--mdc-surface-tint);
+}
+
+main>card.courses>.content>a:active>:is(.name, .footer) {
+    color: var(--mdc-on-surface-variant);
+}
+
+main>card.courses>.content.statistic>p {
+    background-color: var(--mdc-tertiary-container);
+    align-content: center;
+    align-items: center;
+    border-radius: 12rem;
+    color: var(--mdc-on-tertiary-container);
+    display: flex;
+    flex-flow: column nowrap;
+    font-family: Jost, 'Source Sans Pro';
+    font-size: 8rem;
+    font-weight: 600;
+    height: 56rem;
+    justify-content: center;
+    margin: 4rem;
+    padding: 8rem;
+    text-align: center;
+    width: calc(25% - 8rem);
+}
+
+main>card.courses>.content.statistic>p::before {
+    color: var(--mdc-surface-tint);
+    content: attr(value);
+    font-size: 20rem;
+    font-weight: 500;
+}
+
+main>card.courses>.content.statistic>p::after {
+    content: attr(name);
+    font-family: Exo, 'Source Sans Pro';
+}
+
+main>card.courses>.content.statistic>p:is(:focus, :hover) {
+    transform: scale(1.0625);
+}
+
+/* main>card.courses>.content.statistic>p:active {
+    transform: scale(1.0625);
+} */
+
+main>card.feedback {
+    width: calc(50em - 12rem);
+    height: 336rem;
+}
+
+main>card.feedback>.content {
+    display: flex;
+    flex-flow: column wrap;
+    height: 320rem;
+    overflow: scroll;
+    padding: 4rem;
+    margin: 0 -8rem -8rem;
+    width: calc(100% + 16rem);
+}
+
+main>card.feedback>.content>.item {
+    background-color: var(--mdc-surface);
+    border-radius: 20rem;
+    height: 240rem;
+    margin: 4rem;
+    padding: 12rem;
+    padding-bottom: 40rem;
+    position: relative;
+    width: calc(50% - 12rem);
+}
+
+main>card.feedback>.content>.item::before {
+    display: block;
+    font-size: 12rem;
+}
+
+main>card.feedback>.content>.item:is(:focus, :hover) {
+    transform: scale(1.0625);
+}
+
+main>card.feedback>.content>.item>.feedback {
+    color: var(--mdc-on-surface-variant);
+    font-family: Jost, 'Source Sans Pro';
+    font-size: 10rem;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 8rem 0;
+}
+
+main>card.feedback>.content>.item>.owner {
+    background-color: var(--mdc-surface);
+    bottom: 8rem;
+    color: var(--mdc-on-surface);
+    font-family: Exo, 'Source Sans Pro';
+    font-size: 12rem;
+    font-weight: 600;
+    line-height: 1.2;
+    padding: 0;
+    position: absolute;
+}
+
+main>card.feedback>.content>.item>.owner::after {
+    color: var(--mdc-on-surface-variant);
+    content: attr(role);
+    display: block;
+    font-family: Exo, 'Source Sans Pro';
+    font-size: 10rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+main>card.blog {
+    width: calc(50em - 12rem);
+}
+
+
+main>card.blog {
+    height: 336rem;
+    width: calc(50em - 12rem);
+}
+
+main>card.blog>.content {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 0 -8rem;
+    overflow-x: scroll;
+    width: calc(100% + 16rem);
+}
+
+main>card.blog>.content>.item {
+    align-items: start;
+    background-color: var(--mdc-surface);
+    border-radius: 12rem;
+    box-sizing: border-box;
+    color: var(--mdc-on-surface);
+    display: flex;
+    flex-flow: column nowrap;
+    font-family: Jost, 'Source Sans Pro';
+    font-weight: 400;
+    height: 240rem;
+    justify-content: start;
+    margin: 4rem;
+    padding: 8rem;
+    position: relative;
+    unicode-bidi: isolate;
+    text-decoration: none;
+    width: 140rem;
+}
+
+main>card.blog>.content>.item:is(:focus, :hover) {
+    transform: scale(1.0625);
+}
+
+/* main>card.blog>.content>.item:active {
+    transform: scale(1);
+} */
+
+main>card.blog>.content>.item>img.banner {
+    border-radius: 4rem;
+    height: 124rem;
+    width: 124rem;
+}
+
+main>card.blog>.content>.item>p.title {
+    color: var(--mdc-on-surface-variant);
+    font-family: Exo, 'Source Sans Pro';
+    font-size: 13rem;
+    font-weight: 700;
+    max-lines: 2;
+    padding: 4rem 0;
+}
+
+/* main>card.blog>.content>.item>.mdi {
+    bottom: 20rem;
+    position: absolute;
+} */
+
+main>card.blog>.content>.item>.mdi {
+    font-size: 8rem;
+    height: 16rem;
+    line-height: 16rem;
+    height: 16rem;
+    padding: 0 8rem 0 16rem;
+    position: relative;
+}
+
+main>card.blog>.content>.item>.mdi::before {
+    font-size: 12rem;
+    height: 16rem;
+    left: 0;
+    line-height: 16rem;
+    position: absolute;
+}
+
+main>card.blog>.content>.item:is(:focus, :hover)>.title {
+    color: var(--mdc-surface-tint);
+}
+
+/* main>card.blog>.content>.item:active>.title {
+    color: var(--mdc-on-surface-variant);
+} */
+
+@media only screen and (max-width: 879px) {
+    main>card.section:is(.categories, .courses, .feedback, .blog) {
+        width: 75%;
+    }
+}
+
+@media only screen and (max-width: 680px) {
+    main>card.section:is(.categories, .courses, .feedback, .blog) {
+        width: 100%;
+    }
+}
+
+main>card.footer {
+    align-items: center;
+    display: flex;
+    flex-flow: column wrap;
+    font-family: Jost, 'Source Sans Pro';
+    height: 320rem;
+    padding: 20rem;
+    padding-bottom: 60rem;
+    position: relative;
+    width: calc(100em - 16rem);
+}
+
+main>card.footer::after {
+    border: none;
+    border-top: solid 1.25rem var(--mdc-on-surface);
+    bottom: 0;
+    content: attr(copyright);
+    font-family: Exo, 'Source Sans Pro';
+    font-size: 10rem;
+    height: 40rem;
+    line-height: 40rem;
+    position: absolute;
+    text-align: center;
+    top: auto;
+    width: calc(100% - 48rem);
+}
+
+main>card.footer>.greeting {
+    color: var(--mdc-on-surface-variant);
+    font-family: Jost, "Source Sans Pro";
+    font-size: 12rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0 4rem;
+    text-align: start;
+    text-decoration: none;
+    width: 260rem;
+}
+
+main>card.footer>.greeting>a {
+    background-image: url("/assets/images/icon.png");
+    background-size: 40rem;
+    background-repeat: no-repeat;
+    background-position: 8rem;
+    display: block;
+    color: var(--mdc-on-surface-variant);
+    font-family: Exo, "Source Sans Pro";
+    font-size: 14rem;
+    font-weight: 700;
+    height: 56rem;
+    line-height: 56rem;
+    padding: 0;
+    padding-left: 56rem;
+    text-align: start;
+    text-decoration: none;
+}
+
+main>card.footer>.group {
+    color: var(--mdc-on-surface-variant);
+    display: block;
+    width: 180rem;
+}
+
+main>card.footer>.group::before {
+    color: var(--mdc-on-surface);
+    content: attr(label);
+    display: block;
+    font-family: Exo, "Source Sans Pro";
+    font-size: 16rem;
+    font-weight: 700;
+    height: 56rem;
+    line-height: 56rem;
+}
+
+main>card.footer>.group>a {
+    color: var(--mdc-on-surface-variant);
+    display: block;
+    font-family: Jost, "Source Sans Pro";
+    font-size: 12rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 4rem;
+    text-align: start;
+    text-decoration: none;
+}
+
+main>card.footer>.group>a:is(:focus, :hover) {
+    color: var(--mdc-surface-tint);
+    font-family: Exo, "Source Sans Pro";
+    font-weight: 700;
+}
+
+main>card.footer>.group>a:is(:focus, :hover) {
+    color: var(--mdc-surface-tint);
+    font-family: Exo, "Source Sans Pro";
+    font-weight: 700;
+}
+
+main>card.footer>.contact {
+    padding: 0;
+    width: 260rem;
+}
+
+main>card.footer>.contact>.mdi {
+    color: var(--mdc-on-surface-variant);
+    display: block;
+    font-family: Jost, "Source Sans Pro";
+    font-size: 12rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 4rem;
+    text-align: start;
+    text-decoration: none;
+}
+
+main>card.footer>.contact>::before {
+    font-size: 20rem;
+    height: 24rem;
+    width: 36rem;
+    text-align: center;
+    vertical-align: baseline;
+}
+
+@media only screen and (max-width: 879px) {
+    main>card.footer {
+        align-items: start;
+        justify-content: start;
+        align-content: space-around;
+        flex-flow: column wrap;
+        height: 500rem;
+    }
+
+    main>card.footer>.greeting {
+        height: 400rem;
+    }
+
+    main>card.footer>.group {
+        padding: 0;
+    }
+}
+
+@media only screen and (max-width: 659px) {
+
+    main>card.footer,
+    main>card.footer>.greeting {
+        height: auto;
+    }
+
+    main>card.footer,
+    main>card.footer>.contact,
+    main>card.footer>.greeting,
+    main>card.footer>.group {
+        width: auto;
+    }
+}

@@ -1,0 +1,41 @@
+.error.-content {
+    background-color: var(--mdc-surface);
+    align-items: center;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+}
+
+.error.-content>* {
+    width: 400rem;
+}
+
+.error.-content>img {
+    display: block;
+    margin-bottom: 40rem;
+    height: 80rem;
+    width: 80rem;
+}
+
+.error.-content>h1 {
+    font-family: "Roboto Bold";
+    font-size: 80rem;
+    margin: 0;
+    text-align: center;
+}
+
+.error.-content>h3 {
+    font-family: "Roboto Medium";
+    font-size: 20rem;
+    margin: 8rem 0;
+    text-align: center;
+}
+
+.error.-content>p {
+    font-family: "Roboto Regular";
+    font-size: 20rem;
+    margin: 40rem 0 0 0;
+    text-align: center;
+}
