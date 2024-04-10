@@ -69,6 +69,5 @@ $page->beforeDocument();
     <main><? $page->body(); ?></main>
     <scrim></scrim>
 </body>
-
 </html>
 <? $page->afterDocument(); ?>
