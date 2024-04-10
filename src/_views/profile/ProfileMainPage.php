@@ -45,7 +45,6 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
         
         <?
     }
-
     // public function afterDocument()
     // {
     //     parent::afterDocument();

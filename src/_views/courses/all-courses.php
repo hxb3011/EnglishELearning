@@ -32,48 +32,32 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
     public function head()
     {
         $this->styles(
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
             "/clients/css/home/home_main.css",
             "/clients/css/courses/all-courses.css",
             "/clients/css/pagination.css"
         );
-        // $this->scripts(
-
-        // );
+        $this->scripts(
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        );
     }
-
     public function body()
     {
         ?>
-        <div class="wrapper">
-            <div class="breadcrumb-wrapper">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">Trang chủ</li>
-                                    <li class="breadcrumb-item " aria-current="page">Khóa học</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-        
-                </div>
-            </div>
-            <div class="container mt-5">
+        <div class="container">
                 <div class="row">
                     <div class="col-md-10 col-sm-12">
                         <div class="courses-section__head d-flex justify-content-between align-items-center">
                             <h3 class="courses-section__header">
                                 Tất cả khóa học
                             </h3>
-                            <div class="courses-section__header__search-wrapper d-flex align-items-center">
-                                <form>
+                            <div class="courses-section__header__search-wrapper d-flex align-items-center" style="width : 18%">
+                                <form  style="display:block; width:100%" class="courses-section__header__search">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Tìm kiếm...">
+                                        <input type="text" class="form-control" placeholder="Tìm kiếm..." style="font-size: 8rem;">
                                         <div class="input-group-append">
-                                            <button class="btn btn-search" type="button">
-                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            <button class="btn btn-search " type="button">
+                                               <span class="mdi courses-section__header__search-icon"></span>
                                             </button>
                                         </div>
                                     </div>
@@ -85,7 +69,6 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                 <div class="col-md-12 col-sm-12">
                                     <div class="courses-section__content__course-item">
                                         <img src="/assets/images/blog4.png" class="courses-section__content__course-item-image">
-        
                                         </img>
                                         <div class="courses-section__content__course-item__info d-flex justify-content-between flex-column p-4">
                                             <div>
@@ -196,9 +179,13 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
         <?
+        $this->scripts(
+            "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
+            "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        );
     }
 
     // public function afterDocument()
