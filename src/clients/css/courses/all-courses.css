@@ -15,9 +15,22 @@ li {
 input {
   border: none;
 }
-
+.mdi.-calendar::before{
+  content: '\F0679';
+}
+.mdi.-student::before{
+  content: '\F1A20';
+}
+.mdi.-document::before{
+  content: '\F09EE';
+}
+.mdi.-prev::before{
+  content: '\F097C';
+}
+.mdi.-next::before{
+  content: '\F096D';
+}
 /* Course-section */
-
 .courses-section__header {
   margin-right: 45rem;
   font-size: 24rem;
@@ -30,10 +43,12 @@ input {
   flex-shrink: 0; 
 }
 .courses-section__header__search-wrapper{
-  width: 20%;
+  min-width: 25%;
+  width: 25%;
 }
 .courses-section__header__search-icon{
-  font-size: 14rem
+  font-size: 14rem;
+  padding: 8rem;
 }
 .courses-section__header__search-icon::before{
   content: "\F0349";
@@ -46,7 +61,7 @@ input {
 .courses-section__content__course-item {
   box-sizing: border-box;
   padding-right: 2rem;
-  height: 25rem;
+  height: 120rem;
   display: flex;
   align-items: center;
   border: solid 0.1rem #e9e9e9;
@@ -70,11 +85,11 @@ input {
 }
 
 .course-item_tag {
-  width: 11.4rem;
-  height: 4rem;
-  font-size: 1.6rem;
+  width: 40rem;
+  height: 14rem;
+  font-size: 8rem;
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 8rem;
   text-transform: capitalize;
   color: #ffffff;
   font-family: Jost, 'Source Sans Pro';
@@ -84,7 +99,7 @@ input {
   align-items: center;
   justify-content: center;
   background-color: #000000;
-  border-radius: 0.8rem;
+  border-radius: 4rem;
   position: absolute;
   cursor: default;
 }
@@ -100,6 +115,7 @@ input {
   flex-shrink: 0;
   width: 60%;
   height: 100%;
+  padding: 8rem;
 }
 
 .course-item__info-section {
@@ -107,9 +123,9 @@ input {
 }
 
 .course-item__info-section__author {
-  font-size: 1.6rem;
+  font-size: 8rem;
   font-weight: bold;
-  line-height: 1.5;
+  line-height: 8rem;
   color: #000000;
   font-family: Jost, 'Source Sans Pro';
   overflow: hidden;
@@ -121,26 +137,28 @@ input {
 }
 
 .course-item__info-section__title {
-  font-size: 2.8rem;
+  font-size: 12rem;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 8rem;
   text-transform: capitalize;
   color: #000000;
   font-family: Exo, 'Source Sans Pro';
   white-space: nowrap;
   flex-shrink: 0;
   cursor: default;
+  margin:8rem 0 8rem 0;
 }
 
 .mini-icon {
   color: #ff782d;
+  font-size: 10rem;
   margin-right: 0.4rem;
 }
 
 .course-item__info-section__price {
-  font-size: 1.8rem;
+  font-size: 10rem;
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 12rem;
   text-transform: capitalize;
   color: #55be23;
   font-family: Jost, 'Source Sans Pro';
@@ -148,18 +166,19 @@ input {
 }
 
 .course-item__info-section__text {
-  font-size: 1.8rem;
+  font-size: 6rem;
   font-weight: 500;
   line-height: 1.5;
   text-transform: capitalize;
   color: #000000;
   font-family: Jost, 'Source Sans Pro';
+  cursor: default;
 }
 
 .course-item__info-section__link {
-  font-size: 1.8rem;
+  font-size: 10rem;
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 10rem;
   text-transform: capitalize;
   color: #000000;
   font-family: Jost, 'Source Sans Pro';
@@ -174,62 +193,35 @@ input {
 
 
 /* End of  Course-section */
-
-/*
-  filter
-*/
-.filter-part__header {
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 1.2;
-  text-transform: capitalize;
-  color: #000000;
-  font-family: Exo, 'Source Sans Pro';
-  white-space: nowrap;
-  flex-shrink: 0;
+/* Filter */
+.filter-section{
+  margin-top: 12rem;
+  margin-bottom: 12rem;
 }
-
-.filter-part__choices {
-  padding-left: 0;
+.filter-part{
+  padding-left: 8rem;
+  padding-right: 8rem;
 }
-
-.filter-part__choice {
-  padding-top: 0.4rem;
-  padding-bottom: 0.4rem;
+.filter-part select{
+  font-size: 10rem;
+  padding-left: 4rem;
+  padding-right: 8rem;
 }
+.filter-text{
+  min-width: 18%;
+  font-weight: bold;
+  font-size: 8rem;
 
-.filter-part__choice label {
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: #555555;
-  font-family: Jost, 'Source Sans Pro';
-  white-space: nowrap;
-  flex-shrink: 0;
 }
-
-.filter-part__choice input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 1.6rem;
-  height: 1.6rem;
-  background-color: #e0e0e0;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-}
-
-.filter-part__choice input:checked {
-  -webkit-appearance: none;
-  /* Loại bỏ giao diện mặc định của trình duyệt */
-  -moz-appearance: none;
-  appearance: none;
-  background-color: #555555;
+.filter-btn{
+  font-size: 12rem;
+  width: 60rem;
+  height: 20rem;
+  background-color: black;
+  border-radius: 4rem;
   color: white;
-
 }
-
-/*
-End of filter
-*/
+.filter-btn:hover{
+  background-color: #ff782d;
+  color: white;
+}
