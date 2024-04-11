@@ -34,8 +34,8 @@ $page->beforeDocument();
         "/clients/css/fonts/roboto.css",
         "/clients/css/icons/mdi.css",
         "/clients/css/layout/base.css",
-        "/clients/css/layout/nav.css",
-        "/clients/css/layout/nav/drawer.css",
+        // "/clients/css/layout/nav.css",
+        // "/clients/css/layout/nav/drawer.css",
         "/clients/css/layout/nav/item-icon.css"
     );
     $page->scripts(
@@ -48,7 +48,7 @@ $page->beforeDocument();
 </head>
 
 <body mdc-theme="light">
-    <nav>
+    <!-- <nav>
         <a class="mdi nav-item -search _action" hint="Tìm kiếm" href="#"></a>
         <a class="mdi nav-item -dictionary" hint="Từ điển" href="#"></a>
         <a class="mdi nav-item -courses" hint="Khoá học" href="/courses/all.php"></a>
@@ -68,8 +68,9 @@ $page->beforeDocument();
         <a class="mdi nav-item -courses" hint="Khoá học của tôi" href="#"></a>
         <a class="mdi nav-item -courses _selected" hint="Giới thiệu" href="#"></a>
     </nav>
-    <main><? $page->body(); ?></main>
-    <scrim></scrim>
+    <main></main>
+    <scrim></scrim> -->
+    <? $page->body(); ?>
 </body>
 </html>
 <? $page->afterDocument(); ?>

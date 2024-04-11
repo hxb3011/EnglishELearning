@@ -8,7 +8,7 @@ body {
     background-color: var(--mdc-background);
     inset: 0;
     margin: 0;
-    position: fixed;
+    /* position: fixed; */
     z-index: 0;
 }
 
@@ -46,25 +46,25 @@ nav.drawer:not(._closed)~scrim {
     display: block;
 }
 
-@media only screen and (min-width: 680px) {
+@media only screen and (max-width: 1023px) and (min-width: 768px){
     :root {
-        font-size: calc(100vw / 680);
+        font-size: calc(100vw / 95);
         /* phone|tablet|desktop|tv|watch */
         --idiom: "tablet";
     }
 }
 
-@media only screen and (min-width: 880px) {
+@media only screen and (min-width: 1024px) {
     :root {
-        font-size: calc(100vw / 880);
+        font-size: calc(100vw / 130);
         /* phone|tablet|desktop|tv|watch */
         --idiom: "desktop";
     }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 430px) {
     :root {
-        font-size: 1px;
+        font-size: calc(100vw/50);
         /* phone|tablet|desktop|tv|watch */
         --idiom: "phone";
     }
