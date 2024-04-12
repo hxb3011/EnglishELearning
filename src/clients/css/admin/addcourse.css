@@ -1,0 +1,56 @@
+.mdi.poster::before{
+    content: '\F02EB';
+}
+.form-wizard-header{
+    background-color: #e3eaef;
+}
+.nav-link{
+    color: #6c757d
+}
+.nav-pills .nav-link:hover{
+    color: #ff782d;
+}
+.nav-pills .nav-link.active{
+    color: white;
+    background-color: #ff782d;
+}
+.required{
+    color: #f44336;
+}
+.btn-info{
+    color: white;
+}
+.image-box{
+    width: 250px;
+    display: block;
+    height: 250px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    overflow: hidden;
+}
+.js--image-preview{
+    height: 200px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.upload-options{
+    cursor: pointer;
+    position: relative;
+    height: 50px;
+    cursor: pointer;
+    overflow: hidden;
+    text-align: center;
+    transition: background-color ease-in-out 150ms;
+}
+.upload-options span{
+    display: flex;
+    width: 100%;
+}

@@ -42,7 +42,7 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
     public function body()
     {
         ?>
-        
+            <a href="/administration/index.php">Link tới trang admin </a>
         <?
     }
     // public function afterDocument()

@@ -34,7 +34,6 @@ $page->beforeDocument();
         "/clients/css/fonts/roboto.css",
         "/clients/css/icons/mdi.css",
         "/clients/css/admin/main.css",
-        "https://cdn.lineicons.com/4.0/lineicons.css"
     );
     $page->scripts(
         "/clients/utils/general.js",
@@ -58,7 +57,7 @@ $page->beforeDocument();
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link" >
+                    <a href="/administration/dashboard.php" class="sidebar-link" >
                         <i class="mdi -dash"></i>
                         <span class="sidebar-item__text">Dashboard</span>
                     </a>
@@ -70,10 +69,10 @@ $page->beforeDocument();
                     </a>
                     <ul id="courses" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Danh sách khóa học</a>
+                            <a href="/administration/courses/index.php" class="sidebar-link">Danh sách khóa học</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Thêm khóa học</a>
+                            <a href="/administration/courses/add.php" class="sidebar-link">Thêm khóa học</a>
                         </li>
                     </ul>
                 </li>
@@ -131,7 +130,6 @@ $page->beforeDocument();
             <main class="content px-3 py-4">
                 <? $page->body() ?>
             </main>
-            <script src="/clients/js/admin/main.js"></script>
         </div>
     </div>
 </body>
