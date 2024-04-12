@@ -44,6 +44,7 @@
 		"compounds": []
 	},
 	"settings": {
+		"cmake.configureOnOpen": false,
 		"php.version": "8.3"
 	},
 	"tasks": {

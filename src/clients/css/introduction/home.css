@@ -18,29 +18,14 @@ main>card.banner>a {
     margin: 1.6em .4em;
 }
 
-main>card.banner>a:is(:focus, :hover) {
-    transform: scale(1.0625);
-}
-
-main>card.banner>a:active {
-    transform: scale(1);
-}
-
-main>card.section>.heading>a:is(:focus, :hover) {
-    transform: scale(1.0625);
-}
-
-main>card.section>.heading>a:active {
-    transform: scale(1);
-}
-
 main>card.categories {
     height: 400rem;
-    width: calc(50em - 12rem);
+    width: calc(50% - 12rem);
 }
 
 main>card.categories>.content {
     align-items: center;
+    box-sizing: border-box;
     display: flex;
     flex-flow: column wrap;
     height: 320rem;
@@ -87,7 +72,11 @@ main>card.categories>.content>.item::after {
 }
 
 main>card.categories>.content>.item:is(:focus, :hover) {
-    transform: scale(1.0625, 1.0625);
+    box-shadow: 1rem 1rem 8rem 2rem var(--mdc-shadow);
+}
+
+main>card.categories>.content>.item:active {
+    box-shadow: 0 0 8rem 2rem var(--mdc-shadow);
 }
 
 main>card.categories>.content>.item>img {
@@ -104,10 +93,11 @@ main>card.categories>.content>.item>img {
 
 main>card.courses {
     height: 400rem;
-    width: calc(50em - 12rem);
+    width: calc(50% - 12rem);
 }
 
 main>card.courses>.content {
+    box-sizing: border-box;
     display: flex;
     flex-flow: row nowrap;
     margin: 0 -8rem;
@@ -136,11 +126,11 @@ main>card.courses>.content>a {
 }
 
 main>card.courses>.content>a:is(:focus, :hover) {
-    transform: scale(1.0625);
+    box-shadow: 1rem 1rem 8rem 2rem var(--mdc-shadow);
 }
 
 main>card.courses>.content>a:active {
-    transform: scale(1);
+    box-shadow: 0 0 8rem 2rem var(--mdc-shadow);
 }
 
 main>card.courses>.content>a>img.banner {
@@ -153,6 +143,7 @@ main>card.courses>.content>a>p.name {
     font-family: Exo, 'Source Sans Pro';
     font-size: 13rem;
     font-weight: 700;
+    margin: 0;
     padding: 4rem 0;
 }
 
@@ -165,7 +156,7 @@ main>card.courses>.content>a>p.name::before {
 }
 
 main>card.courses>.content>a>.data {
-    bottom: 20rem;
+    bottom: 28rem;
     font-size: 8rem;
     height: 16rem;
     line-height: 16rem;
@@ -176,7 +167,6 @@ main>card.courses>.content>a>.data>.mdi {
     font-size: 8rem;
     height: 16rem;
     line-height: 16rem;
-    height: 16rem;
     padding: 0 8rem 0 16rem;
     position: relative;
 }
@@ -219,10 +209,10 @@ main>card.courses>.content>a:active>:is(.name, .footer) {
 }
 
 main>card.courses>.content.statistic>p {
-    background-color: var(--mdc-tertiary-container);
-    align-content: center;
     align-items: center;
+    background-color: var(--mdc-tertiary-container);
     border-radius: 12rem;
+    box-sizing: border-box;
     color: var(--mdc-on-tertiary-container);
     display: flex;
     flex-flow: column nowrap;
@@ -250,23 +240,23 @@ main>card.courses>.content.statistic>p::after {
 }
 
 main>card.courses>.content.statistic>p:is(:focus, :hover) {
-    transform: scale(1.0625);
+    box-shadow: 1rem 1rem 8rem 2rem var(--mdc-shadow);
 }
 
-/* main>card.courses>.content.statistic>p:active {
-    transform: scale(1.0625);
-} */
+main>card.courses>.content.statistic>p:active {
+    box-shadow: 0 0 8rem 2rem var(--mdc-shadow);
+}
 
 main>card.feedback {
-    width: calc(50em - 12rem);
+    width: calc(50% - 12rem);
     height: 336rem;
 }
 
 main>card.feedback>.content {
+    box-sizing: border-box;
     display: flex;
-    flex-flow: column wrap;
-    height: 320rem;
-    overflow: scroll;
+    flex-flow: row nowrap;
+    overflow-x: scroll;
     padding: 4rem;
     margin: 0 -8rem -8rem;
     width: calc(100% + 16rem);
@@ -275,12 +265,13 @@ main>card.feedback>.content {
 main>card.feedback>.content>.item {
     background-color: var(--mdc-surface);
     border-radius: 20rem;
+    box-sizing: border-box;
+    flex: 0 0 264rem;
     height: 240rem;
     margin: 4rem;
     padding: 12rem;
     padding-bottom: 40rem;
     position: relative;
-    width: calc(50% - 12rem);
 }
 
 main>card.feedback>.content>.item::before {
@@ -289,7 +280,11 @@ main>card.feedback>.content>.item::before {
 }
 
 main>card.feedback>.content>.item:is(:focus, :hover) {
-    transform: scale(1.0625);
+    box-shadow: 1rem 1rem 8rem 2rem var(--mdc-shadow);
+}
+
+main>card.feedback>.content>.item:active {
+    box-shadow: 0 0 8rem 2rem var(--mdc-shadow);
 }
 
 main>card.feedback>.content>.item>.feedback {
@@ -324,16 +319,12 @@ main>card.feedback>.content>.item>.owner::after {
 }
 
 main>card.blog {
-    width: calc(50em - 12rem);
-}
-
-
-main>card.blog {
     height: 336rem;
-    width: calc(50em - 12rem);
+    width: calc(50% - 12rem);
 }
 
 main>card.blog>.content {
+    box-sizing: border-box;
     display: flex;
     flex-flow: row nowrap;
     margin: 0 -8rem;
@@ -362,12 +353,12 @@ main>card.blog>.content>.item {
 }
 
 main>card.blog>.content>.item:is(:focus, :hover) {
-    transform: scale(1.0625);
+    box-shadow: 1rem 1rem 8rem 2rem var(--mdc-shadow);
 }
 
-/* main>card.blog>.content>.item:active {
-    transform: scale(1);
-} */
+main>card.blog>.content>.item:active {
+    box-shadow: 0 0 8rem 2rem var(--mdc-shadow);
+}
 
 main>card.blog>.content>.item>img.banner {
     border-radius: 4rem;
@@ -380,8 +371,11 @@ main>card.blog>.content>.item>p.title {
     font-family: Exo, 'Source Sans Pro';
     font-size: 13rem;
     font-weight: 700;
-    max-lines: 2;
+    height: 36rem;
+    line-height: 18rem;
+    margin: 0;
     padding: 4rem 0;
+    text-overflow: ellipsis;
 }
 
 /* main>card.blog>.content>.item>.mdi {
@@ -394,6 +388,7 @@ main>card.blog>.content>.item>.mdi {
     height: 16rem;
     line-height: 16rem;
     height: 16rem;
+    margin: 0;
     padding: 0 8rem 0 16rem;
     position: relative;
 }
@@ -406,6 +401,15 @@ main>card.blog>.content>.item>.mdi::before {
     position: absolute;
 }
 
+main>card.blog>.content>.item>.detail {
+    font-size: 12rem;
+    height: 36rem;
+    line-height: 18rem;
+    margin: 0;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+}
+
 main>card.blog>.content>.item:is(:focus, :hover)>.title {
     color: var(--mdc-surface-tint);
 }
@@ -414,20 +418,15 @@ main>card.blog>.content>.item:is(:focus, :hover)>.title {
     color: var(--mdc-on-surface-variant);
 } */
 
-@media only screen and (max-width: 879px) {
+@media only screen and (max-width: 719px) {
     main>card.section:is(.categories, .courses, .feedback, .blog) {
-        width: 75%;
-    }
-}
-
-@media only screen and (max-width: 680px) {
-    main>card.section:is(.categories, .courses, .feedback, .blog) {
-        width: 100%;
+        width: calc(100% - 8rem);
     }
 }
 
 main>card.footer {
     align-items: center;
+    box-sizing: border-box;
     display: flex;
     flex-flow: column wrap;
     font-family: Jost, 'Source Sans Pro';
@@ -536,20 +535,21 @@ main>card.footer>.contact>.mdi {
     font-size: 12rem;
     font-weight: 400;
     line-height: 1.5;
+    margin: 0;
     padding: 4rem;
     text-align: start;
     text-decoration: none;
 }
 
-main>card.footer>.contact>::before {
+main>card.footer>.contact>.mdi::before {
     font-size: 20rem;
     height: 24rem;
-    width: 36rem;
     text-align: center;
     vertical-align: baseline;
+    width: 36rem;
 }
 
-@media only screen and (max-width: 879px) {
+@media only screen and (max-width: 719px) {
     main>card.footer {
         align-items: start;
         justify-content: start;
@@ -560,14 +560,16 @@ main>card.footer>.contact>::before {
 
     main>card.footer>.greeting {
         height: 400rem;
+        width: 50%;
     }
 
     main>card.footer>.group {
         padding: 0;
+        width: 50%;
     }
 }
 
-@media only screen and (max-width: 659px) {
+@media only screen and (max-width: 519px) {
 
     main>card.footer,
     main>card.footer>.greeting {

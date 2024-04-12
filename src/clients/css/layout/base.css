@@ -46,9 +46,17 @@ nav.drawer:not(._closed)~scrim {
     display: block;
 }
 
-@media only screen and (min-width: 680px) {
+@media only screen and (min-width: 520px) {
     :root {
-        font-size: calc(100vw / 680);
+        font-size: calc(.125vw + .35px);
+        /* phone|tablet|desktop|tv|watch */
+        --idiom: "tablet";
+    }
+}
+
+@media only screen and (min-width: 720px) {
+    :root {
+        font-size: calc(.125vw - 0.1px);
         /* phone|tablet|desktop|tv|watch */
         --idiom: "tablet";
     }
@@ -56,9 +64,33 @@ nav.drawer:not(._closed)~scrim {
 
 @media only screen and (min-width: 880px) {
     :root {
-        font-size: calc(100vw / 880);
+        font-size: 1px;
         /* phone|tablet|desktop|tv|watch */
         --idiom: "desktop";
+    }
+}
+
+@media only screen and (min-width: 960px) {
+    :root {
+        font-size: calc(.4px + .0625vw);
+        /* phone|tablet|desktop|tv|watch */
+        --idiom: "desktop";
+    }
+}
+
+@media only screen and (min-width: 1360px) {
+    :root {
+        font-size: calc(.0625vw - .05px);
+        /* phone|tablet|desktop|tv|watch */
+        --idiom: "tv";
+    }
+}
+
+@media only screen and (min-width: 1680px) {
+    :root {
+        font-size: calc(.25vw - 3.2px);
+        /* phone|tablet|desktop|tv|watch */
+        --idiom: "tv";
     }
 }
 
@@ -72,7 +104,7 @@ nav.drawer:not(._closed)~scrim {
 
 @media only screen and (max-width: 400px) {
     :root {
-        font-size: calc(100vw / 400);
+        font-size: .25vw;
         /* phone|tablet|desktop|tv|watch */
         --idiom: "phone";
     }
