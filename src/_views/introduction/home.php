@@ -119,8 +119,8 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
                     <img class="banner" src="/assets/images/blog.png" alt="">
                     <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
                     <div class="data">
-                        <span class="mdi mdi-calendar calendar">2 Tuần</span>
-                        <span class="mdi mdi-school graduation">156 Học viên</span>
+                        <span class="mdi-b calendar">2 Tuần</span>
+                        <span class="mdi-b graduation">156 Học viên</span>
                     </div>
                     <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
                 </a>
@@ -128,8 +128,8 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
                     <img class="banner" src="/assets/images/blog.png" alt="">
                     <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
                     <div class="data">
-                        <span class="mdi mdi-calendar">2 Tuần</span>
-                        <span class="mdi mdi-school graduation">156 Học viên</span>
+                        <span class="mdi-b calendar">2 Tuần</span>
+                        <span class="mdi-b graduation">156 Học viên</span>
                     </div>
                     <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
                 </a>
@@ -137,8 +137,8 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
                     <img class="banner" src="/assets/images/blog.png" alt="">
                     <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
                     <div class="data">
-                        <span class="mdi mdi-calendar calendar">2 Tuần</span>
-                        <span class="mdi mdi-school graduation">156 Học viên</span>
+                        <span class="mdi-b calendar">2 Tuần</span>
+                        <span class="mdi-b graduation">156 Học viên</span>
                     </div>
                     <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
                 </a>
@@ -146,8 +146,8 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
                     <img class="banner" src="/assets/images/blog.png" alt="">
                     <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
                     <div class="data">
-                        <span class="mdi mdi-calendar">2 Tuần</span>
-                        <span class="mdi mdi-school graduation">156 Học viên</span>
+                        <span class="mdi-b calendar">2 Tuần</span>
+                        <span class="mdi-b graduation">156 Học viên</span>
                     </div>
                     <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
                 </a>
@@ -155,8 +155,8 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
                     <img class="banner" src="/assets/images/blog.png" alt="">
                     <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
                     <div class="data">
-                        <span class="mdi mdi-calendar">2 Tuần</span>
-                        <span class="mdi mdi-school graduation">156 Học viên</span>
+                        <span class="mdi-b calendar">2 Tuần</span>
+                        <span class="mdi-b graduation">156 Học viên</span>
                     </div>
                     <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
                 </a>
@@ -171,31 +171,31 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
         <card class="feedback section">
             <div class="heading" title="Đánh giá" sub-title="Những gì học viên nói về EduPress"></div>
             <div class="content">
-                <div class="mdi mdi-format-quote-close item">
+                <div class="mdi-b item">
                     <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
-                <div class="mdi mdi-format-quote-close item">
+                <div class="mdi-b item">
                     <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
-                <div class="mdi mdi-format-quote-close item">
+                <div class="mdi-b item">
                     <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
-                <div class="mdi mdi-format-quote-close item">
+                <div class="mdi-b item">
                     <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
-                <div class="mdi mdi-format-quote-close item">
+                <div class="mdi-b item">
                     <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
-                <div class="mdi mdi-format-quote-close item">
+                <div class="mdi-b item">
                     <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
-                <div class="mdi mdi-format-quote-close item">
+                <div class="mdi-b item">
                     <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
@@ -209,43 +209,43 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
                 <div class="item">
                     <img class="banner" src="/assets/images/banner-2.png" alt="">
                     <p class="title">Vì sao tôi lựa chọn EduPress ?</p>
-                    <p class="mdi mdi-calendar">25 / 05 / 2023</p>
+                    <p class="mdi-b calendar">25 / 05 / 2023</p>
                     <p class="detail">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
                 <div class="item">
                     <img class="banner" src="/assets/images/banner-2.png" alt="">
                     <p class="title">Vì sao tôi lựa chọn EduPress ?</p>
-                    <p class="mdi mdi-calendar">25 / 05 / 2023</p>
+                    <p class="mdi-b calendar">25 / 05 / 2023</p>
                     <p class="detail">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
                 <div class="item">
                     <img class="banner" src="/assets/images/banner-2.png" alt="">
                     <p class="title">Vì sao tôi lựa chọn EduPress ?</p>
-                    <p class="mdi mdi-calendar">25 / 05 / 2023</p>
+                    <p class="mdi-b calendar">25 / 05 / 2023</p>
                     <p class="detail">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
                 <div class="item">
                     <img class="banner" src="/assets/images/banner-2.png" alt="">
                     <p class="title">Vì sao tôi lựa chọn EduPress ?</p>
-                    <p class="mdi mdi-calendar">25 / 05 / 2023</p>
+                    <p class="mdi-b calendar">25 / 05 / 2023</p>
                     <p class="detail">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
                 <div class="item">
                     <img class="banner" src="/assets/images/banner-2.png" alt="">
                     <p class="title">Vì sao tôi lựa chọn EduPress ?</p>
-                    <p class="mdi mdi-calendar">25 / 05 / 2023</p>
+                    <p class="mdi-b calendar">25 / 05 / 2023</p>
                     <p class="detail">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
                 <div class="item">
                     <img class="banner" src="/assets/images/banner-2.png" alt="">
                     <p class="title">Vì sao tôi lựa chọn EduPress ?</p>
-                    <p class="mdi mdi-calendar">25 / 05 / 2023</p>
+                    <p class="mdi-b calendar">25 / 05 / 2023</p>
                     <p class="detail">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
                 <div class="item">
                     <img class="banner" src="/assets/images/banner-2.png" alt="">
                     <p class="title">Vì sao tôi lựa chọn EduPress ?</p>
-                    <p class="mdi mdi-calendar">25 / 05 / 2023</p>
+                    <p class="mdi-b calendar">25 / 05 / 2023</p>
                     <p class="detail">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
             </div>
@@ -264,9 +264,9 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
                 <a href="#">Các khóa học</a>
             </div>
             <div class="contact group" label="Liên hệ">
-                <p class="mdi mdi-office-building">Address: 273 Đ. An Dương Vương, Phường 3, Quận 5, Thành phố Hồ Chí Minh</p>
-                <p class="mdi mdi-deskphone">Tel:+ (123) 2500-567-8988</p>
-                <p class="mdi mdi-cellphone">Phone:+ (123) 2500-567-8988</p>
+                <p class="mdi-b addr">Address: 273 Đ. An Dương Vương, Phường 3, Quận 5, Thành phố Hồ Chí Minh</p>
+                <p class="mdi-b tel">Tel:+ (123) 2500-567-8988</p>
+                <p class="mdi-b mob">Phone:+ (123) 2500-567-8988</p>
             </div>
         </card>
         <!-- Back to Top -->

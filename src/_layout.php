@@ -31,8 +31,11 @@ $page->beforeDocument();
     );
     $page->favIcon(svg: "/assets/images/favicon.svg");
     $page->styles(
+        "https://fonts.googleapis.com/css?family=Exo%3A600%2C700",
+        "https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C600%2C700",
+        "https://fonts.googleapis.com/css?family=Jost%3A400%2C500",
         "/clients/css/fonts/roboto.css",
-        "/clients/css/icons/mdi.css",
+        "/clients/css/icons/mdi.x.css",
         "/clients/css/layout/base.css",
         "/clients/css/layout/nav.css",
         "/clients/css/layout/nav/drawer.css",
@@ -49,22 +52,22 @@ $page->beforeDocument();
 
 <body mdc-theme="light">
     <nav>
-        <a class="mdi nav-item -search _action" hint="Tìm kiếm" href="#"></a>
-        <a class="mdi nav-item -dictionary" hint="Từ điển" href="#"></a>
-        <a class="mdi nav-item -courses" hint="Khoá học" href="#"></a>
-        <a class="mdi nav-item -blogs" hint="Bài viết" href="#"></a>
-        <a class="mdi nav-item -profile" hint="Cá nhân" href="/profile/index.php"></a>
+        <a class="mdi-b nav-item -search _action" hint="Tìm kiếm" href="#"></a>
+        <a class="mdi-b nav-item -dictionary" hint="Từ điển" href="#"></a>
+        <a class="mdi-b nav-item -courses" hint="Khoá học" href="#"></a>
+        <a class="mdi-b nav-item -blogs" hint="Bài viết" href="#"></a>
+        <a class="mdi-b nav-item -profile" hint="Cá nhân" href="/profile/index.php"></a>
     </nav>
     <nav class="drawer -dictionary _closed">
-        <a class="mdi nav-item -back _action" hint="Từ điển" href="#"></a>
-        <a class="mdi nav-item -dictionary" hint="Tất cả từ" href="#"></a>
-        <a class="mdi nav-item -dictionary _selected" hint="Ôn từ vựng" href="#"></a>
+        <a class="mdi-b nav-item -back _action" hint="Từ điển" href="#"></a>
+        <a class="mdi-b nav-item -dictionary" hint="Tất cả từ" href="#"></a>
+        <a class="mdi-b nav-item -dictionary _selected" hint="Ôn từ vựng" href="#"></a>
     </nav>
     <nav class="drawer -courses _closed">
-        <a class="mdi nav-item -back _action" hint="Khoá học" href="#"></a>
-        <a class="mdi nav-item -courses" hint="Các khoá học" href="#"></a>
-        <a class="mdi nav-item -courses" hint="Khoá học của tôi" href="#"></a>
-        <a class="mdi nav-item -courses _selected" hint="Giới thiệu" href="#"></a>
+        <a class="mdi-b nav-item -back _action" hint="Khoá học" href="#"></a>
+        <a class="mdi-b nav-item -courses" hint="Các khoá học" href="#"></a>
+        <a class="mdi-b nav-item -courses" hint="Khoá học của tôi" href="#"></a>
+        <a class="mdi-b nav-item -courses _selected" hint="Giới thiệu" href="#"></a>
     </nav>
     <main><? $page->body(); ?></main>
     <scrim></scrim>

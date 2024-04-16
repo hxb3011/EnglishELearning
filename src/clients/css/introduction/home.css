@@ -1,12 +1,3 @@
-@import url("https://fonts.googleapis.com/css?family=Exo%3A600%2C700");
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C600%2C700");
-@import url("https://fonts.googleapis.com/css?family=Jost%3A400%2C500");
-
-main {
-    --dp: 10rem;
-    /* font-size: 62.5%; */
-}
-
 main>card.banner {
     background-image: url("/assets/images/banner-main.png");
     background-position: center;
@@ -53,7 +44,7 @@ main>card.categories>.content>.item {
     width: 100rem;
 }
 
-main>card.categories>.content>.item::before {
+main>card.categories>.content>.item[name]::before {
     color: var(--mdc-on-surface);
     content: attr(name);
     font-family: Exo, 'Source Sans Pro';
@@ -62,7 +53,7 @@ main>card.categories>.content>.item::before {
     line-height: 1.2;
 }
 
-main>card.categories>.content>.item::after {
+main>card.categories>.content>.item[description]::after {
     color: var(--mdc-on-surface-variant);
     content: attr(description);
     font-family: Jost, 'Source Sans Pro';
@@ -147,7 +138,7 @@ main>card.courses>.content>a>p.name {
     padding: 4rem 0;
 }
 
-main>card.courses>.content>a>p.name::before {
+main>card.courses>.content>a>p.name[instructor]::before {
     display: block;
     color: var(--mdc-on-surface-variant);
     content: attr(instructor);
@@ -163,7 +154,7 @@ main>card.courses>.content>a>.data {
     position: absolute;
 }
 
-main>card.courses>.content>a>.data>.mdi {
+main>card.courses>.content>a>.data>.mdi-b {
     font-size: 8rem;
     height: 16rem;
     line-height: 16rem;
@@ -171,12 +162,20 @@ main>card.courses>.content>a>.data>.mdi {
     position: relative;
 }
 
-main>card.courses>.content>a>.data>.mdi::before {
+main>card.courses>.content>a>.data>.mdi-b::before {
     font-size: 12rem;
     height: 16rem;
     left: 0;
     line-height: 16rem;
     position: absolute;
+}
+
+main>card.courses>.content>a>.data>.mdi-b.calendar::before {
+    content: var(--mdi-calendar);
+}
+
+main>card.courses>.content>a>.data>.mdi-b.graduation::before {
+    content: var(--mdi-school);
 }
 
 main>card.courses>.content>a>p.footer {
@@ -193,7 +192,7 @@ main>card.courses>.content>a>p.footer {
     width: calc(100% - 16rem);
 }
 
-main>card.courses>.content>a>p.footer::before {
+main>card.courses>.content>a>p.footer[price]::before {
     display: block;
     color: var(--mdc-error);
     content: attr(price);
@@ -227,14 +226,14 @@ main>card.courses>.content.statistic>p {
     width: calc(25% - 8rem);
 }
 
-main>card.courses>.content.statistic>p::before {
+main>card.courses>.content.statistic>p[value]::before {
     color: var(--mdc-surface-tint);
     content: attr(value);
     font-size: 20rem;
     font-weight: 500;
 }
 
-main>card.courses>.content.statistic>p::after {
+main>card.courses>.content.statistic>p[name]::after {
     content: attr(name);
     font-family: Exo, 'Source Sans Pro';
 }
@@ -274,7 +273,8 @@ main>card.feedback>.content>.item {
     position: relative;
 }
 
-main>card.feedback>.content>.item::before {
+main>card.feedback>.content>.item.mdi-b::before {
+    content: var(--mdi-format-quote-close);
     display: block;
     font-size: 12rem;
 }
@@ -308,7 +308,7 @@ main>card.feedback>.content>.item>.owner {
     position: absolute;
 }
 
-main>card.feedback>.content>.item>.owner::after {
+main>card.feedback>.content>.item>.owner[role]::after {
     color: var(--mdc-on-surface-variant);
     content: attr(role);
     display: block;
@@ -378,12 +378,7 @@ main>card.blog>.content>.item>p.title {
     text-overflow: ellipsis;
 }
 
-/* main>card.blog>.content>.item>.mdi {
-    bottom: 20rem;
-    position: absolute;
-} */
-
-main>card.blog>.content>.item>.mdi {
+main>card.blog>.content>.item>.mdi-b {
     font-size: 8rem;
     height: 16rem;
     line-height: 16rem;
@@ -393,12 +388,16 @@ main>card.blog>.content>.item>.mdi {
     position: relative;
 }
 
-main>card.blog>.content>.item>.mdi::before {
+main>card.blog>.content>.item>.mdi-b::before {
     font-size: 12rem;
     height: 16rem;
     left: 0;
     line-height: 16rem;
     position: absolute;
+}
+
+main>card.blog>.content>.item>.calendar.mdi-b::before {
+    content: var(--mdi-calendar);
 }
 
 main>card.blog>.content>.item>.detail {
@@ -437,7 +436,7 @@ main>card.footer {
     width: calc(100em - 16rem);
 }
 
-main>card.footer::after {
+main>card.footer[copyright]::after {
     border: none;
     border-top: solid 1.25rem var(--mdc-on-surface);
     bottom: 0;
@@ -488,7 +487,7 @@ main>card.footer>.group {
     width: 180rem;
 }
 
-main>card.footer>.group::before {
+main>card.footer>.group[label]::before {
     color: var(--mdc-on-surface);
     content: attr(label);
     display: block;
@@ -528,7 +527,7 @@ main>card.footer>.contact {
     width: 260rem;
 }
 
-main>card.footer>.contact>.mdi {
+main>card.footer>.contact>.mdi-b {
     color: var(--mdc-on-surface-variant);
     display: block;
     font-family: Jost, "Source Sans Pro";
@@ -541,12 +540,25 @@ main>card.footer>.contact>.mdi {
     text-decoration: none;
 }
 
-main>card.footer>.contact>.mdi::before {
+main>card.footer>.contact>.mdi-b::before {
     font-size: 20rem;
     height: 24rem;
+    line-height: 24rem;
     text-align: center;
-    vertical-align: baseline;
+    vertical-align: middle;
     width: 36rem;
+}
+
+main>card.footer>.contact>.addr.mdi-b::before {
+    content: var(--mdi-office-building);
+}
+
+main>card.footer>.contact>.tel.mdi-b::before {
+    content: var(--mdi-deskphone);
+}
+
+main>card.footer>.contact>.mob.mdi-b::before {
+    content: var(--mdi-cellphone);
 }
 
 @media only screen and (max-width: 719px) {

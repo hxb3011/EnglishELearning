@@ -1,46 +1,40 @@
 
-/* mdi-book-open */
 nav>a.nav-item.-dictionary::before {
-    content: "\F0B63";
+    content: var(--mdi-book-open-outline);
 }
 
 nav>a.nav-item.-dictionary._selected::before {
-    content: "\F00BD";
+    content: var(--mdi-book-open);
 }
 
-/* mdi-book-multiple */
 nav>a.nav-item.-courses::before {
-    content: "\F0436";
+    content: var(--mdi-book-multiple-outline);
 }
 
 nav>a.nav-item.-courses._selected::before {
-    content: "\F00BB";
+    content: var(--mdi-book-multiple);
 }
 
-/* mdi-comment-text-multiple */
 nav>a.nav-item.-blogs::before {
-    content: "\F0861";
+    content: var(--mdi-comment-text-multiple-outline);
 }
 
 nav>a.nav-item.-blogs._selected::before {
-    content: "\F0860";
+    content: var(--mdi-comment-text-multiple);
 }
 
-/* mdi-account-circle */
 nav>a.nav-item.-profile::before {
-    content: "\F0B55";
+    content: var(--mdi-account-circle-outline);
 }
 
 nav>a.nav-item.-profile._selected::before {
-    content: "\F0009";
+    content: var(--mdi-account-circle);
 }
 
-/* mdi-magnify */
 nav>a.nav-item.-search._action::before {
-    content: "\F0349";
+    content: var(--mdi-magnify);
 }
 
-/* mdi-arrow-left */
 nav>a.nav-item.-back._action::before {
-    content: "\F004D";
+    content: var(--mdi-arrow-left);
 }
