@@ -56,16 +56,12 @@ nav.drawer>a.nav-item._selected {
     background-color: var(--mdc-secondary-container);
 }
 
-nav.drawer>a.nav-item._selected:active {
-    background-color: var(--mdc-surface-variant);
-}
-
 nav.drawer>a.nav-item._selected:is(:focus, :hover) {
     background-color: var(--mdc-secondary-fixed-dim);
 }
 
-nav.drawer>a.nav-item:active::before {
-    color: var(--mdc-on-surface);
+nav.drawer>a.nav-item._selected:active {
+    background-color: var(--mdc-surface-variant);
 }
 
 nav.drawer>a.nav-item:is(:focus, :hover)::before {
@@ -73,18 +69,22 @@ nav.drawer>a.nav-item:is(:focus, :hover)::before {
     text-shadow: 0 0 1rem var(--mdc-on-surface);
 }
 
-nav.drawer>a.nav-item._selected::before {
-    color: var(--mdc-on-secondary-container);
+nav.drawer>a.nav-item:active::before {
+    color: var(--mdc-on-surface);
 }
 
-nav.drawer>a.nav-item._selected:active::before {
-    color: var(--mdc-on-surface-variant);
-    text-shadow: none;
+nav.drawer>a.nav-item._selected::before {
+    color: var(--mdc-on-secondary-container);
 }
 
 nav.drawer>a.nav-item._selected:is(:focus, :hover)::before {
     color: var(--mdc-on-secondary-fixed-variant);
     text-shadow: 0 0 1rem var(--mdc-on-secondary-fixed-variant);
+}
+
+nav.drawer>a.nav-item._selected:active::before {
+    color: var(--mdc-on-surface-variant);
+    text-shadow: none;
 }
 
 nav.drawer>a.nav-item::after,
@@ -104,13 +104,13 @@ nav.drawer>a.nav-item._action::after {
     text-align: start;
 }
 
-nav.drawer>a.nav-item:active::after {
-    color: var(--mdc-on-surface);
-}
-
 nav.drawer>a.nav-item:is(:focus, :hover)::after {
     color: var(--mdc-on-surface);
     font-family: "Roboto Black";
+}
+
+nav.drawer>a.nav-item:active::after {
+    color: var(--mdc-on-surface);
 }
 
 nav.drawer>a.nav-item._selected::after {
@@ -118,14 +118,14 @@ nav.drawer>a.nav-item._selected::after {
     font-family: "Roboto Bold";
 }
 
-nav.drawer>a.nav-item._selected:active::after {
-    color: var(--mdc-on-surface);
-    font-family: "Roboto Medium";
-}
-
 nav.drawer>a.nav-item._selected:is(:focus, :hover)::after {
     color: var(--mdc-on-surface);
     font-family: "Roboto Black";
+}
+
+nav.drawer>a.nav-item._selected:active::after {
+    color: var(--mdc-on-surface);
+    font-family: "Roboto Medium";
 }
 
 nav.drawer>a.nav-item.-profile {

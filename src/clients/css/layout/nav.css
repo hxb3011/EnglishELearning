@@ -28,15 +28,16 @@ nav>a.nav-item::before {
     text-align: center;
 }
 
-nav>a.nav-item:active::before {
-    background-color: var(--mdc-surface-container-highest);
-    color: var(--mdc-on-surface);
-}
-
 nav>a.nav-item:is(:focus, :hover)::before {
     background-color: var(--mdc-surface-container-highest);
     color: var(--mdc-on-surface);
     text-shadow: 0 0 1rem var(--mdc-on-surface);
+}
+
+nav>a.nav-item:active::before {
+    background-color: var(--mdc-surface-container-highest);
+    color: var(--mdc-on-surface);
+    text-shadow: none;
 }
 
 nav>a.nav-item._selected::before {
@@ -44,16 +45,16 @@ nav>a.nav-item._selected::before {
     color: var(--mdc-on-secondary-container);
 }
 
-nav>a.nav-item._selected:active::before {
-    background-color: var(--mdc-surface-variant);
-    color: var(--mdc-on-surface-variant);
-    text-shadow: none;
-}
-
 nav>a.nav-item._selected:is(:focus, :hover)::before {
     background-color: var(--mdc-secondary-fixed-dim);
     color: var(--mdc-on-secondary-fixed-variant);
     text-shadow: 0 0 1rem var(--mdc-on-secondary-fixed-variant);
+}
+
+nav>a.nav-item._selected:active::before {
+    background-color: var(--mdc-surface-variant);
+    color: var(--mdc-on-surface-variant);
+    text-shadow: none;
 }
 
 nav>a.nav-item::after {
@@ -67,13 +68,14 @@ nav>a.nav-item::after {
     text-align: center;
 }
 
-nav>a.nav-item:active::after {
-    color: var(--mdc-on-surface);
-}
-
 nav>a.nav-item:is(:focus, :hover)::after {
     color: var(--mdc-on-surface);
     font-family: "Roboto Black";
+}
+
+nav>a.nav-item:active::after {
+    color: var(--mdc-on-surface);
+    font-family: "Roboto Medium";
 }
 
 nav>a.nav-item._selected::after {
@@ -81,14 +83,14 @@ nav>a.nav-item._selected::after {
     font-family: "Roboto Bold";
 }
 
-nav>a.nav-item._selected:active::after {
-    color: var(--mdc-on-surface);
-    font-family: "Roboto Medium";
-}
-
 nav>a.nav-item._selected:is(:focus, :hover)::after {
     color: var(--mdc-on-surface);
     font-family: "Roboto Black";
+}
+
+nav>a.nav-item._selected:active::after {
+    color: var(--mdc-on-surface);
+    font-family: "Roboto Medium";
 }
 
 nav>a.nav-item._action::before {
@@ -99,15 +101,16 @@ nav>a.nav-item._action::before {
     padding: 16rem;
 }
 
-nav>a.nav-item._action:active::before {
-    background-color: var(--mdc-surface-container-highest);
-    color: var(--mdc-on-surface);
-}
-
 nav>a.nav-item._action:is(:focus, :hover)::before {
     background-color: var(--mdc-tertiary-fixed-dim);
     color: var(--mdc-on-tertiary-fixed-variant);
     text-shadow: 0 0 1rem var(--mdc-on-tertiary-fixed-variant);
+}
+
+nav>a.nav-item._action:active::before {
+    background-color: var(--mdc-surface-container-highest);
+    color: var(--mdc-on-surface);
+    text-shadow: none;
 }
 
 nav>a.nav-item._action::after {

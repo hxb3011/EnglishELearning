@@ -1,4 +1,4 @@
-main>card {
+main card {
     background-color: var(--mdc-surface-container);
     border-radius: 24rem;
     box-sizing: border-box;
@@ -9,11 +9,11 @@ main>card {
     unicode-bidi: isolate;
 }
 
-main>card.section {
+main card.section {
     padding: 20rem;
 }
 
-main>card.section>.heading {
+main card.section>.heading {
     align-items: start;
     display: flex;
     flex-flow: column nowrap;
@@ -23,19 +23,18 @@ main>card.section>.heading {
     height: 50rem;
 }
 
-main>card.section>.heading::before {
+main card.section>.heading[title]::before {
     display: block;
     font-size: 20rem;
     font-weight: 600;
     line-height: 1.2;
-    text-transform: capitalize;
     color: var(--mdc-on-surface);
     content: attr(title);
     font-family: Exo, 'Source Sans Pro';
     white-space: nowrap;
 }
 
-main>card.section>.heading::after {
+main card.section>.heading[sub-title]::after {
     display: block;
     font-size: 11.25rem;
     font-weight: 400;
@@ -47,7 +46,7 @@ main>card.section>.heading::after {
     white-space: nowrap;
 }
 
-main>card.section>.heading>a {
+main card.section>.heading>a {
     background-color: var(--mdc-surface-container);
     border: solid 1.25rem var(--mdc-outline-variant);
     border-radius: 12.5rem;
@@ -64,22 +63,21 @@ main>card.section>.heading>a {
     right: 0;
     text-align: center;
     text-decoration: none;
-    text-transform: none;
     white-space: nowrap;
     width: 100rem;
 }
 
-main>card.section>.heading>a:active {
-    background-color: var(--mdc-surface-container-highest);
-    border: solid 1.25rem var(--mdc-surface-tint);
-}
-
-main>card.section>.heading>a:is(:focus, :hover) {
+main card.section>.heading>a:is(:focus, :hover) {
     background-color: var(--mdc-surface-container-highest);
     border: solid 1.25rem var(--mdc-outline);
 }
 
-main>card.banner {
+main card.section>.heading>a:active {
+    background-color: var(--mdc-surface-container-highest);
+    border: solid 1.25rem var(--mdc-surface-tint);
+}
+
+main card.banner {
     align-items: start;
     display: flex;
     flex-flow: column nowrap;
@@ -90,18 +88,17 @@ main>card.banner {
     position: relative;
 }
 
-main>card.banner>h1 {
+main card.banner>h1 {
     color: var(--mdc-on-primary-fixed);
     font-family: Exo, 'Source Sans Pro';
     font-size: 4.2em;
     font-weight: 600;
     line-height: 1.2;
     margin: 0;
-    text-transform: capitalize;
     width: 60%;
 }
 
-main>card.banner>p {
+main card.banner>p {
     color: var(--mdc-on-primary-fixed-variant);
     font-family: Jost, 'Source Sans Pro';
     font-size: 1.675em;
@@ -112,7 +109,7 @@ main>card.banner>p {
     width: 47.5%;
 }
 
-main>card.banner>a {
+main card.banner>a {
     background-color: var(--mdc-primary);
     border-radius: 1.2em;
     color: var(--mdc-on-primary);
@@ -125,16 +122,15 @@ main>card.banner>a {
     padding: 0 1.2em;
     text-align: center;
     text-decoration: none;
-    text-transform: none;
     white-space: nowrap;
 }
 
-main>card.banner>a:active {
-    background-color: var(--mdc-primary-fixed-dim);
-    color: var(--mdc-on-primary-fixed-variant);
-}
-
-main>card.banner>a:is(:focus, :hover) {
+main card.banner>a:is(:focus, :hover) {
     background-color: var(--mdc-primary-fixed);
     color: var(--mdc-on-primary-fixed);
+}
+
+main card.banner>a:active {
+    background-color: var(--mdc-primary-fixed-dim);
+    color: var(--mdc-on-primary-fixed-variant);
 }
