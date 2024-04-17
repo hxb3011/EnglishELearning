@@ -51,11 +51,12 @@ $page->beforeDocument();
 </head>
 
 <body mdc-theme="light">
+    <? if ( !property_exists($page,'hideNav')): ?>
     <nav>
         <a class="mdi-b nav-item -search _action" hint="Tìm kiếm" href="#"></a>
         <a class="mdi-b nav-item -dictionary" hint="Từ điển" href="#"></a>
         <a class="mdi-b nav-item -courses" hint="Khoá học" href="#"></a>
-        <a class="mdi-b nav-item -blogs" hint="Bài viết" href="#"></a>
+        <a class="mdi-b nav-item -blogs" hint="Bài viết" href="/blog/all.php"></a>
         <a class="mdi-b nav-item -profile" hint="Cá nhân" href="/profile/index.php"></a>
     </nav>
     <nav class="drawer -dictionary _closed">
@@ -65,13 +66,13 @@ $page->beforeDocument();
     </nav>
     <nav class="drawer -courses _closed">
         <a class="mdi-b nav-item -back _action" hint="Khoá học" href="#"></a>
-        <a class="mdi-b nav-item -courses" hint="Các khoá học" href="#"></a>
+        <a class="mdi-b nav-item -courses" hint="Các khoá học" href="/courses/all.php"></a>
         <a class="mdi-b nav-item -courses" hint="Khoá học của tôi" href="#"></a>
         <a class="mdi-b nav-item -courses _selected" hint="Giới thiệu" href="#"></a>
     </nav>
+    <? endif ?>
     <main><? $page->body(); ?></main>
     <scrim></scrim>
 </body>
-
 </html>
 <? $page->afterDocument(); ?>
