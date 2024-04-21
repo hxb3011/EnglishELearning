@@ -121,9 +121,85 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                 <div class="tab-pane active" id="program">
                                                     <div class="row ">
                                                         <div class="col-md-12 mt-4 mb-4 d-flex justify-content-center">
-                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1 me-4" onclick="showAjaxModal('http://localhost:62280/administration/courses/modal/add_video.php','Thêm video khóa học')"><i class="mdi mdi-plus"></i> Thêm video bài giảng</a>
-                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1 me-4" onclick=""><i class="mdi mdi-plus"></i> Thêm tài liệu</a>
+                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1 me-4" onclick="showAjaxModal('http://localhost:62280/administration/courses/modal/add_lesson.php','Thêm bài học')"><i class="mdi mdi-plus"></i> Thêm bài giảng</a>
                                                             <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick=""><i class="mdi mdi-plus"></i> Thêm bài kiểm</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-8 offset-md-2">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="d-flex align-items-center justify-content-end mb-2">
+                                                                        <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1 me-4"><i class="mdi mdi-sort"></i> Sắp xếp khóa học</a>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                                <div class="col-12">
+                                                                    <div class="card bg-light text-seconday ps-4 pe-4">
+                                                                        <div class="card-body">
+                                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                                <div class="card-title">
+                                                                                    Tên bài
+                                                                                </div>
+                                                                                <div class="card-widget">
+                                                                                    <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1 me-4"><i class="mdi mdi-sort"></i> Sắp xếp bài học</a>
+
+                                                                                    <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showAjaxModal('http://localhost:62280/administration/courses/modal/add_document.php','Thêm tài liệu')"><i class="mdi mdi-plus"></i> Thêm tài liệu</a>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="program__lesson bg-white ps-3 pe-3 pt-3 pb-3 mt-3 rounded-1 d-flex justify-content-between align-items-center" style="box-shadow: 0 0 35px 0 rgba(154, 161, 171, .15);">
+                                                                                <h5 class="card-title mb-0">
+                                                                                    <span class="font-weight-light">
+                                                                                        <i class="mdi video"></i>
+                                                                                        Hello
+                                                                                    </span>
+                                                                                </h5>
+                                                                                <div class="card-widget">
+                                                                                    <a href="" class="">
+                                                                                        <i class="mdi pen"></i>
+                                                                                    </a>
+                                                                                    <a href="">
+                                                                                        <i class="mdi close"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="program__lesson bg-white ps-3 pe-3 pt-3 pb-3 mt-3 rounded-1 d-flex justify-content-between align-items-center" style="box-shadow: 0 0 35px 0 rgba(154, 161, 171, .15);">
+                                                                                <h5 class="card-title mb-0">
+                                                                                    <span class="font-weight-light">
+                                                                                        <i class="mdi document"></i>
+                                                                                        Hello
+                                                                                    </span>
+                                                                                </h5>
+                                                                                <div class="card-widget">
+                                                                                    <a href="" class="">
+                                                                                        <i class="mdi pen"></i>
+                                                                                    </a>
+                                                                                    <a href="">
+                                                                                        <i class="mdi close"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="program__lesson bg-white ps-3 pe-3 pt-3 pb-3 mt-3 rounded-1 d-flex justify-content-between align-items-center" style="box-shadow: 0 0 35px 0 rgba(154, 161, 171, .15);">
+                                                                                <h5 class="card-title mb-0">
+                                                                                    <span class="font-weight-light">
+                                                                                        <i class="mdi quiz"></i>
+                                                                                        Hello
+                                                                                    </span>
+                                                                                </h5>
+                                                                                <div class="card-widget">
+                                                                                    <a href="" class="">
+                                                                                        <i class="mdi pen"></i>
+                                                                                    </a>
+                                                                                    <a href="">
+                                                                                        <i class="mdi close"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -441,16 +517,6 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                         </div> <!-- end col -->
                                                     </div> <!-- end row -->
                                                 </div>
-
-                                                <ul class="list-inline mb-0 wizard text-center">
-                                                    <li class="previous list-inline-item disabled">
-                                                        <a href="javascript::" class="btn btn-info"> <i class="mdi mdi-arrow-left-bold"></i> </a>
-                                                    </li>
-                                                    <li class="next list-inline-item">
-                                                        <a href="javascript::" class="btn btn-info"> <i class="mdi mdi-arrow-right-bold"></i> </a>
-                                                    </li>
-                                                </ul>
-
                                             </div>
                                         </div>
                                     </form>
@@ -461,20 +527,19 @@ class EditCoursePage extends BaseHTMLDocumentPage
                 </div>
             </div>
         </div>
+
         <div class="modal fade" id="scrollable-modal" tabindex="-1" role="dialog" aria-labelledby="scrollableModalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header justify-content-between">
                         <h5 class="modal-title" id="scrollableModalTitle">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body ml-2 mr-2">
 
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -492,12 +557,17 @@ class EditCoursePage extends BaseHTMLDocumentPage
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
-<?
+        <?
         $this->scripts(
             "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
             "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
             "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js",
             "/clients/js/admin/main.js"
         );
+        ?>
+        <script>
+
+        </script>
+<?
     }
 }

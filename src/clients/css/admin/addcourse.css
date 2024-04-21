@@ -1,8 +1,26 @@
+.mdi.sort::before{
+    content: '\F04BA';
+}
 .mdi.poster::before{
     content: '\F02EB';
 }
 .mdi.program::before{
     content: '\F1B7B';
+}
+.mdi.video::before{
+    content: "\F0567";
+}
+.mdi.pen::before{
+    content: "\F03EB";
+}
+.mdi.close::before{
+    content: '\F0156';
+}
+.mdi.document::before{
+    content: '\F0219';
+}
+.mdi.quiz::before{
+    content: '\F0625';
 }
 .form-wizard-header{
     background-color: #e3eaef;
@@ -57,4 +75,14 @@
     display: flex;
     width: 100%;
 }
-
+.program__lesson a{
+    text-decoration: none;
+    color:#6c757d ;
+}
+.program__lesson a:hover{
+    text-decoration: none;
+    color:#5c646b ;
+}
+.bg-light{
+    background-color: #e3eaef !important;
+}

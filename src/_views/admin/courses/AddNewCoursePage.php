@@ -407,7 +407,6 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                                                             </div>
                                                         </div>
                                                         <!-- this portion will be generated theme wise from the theme-config.json file Ends-->
-
                                                     </div> <!-- end row -->
                                                 </div>
                                                 <div class="tab-pane" id="finish">
@@ -426,16 +425,6 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                                                         </div> <!-- end col -->
                                                     </div> <!-- end row -->
                                                 </div>
-
-                                                <ul class="list-inline mb-0 wizard text-center">
-                                                    <li class="previous list-inline-item disabled">
-                                                        <a href="javascript::" class="btn btn-info"> <i class="mdi mdi-arrow-left-bold"></i> </a>
-                                                    </li>
-                                                    <li class="next list-inline-item">
-                                                        <a href="javascript::" class="btn btn-info"> <i class="mdi mdi-arrow-right-bold"></i> </a>
-                                                    </li>
-                                                </ul>
-
                                             </div>
                                         </div>
                                     </form>

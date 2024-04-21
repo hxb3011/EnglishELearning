@@ -1,13 +1,17 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php"; 
+requirm('/dao/CourseModel.php');
 class AdminCourses{
+    
+    public CourseModel $courseModel;
     public function __construct()
     {
-        
+        $this->courseModel = new CourseModel();
     }
     public function index(){
         requirv("admin/courses/ManageAllCoursePage.php");
         global $page;
+        //$this->courseModel->seedDumbData();
         $page = new ManageAllCoursePage();
         requira("_adminLayout.php");
     }
@@ -25,8 +29,12 @@ class AdminCourses{
         requira("_adminLayout.php");
     }
     /* Modal */
-    public function add_video_modal()
+    public function add_lesson_modal()
     {
-        requirv("admin/courses/modal/add_video.php");
+        requirv("admin/courses/modal/add_lesson.php");
+    }
+    public function add_document_modal()
+    {
+        requirv("admin/courses/modal/add_document.php");
     }
 }
