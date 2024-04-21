@@ -11,7 +11,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -162,7 +161,7 @@ CREATE TABLE `document` (
   `Description` text DEFAULT NULL,
   `DocUri` varchar(255) DEFAULT NULL,
   `State` tinyint(4) DEFAULT NULL,
-  `CourseID` varchar(20) DEFAULT NULL
+  `LessonID` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -506,7 +505,7 @@ ALTER TABLE `course`
 -- Chỉ mục cho bảng `document`
 --
 ALTER TABLE `document`
-  ADD KEY `FK_CourseID_document_course` (`CourseID`);
+  ADD KEY `FK_CourseID_document_lesson` (`LessonID`);
 
 --
 -- Chỉ mục cho bảng `example`
@@ -547,6 +546,7 @@ ALTER TABLE `lemma`
 -- Chỉ mục cho bảng `lesson`
 --
 ALTER TABLE `lesson`
+  ADD PRIMARY KEY(`ID`),
   ADD KEY `FK_CourseID_lesson_course` (`CourseID`);
 
 --
@@ -765,7 +765,7 @@ ALTER TABLE `course`
 -- Các ràng buộc cho bảng `document`
 --
 ALTER TABLE `document`
-  ADD CONSTRAINT `FK_CourseID_document_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`);
+  ADD CONSTRAINT `FK_CourseID_document_lesson` FOREIGN KEY (`LessonID`) REFERENCES `lesson` (`ID`);
 
 --
 -- Các ràng buộc cho bảng `example`

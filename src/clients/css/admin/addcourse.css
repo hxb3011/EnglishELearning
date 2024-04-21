@@ -1,6 +1,9 @@
 .mdi.poster::before{
     content: '\F02EB';
 }
+.mdi.program::before{
+    content: '\F1B7B';
+}
 .form-wizard-header{
     background-color: #e3eaef;
 }
@@ -54,3 +57,4 @@
     display: flex;
     width: 100%;
 }
+

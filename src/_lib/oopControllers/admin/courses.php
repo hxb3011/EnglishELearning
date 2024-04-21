@@ -17,4 +17,16 @@ class AdminCourses{
         $page = new AddNewCoursePage();
         requira("_adminLayout.php");
     }
+    public function edit($courseID = 1)
+    {
+        requirv("admin/courses/EditCoursePage.php");
+        global $page;
+        $page = new EditCoursePage();
+        requira("_adminLayout.php");
+    }
+    /* Modal */
+    public function add_video_modal()
+    {
+        requirv("admin/courses/modal/add_video.php");
+    }
 }
