@@ -42,3 +42,9 @@ function showLargeModal(url, header) {
     });
 }
 
+function initSummerNote(id) {
+    $(id).summernote({
+        placeholder: "",
+        height: 230,
+    })
+}

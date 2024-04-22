@@ -86,3 +86,33 @@
 .bg-light{
     background-color: #e3eaef !important;
 }
+button:focus{
+    background-color: #ff782d !important;
+    border-color: #ff782d !important;
+    color: white;
+}
+button:active{
+    background-color: #ff782d !important;
+    border-color: #ff782d !important;
+    color: white;
+}
+button:focus-visible{
+    background-color: #ff782d !important;
+    border-color: #ff782d !important;
+    color: white;
+}
+a.btn:focus{
+    background-color: #ff782d !important;
+    border-color: #ff782d !important;
+    color: white;
+}
+a.btn:active{
+    background-color: #ff782d !important;
+    border-color: #ff782d !important;
+    color: white;
+}
+a.btn:focus-visible{
+    background-color: #ff782d !important;
+    border-color: #ff782d !important;
+    color: white;
+}
