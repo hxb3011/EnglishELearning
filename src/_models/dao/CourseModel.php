@@ -5,29 +5,24 @@ requirm('/access/Course.php');
 class CourseModel{
     public function getAllCourse()
     {
-        
-    }
-    public function seedDumbData(){
-        $course = new Course('1','hello','descreption',1,'USER001',new DateTime(),new DateTime(),100);
-        $sqlQuery = "INSERT INTO `course`(ID,Description,PosterUri,State,ProfileID,BeginDate,EndDate,Price) VALUES(?,?,?,?,?,STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),?)";
-        $formattedBeginDate = $course->beginDate->format('d-m-Y H:i:s');
-        $formattedEndDate = $course->endDate->format('d-m-Y H:i:s');
-
-        $params = [
-            'ID'=>$course->id,
-            'Description'=>$course->description,
-            'PosterUri'=>$course->posterURI,
-            'State'=>$course->state,
-            'ProfileID'=>$course->profileID,
-            'BeginDate'=>$formattedBeginDate,
-            'EndDate'=>$formattedEndDate,
-            'Price'=> $course->price,
-        ];
+       $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID";
         try{
-            Database::executeNonQuery($sqlQuery,$params);
-        }catch(Exception $e){
+            $result = Database::executeQuery($sqlQuery);
+            if ($result != null)
+            {
+                $courses = [];
+                foreach($result as $index=>$value){
+                     $course = new Course();
+                     $course->constructFromArray($value);
 
-            $e->getMessage();
+                     $courses[] = $course;
+                }
+                return $courses;
+            }else{
+                return null;
+            }
+        }catch(Exception $e){
+            return null;
         }
     }
 }

@@ -33,11 +33,11 @@ final class LearnPage extends BaseHTMLDocumentPage
     public function head()
     {
         $this->styles(
-            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
+            "/node_modules/bootstrap/dist/css/bootstrap.min.css",
             "/clients/css/courses/learn.css",
         );
         $this->scripts(
-            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+            "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
         );
     }
 
@@ -150,9 +150,9 @@ final class LearnPage extends BaseHTMLDocumentPage
         </div>
         <?
         $this->scripts(
-            "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
+            "/node_modules/jquery/dist/jquery.min.js",
             "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
-            "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            "/node_modules/bootstrap/dist/js/bootstrap.min.js"
         );
         ?>
 <?

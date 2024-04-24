@@ -8,8 +8,14 @@ class Course{
     public DateTime $beginDate;
     public DateTime $endDate;
     public float $price;
+    public string $name;
 
-    public function __construct(string $id ,string $posterURI,string $description ,int $state,string $profileID,DateTime $beginDate,DateTime $endDate,float $price)
+    public string $tutorName;
+    public function __construct()
+    {
+        
+    }
+    public function construct(string $id ,string $posterURI,string $description ,int $state,string $profileID,DateTime $beginDate,DateTime $endDate,float $price,string $name)
     {
         $this->id = $id;
         $this->posterURI = $posterURI;
@@ -19,6 +25,21 @@ class Course{
         $this->beginDate = $beginDate;
         $this->endDate = $endDate;
         $this->price = $price;
+        $this->name = $name;
+    }
+
+    public function constructFromArray($arrayValue)
+    {
+        $this->id = $arrayValue['ID'];
+        $this->posterURI = $arrayValue['PosterUri'];
+        $this->description = $arrayValue['Description'];
+        $this->state = $arrayValue['State'];
+        $this->profileID = $arrayValue['ProfileID'];    ;
+        $this->beginDate = new DateTime($arrayValue['BeginDate']);
+        $this->endDate = new DateTime($arrayValue['EndDate']);
+        $this->price =  floatval($arrayValue['Price']);
+        $this->name = $arrayValue['Name'];
+        $this->tutorName =  $arrayValue['LastName'].' '.$arrayValue['FirstName'];  
     }
 
 

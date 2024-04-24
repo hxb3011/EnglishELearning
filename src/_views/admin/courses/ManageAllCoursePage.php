@@ -3,6 +3,7 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
 class ManageAllCoursePage extends BaseHTMLDocumentPage
 {
+    public $courses = array();
     public function __construct()
     {
         parent::__construct();
@@ -30,12 +31,10 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
     public function head()
     {
         $this->styles(
-            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
+            "/node_modules/bootstrap/dist/css/bootstrap.min.css",
             "/clients/css/admin/main.css"
         );
-        $this->scripts(
-            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
-        );
+
     }
 
     public function body()
@@ -97,35 +96,49 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                                                 <th scope="col">Actions</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>
-                                                    Ngày bắt đầu <br/>
-                                                    Ngày kết thúc 
-                                                </td>
-                                                <td>
-                                                    <span class="badge text-bg-success">Active</span>
-                                                    <span class="badge text-bg-danger">InActive</span>
-                                                </td>
-                                                <td>
-                                                    <span class="badge text-bg-secondary">10 VNĐ</span>
-                                                </td>
-                                                <td>
-                                                    <div class="dropright">
-                                                        <button type="button" class="btn btn-sm btn-outline-primary btn-rounded btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="mdi mdi-dots-vertical"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="/courses/detail.php" target="_blank">Xem khóa học</a></li>
-                                                            <li><a class="dropdown-item" href="/administration/courses/edit.php">Sửa khóa học</a></li>
-                                                            <li><a class="dropdown-item" href="javascript::" onclick="">Xóa</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                        <tbody id="table_body">
+                                            <?php
+                                            foreach ($this->courses as $index => $course) :
+                                            ?>
+                                                <tr>
+                                                    <th scope="row"><? echo ($index + 1) ?></th>
+                                                    <td><? echo ($course->name) ?></td>
+                                                    <td><? echo ($course->tutorName) ?></td>
+                                                    <td>
+                                                        Ngày bắt đầu : <? echo ($course->beginDate->format('d-m-Y')); ?>
+                                                        <br />
+                                                        Ngày kết thúc : <? echo ($course->endDate->format('d-m-Y')); ?>
+                                                    </td>
+                                                    <td>
+                                                        <? if ($course->state == 1) : ?>
+                                                            <span class="badge text-bg-success">Hoạt động</span>
+                                                        <? else : ?>
+                                                            <span class="badge text-bg-danger">Ngưng</span>
+                                                        <? endif ?>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge text-bg-secondary"><? echo ($course->price); ?> VNĐ</span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="dropright">
+                                                            <button type="button" class="btn btn-sm btn-outline-primary btn-rounded btn-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="mdi mdi-dots-vertical"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <?
+                                                                echo (
+                                                                    '<li><a class="dropdown-item" href="/courses/detail.php/' . $course->id . '" target="_blank">Xem khóa học</a></li>'
+                                                                );
+                                                                echo (
+                                                                    '<li><a class="dropdown-item" href="/administration/courses/edit.php/' . $course->id . '">Sửa khóa học</a></li>
+                                                                        '
+                                                                );
+                                                                ?>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -139,9 +152,9 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
 
 <?
         $this->scripts(
-            "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
-            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
-            "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js",
+            "/node_modules/jquery/dist/jquery.min.js",
+            "/node_modules/@popperjs/core/dist/umd/popper.min.js",
+            "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
             "/clients/js/admin/main.js"
         );
     }

@@ -30,14 +30,14 @@ class EditCoursePage extends BaseHTMLDocumentPage
     public function head()
     {
         $this->styles(
-            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
+            "/node_modules/bootstrap/dist/css/bootstrap.min.css",
             "/node_modules/dragula/dist/dragula.min.css",
             "/node_modules/summernote/dist/summernote-bs4.min.css",
             "/clients/css/admin/main.css",
             "/clients/css/admin/addcourse.css"
         );
         $this->scripts(
-            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+            "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
         );
     }
     public function body()
@@ -72,54 +72,47 @@ class EditCoursePage extends BaseHTMLDocumentPage
                             <div style="margin-top:24px; margin-bottom:24px;"></div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="#" class="" method="post" enctype="multipart/form-data">
+                                    <form class="" method="get" enctype="multipart/form-data">
                                         <div class="basicwizard">
                                             <ul class="nav nav-pills nav-justified form-wizard-header">
                                                 <li class="nav-item">
-                                                    <a href="#program" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2 active">
+                                                    <button id="nav_program" data-bs-toggle="tab" class="nav-link rounded-0 pt-2 pb-2 active" type="button" data-bs-target="#program" role="tab" aria-controls="program" aria-selected="true">
                                                         <i class="mdi program"></i>
                                                         <span class="d-none d-sm-inline">Chương trình</span>
-                                                    </a>
+                                                    </button>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#basic" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                                    <button id="nav_basic" data-bs-toggle="tab" class="nav-link rounded-0 pt-2 pb-2" type="button" data-bs-target="#basic" role="tab" aria-controls="basic" aria-selected="true">
                                                         <i class="mdi mdi-fountain-pen-tip"></i>
                                                         <span class="d-none d-sm-inline">Cơ bản</span>
-                                                    </a>
+                                                    </button>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#tutor" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                                    <button id="nav_assign" data-bs-toggle="tab" class="nav-link rounded-0 pt-2 pb-2" type="button" data-bs-target="#tutor" role="tab" aria-controls="tutor" aria-selected="false">
                                                         <i class="mdi mdi-camera-control"></i>
                                                         <span class="d-none d-sm-inline">Phân việc</span>
-                                                    </a>
+                                                    </button>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#pricing" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                                    <button data-bs-toggle="tab" id="nav_price" class="nav-link rounded-0 pt-2 pb-2" type="button" data-bs-target="#pricing" role="tab" aria-controls="pricing" aria-selected="false">
                                                         <i class="mdi mdi-currency-cny"></i>
                                                         <span class="d-none d-sm-inline">Giá</span>
-                                                    </a>
+                                                    </button>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#media" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                                    <button data-bs-toggle="tab" id="nav_poster" class="nav-link rounded-0 pt-2 pb-2" type="button" data-bs-target="#media" role="tab" aria-controls="media" aria-selected="false">
                                                         <i class="mdi poster"></i>
                                                         <span class="d-none d-sm-inline">Poster</span>
-                                                    </a>
+                                                    </button>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#finish" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                                    <button data-bs-toggle="tab" id="nav_finish" class="nav-link rounded-0 pt-2 pb-2" type="button" data-bs-target="#finish" role="tab" aria-controls="finish" aria-selected="false">
                                                         <i class="mdi mdi-checkbox-marked-circle-outline"></i>
                                                         <span class="d-none d-sm-inline">Hoàn thành</span>
-                                                    </a>
-                                                </li>
-                                                <li class="w-100 bg-white pb-3">
-                                                    <!--ajax page loader-->
-                                                    <div class="ajax_loader w-100">
-                                                        <div class="ajax_loaderBar"></div>
-                                                    </div>
-                                                    <!--end ajax page loader-->
+                                                    </button>
                                                 </li>
                                             </ul>
-                                            <div class="tab-content b-0 mb-0">
+                                            <div class="tab-content b-0 mb-0 mt-4">
                                                 <div class="tab-pane active" id="program">
                                                     <div class="row ">
                                                         <div class="col-md-12 mt-4 mb-4 d-flex justify-content-center">
@@ -222,14 +215,14 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane" id="basic">
+                                                <div class="tab-pane active" role="tabpanel" aria-labelledby="nav_basic" id="basic">
                                                     <div class="row justify-content-center">
                                                         <div class="col-xl-8">
                                                             <input type="hidden" name="course_type" value="general">
                                                             <div class="form-group row mb-3">
                                                                 <label class="col-md-2 col-form-label" for="course_title">Tên khóa học <span class="required">*</span> </label>
                                                                 <div class="col-md-10">
-                                                                    <input type="text" class="form-control" id="course_title" name="title" placeholder="Nhập tên khóa học" required="">
+                                                                    <input type="text" class="form-control" id="course_title" name="title" placeholder="Nhập tên khóa học">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row mb-3">
@@ -241,37 +234,36 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                             <div class="form-group row mb-3">
                                                                 <label class="col-md-2 col-form-label" for="start_date">Ngày bắt đầu <span class="required">*</span> </label>
                                                                 <div class="col-md-10">
-                                                                    <input type="datetime-local" class="form-control" id="start_date" name="start_date" placeholder="Chọn ngày bắt đầu" required="">
+                                                                    <input type="datetime-local" class="form-control" id="start_date" name="start_date" placeholder="Chọn ngày bắt đầu">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row mb-3">
                                                                 <label class="col-md-2 col-form-label" for="end_date">Ngày kết thúc <span class="required">*</span> </label>
                                                                 <div class="col-md-10">
-                                                                    <input type="datetime-local" class="form-control" id="end_date" name="end_date" placeholder="Chọn kết thúc" required="">
+                                                                    <input type="datetime-local" class="form-control" id="end_date" name="end_date" placeholder="Chọn kết thúc">
                                                                 </div>
                                                             </div>
                                                         </div> <!-- end col -->
                                                     </div> <!-- end row -->
                                                 </div> <!-- end tab pane -->
-                                                <div class="tab-pane" id="tutor">
+                                                <div class="tab-pane" role="tabpanel" aria-labelledby="nav_assign" id="tutor">
                                                     <div class="row justify-content-center">
                                                         <div class="col-xl-8">
                                                             <div class="form-group row mb-3">
                                                                 <label class="col-md-2 col-form-label" for="tutor">Giảng viên</label>
                                                                 <div class="col-md-10">
                                                                     <select class="form-select form-select-md mb-3" name="tutor" id="tutor">
-                                                                        <option value="">Lựa chọn giảng viên</option>
-                                                                        <option value="">Lê Tấn Minh Toàn</option>
-                                                                        <option value="">Huỳnh Xuân Bách</option>
-                                                                        <option value="">Koong Chấn Phong</option>
-                                                                        <option value=""></option>
+                                                                        <option>Lựa chọn giảng viên</option>
+                                                                        <option value="A">Lê Tấn Minh Toàn</option>
+                                                                        <option value="B">Huỳnh Xuân Bách</option>
+                                                                        <option value="C">Koong Chấn Phong</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane" id="pricing">
+                                                <div class="tab-pane" role="tabpanel" aria-labelledby="nav_price" id="pricing">
                                                     <div class="row justify-content-center">
                                                         <div class="col-xl-8">
                                                             <div class="paid-course-stuffs">
@@ -285,7 +277,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                         </div> <!-- end col -->
                                                     </div> <!-- end row -->
                                                 </div> <!-- end tab-pane -->
-                                                <div class="tab-pane" id="media">
+                                                <div class="tab-pane" role="tabpanel" aria-labelledby="nav_poster" id="media">
                                                     <div class="row justify-content-center">
                                                         <!-- this portion will be generated theme wise from the theme-config.json file Starts-->
                                                         <div class="col-xl-8">
@@ -297,7 +289,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                             <div class="js--image-preview" style="background-image: url(https://placehold.co/600x600); background-color: #F5F5F5;"></div>
                                                                             <div class="upload-options">
                                                                                 <label for="course_poster" class="btn"> <i class="mdi mdi-camera"></i> Poster <br> <small>(600 X 600)</small> </label>
-                                                                                <input id="course_poster" style="visibility:hidden;" type="file" class="image-upload" name="course_poster" accept="image/*">
+                                                                                <input id="course_poster" style="visibility:hidden;" type="file" class="image-upload" name="course_poster" id="course_poster" accept="image/*">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -305,10 +297,9 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                             </div>
                                                         </div>
                                                         <!-- this portion will be generated theme wise from the theme-config.json file Ends-->
-
                                                     </div> <!-- end row -->
                                                 </div>
-                                                <div class="tab-pane" id="finish">
+                                                <div class="tab-pane" role="tabpanel" aria-labelledby="nav_finish" id="finish">
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="text-center">
@@ -318,7 +309,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                 <p class="w-75 mb-2 mx-auto">Nhấn vào nút bên dưới</p>
 
                                                                 <div class="mb-3 mt-3">
-                                                                    <button type="button" class="btn btn-primary text-center" onclick="checkRequiredFields()">Xác nhận</button>
+                                                                    <button type="submit" class="btn btn-primary text-center" id="submit_add_course">Xác nhận</button>
                                                                 </div>
                                                             </div>
                                                         </div> <!-- end col -->
@@ -366,17 +357,18 @@ class EditCoursePage extends BaseHTMLDocumentPage
         </div>
         <?
         $this->scripts(
-            "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
+            "/node_modules/jquery/dist/jquery.min.js",
             "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
-            "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js",
+            "/node_modules/bootstrap/dist/js/bootstrap.min.js",
             "/node_modules/sweetalert/dist/sweetalert.min.js",
             "/node_modules/summernote/dist/summernote-bs4.min.js",
             "/node_modules/dragula/dist/dragula.min.js",
+            "/node_modules/jquery-validation/dist/jquery-validation.min.js",
             "/clients/js/admin/main.js"
         );
         ?>
         <script>
-            $(document).ready(function(){
+            $(document).ready(function() {
                 initSummerNote('#description');
             })
         </script>

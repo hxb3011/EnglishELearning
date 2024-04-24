@@ -41,6 +41,10 @@
 .btn-info{
     color: white;
 }
+.error{
+    color: red;
+    margin-top: 4px;
+}
 .image-box{
     width: 250px;
     display: block;

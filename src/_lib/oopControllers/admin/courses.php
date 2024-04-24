@@ -1,6 +1,7 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/CourseModel.php');
+requirm('/access/Course.php');
 class AdminCourses
 {
 
@@ -15,6 +16,7 @@ class AdminCourses
         global $page;
         //$this->courseModel->seedDumbData();
         $page = new ManageAllCoursePage();
+        $page->courses = $this->courseModel->getAllCourse();
         requira("_adminLayout.php");
     }
     public function add()
