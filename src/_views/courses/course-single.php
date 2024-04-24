@@ -205,8 +205,7 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
     <?
         $this->scripts(
             "/node_modules/jquery/dist/jquery.min.js",
-            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
-            "/node_modules/bootstrap/dist/js/bootstrap.min.js"
+            "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
         );
     }
 

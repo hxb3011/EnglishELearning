@@ -153,7 +153,6 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
 <?
         $this->scripts(
             "/node_modules/jquery/dist/jquery.min.js",
-            "/node_modules/@popperjs/core/dist/umd/popper.min.js",
             "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
             "/clients/js/admin/main.js"
         );

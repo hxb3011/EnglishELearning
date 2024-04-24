@@ -32,7 +32,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
         $this->styles(
             "/node_modules/bootstrap/dist/css/bootstrap.min.css",
             "/node_modules/dragula/dist/dragula.min.css",
-            "/node_modules/summernote/dist/summernote-bs4.min.css",
+            "/node_modules/summernote/dist/summernote-bs5.min.css",
             "/clients/css/admin/main.css",
             "/clients/css/admin/addcourse.css"
         );
@@ -72,7 +72,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                             <div style="margin-top:24px; margin-bottom:24px;"></div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form class="" method="get" enctype="multipart/form-data">
+                                    <form class="" action="#" method="get" enctype="multipart/form-data">
                                         <div class="basicwizard">
                                             <ul class="nav nav-pills nav-justified form-wizard-header">
                                                 <li class="nav-item">
@@ -82,7 +82,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                     </button>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <button id="nav_basic" data-bs-toggle="tab" class="nav-link rounded-0 pt-2 pb-2" type="button" data-bs-target="#basic" role="tab" aria-controls="basic" aria-selected="true">
+                                                    <button id="nav_basic" data-bs-toggle="tab" class="nav-link rounded-0 pt-2 pb-2" type="button" data-bs-target="#basic" role="tab" aria-controls="basic" aria-selected="false">
                                                         <i class="mdi mdi-fountain-pen-tip"></i>
                                                         <span class="d-none d-sm-inline">Cơ bản</span>
                                                     </button>
@@ -113,7 +113,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                 </li>
                                             </ul>
                                             <div class="tab-content b-0 mb-0 mt-4">
-                                                <div class="tab-pane active" id="program">
+                                                <div class="tab-pane active" id="program" role="tabpanel" aria-labelledby="nav_program">
                                                     <div class="row ">
                                                         <div class="col-md-12 mt-4 mb-4 d-flex justify-content-center">
                                                             <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1 me-4" onclick="showAjaxModal('http://localhost:62280/administration/courses/modal/add_lesson.php','Thêm bài học')"><i class="mdi mdi-plus"></i> Thêm bài giảng</a>
@@ -215,7 +215,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane active" role="tabpanel" aria-labelledby="nav_basic" id="basic">
+                                                <div class="tab-pane" id="basic" role="tabpanel" aria-labelledby="nav_basic" >
                                                     <div class="row justify-content-center">
                                                         <div class="col-xl-8">
                                                             <input type="hidden" name="course_type" value="general">
@@ -358,12 +358,11 @@ class EditCoursePage extends BaseHTMLDocumentPage
         <?
         $this->scripts(
             "/node_modules/jquery/dist/jquery.min.js",
-            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
-            "/node_modules/bootstrap/dist/js/bootstrap.min.js",
+            "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
             "/node_modules/sweetalert/dist/sweetalert.min.js",
-            "/node_modules/summernote/dist/summernote-bs4.min.js",
+            "/node_modules/summernote/dist/summernote-bs5.min.js",
             "/node_modules/dragula/dist/dragula.min.js",
-            "/node_modules/jquery-validation/dist/jquery-validation.min.js",
+            "/node_modules/jquery-validation/dist/jquery.validate.min.js",
             "/clients/js/admin/main.js"
         );
         ?>

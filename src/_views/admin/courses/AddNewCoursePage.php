@@ -31,7 +31,7 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
     {
         $this->styles(
             "/node_modules/bootstrap/dist/css/bootstrap.min.css",
-            "/node_modules/summernote/dist/summernote-bs4.min.css",
+            "/node_modules/summernote/dist/summernote-bs5.min.css",
             "/clients/css/admin/main.css",
             "/clients/css/admin/addcourse.css"
         );
@@ -59,7 +59,7 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                                         <span>
                                             Thêm khóa học
                                         </span>
-                                        <a type="button" href="/administration/courses/index.php"  class="btn btn-outline-primary btn-rounded btn-icon">
+                                        <a type="button" href="/administration/courses/index.php" class="btn btn-outline-primary btn-rounded btn-icon">
                                             <i class="mdi back"></i> Danh sách khóa học
                                         </a>
                                     </div>
@@ -68,7 +68,7 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                             <div style="margin-top:24px; margin-bottom:24px;"></div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form  enctype="multipart/form-data" id="form_add_course">
+                                    <form enctype="multipart/form-data" id="form_add_course">
                                         <div class="basicwizard">
                                             <ul class="nav nav-pills nav-justified form-wizard-header">
                                                 <li class="nav-item">
@@ -110,7 +110,7 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                                                             <div class="form-group row mb-3">
                                                                 <label class="col-md-2 col-form-label" for="course_title">Tên khóa học <span class="required">*</span> </label>
                                                                 <div class="col-md-10">
-                                                                    <input type="text" class="form-control" id="course_title" name="title" placeholder="Nhập tên khóa học" >
+                                                                    <input type="text" class="form-control" id="course_title" name="title" placeholder="Nhập tên khóa học">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row mb-3">
@@ -128,13 +128,13 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                                                             <div class="form-group row mb-3">
                                                                 <label class="col-md-2 col-form-label" for="end_date">Ngày kết thúc <span class="required">*</span> </label>
                                                                 <div class="col-md-10">
-                                                                    <input type="datetime-local" class="form-control" id="end_date" name="end_date" placeholder="Chọn kết thúc" >
+                                                                    <input type="datetime-local" class="form-control" id="end_date" name="end_date" placeholder="Chọn kết thúc">
                                                                 </div>
                                                             </div>
                                                         </div> <!-- end col -->
                                                     </div> <!-- end row -->
                                                 </div> <!-- end tab pane -->
-                                                <div class="tab-pane" role="tabpanel" aria-labelledby="nav_assign"  id="tutor">
+                                                <div class="tab-pane" role="tabpanel" aria-labelledby="nav_assign" id="tutor">
                                                     <div class="row justify-content-center">
                                                         <div class="col-xl-8">
                                                             <div class="form-group row mb-3">
@@ -213,15 +213,21 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                 </div>
             </div>
         </div>
-<?
+        <?
         $this->scripts(
             "/node_modules/jquery/dist/jquery.min.js",
+            "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+            "/node_modules/summernote/dist/summernote-bs5.min.js",
             "/node_modules/jquery-validation/dist/jquery.validate.min.js",
-            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
-            "/node_modules/bootstrap/dist/js/bootstrap.min.js",
-            "/node_modules/summernote/dist/summernote-bs4.min.js",
             "/clients/js/admin/main.js",
             "/clients/js/admin/course.js"
         );
+        ?>
+        <script>
+            $(document).ready(function() {
+                initSummerNote('#description');
+            })
+        </script>
+<?
     }
 }
