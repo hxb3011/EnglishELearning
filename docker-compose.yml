@@ -44,12 +44,12 @@ services:
       - 62280:80
     volumes:
       - ./src:/var/www/html:ro
-  composer_installation:
-    container_name: composer_installation
-    image: composer
-    volumes:
-      - ./:/app
-    command: composer install --ignore-platform-reqs
+  # composer_installation:
+  #   container_name: composer_installation
+  #   image: composer
+  #   volumes:
+  #     - ./:/app
+  #   command: composer install --ignore-platform-reqs
 # volumes:
 #   mysql_data:
 
