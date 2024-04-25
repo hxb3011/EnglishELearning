@@ -10,6 +10,7 @@ class AdminCourses
     {
         $this->courseModel = new CourseModel();
     }
+    /* trả về view  */
     public function index()
     {
         requirv("admin/courses/ManageAllCoursePage.php");
@@ -32,6 +33,60 @@ class AdminCourses
         global $page;
         $page = new EditCoursePage();
         requira("_adminLayout.php");
+    }
+    /* xử lí thêm,sửa,xóa từ các form */
+    public function add_course()
+    {
+
+        try{
+            $course = new Course();
+            $course->id = $this->courseModel->generateValidCourseID();
+            $course->name = $_POST['title'];
+            $course->description = $_POST['description'];
+            $course->state = 1;
+            $course->profileID = $_POST['tutor'];
+            $course->price = floatval($_POST['price']);
+            $course->beginDate  = DateTime::createFromFormat('Y-m-d\TH:i', $_POST['start_date']);
+            $course->endDate  = DateTime::createFromFormat('Y-m-d\TH:i', $_POST['end_date']);
+    
+            // lưu file vào folder upload của dự án 
+            
+            $course->posterURI = $this->saveImageToFolder($course->id);
+            $result = $this->courseModel->addCourse($course);
+            if ($result >= 1)
+            {
+                header('Location: /administration/courses/index.php');
+            }
+        }catch(Exception $e)
+        {
+            echo $e->getMessage();
+        }
+        
+    }
+    private function saveImageToFolder($courseID)
+    {
+        $targetDir= "/var/www/html/uploads/";
+        // tạo thư mục uploads nếu không tồn tại
+        if(!file_exists($targetDir))
+        {
+            mkdir($targetDir,0777,true);
+        }
+        
+        //tạo thư mục cho khóa học trong thư mục upload
+        $targetDir = $targetDir.$courseID.'/poster'.'/';
+        if(!file_exists($targetDir))
+        {
+            mkdir($targetDir,0777,true);
+        }
+
+        $targetFile = $targetDir. basename($_FILES['course_poster']["name"]);   
+        // tạo đường dẫn mới cho file ảnh
+        if (move_uploaded_file($_FILES['course_poster']["tmp_name"],$targetFile))
+        {
+            $targetFile = str_replace($targetFile,"","/var/www/html/");
+            return $targetFile;
+        }
+        return "";
     }
     /* Modal */
     public function add_lesson_modal()

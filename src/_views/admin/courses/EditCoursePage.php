@@ -76,40 +76,34 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                         <div class="basicwizard">
                                             <ul class="nav nav-pills nav-justified form-wizard-header">
                                                 <li class="nav-item">
-                                                    <button id="nav_program" data-bs-toggle="tab" class="nav-link rounded-0 pt-2 pb-2 active" type="button" data-bs-target="#program" role="tab" aria-controls="program" aria-selected="true">
+                                                    <a id="nav_program" class="nav-link rounded-0 pt-2 pb-2 active" data-bs-toggle="tab" href="#program">
                                                         <i class="mdi program"></i>
                                                         <span class="d-none d-sm-inline">Chương trình</span>
-                                                    </button>
+                                                    </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <button id="nav_basic" data-bs-toggle="tab" class="nav-link rounded-0 pt-2 pb-2" type="button" data-bs-target="#basic" role="tab" aria-controls="basic" aria-selected="false">
+                                                    <a class="nav-link rounded-0 pt-2 pb-2" data-bs-toggle="tab" href="#basic">
                                                         <i class="mdi mdi-fountain-pen-tip"></i>
                                                         <span class="d-none d-sm-inline">Cơ bản</span>
-                                                    </button>
+                                                    </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <button id="nav_assign" data-bs-toggle="tab" class="nav-link rounded-0 pt-2 pb-2" type="button" data-bs-target="#tutor" role="tab" aria-controls="tutor" aria-selected="false">
+                                                    <a class="nav-link rounded-0 pt-2 pb-2" data-bs-toggle="tab" href="#tutor">
                                                         <i class="mdi mdi-camera-control"></i>
                                                         <span class="d-none d-sm-inline">Phân việc</span>
-                                                    </button>
+                                                    </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <button data-bs-toggle="tab" id="nav_price" class="nav-link rounded-0 pt-2 pb-2" type="button" data-bs-target="#pricing" role="tab" aria-controls="pricing" aria-selected="false">
+                                                    <a class="nav-link rounded-0 pt-2 pb-2" data-bs-toggle="tab" href="#pricing">
                                                         <i class="mdi mdi-currency-cny"></i>
                                                         <span class="d-none d-sm-inline">Giá</span>
-                                                    </button>
+                                                    </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <button data-bs-toggle="tab" id="nav_poster" class="nav-link rounded-0 pt-2 pb-2" type="button" data-bs-target="#media" role="tab" aria-controls="media" aria-selected="false">
+                                                    <a class="nav-link rounded-0 pt-2 pb-2" data-bs-toggle="tab" href="#media">
                                                         <i class="mdi poster"></i>
                                                         <span class="d-none d-sm-inline">Poster</span>
-                                                    </button>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <button data-bs-toggle="tab" id="nav_finish" class="nav-link rounded-0 pt-2 pb-2" type="button" data-bs-target="#finish" role="tab" aria-controls="finish" aria-selected="false">
-                                                        <i class="mdi mdi-checkbox-marked-circle-outline"></i>
-                                                        <span class="d-none d-sm-inline">Hoàn thành</span>
-                                                    </button>
+                                                    </a>
                                                 </li>
                                             </ul>
                                             <div class="tab-content b-0 mb-0 mt-4">
@@ -215,7 +209,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane" id="basic" role="tabpanel" aria-labelledby="nav_basic" >
+                                                <div class="tab-pane" id="basic">
                                                     <div class="row justify-content-center">
                                                         <div class="col-xl-8">
                                                             <input type="hidden" name="course_type" value="general">
@@ -243,10 +237,10 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                     <input type="datetime-local" class="form-control" id="end_date" name="end_date" placeholder="Chọn kết thúc">
                                                                 </div>
                                                             </div>
-                                                        </div> <!-- end col -->
-                                                    </div> <!-- end row -->
-                                                </div> <!-- end tab pane -->
-                                                <div class="tab-pane" role="tabpanel" aria-labelledby="nav_assign" id="tutor">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="tutor">
                                                     <div class="row justify-content-center">
                                                         <div class="col-xl-8">
                                                             <div class="form-group row mb-3">
@@ -263,7 +257,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane" role="tabpanel" aria-labelledby="nav_price" id="pricing">
+                                                <div class="tab-pane fade" id="pricing">
                                                     <div class="row justify-content-center">
                                                         <div class="col-xl-8">
                                                             <div class="paid-course-stuffs">
@@ -274,12 +268,11 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div> <!-- end col -->
-                                                    </div> <!-- end row -->
-                                                </div> <!-- end tab-pane -->
-                                                <div class="tab-pane" role="tabpanel" aria-labelledby="nav_poster" id="media">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="media">
                                                     <div class="row justify-content-center">
-                                                        <!-- this portion will be generated theme wise from the theme-config.json file Starts-->
                                                         <div class="col-xl-8">
                                                             <div class="form-group row mb-3">
                                                                 <label class="col-md-2 col-form-label" for="course_poster_label">Poster của khóa học</label>
@@ -296,24 +289,10 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-- this portion will be generated theme wise from the theme-config.json file Ends-->
-                                                    </div> <!-- end row -->
+                                                    </div>
                                                 </div>
-                                                <div class="tab-pane" role="tabpanel" aria-labelledby="nav_finish" id="finish">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="text-center">
-                                                                <h2 class="mt-0"><i class="mdi mdi-check-all"></i></h2>
-                                                                <h3 class="mt-0">Xác nhận tạo khóa học</h3>
-
-                                                                <p class="w-75 mb-2 mx-auto">Nhấn vào nút bên dưới</p>
-
-                                                                <div class="mb-3 mt-3">
-                                                                    <button type="submit" class="btn btn-primary text-center" id="submit_add_course">Xác nhận</button>
-                                                                </div>
-                                                            </div>
-                                                        </div> <!-- end col -->
-                                                    </div> <!-- end row -->
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <button type="submit" class="btn btn-outline-primary btn-rounded btn-icon" id="submit_add_course">Xác nhận</button>
                                                 </div>
                                             </div>
                                         </div>

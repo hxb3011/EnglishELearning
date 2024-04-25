@@ -3,7 +3,25 @@ const hamBurger = document.querySelector(".toggle-btn");
 hamBurger.addEventListener("click", function () {
     document.querySelector("#sidebar").classList.toggle("expand");
 });
-
+(function() {
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "2000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      }
+  })();
 
 function showAjaxModal(url, header) {
     // SHOWING AJAX PRELOADER IMAGE
@@ -43,8 +61,42 @@ function showLargeModal(url, header) {
 }
 
 function initSummerNote(id) {
-    $(id).summernote({
+    return $(id).summernote({
         placeholder: "",
         height: 230,
     })
 }
+function initImageUpload(box){
+    let uploadField = box.querySelector('.image-upload');
+
+    uploadField.addEventListener('change',getFile);
+
+    function previewImage(file){
+		let thumb = box.querySelector('.js--image-preview'),
+		reader = new FileReader();
+		reader.onload = function() {
+			thumb.style.backgroundImage = 'url(' + reader.result + ')';
+		}
+		reader.readAsDataURL(file);
+		thumb.className += ' js--no-default';
+	}
+    function getFile(e)
+    {
+        let file = e.currentTarget.files[0];
+        checkType(file);
+    }
+    function checkType(file)
+    {
+        let imageType = /image.*/;
+		if (!file.type.match(imageType)) {
+			throw 'Datei ist kein Bild';
+		} else if (!file){
+			throw 'File không tồn tại';
+		} else {
+			previewImage(file);
+		}
+    }
+    return 0;
+}   
+
+
