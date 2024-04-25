@@ -76,48 +76,6 @@ $page->beforeDocument();
                         </li>
                     </ul>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#blog" aria-expanded="false" aria-controls="blog">
-                        <i class=" mdi -blog"></i>
-                        <span class="sidebar-item__text">Bài viết</span>
-                    </a>
-                    <ul id="blog" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">...</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">..</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#vocab" aria-expanded="false" aria-controls="vocab">
-                        <i class=" mdi -vocab"></i>
-                        <span class="sidebar-item__text">Từ vựng</span>
-                    </a>
-                    <ul id="vocab" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">...</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">..</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#user" aria-expanded="false" aria-controls="user">
-                        <i class=" mdi -user"></i>
-                        <span class="sidebar-item__text">Người dùng</span>
-                    </a>
-                    <ul id="user" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">...</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">..</a>
-                        </li>
-                    </ul>
-                </li>
             </ul>
             <div class="sidebar-footer">
                 <a href="/" class="sidebar-link">
