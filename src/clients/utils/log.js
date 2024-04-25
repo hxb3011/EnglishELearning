@@ -11,8 +11,8 @@ const log = (() => {
     function lgb() {
         const logFunc = this.f;
         logFunc(`[${this.t}]#${arguments
-            .callee.caller.caller.name}`);
-        logFunc(...arguments);
+            .callee.caller.caller.name}`,
+            ...arguments);
     }
 
     /**

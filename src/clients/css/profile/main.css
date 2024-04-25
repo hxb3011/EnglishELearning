@@ -1,0 +1,435 @@
+main {
+    align-items: start;
+    justify-content: start;
+}
+
+main>card.header {
+    align-content: center;
+    align-items: center;
+    background-color: var(--mdc-secondary-fixed);
+    color: var(--mdc-on-secondary-fixed);
+    display: flex;
+    flex-flow: row wrap;
+    font-family: "Roboto Medium";
+    height: 320rem;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+main>card.header>.title {
+    font-size: 64rem;
+    margin: 0;
+    margin-bottom: 28rem;
+    width: 100%;
+}
+
+main>card.header>input[type="button"] {
+    background-color: var(--mdc-primary);
+    border: none;
+    border-radius: 32rem;
+    color: var(--mdc-on-primary);
+    font-family: "Roboto Medium";
+    font-size: 18rem;
+    height: 48rem;
+    margin: 8rem;
+    padding: 8rem;
+    width: 184rem;
+}
+
+main>card.header>input[type="button"]:is(:focus, :hover) {
+    background-color: var(--mdc-primary-fixed-dim);
+    color: var(--mdc-on-primary-fixed);
+}
+
+main>card.header>input[type="button"]:active {
+    background-color: var(--mdc-primary-fixed);
+    color: var(--mdc-on-primary-fixed-variant);
+}
+
+main>card.header>input.outlined[type="button"] {
+    background-color: var(--mdc-surface);
+    border: 2rem solid var(--mdc-outline-variant);
+    color: var(--mdc-surface-tint);
+}
+
+main>card.header>input.outlined[type="button"]:is(:focus, :hover) {
+    background-color: var(--mdc-surface-container-highest);
+    border: 1rem solid var(--mdc-outline);
+    color: var(--mdc-surface-tint);
+}
+
+main>card.header>input.outlined[type="button"]:active {
+    background-color: var(--mdc-surface-container-highest);
+    border: 2rem solid var(--mdc-surface-tint);
+    color: var(--mdc-surface-tint);
+}
+
+main>card.header.signed {
+    align-items: start;
+    flex-flow: column wrap;
+}
+
+main>card.header.signed>:is(.prof-pic, .alt-prof-pic) {
+    border-radius: 80rem;
+    height: 160rem;
+    margin: 24rem;
+    object-fit: cover;
+    object-position: center;
+    width: 160rem;
+}
+
+main>card.header.signed>:is(.prof-pic, .prof-pic[src=""]+.alt-prof-pic) {
+    display: block;
+}
+
+main>card.header.signed>:is(.alt-prof-pic, .prof-pic[src=""]) {
+    display: none;
+}
+
+main>card.header.signed>.alt-prof-pic.mdi-b::before {
+    font-size: 160rem;
+    content: var(--mdi-account-circle-outline);
+}
+
+main>card.header.signed>.name {
+    box-sizing: border-box;
+    font-size: 40rem;
+    margin: 0;
+    text-align: start;
+    width: 480rem;
+}
+
+main>card.header.signed>.type {
+    box-sizing: border-box;
+    color: var(--mdc-on-secondary-fixed-variant);
+    font-size: 28rem;
+    margin: 20rem 0 0;
+    position: relative;
+    text-align: start;
+    width: 480rem;
+}
+
+main>card.header.signed>.type>input[type="button"] {
+    background-color: var(--mdc-surface);
+    border: 2rem solid var(--mdc-outline-variant);
+    border-radius: 32rem;
+    bottom: 0;
+    color: var(--mdc-surface-tint);
+    font-family: "Roboto Medium";
+    font-size: 18rem;
+    height: 48rem;
+    padding: 8rem;
+    position: absolute;
+    right: 32rem;
+    width: 184rem;
+}
+
+main>card.header.signed>.type>input[type="button"]:is(:focus, :hover) {
+    background-color: var(--mdc-surface-container-highest);
+    border: 1rem solid var(--mdc-outline);
+    color: var(--mdc-surface-tint);
+}
+
+main>card.header.signed>.type>input[type="button"]:active {
+    background-color: var(--mdc-surface-container-highest);
+    border: 2rem solid var(--mdc-surface-tint);
+    color: var(--mdc-surface-tint);
+}
+
+main>card.section {
+    align-items: start;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    padding: 8rem 0;
+    margin: 4rem;
+    width: calc(100% - 8rem);
+}
+
+main>card:is(.profile, .related) {
+    align-items: start;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    padding: 8rem 0;
+    margin: 4rem;
+    width: calc(50% - 8rem);
+}
+
+main>card.section>hr {
+    border: .5rem dashed var(--mdc-outline-variant);
+    box-sizing: border-box;
+    margin: 0 16rem 0 56rem;
+    width: calc(100% - 72rem);
+}
+
+main>card.section>:is(.list-heading, .list-item) {
+    align-items: start;
+    box-sizing: border-box;
+    color: var(--mdc-on-surface);
+    display: flex;
+    flex-flow: column nowrap;
+    font-family: "Roboto Medium";
+    height: 56rem;
+    justify-content: center;
+    margin: 0;
+    overflow-x: hidden;
+    padding: 0 16rem 0 56rem;
+    position: relative;
+    text-decoration: none;
+    width: 100%;
+}
+
+main>card.section>.list-heading[title]::before {
+    content: attr(title);
+    font-family: "Roboto Bold";
+    font-size: 20rem;
+    line-height: 24rem;
+    overflow-x: hidden;
+    width: calc(100% - 32rem);
+}
+
+main>card.section>.list-item[heading]::before {
+    content: attr(heading);
+    font-family: "Roboto Regular";
+    font-size: 12rem;
+    line-height: 18rem;
+    overflow-x: hidden;
+    width: calc(100% - 32rem);
+}
+
+main>card.section>.list-item[title]::after {
+    content: attr(title);
+    font-family: "Roboto Bold";
+    font-size: 18rem;
+    line-height: 22rem;
+    overflow-x: hidden;
+    width: calc(100% - 32rem);
+}
+
+main>card.section>:is(.list-heading, .list-item)>.icon {
+    left: 16rem;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 16rem;
+}
+
+main>card.section>:is(.list-heading, .list-item)>.icon::before {
+    font-size: 24rem;
+    height: 24rem;
+    line-height: 24rem;
+}
+
+main>card.section>.list-heading>.action {
+    align-items: center;
+    background-color: var(--mdc-surface-container-low);
+    border: 2rem solid var(--mdc-outline-variant);
+    border-radius: 16rem;
+    box-sizing: border-box;
+    color: var(--mdc-surface-tint);
+    display: flex;
+    font-family: "Roboto Medium";
+    font-size: 12rem;
+    height: 32rem;
+    justify-content: center;
+    padding: 0;
+    position: absolute;
+    right: 16rem;
+    text-decoration: none;
+    vertical-align: middle;
+    width: 88rem;
+}
+
+main>card.section>:is(.list-heading, .list-item)>.action::before {
+    font-size: 16rem;
+    padding: 0;
+    padding-right: 8rem;
+}
+
+main>card.section>.list-heading>.action:is(:focus, :hover) {
+    background-color: var(--mdc-surface-container-highest);
+    border: 1rem solid var(--mdc-outline);
+}
+
+main>card.section>.list-heading>.action:active {
+    background-color: var(--mdc-surface-container-highest);
+    border: 2rem solid var(--mdc-surface-tint);
+}
+
+main>card.section>.list-heading>.edit.mdi-b::before {
+    content: var(--mdi-pencil);
+}
+
+main>card.section>.list-heading>.add.mdi-b::before {
+    content: var(--mdi-plus);
+}
+
+main>card.section>.list-item {
+    border-radius: 28rem;
+}
+
+main>card.section>.list-item>.action {
+    position: absolute;
+    right: 16rem;
+}
+
+main>card.section>.list-item:is(:focus, :hover) {
+    background-color: var(--mdc-surface-container-highest);
+    color: var(--mdc-surface-tint);
+}
+
+main>card.section>.list-item:active {
+    background-color: var(--mdc-surface-container);
+    color: var(--mdc-surface-tint);
+}
+
+main>card.section>.list-item:is(:focus, :hover, :active, *)::after {
+    color: var(--mdc-on-surface);
+}
+
+main>card.section>.list-item>.action.mdi-b::before {
+    content: var(--mdi-chevron-right);
+    padding: 0;
+}
+
+main>card.profile>.list-heading>.icon.mdi-b::before {
+    content: var(--mdi-account);
+}
+
+main>card.profile>.list-item.gender>.icon.mdi-b::before {
+    content: var(--mdi-gender-male-female);
+}
+
+main>card.profile>.list-item.birthday>.icon.mdi-b::before {
+    content: var(--mdi-calendar);
+}
+
+main>card.profile>.list-item.username>.icon.mdi-b::before {
+    content: var(--mdi-form-textbox);
+}
+
+main>card.profile>.list-item.password>.icon.mdi-b::before {
+    content: var(--mdi-form-textbox-password);
+}
+
+main>card.verification>.list-heading>.icon.mdi-b::before {
+    content: var(--mdi-key);
+}
+
+main>card.verification>.list-item.phone>.icon.mdi-b::before {
+    content: var(--mdi-phone);
+}
+
+main>card.verification>.list-item.email>.icon.mdi-b::before {
+    content: var(--mdi-email);
+}
+
+main>card.related>.list-heading>.icon.mdi-b::before {
+    content: var(--mdi-open-in-new);
+}
+
+main>card.related>.list-item>.icon.mdi-b::before {
+    content: var(--mdi-open-in-new);
+}
+
+main>card.related>.list-item.history>.icon.mdi-b::before {
+    content: var(--mdi-history);
+}
+
+main>card.related>.list-item.administration>.icon.mdi-b::before {
+    content: var(--mdi-application-cog);
+}
+
+main>card.payments>.list-heading>.icon.mdi-b::before {
+    content: var(--mdi-credit-card-multiple);
+}
+
+main>card.payments>.list-item.card>.icon.mdi-b::before {
+    content: var(--mdi-credit-card);
+}
+
+main>card.payments>.list-item.wallet>.icon.mdi-b::before {
+    content: var(--mdi-wallet);
+}
+
+main>card.settings>.list-heading>.icon.mdi-b::before {
+    content: var(--mdi-cog);
+}
+
+main>card.settings>.list-item>.icon.mdi-b::before {
+    content: var(--mdi-cog);
+}
+
+@media only screen and (max-width: 719px) {
+    main>card.header {
+        height: 320rem;
+    }
+
+    main>card.header>.title {
+        font-size: 40rem;
+        margin-bottom: 20rem;
+    }
+
+    main>card.header>input[type="button"] {
+        background-color: var(--mdc-primary);
+        border: none;
+        border-radius: 32rem;
+        color: var(--mdc-on-primary);
+        font-family: "Roboto Medium";
+        font-size: 14rem;
+        height: 40rem;
+        margin: 8rem;
+        padding: 8rem;
+        width: 144rem;
+    }
+
+    main>card.header.signed {
+        align-items: center;
+        height: 640rem;
+    }
+
+    main>card.header.signed>.prof-pic,
+    main>card.header.signed>.alt-prof-pic {
+        border-radius: 120rem;
+        height: 120rem;
+        margin: 0;
+        width: 120rem;
+    }
+
+    main>card.header.signed>.alt-prof-pic.mdi-b::before {
+        font-size: 120rem;
+    }
+
+    main>card.header.signed>.name {
+        font-size: 32rem;
+        margin: 48rem 0 0;
+        padding: 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    main>card.header.signed>.type {
+        font-size: 20rem;
+        padding: 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    main>card.header.signed>.type>input[type="button"] {
+        display: block;
+        position: static;
+        margin: 20rem auto 0;
+    }
+
+    main>card:is(.profile, .related) {
+        align-items: start;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        padding: 8rem 0;
+        margin: 4rem;
+        width: calc(100% - 8rem);
+    }
+}
