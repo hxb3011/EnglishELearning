@@ -4,23 +4,39 @@
     margin: 0;
     padding: 0;
 }
-.mdi.-menuIcon::before{
+
+.mdi.-menuIcon::before {
     content: "\F035C";
 }
-.mdi.-courseIcon::before{
+
+.mdi.-courseIcon::before {
     content: "\F16C9";
 }
-.mdi.-blog::before{
+
+.mdi.-blog::before {
     content: "\F1008";
 }
-.mdi.-user::before{
+
+.mdi.-user::before {
     content: "\F0004";
 }
-.mdi.-dash::before{
+
+.mdi.-dash::before {
     content: '\F15FC';
 }
-.mdi.-vocab::before{
+
+.mdi.-vocab::before {
     content: '\F0C2C';
+}
+
+.mdi.mdi-apple-keyboard-command::before {
+    content: "\F0633";
+}
+.mdi.mdi-dots-vertical::before{
+    content: '\F01D9';
+}
+.mdi.back::before{
+    content: '\F0CDD';
 }
 a {
     text-decoration: none;
@@ -32,8 +48,22 @@ li {
 
 body {
     font-family: 'Poppins', sans-serif;
+    color: #6c757d !important;
 }
-
+.btn-outline-primary{
+    color: #ff782d;
+    border-color: #ff782d;
+}
+.btn-outline-primary:hover{
+    background-color:#ff782d ;
+    border-color: #ff782d;
+    color: white;
+}
+.btn-outline-primary:focus{
+    background-color:#ff782d ;
+    border-color: #ff782d;
+    color: white;
+}
 .wrapper {
     display: flex;
 }
@@ -45,7 +75,7 @@ body {
     width: 100%;
     overflow: hidden;
     transition: all 0.35s ease-in-out;
-    background-color: #fff;
+    background-color: #eee;
     min-width: 0;
 }
 
@@ -187,3 +217,69 @@ a.sidebar-link:hover {
 
 
 @media (min-width: 768px) {}
+
+/* Admin Header */
+.admin-header {
+    background-color: white;
+    height: 6rem;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem 0 2rem;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.admin-header__icon {
+    font-size: 25px;
+    margin-right: 6px;
+}
+
+/* Filter */
+.filter-section {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.filter-part {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.filter-part select {
+    font-size: 12px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.filter-text {
+    min-width: 18%;
+    font-weight: bold;
+    font-size: 1rem;
+
+}
+
+.filter-btn {
+    font-size: 1rem;
+    width: 80px;
+    height: 36px;
+    background-color: black;
+    border-radius: 1rem;
+    color: white;
+}
+
+.filter-btn:hover {
+    background-color: #ff782d;
+    color: white;
+}
+/* Modal */
+.modal-header .close{
+    padding: 1rem 1rem;
+    margin: -1rem -1rem -1rem auto;
+}
+button.close{
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}

@@ -28,7 +28,8 @@ class Database
             $_ENV["WSM_DBHELPER_DATABASE"]
         );
         if ($e = $r->connect_error)
-            throw new Exception("Connection failed: $e");
+                throw new Exception("Connection failed: $e");
+        echo($r->connect_error);
         return $r;
     }
     public static function executeQuery($sql, $params = null)
@@ -107,6 +108,7 @@ class Database
         if ($command->execute()) {
             return $command->affected_rows > 0;
         } else {
+            print($command->error);
             return false;
         }
         $command->close();

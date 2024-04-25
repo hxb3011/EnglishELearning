@@ -6,7 +6,7 @@ RewriteRule ^.*$ _error.php?ersp=404&uri=%{REQUEST_URI} [R=404,END]
 RewriteCond %{REQUEST_URI} ^/(index.php|([^/]+))?([#?].*)?$
 RewriteRule ^((\?[^#?]+)?(#[^#]+)?)?$ _controllers/index.php$0 [END]
 
-RewriteCond %{REQUEST_URI} !^/(assets|clients)
+RewriteCond %{REQUEST_URI} !^/(assets|clients|node_modules)
 RewriteRule ^.*$ _controllers/$0 [END]
 
 ErrorDocument 403 /_error.php?ersp=403&uri=%{REQUEST_URI}

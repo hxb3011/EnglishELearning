@@ -35,6 +35,7 @@ services:
     depends_on:
       - db
     environment:
+      WS_PATH_BASE: /var/www/html/
       WSM_DBHELPER_SERVER: db
       WSM_DBHELPER_USERNAME: user0
       WSM_DBHELPER_PASSWORD: Hello|11
@@ -45,7 +46,8 @@ services:
     ports:
       - 62280:80
     volumes:
-      - ./src:/var/www/html:ro
+      - ./src:/var/www/html:rw
+
 # volumes:
 #   mysql_data:
 
