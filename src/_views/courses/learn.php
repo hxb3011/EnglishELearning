@@ -63,87 +63,126 @@ final class LearnPage extends BaseHTMLDocumentPage
                     <div class="col-md-8 col-sm-12">
                         <div id="course_content">
                             <div class="learn__video-wrapper">
-                                <video id="courseVideo" preload="auto" controlslist="nodownload" src="https://www.youtube.com/watch?v=hue-IgXuU_4&list=RDhue-IgXuU_4&start_radio=1" class="learn__video"></video>
+                                <iframe id="courseVideo" preload="auto" controlslist="nodownload" src="" class="learn__video"></iframe>
                                 <button class="btn learn__video__btn-play" id="playBtn">
-                                    <i class="mdi -play"></i>
+                                    <i class="mdi-b play"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-12">
-                        <h2 style="font-size: 12rem; padding: 4rem;">Các bài giảng</h2>
+                        <h2 style="font-size: 24rem; padding: 8rem;">Các bài giảng</h2>
                         <hr>
-                        <ul class="learn__lesson-list">
-                            <li class="learn__lesson-item">
+                        <div class="learn__lesson-list">
+                            <div class="learn__lesson-item">
                                 <div class="learn__lesson-item-inner">
-                                    <div style="margin-right:4rem;">
-                                        <input type="checkbox" id="checkbox" name="checkbox" value="checked" class="learn__lesson-item-status">
+                                    <div class="">
+                                        <a class="learn_lesson-name " data-bs-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+                                            Lesson
+                                            <span class="mdi-b toggle"></span>
+                                        </a>
                                     </div>
-                                    <div class="flex-grow-1 ps-4">
-                                        <div class="learn__lesson-item__title">
-                                            <a href="#">
-                                                Install Visual Studio
-                                            </a>
-                                        </div>
-                                        <div class="learn__lesson-item__more-info d-flex align-items-center">
-                                            <div class="learn__lesson-item__type d-flex align-items-center pt-2">
-                                                <i class="mdi -quiz"></i>
+                                    <div class="collapse" id="collapse1" style="padding-left: 12rem; padding-right:12rem;">
+                                        <div class="learn_lesson-doc">
+                                            <div style="margin-right:8rem;">
+                                                <input type="checkbox" id="checkbox" name="checkbox" value="checked" class="learn__lesson-item-status">
                                             </div>
-                                            <div class="learn__lesson-item__duration">
-                                                5 phút
+                                            <div class="wrap" style="width:100%;padding-right:10rem; overflow:hidden;">
+                                                <a href="" class="learn_lesson-doc_name">
+                                                    <div class="text-wrapper">
+                                                        hELLSDASDASDALSDHSJFHDKSFHDKSAJFHSKDAJFHDKSAJFHSAKFJHSADKFJHSADKFJDHSAFKSDHFJKASDFJ
+                                                    </div>
+                                                </a>
+                                                <div class="mdi-b video"></div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="learn_lesson-doc">
+                                            <div style="margin-right:8rem;">
+                                                <input type="checkbox" id="checkbox" name="checkbox" value="checked" class="learn__lesson-item-status">
+                                            </div>
+                                            <div class="wrap" style="width:100%;padding-right:10rem; overflow:hidden;">
+                                                <a href="" class="learn_lesson-doc_name">
+                                                    <div class="text-wrapper">
+                                                        hELLSDASDASDALSDHSJFHDKSFHDKSAJFHSKDAJFHDKSAJFHSAKFJHSADKFJHSADKFJDHSAFKSDHFJKASDFJ
+                                                    </div>
+                                                </a>
+                                                <div class="mdi-b video"></div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="learn_lesson-doc">
+                                            <div style="margin-right:8rem;">
+                                                <input type="checkbox" id="checkbox" name="checkbox" value="checked" class="learn__lesson-item-status">
+                                            </div>
+                                            <div class="wrap" style="width:100%;padding-right:10rem; overflow:hidden;">
+                                                <a href="" class="learn_lesson-doc_name">
+                                                    <div class="text-wrapper">
+                                                        hELLSDASDASDALSDHSJFHDKSFHDKSAJFHSKDAJFHDKSAJFHSAKFJHSADKFJHSADKFJDHSAFKSDHFJKASDFJ
+                                                    </div>
+                                                </a>
+                                                <div class="mdi-b video"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </div>
                             <hr>
-                            <li class="learn__lesson-item">
+                            <div class="learn__lesson-item">
                                 <div class="learn__lesson-item-inner">
-                                    <div style="margin-right:4rem;">
-                                        <input type="checkbox" id="checkbox" name="checkbox" value="checked" class="learn__lesson-item-status">
+                                    <div class="">
+                                        <a class="learn_lesson-name " data-bs-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+                                            Lesson
+                                            <span class="mdi-b toggle"></span>
+                                        </a>
                                     </div>
-                                    <div class="flex-grow-1 ps-4">
-                                        <div class="learn__lesson-item__title">
-                                            <a href="">
-                                                Install Visual Studio
-                                            </a>
-                                        </div>
-                                        <div class="learn__lesson-item__more-info d-flex align-items-center">
-                                            <div class="learn__lesson-item__type d-flex align-items-center pt-2">
-                                                <i class="mdi -document"></i>
+                                    <div class="collapse" id="collapse1" style="padding-left: 12rem; padding-right:12rem;">
+                                        <div class="learn_lesson-doc">
+                                            <div style="margin-right:8rem;">
+                                                <input type="checkbox" id="checkbox" name="checkbox" value="checked" class="learn__lesson-item-status">
                                             </div>
-                                            <div class="learn__lesson-item__duration">
-                                                5 phút
+                                            <div class="wrap" style="width:100%;padding-right:10rem; overflow:hidden;">
+                                                <a href="" class="learn_lesson-doc_name">
+                                                    <div class="text-wrapper">
+                                                        hELLSDASDASDALSDHSJFHDKSFHDKSAJFHSKDAJFHDKSAJFHSAKFJHSADKFJHSADKFJDHSAFKSDHFJKASDFJ
+                                                    </div>
+                                                </a>
+                                                <div class="mdi-b video"></div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="learn_lesson-doc">
+                                            <div style="margin-right:8rem;">
+                                                <input type="checkbox" id="checkbox" name="checkbox" value="checked" class="learn__lesson-item-status">
+                                            </div>
+                                            <div class="wrap" style="width:100%;padding-right:10rem; overflow:hidden;">
+                                                <a href="" class="learn_lesson-doc_name">
+                                                    <div class="text-wrapper">
+                                                        hELLSDASDASDALSDHSJFHDKSFHDKSAJFHSKDAJFHDKSAJFHSAKFJHSADKFJHSADKFJDHSAFKSDHFJKASDFJ
+                                                    </div>
+                                                </a>
+                                                <div class="mdi-b video"></div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="learn_lesson-doc">
+                                            <div style="margin-right:8rem;">
+                                                <input type="checkbox" id="checkbox" name="checkbox" value="checked" class="learn__lesson-item-status">
+                                            </div>
+                                            <div class="wrap" style="width:100%;padding-right:10rem; overflow:hidden;">
+                                                <a href="" class="learn_lesson-doc_name">
+                                                    <div class="text-wrapper">
+                                                        hELLSDASDASDALSDHSJFHDKSFHDKSAJFHSKDAJFHDKSAJFHSAKFJHSADKFJHSADKFJDHSAFKSDHFJKASDFJ
+                                                    </div>
+                                                </a>
+                                                <div class="mdi-b video"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </div>
                             <hr>
-                            <li class="learn__lesson-item">
-                                <div class="learn__lesson-item-inner">
-                                    <div style="margin-right:4rem;">
-                                        <input type="checkbox" id="checkbox" name="checkbox" value="checked" class="learn__lesson-item-status">
-                                    </div>
-                                    <div class="flex-grow-1 ps-4">
-                                        <div class="learn__lesson-item__title">
-                                            <a href="">
-                                                Install Visual Studio
-                                            </a>
-                                        </div>
-                                        <div class="learn__lesson-item__more-info d-flex align-items-center">
-                                            <div class="learn__lesson-item__type d-flex align-items-center pt-2">
-                                                <i class="mdi -video"></i>
-                                            </div>
-                                            <div class="learn__lesson-item__duration">
-                                                5 phút
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <hr>
-                        </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -151,7 +190,6 @@ final class LearnPage extends BaseHTMLDocumentPage
         <?
         $this->scripts(
             "/node_modules/jquery/dist/jquery.min.js",
-            "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
         );
         ?>
 <?
