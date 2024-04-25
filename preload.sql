@@ -140,6 +140,7 @@ CREATE TABLE `contribution` (
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE `course` (
   `ID` varchar(20) NOT NULL,
+  `Name` varchar(255) NOT NULL,
   `PosterUri` varchar(255) NOT NULL,
   `Description` text NOT NULL,
   `State` tinyint(4) NOT NULL,
@@ -388,6 +389,7 @@ CREATE TABLE `qmatchingkey` (
 DROP TABLE IF EXISTS `qmulchoption`;
 CREATE TABLE `qmulchoption` (
   `ID` int(11) NOT NULL,
+  `QuestionID` int(11) NOT NULL,
   `Content` varchar(255) DEFAULT NULL,
   `Correct` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -403,7 +405,8 @@ CREATE TABLE `question` (
   `ID` int(11) NOT NULL,
   `Content` text DEFAULT NULL,
   `State` tinyint(4) DEFAULT NULL,
-  `ExcerciseID` int(11) DEFAULT NULL
+  `ExcerciseID` int(11) DEFAULT NULL,
+  `OrderN` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -615,7 +618,8 @@ ALTER TABLE `qmatchingkey`
 -- Chỉ mục cho bảng `qmulchoption`
 --
 ALTER TABLE `qmulchoption`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `FK_QuestionID_qmulchoption_question` (`QuestionID`);
 
 --
 -- Chỉ mục cho bảng `question`
@@ -835,6 +839,12 @@ ALTER TABLE `pronunciation`
 --
 ALTER TABLE `qcompletion`
   ADD CONSTRAINT `FK_ID_qcompletion_question` FOREIGN KEY (`ID`) REFERENCES `question` (`ID`);
+
+--
+-- Các ràng buộc cho bảng `qmulchoption`
+--
+ALTER TABLE `qmulchoption`
+  ADD CONSTRAINT `FK_QuestionID_qmulchoption_question` FOREIGN KEY (`QuestionID`) REFERENCES `question` (`ID`);
 
 --
 -- Các ràng buộc cho bảng `qcompmask`
