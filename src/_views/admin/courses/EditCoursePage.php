@@ -33,6 +33,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
             "/node_modules/bootstrap/dist/css/bootstrap.min.css",
             "/node_modules/dragula/dist/dragula.min.css",
             "/node_modules/summernote/dist/summernote-bs5.min.css",
+            "/node_modules/toastr/build/toastr.css",
             "/clients/css/admin/main.css",
             "/clients/css/admin/addcourse.css"
         );
@@ -326,6 +327,19 @@ class EditCoursePage extends BaseHTMLDocumentPage
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="">Large modal</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">

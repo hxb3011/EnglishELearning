@@ -46,9 +46,9 @@ $page->beforeDocument();
 
 <body>
     <div class="wrapper">
-        <aside id="sidebar">
-            <div class="d-flex">
-                <button class="toggle-btn" type="button">
+        <nav id="sidebar" class="">
+            <div class="d-flex justify-content-center" style="padding: 1rem 1rem;">
+                <button class="toggle-btn hide-in-lg-md" type="button">
                     <i class="mdi -menuIcon"></i>
                 </button>
                 <div class="sidebar-logo">
@@ -83,7 +83,7 @@ $page->beforeDocument();
                     <span class="sidebar-item__text">Quay lại trang chủ</span>
                 </a>
             </div>
-        </aside>
+        </nav>
         <div class="main">
             <main class="content px-3 py-4">
                 <? $page->body() ?>
