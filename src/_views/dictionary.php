@@ -28,74 +28,6 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
     {
         parent::favIcon($ico, $svg);
     }
-
-    // public function head()
-    // {
-    //     $this->styles(
-    //         "/clients/css/dictionary/dictionary.css"
-    //     );
-    //     // $this->scripts(
-
-    //     // );
-    // }
-
-    // public function body()
-    // {
-    //     
-    //     <div class="container mt-5 mb-5" >
-    //         <div class="section-heading section-heading--lg ">Dictionary</div>
-    //         <div class = "container flashcard__container">
-    //             <div class="row mt-5 justify-content-center">
-    //                 <div class="col-xs-8 col-sm-6 col-md-6 col-lg-3 my-3">
-    //                     <div class="card text-bg-dark text-light rounded-5 p-5">
-    //                         <h3 class="pretitle text-end ">Noun</h3>
-    //                         <img src="/assets/images/icon-blog.png" class="feedback-icon" alt="">
-    //                         <h3 class="card-title word_title text-reset">Coffee</h3>
-    //                         <p class="word_pronouce  text-reset opacity-75 ">/ˈkɒfi/</p>
-    //                         <p class="word_definition text-reset" align ="jusitify"> the roasted seeds (called coffee beans) of a tropical bush; a powder made from them</p>
-    //                     </div>
-    //                 </div>
-    //                 <div class="col-xs-8 col-sm-6 col-md-6 col-lg-3 my-3">
-    //                     <div class="card text-bg-dark text-light rounded-5 p-5">
-    //                         <h3 class="pretitle text-end ">Noun</h3>
-    //                         <img src="/assets/images/icon-blog.png" class="feedback-icon" alt="">
-    //                         <h3 class="card-title word_title text-reset">Coffee</h3>
-    //                         <p class="word_pronouce  text-reset opacity-75 ">/ˈkɒfi/</p>
-    //                         <p class="word_definition text-reset" align ="jusitify"> the roasted seeds (called coffee beans) of a tropical bush; a powder made from them</p>
-    //                     </div>
-    //                 </div>
-    //                 <div class="col-xs-8 col-sm-6 col-md-6 col-lg-3 my-3">
-    //                     <div class="card text-bg-dark text-light rounded-5 p-5">
-    //                         <h3 class="pretitle text-end ">Noun</h3>
-    //                         <img src="/assets/images/icon-blog.png" class="feedback-icon" alt="">
-    //                         <h3 class="card-title word_title text-reset">Coffee</h3>
-    //                         <p class="word_pronouce  text-reset opacity-75 ">/ˈkɒfi/</p>
-    //                         <p class="word_definition text-reset" align ="jusitify"> the roasted seeds (called coffee beans) of a tropical bush; a powder made from them</p>
-    //                     </div>
-    //                 </div>
-    //                 <div class="col-xs-8 col-sm-6 col-md-6 col-lg-3 my-3">
-    //                     <div class="card text-bg-dark text-light rounded-5  p-5">
-    //                         <h3 class="pretitle text-end ">Noun</h3>
-    //                         <img src="/assets/images/icon-blog.png" class="feedback-icon" alt="">
-    //                         <h3 class="card-title word_title text-reset">coffee</h3>
-    //                         <p class="word_pronouce  text-reset opacity-75 ">/ˈkɒfi/</p>
-    //                         <p class="word_definition  text-reset " align ="jusitify"> the roasted seeds (called coffee beans) of a tropical bush; a powder made from them</p>
-    //                     </div>
-    //                 </div>
-    //                 <div class="col-xs-8 col-sm-6 col-md-6 col-lg-3 my-3">
-    //                     <div class="card text-bg-dark text-light rounded-5 p-5">
-    //                         <h3 class="pretitle text-end ">Adverb</h3>
-    //                         <img src="/assets/images/icon-blog.png" class="feedback-icon" alt="">
-    //                         <h3 class="card-title word_title text-reset">exponentially</h3>
-    //                         <p class="word_pronouce  text-reset opacity-75 "> /ˌek.spoʊˈnen.ʃəl.i/</p>
-    //                         <p class="word_definition text-reset" align ="jusitify"> in a way that becomes quicker and quicker as something that increases becomes larger</p>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </div>
-    //     <? 
-    // }
     public function head()
     {
         $this->style(
@@ -107,7 +39,6 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
             "sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         );
         $this->styles(
-            "/clients/css/dictionary/dictionary.css",
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
             "/clients/css/dictionary/dictionary.css",
             "/clients/css/home/home_main.css",
@@ -128,7 +59,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
             <div class="section-heading mtop-5">Dictionary</div>
             <div class = "container flashcard__container mtop-5">
                 <div class="margin-5">
-                    <form class="form-inline d-flex w-35 round-5 mx-auto" autocomplete="off">
+                    <form class="form-inline d-flex width-search round-5 mx-auto" autocomplete="off">
                     <div class="autocomplete w-100">
                         <input class="form-control border border-dark  mr-sm-2 search_bar" id="inp_search" type="search" placeholder=" Search..." aria-label="Search">
                     </div>
@@ -238,7 +169,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
                         autocomplete(document.getElementById("inp_search"), countries);
                         </script>
                 <div class="row mt-5 justify-content-center">
-                    <div class=" col col-xxl-3 col-sm-2 col-xs  margin-5">
+                    <div class=" col col-sm-2  margin-5">
                         <div class="card text-bg-dark text-light round-5 padding-5">
                             <h3 class="pretitle ">Noun</h3>
                             <!-- <img src="/assets/images/icon-blog.png" class="feedback-icon" alt=""> -->
@@ -247,7 +178,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
                             <p class="word_definition text-reset" align ="jusitify"> the roasted seeds (called coffee beans) of a tropical bush; a powder made from them</p>
                         </div>
                     </div>
-                    <div class=" col col-xxl-2 col-sm-2 col-xs  margin-5">
+                    <div class=" col col-sm-2 margin-5">
                         <div class="card text-bg-dark text-light round-5 padding-5">
                             <h3 class="pretitle ">Noun</h3>
                             <!-- <img src="/assets/images/icon-blog.png" class="feedback-icon" alt=""> -->
@@ -256,7 +187,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
                             <p class="word_definition text-reset" align ="jusitify"> the roasted seeds (called coffee beans) of a tropical bush; a powder made from them</p>
                         </div>
                     </div>
-                    <div class=" col col-xl-2 col-md-2 col-sm-2   margin-5">
+                    <div class=" col col-sm-2  margin-5">
                         <div class="card text-bg-dark text-light round-5 padding-5">
                             <h3 class="pretitle ">Noun</h3>
                             <!-- <img src="/assets/images/icon-blog.png" class="feedback-icon" alt=""> -->
@@ -265,7 +196,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
                             <p class="word_definition text-reset" align ="jusitify"> the roasted seeds (called coffee beans) of a tropical bush; a powder made from them</p>
                         </div>
                     </div>
-                    <div class=" col col-xl-2 col-md-2 col-sm-2 col-xs col-lg-4 margin-5">
+                    <div class=" col col-sm-2  margin-5">
                         <div class="card text-bg-dark text-light round-5 padding-5">
                             <h3 class="pretitle ">Noun</h3>
                             <!-- <img src="/assets/images/icon-blog.png" class="feedback-icon" alt=""> -->
@@ -274,7 +205,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
                             <p class="word_definition text-reset" align ="jusitify"> the roasted seeds (called coffee beans) of a tropical bush; a powder made from them</p>
                         </div>
                     </div>
-                    <div class=" col col-xl-2 col-md-2 col-sm-2 col-xs col-lg-4 margin-5">
+                    <div class=" col col-sm-2  margin-5">
                         <div class="card text-bg-dark text-light round-5 padding-5">
                             <h3 class="pretitle ">Noun</h3>
                             <!-- <img src="/assets/images/icon-blog.png" class="feedback-icon" alt=""> -->
@@ -283,7 +214,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
                             <p class="word_definition text-reset" align ="jusitify"> the roasted seeds (called coffee beans) of a tropical bush; a powder made from them</p>
                         </div>
                     </div> 
-                    <div class=" col col-xl-2 col-md-2 col-sm-2 col-xs col-lg-4 margin-5">
+                    <div class=" col col-sm-2 margin-5">
                         <div class="card text-bg-dark text-light round-5 padding-5">
                             <h3 class="pretitle ">Noun</h3>
                             <!-- <img src="/assets/images/icon-blog.png" class="feedback-icon" alt=""> -->
@@ -292,7 +223,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
                             <p class="word_definition text-reset" align ="jusitify"> the roasted seeds (called coffee beans) of a tropical bush; a powder made from them</p>
                         </div>
                     </div> 
-                    <div class=" col col-xl-2 col-md-2 col-sm-2 col-xs col-lg-4 margin-5">
+                    <div class=" col col-sm-2 margin-5">
                         <div class="card text-bg-dark text-light round-5 padding-5">
                             <h3 class="pretitle ">Noun</h3>
                             <!-- <img src="/assets/images/icon-blog.png" class="feedback-icon" alt=""> -->
@@ -301,7 +232,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
                             <p class="word_definition text-reset" align ="jusitify"> the roasted seeds (called coffee beans) of a tropical bush; a powder made from them</p>
                         </div>
                     </div> 
-                    <div class=" col col-xl-2 col-md-2 col-sm-2 col-xs col-lg-4 margin-5">
+                    <div class=" col col-sm-2 margin-5">
                         <div class="card text-bg-dark text-light round-5 padding-5">
                             <h3 class="pretitle ">Noun</h3>
                             <!-- <img src="/assets/images/icon-blog.png" class="feedback-icon" alt=""> -->

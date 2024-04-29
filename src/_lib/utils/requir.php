@@ -12,8 +12,8 @@ if (!defined("__UTILS__REQUIR__")) {
             echo "Path: ", $path, "<br>",
                 "RealPath: ", $realpath, "<br>";
         }
-        echo $realpath;
-        //require_once $realpath;
+        // echo $realpath;
+        require_once $realpath;
     }
     function requirc(string $path)
     {
