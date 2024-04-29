@@ -27,18 +27,19 @@ class AdminCourses
         $page = new AddNewCoursePage();
         requira("_adminLayout.php");
     }
-    public function edit($courseID = 1)
+    public function edit($courseId)
     {
         requirv("admin/courses/EditCoursePage.php");
         global $page;
         $page = new EditCoursePage();
+        $page->course = $this->courseModel->getCourseById($courseId);
         requira("_adminLayout.php");
     }
     /* xử lí thêm,sửa,xóa từ các form */
     public function add_course()
     {
 
-        try{
+        try {
             $course = new Course();
             $course->id = $this->courseModel->generateValidCourseID();
             $course->name = $_POST['title'];
@@ -48,45 +49,100 @@ class AdminCourses
             $course->price = floatval($_POST['price']);
             $course->beginDate  = DateTime::createFromFormat('Y-m-d\TH:i', $_POST['start_date']);
             $course->endDate  = DateTime::createFromFormat('Y-m-d\TH:i', $_POST['end_date']);
-    
+
             // lưu file vào folder upload của dự án 
-            
+
             $course->posterURI = $this->saveImageToFolder($course->id);
             $result = $this->courseModel->addCourse($course);
-            if ($result >= 1)
-            {
+            if ($result >= 1) {
                 header('Location: /administration/courses/index.php');
             }
-        }catch(Exception $e)
-        {
+        } catch (Exception $e) {
             echo $e->getMessage();
         }
-        
     }
     private function saveImageToFolder($courseID)
     {
-        $targetDir= "/var/www/html/uploads/";
+        $targetDir = "/var/www/html/uploads/";
         // tạo thư mục uploads nếu không tồn tại
-        if(!file_exists($targetDir))
-        {
-            mkdir($targetDir,0777,true);
-        }
-        
-        //tạo thư mục cho khóa học trong thư mục upload
-        $targetDir = $targetDir.$courseID.'/poster'.'/';
-        if(!file_exists($targetDir))
-        {
-            mkdir($targetDir,0777,true);
+        if (!file_exists($targetDir)) {
+            mkdir($targetDir, 0777, true);
         }
 
-        $targetFile = $targetDir. basename($_FILES['course_poster']["name"]);   
+        //tạo thư mục cho khóa học trong thư mục upload
+        $targetDir = $targetDir . $courseID . '/poster' . '/';
+        if (!file_exists($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
+
+        $targetFile = $targetDir . basename($_FILES['course_poster']["name"]);
         // tạo đường dẫn mới cho file ảnh
-        if (move_uploaded_file($_FILES['course_poster']["tmp_name"],$targetFile))
-        {
-            $targetFile = str_replace($targetFile,"","/var/www/html/");
-            return $targetFile;
+        if (move_uploaded_file($_FILES['course_poster']["tmp_name"], $targetFile)) {
+            $relativePath = str_replace( "/var/www/html/", "", $targetFile);
+
+            return $relativePath;
         }
         return "";
+    }
+    /* Ajax call */
+    public function delete_lesson()
+    {
+        $response = array();
+        $jsonData = "";
+        if (isset($_REQUEST['courseId']) && isset($_REQUEST['lessonId'])) {
+            $response['status'] = '204';
+            $response['message'] = 'Xóa thành công';
+            $jsonData = json_encode($response);
+            echo $jsonData;
+        } else {
+
+            $response['status'] = '404';
+            $response['message'] = 'Không truyền thông tin của khóa học hoặc bài học cần xóa';
+
+            $jsonData = json_encode($response);
+            echo $jsonData;
+        }
+    }
+    /* Ajax call */
+    public function delete_excercise()
+    {
+        $response = array();
+        $jsonData = "";
+        if (isset($_REQUEST['courseId']) && isset($_REQUEST['excerciseId'])) {
+            $response['status'] = '204';
+            $response['message'] = 'Xóa thành công';
+            $jsonData = json_encode($response);
+            echo $jsonData;
+        } else {
+
+            $response['status'] = '404';
+            $response['message'] = 'Không truyền thông tin của khóa học hoặc bài học cần xóa';
+
+            $jsonData = json_encode($response);
+            echo $jsonData;
+        }
+    }
+    
+    public function delete_question()
+    {
+        header('Content-Type: application/json');
+        header('Content-Type: application/json');
+
+        $response = array();
+        $jsonData = "";
+        if (isset($_REQUEST['courseId']) && isset($_REQUEST['questionId'])) {
+            $response['status'] = '204';
+            $response['message'] = 'Xóa thành công';
+            $jsonData = json_encode($response);
+            echo $jsonData;
+        } else {
+
+            $response['status'] = '404';
+            $response['message'] = 'Không truyền thông tin câu hỏi cần xóa';
+
+            $jsonData = json_encode($response);
+            echo $jsonData;
+        }
     }
     /* Modal */
     public function add_lesson_modal()

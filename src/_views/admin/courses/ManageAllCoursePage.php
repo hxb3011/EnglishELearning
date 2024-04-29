@@ -130,7 +130,7 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                                                                     '<li><a class="dropdown-item" href="/courses/detail.php/' . $course->id . '" target="_blank">Xem khóa học</a></li>'
                                                                 );
                                                                 echo (
-                                                                    '<li><a class="dropdown-item" href="/administration/courses/edit.php/' . $course->id . '">Sửa khóa học</a></li>
+                                                                    '<li><a class="dropdown-item" href="/administration/courses/edit.php?courseId=' . $course->id . '">Sửa khóa học</a></li>
                                                                         '
                                                                 );
                                                                 ?>

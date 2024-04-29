@@ -162,7 +162,8 @@ CREATE TABLE `document` (
   `Description` text DEFAULT NULL,
   `DocUri` varchar(255) DEFAULT NULL,
   `State` tinyint(4) DEFAULT NULL,
-  `LessonID` varchar(20) DEFAULT NULL
+  `LessonID` varchar(20) DEFAULT NULL,
+  `OrderN` int DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -191,7 +192,8 @@ CREATE TABLE `excercise` (
   `Description` text DEFAULT NULL,
   `Deadline` datetime DEFAULT NULL,
   `State` tinyint(4) DEFAULT NULL,
-  `CourseID` varchar(20) DEFAULT NULL
+  `CourseID` varchar(20) DEFAULT NULL,
+  `OrderN` int DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
