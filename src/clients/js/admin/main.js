@@ -25,8 +25,8 @@ hamBurger.addEventListener("click", function () {
 
 function showAjaxModal(url, header) {
     // SHOWING AJAX PRELOADER IMAGE
-    jQuery('#scrollable-modal .modal-body').html('<div style="text-align:center;"><img src="http://localhost/academy/assets/global/bg-pattern-light.svg" /></div>');
-    jQuery('#scrollable-modal .modal-title').html('...');
+    jQuery('#scrollable-modal .modal-body').html('');
+    jQuery('#scrollable-modal .modal-title').html('');
     // LOADING THE AJAX MODAL
     jQuery('#scrollable-modal').modal('show', { backdrop: 'true' });
 
@@ -45,8 +45,8 @@ function showAjaxModal(url, header) {
 }
 function showLargeModal(url, header) {
     // SHOWING AJAX PRELOADER IMAGE
-    jQuery('#large-modal .modal-body').html('<div style="text-align:center;margin-top:200px;"><img src="http://localhost/academy/assets/global/bg-pattern-light.svg" height = "50px" /></div>');
-    jQuery('#large-modal .modal-title').html('...');
+    jQuery('#large-modal .modal-body').html('');
+    jQuery('#large-modal .modal-title').html('');
     // LOADING THE AJAX MODAL
     jQuery('#large-modal').modal('show', { backdrop: 'true' });
 

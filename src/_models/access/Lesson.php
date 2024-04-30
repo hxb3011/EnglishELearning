@@ -9,7 +9,7 @@ class Lesson{
     {
         
     }
-    public function construct( string $ID,  string $Description,  string $DocUri,  int $State,  string $CourseID,int $OrderN){
+    public function construct( string $ID,  string $Description,  int $State,  string $CourseID,int $OrderN){
         $this->ID = $ID;
         $this->Description = $Description;
         $this->State = $State ;
@@ -21,7 +21,7 @@ class Lesson{
         $this->Description = $arrayValue['Description'];
         $this->State =  $arrayValue['State']  ;
         $this->CourseID = $arrayValue['CourseID'] ;
-        $this->CourseID = $arrayValue['OrderN'] ;
+        $this->OrderN = intval($arrayValue['OrderN']) ;
 
     }
 }

@@ -347,3 +347,7 @@ button.close {
         display: none;
     }
 }
+.modal-dialog-scrollable{
+    height: unset !important;
+    max-height:calc(100% - var(--bs-modal-margin)* 2);;
+}
