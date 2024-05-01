@@ -18,8 +18,8 @@ global $editMode;
         <div class="mb-3">
             <label for="lesson_state" class="form-label">Trạng thái</label>
             <select class="form-control" id="lesson_state" value="" name="lesson_state">
-                <option value="1" <?if($lesson->State == 1 ) echo('selected') ?>>Công khai</option>
-                <option value="0" <?if($lesson->State == 0 ) echo('selected') ?>>Ẩn</option>
+                <option value="1" <?if(isset($lesson->State) && $lesson->State == 1 ) echo('selected') ?>>Công khai</option>
+                <option value="0" <?if(isset($lesson->State) && $lesson->State == 0 ) echo('selected') ?>>Ẩn</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary"><? if(!$editMode) echo('Thêm'); else echo('Sửa');  ?></button>

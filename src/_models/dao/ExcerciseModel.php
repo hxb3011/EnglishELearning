@@ -65,13 +65,12 @@ class ExcerciseModel
             return false;
         }
     }
-    public function updateLesson(Excercise $excercise){
-        $sqlQuery = "UPDATE excercise SET Description = ?,Deadline = STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),State = ?,OrderN=? WHERE id=?";
+    public function updateExcercise(Excercise $excercise){
+        $sqlQuery = "UPDATE excercise SET Description = ?,Deadline = STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),State = ? WHERE id=?";
         $params = array(
             "description" => $excercise->Description,
             "deadline" => $excercise->Deadline->format('d-m-Y H:i:s'),
             "state"=>$excercise->State,
-            "ordern"=>$excercise->OrderN,
             "id"=>$excercise->ID
         );
         try {
@@ -79,6 +78,20 @@ class ExcerciseModel
             return $result;
         } catch (Exception $e) {
             return false;
+        }
+    }
+    public function updateOrder(int $excerciseId,int $orderN)
+    {
+        $sqlQuery = "UPDATE excercise SET OrderN = ? WHERE ID = ?";
+        $params = array(
+            $orderN,
+            $excerciseId
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return 0;
         }
     }
     public function getTotalExcerciseInCourse($courseId)

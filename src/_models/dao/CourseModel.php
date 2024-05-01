@@ -86,35 +86,18 @@ class CourseModel
     public function updateCourse(Course $course)
     {
         $params = array();
-        echo $course->posterURI;
-        if (strlen($course->posterURI) > 0  ) {
-            $params = array(
-                "name" => $course->name,
-                "description" => $course->description,
-                "state" => $course->state,
-                "profileid" => $course->profileID,
-                "begindate" => $course->beginDate->format('d-m-Y H:i:s'),
-                "enddate" => $course->endDate->format('d-m-Y H:i:s'),
-                "price" => $course->price,
-                "posteruri" => $course->posterURI,
-                "id" => $course->id,
-            );
-            $sqlQuery = "UPDATE course SET Name=?,Description=?,State=?,ProfileID=?,BeginDate=STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),EndDate=STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),Price=?,PosterUri=? WHERE ID=?";
-        } else {
-            $params = array(
-                "name" => $course->name,
-                "description" => $course->description,
-                "state" => $course->state,
-                "profileid" => $course->profileID,
-                "begindate" => $course->beginDate->format('d-m-Y H:i:s'),
-                "enddate" => $course->endDate->format('d-m-Y H:i:s'),
-                "price" => $course->price,
-                "id" => $course->id,
-            );
-            $sqlQuery = "UPDATE course SET Name=?,Description=?,State=?,ProfileID=?,BeginDate=STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),EndDate=STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),Price=? WHERE ID=?";
-        }
-
-
+        $params = array(
+            "name" => $course->name,
+            "description" => $course->description,
+            "state" => $course->state,
+            "profileid" => $course->profileID,
+            "begindate" => $course->beginDate->format('d-m-Y H:i:s'),
+            "enddate" => $course->endDate->format('d-m-Y H:i:s'),
+            "price" => $course->price,
+            "posteruri" => $course->posterURI,
+            "id" => $course->id,
+        );
+        $sqlQuery = "UPDATE course SET Name=?,Description=?,State=?,ProfileID=?,BeginDate=STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),EndDate=STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),Price=?,PosterUri=? WHERE ID=?";
         try {
             $result = Database::executeNonQuery($sqlQuery, $params);
             return $result;

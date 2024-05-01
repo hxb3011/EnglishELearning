@@ -1,10 +1,12 @@
 <?php
+
 class Lesson{
     public string $ID;
     public string $Description;
     public int $State;
     public string $CourseID;
     public int $OrderN;
+    public array  $documents;
     public function __construct()
     {
         

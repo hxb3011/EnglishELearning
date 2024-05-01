@@ -107,4 +107,18 @@ class LessonModel
             return false;
         }
     }
+    public function updateOrder(string $lessonId,int $orderN)
+    {
+        $sqlQuery = "UPDATE lesson SET OrderN = ? WHERE ID = ?";
+        $params = array(
+            $orderN,
+            $lessonId
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
 }

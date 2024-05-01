@@ -131,27 +131,27 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="d-flex align-items-center justify-content-end mb-2">
-                                                                        <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1 me-4" onclick="showLargeModal('http://localhost:62280/administration/courses/show_modal.php?action=sort_lesson_modal&courseId=<? echo($this->course->id); ?>', 'Sắp xếp khóa học')"><i class="mdi mdi-sort"></i> Sắp xếp khóa học</a>
+                                                                        <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1 me-4" onclick="showLargeModal('http://localhost:62280/administration/courses/show_modal.php?action=sort_program_modal&courseId=<? echo($this->course->id); ?>', 'Sắp xếp khóa học')"><i class="mdi mdi-sort"></i> Sắp xếp khóa học</a>
                                                                     </div>
                                                                 </div>
                                                                 <hr>
-                                                                <? foreach ($this->programs as $program) : ?>
+                                                                <? foreach ($this->programs as $index =>  $program) : ?>
                                                                     <? if ($program instanceof Lesson) : ?>
                                                                         <div class="col-12 mt-4">
-                                                                            <div class="card bg-light text-seconday ps-4 pe-4">
+                                                                            <div class="card bg-light text-seconday ps-4 pe-4 on-hover-action" id="<? echo($program->ID) ?>">
                                                                                 <div class="card-body">
                                                                                     <div class="d-flex justify-content-between align-items-center">
                                                                                         <div class="card-title">
                                                                                             <? echo ($program->Description); ?>
                                                                                         </div>
-                                                                                        <div class="card-widget">
+                                                                                        <div class="card-widget" id="<? echo("widget-of-".$program->ID) ?>" style="display:none;" >
                                                                                             <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showLargeModal('http://localhost:62280/administration/courses/show_modal.php?action=sort_document_modal&courseId=<? echo($this->course->id); ?>', 'Sắp xếp bài giảng')"><i class="mdi mdi-sort"></i> Sắp xếp bài giảng</a>
                                                                                             <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showAjaxModal('http://localhost:62280/administration/courses/show_modal.php?action=document_modal&lessonId=<? echo($program->ID); ?>','Thêm tài liệu')"><i class="mdi mdi-plus"></i> Thêm tài liệu</a>
                                                                                             <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showAjaxModal('http://localhost:62280/administration/courses/show_modal.php?action=lesson_modal&editmode=1&lessonId=<? echo($program->ID); ?>', 'Sửa bài giảng')"><i class="mdi pen"></i> Sửa bài giảng</a>
                                                                                             <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_lesson&lessonId=<? echo($program->ID); ?>','Xóa bài giảng','Bạn có chắc muốn xóa bài giảng này')"><i class="mdi mdi-plus"></i> Xóa bài giảng</a>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <!-- <div class="program__lesson bg-white ps-3 pe-3 pt-3 pb-3 mt-3 rounded-1 d-flex justify-content-between align-items-center" style="box-shadow: 0 0 35px 0 rgba(154, 161, 171, .15);">
+                                                                                    <div class="program__lesson bg-white ps-3 pe-3 pt-3 pb-3 mt-3 rounded-1 d-flex justify-content-between align-items-center" style="box-shadow: 0 0 35px 0 rgba(154, 161, 171, .15);">
                                                                                         <h5 class="card-title mb-0">
                                                                                             <span class="font-weight-light">
                                                                                                 <i class="mdi video"></i>
@@ -183,37 +183,21 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                                             </a>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="program__lesson bg-white ps-3 pe-3 pt-3 pb-3 mt-3 rounded-1 d-flex justify-content-between align-items-center" style="box-shadow: 0 0 35px 0 rgba(154, 161, 171, .15);">
-                                                                                        <h5 class="card-title mb-0">
-                                                                                            <span class="font-weight-light">
-                                                                                                <i class="mdi quiz"></i>
-                                                                                                Hello
-                                                                                            </span>
-                                                                                        </h5>
-                                                                                        <div class="card-widget">
-                                                                                            <a class="" onclick="showAjaxModal('http://localhost:62280/administration/courses/modal/document.php','Sửa tài liệu tài liệu')">
-                                                                                                <i class="mdi pen"></i>
-                                                                                            </a>
-                                                                                            <a onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_question&courseId=COURSE01&lquestionId=1','Xóa câu hỏi','Bạn có chắc muốn xóa câu hỏi này')">
-                                                                                                <i class="mdi close"></i>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                    </div> -->
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     <? else : ?>
                                                                         <div class="col-12 mt-4">
-                                                                            <div class="card bg-light text-seconday ps-4 pe-4">
+                                                                            <div class="card bg-light text-seconday ps-4 pe-4 on-hover-action" id="<? echo("EXCERCISE".$program->ID) ?>">
                                                                                 <div class="card-body">
                                                                                     <div class="d-flex justify-content-between align-items-center">
                                                                                         <div class="card-title">
                                                                                             <? echo ($program->Description); ?>
                                                                                         </div>
-                                                                                        <div class="card-widget">
-                                                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showLargeModal('http://localhost:62280/administration/courses/show_modal.php?action=sort_excercise_modal&excerciseId=<?$program->ID?>', 'Câu hỏi')"><i class="mdi mdi-sort"></i>Câu hỏi</a>
-                                                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showAjaxModal('http://localhost:62280/administration/courses/show_modal.php?action=excercise&editmode=1&excerciseId=<?$program->ID?>', 'Sửa bài kiểm')"><i class="mdi pen"></i> Sửa bài kiểm</a>
-                                                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_excercise&courseId=COURSE01&excerciseId=<?$program->ID?>','Xóa bài kiểm','Bạn có chắc muốn xóa bài kiểm này')"><i class="mdi mdi-plus"></i> Xóa bài kiểm</a>
+                                                                                        <div class="card-widget" id="<? echo("widget-of-EXCERCISE".$program->ID); ?>"  style="display:none;">
+                                                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showLargeModal('http://localhost:62280/administration/courses/show_modal.php?action=sort_excercise_modal&excerciseId=<?echo $program->ID?>', 'Câu hỏi')"><i class="mdi mdi-sort"></i>Câu hỏi</a>
+                                                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showAjaxModal('http://localhost:62280/administration/courses/show_modal.php?action=excercise_modal&editmode=1&excerciseId=<?echo $program->ID?>', 'Sửa bài kiểm')"><i class="mdi pen"></i> Sửa bài kiểm</a>
+                                                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_excercise&courseId=COURSE01&excerciseId=<?echo $program->ID?>','Xóa bài kiểm','Bạn có chắc muốn xóa bài kiểm này')"><i class="mdi mdi-plus"></i> Xóa bài kiểm</a>
                                                                                         </div>
                                                                                     </div>
 
@@ -434,6 +418,16 @@ class EditCoursePage extends BaseHTMLDocumentPage
                     submitHandler: function(form) {
                         form.submit()
                     }
+                })
+
+                $('.on-hover-action').mouseenter(function(){
+                    let id = this.id;
+                    $('#widget-of-'+id).show()
+                })
+
+                $('.on-hover-action').mouseleave(function(){
+                    let id = this.id;
+                    $('#widget-of-'+id).hide()
                 })
             })
             initImageUpload(document.getElementsByClassName('image-box')[0])
