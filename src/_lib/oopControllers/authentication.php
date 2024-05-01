@@ -1,6 +1,6 @@
 <?php
 require_once "/var/www/html/_lib/utils/requir.php";
-requirm("userModel.php");
+// requirm("userModel.php");
 
 class Authentication
 {
@@ -34,6 +34,8 @@ class Authentication
 
     public function checkLogin()
     {
+        require_once "/var/www/html/_lib/Models/userModel.php";
+
         $user = new UserModel();
         $username = $_POST['username'];
         $password = $_POST['password'];

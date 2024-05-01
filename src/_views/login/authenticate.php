@@ -32,6 +32,7 @@ final class AuthenticatePage extends BaseHTMLDocumentPage
     public function head()
     {
         $this->styles(
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
             "/clients/css/login/authenticate.css"
         );
         // $this->scripts(

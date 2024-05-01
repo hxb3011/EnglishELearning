@@ -9,6 +9,35 @@
 body,
 input{
   font-family: Exo, 'Source Sans Pro';
+  font-size: 20rem !important;
+}
+
+h2 {
+  font-size: 30rem !important;
+}
+
+i {
+  font-size: 20rem !important;
+}
+
+.btn-link {
+  font-size: 15rem !important;
+}
+
+.panel h3 {
+  font-size: 30rem !important;
+}
+
+.panel p{
+  font-size: 15rem !important;
+}
+
+button {
+  font-size: 20rem !important;
+}
+
+input[type="submit"] {
+  font-size: 20rem !important;
 }
 
 .container-authen {
@@ -242,7 +271,7 @@ form.sign-in-form {
 
 .container-authen .btn-link {
   margin-right: -35%;
-  font-size: 1.5rem;
+  color: #0443fe;
 }
 
 .right-panel .image,
