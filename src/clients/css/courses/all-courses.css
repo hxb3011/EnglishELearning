@@ -5,6 +5,7 @@ html {
 * {
   margin: 0;
   padding: 0;
+  font-family: "Roboto Regular";
 }
 
 ul,
@@ -15,30 +16,43 @@ li {
 input {
   border: none;
 }
-.mdi.-calendar::before{
-  content: '\F0679';
+.mdi-b.calendar::before{
+  content: var(--mdi-calendar);
 }
-.mdi.-student::before{
-  content: '\F1A20';
+.mdi-b.student::before{
+  content: var(--mdi-account-school);
 }
-.mdi.-document::before{
-  content: '\F09EE';
+.mdi-b.document::before{
+  content: var(--mdi-file-document-outline);
 }
-.mdi.-prev::before{
-  content: '\F097C';
+.mdi-b.prev::before{
+  content: var(--mdi-less-than);
 }
-.mdi.-next::before{
-  content: '\F096D';
+.mdi-b.next::before{
+  content: var(--mdi-greater-than);
+}
+.mdi-b.search::before{
+  content: var(--mdi-magnify);
+}
+.container{
+  padding-top: 24rem;
+  padding-bottom: 24rem;
+}
+.courses-section__header{
+  font-family: "Roboto Medium";
+}
+.filter-text,.filter-btn,.course-item__info-section__author{
+  font-family: "Roboto Bold";
+
 }
 /* Course-section */
 .courses-section__header {
   margin-right: 45rem;
-  font-size: 24rem;
+  font-size: 48rem;
   font-weight: 600;
   line-height: 1.2000000212;
   color: #000000;
   text-transform: capitalize;
-  font-family: Exo, 'Source Sans Pro';
   white-space: nowrap;
   flex-shrink: 0; 
 }
@@ -46,12 +60,14 @@ input {
   min-width: 25%;
   width: 25%;
 }
-.courses-section__header__search-icon{
-  font-size: 14rem;
-  padding: 8rem;
+#search{
+  font-size: 14rem; 
+  padding:4rem;
+  border-radius:5rem 5rem ;
 }
-.courses-section__header__search-icon::before{
-  content: "\F0349";
+.courses-section__header__search-icon{
+  font-size: 20rem;
+  padding: 8rem;
 }
 .btn-search {
   color: #ff782d;
@@ -61,12 +77,12 @@ input {
 .courses-section__content__course-item {
   box-sizing: border-box;
   padding-right: 2rem;
-  height: 120rem;
+  height: 200rem;
   display: flex;
   align-items: center;
   border: solid 0.1rem #e9e9e9;
   background-color: #ffffff;
-  border-radius: 2rem;
+  border-radius: 6rem;
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
@@ -80,7 +96,7 @@ input {
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 2rem 0 0 2rem;
+  border-radius: 6rem 0 0 6rem;
   flex-shrink: 0;
 }
 
@@ -92,7 +108,6 @@ input {
   line-height: 8rem;
   text-transform: capitalize;
   color: #ffffff;
-  font-family: Jost, 'Source Sans Pro';
   display: flex;
   top: 5%;
   left: 5%;
@@ -110,7 +125,6 @@ input {
   line-height: 1.2;
   text-transform: capitalize;
   color: #000000;
-  font-family: Exo, 'Source Sans Pro';
   white-space: nowrap;
   flex-shrink: 0;
   width: 60%;
@@ -123,13 +137,9 @@ input {
 }
 
 .course-item__info-section__author {
-  font-size: 8rem;
+  font-size: 18rem;
   font-weight: bold;
-  line-height: 8rem;
   color: #000000;
-  font-family: Jost, 'Source Sans Pro';
-  overflow: hidden;
-  display: -webkit-box;
   -webkit-line-clamp: 1;
   /* Số dòng tối đa hiển thị */
   -webkit-box-orient: vertical;
@@ -137,12 +147,10 @@ input {
 }
 
 .course-item__info-section__title {
-  font-size: 12rem;
+  font-size: 24rem;
   font-weight: 600;
-  line-height: 8rem;
   text-transform: capitalize;
   color: #000000;
-  font-family: Exo, 'Source Sans Pro';
   white-space: nowrap;
   flex-shrink: 0;
   cursor: default;
@@ -151,37 +159,33 @@ input {
 
 .mini-icon {
   color: #ff782d;
-  font-size: 10rem;
-  margin-right: 0.4rem;
+  font-size: 16rem;
+  margin-right: 4rem;
 }
 
 .course-item__info-section__price {
-  font-size: 10rem;
+  font-size: 20rem;
   font-weight: 500;
-  line-height: 12rem;
   text-transform: capitalize;
   color: #55be23;
-  font-family: Jost, 'Source Sans Pro';
   white-space: nowrap;
 }
 
 .course-item__info-section__text {
-  font-size: 6rem;
+  font-size: 16rem;
   font-weight: 500;
-  line-height: 1.5;
+  font-weight: bold;
   text-transform: capitalize;
   color: #000000;
-  font-family: Jost, 'Source Sans Pro';
   cursor: default;
 }
 
 .course-item__info-section__link {
-  font-size: 10rem;
+  font-size: 16rem;
   font-weight: 500;
   line-height: 10rem;
   text-transform: capitalize;
   color: #000000;
-  font-family: Jost, 'Source Sans Pro';
   white-space: nowrap;
   text-decoration: none;
   transition: color 0.2s ease;
@@ -203,23 +207,28 @@ input {
   padding-right: 8rem;
 }
 .filter-part select{
-  font-size: 10rem;
-  padding-left: 4rem;
+  font-size: 16rem;
+  padding-left: 8rem;
   padding-right: 8rem;
+  border-radius: 5rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+
 }
 .filter-text{
   min-width: 18%;
   font-weight: bold;
-  font-size: 8rem;
+  font-size: 16rem;
 
 }
 .filter-btn{
-  font-size: 12rem;
-  width: 60rem;
-  height: 20rem;
+  font-size: 20rem;
+  width: 120rem;
   background-color: black;
   border-radius: 4rem;
   color: white;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 .filter-btn:hover{
   background-color: #ff782d;

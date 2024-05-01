@@ -8,12 +8,6 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
     {
         parent::__construct();
     }
-
-    // public function beforeDocument()
-    // {
-    //     parent::beforeDocument();
-    // }
-
     public function documentInfo(string $author, string $description, string $title)
     {
         parent::documentInfo($author, $description, "Tất cả khóa học - " . $title);
@@ -33,7 +27,6 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
     {
         $this->styles(
             "/node_modules/bootstrap/dist/css/bootstrap.min.css",
-            "/clients/css/home/home_main.css",
             "/clients/css/courses/all-courses.css",
             "/clients/css/pagination.css"
         );
@@ -49,15 +42,15 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                 <div class="col-md-12 col-sm-12">
                     <div class="courses-section__head d-flex justify-content-between align-items-center">
                         <h3 class="courses-section__header">
-                            Tất cả khóa học
+                            Danh sách khóa học
                         </h3>
                         <div class="courses-section__header__search-wrapper d-flex align-items-center" style="width : 18%">
                             <form style="display:block; width:100%" class="courses-section__header__search">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Tìm kiếm..." id="search" style="font-size: 8rem;">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo tên" id="search">
                                     <div class="input-group-append">
                                         <button class="btn btn-search " type="button">
-                                            <span class="mdi courses-section__header__search-icon"></span>
+                                            <span class="mdi-b search courses-section__header__search-icon"></span>
                                         </button>
                                     </div>
                                 </div>
@@ -78,12 +71,12 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                         </div>
                         <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12 ">
                             <span class="filter-text">
-                                Gía
+                                Giá
                             </span>
                             <select class="form-select" name="gia" id="gia">
                                 <option value="">Lựa chọn giá</option>
                                 <option value="">Miễn phí</option>
-                                <option value="">Miễn phí</option>
+                                <option value="">Dưới 500.000 VNĐ</option>
                             </select>
                         </div>
                         <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12   ">
@@ -99,31 +92,28 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                     <img src="/assets/images/blog4.png" class="courses-section__content__course-item-image">
                                     </img>
                                     <div class="courses-section__content__course-item__info d-flex justify-content-between flex-column">
-                                        <div>
+                                        <div style="padding-top: 6rem; padding-bottom:6rem">
                                             <div class="course-item__info-section pt-2 pb-4">
                                                 <span class="course-item__info-section__author">GV: Nguyễn Thanh Sang</span>
                                             </div>
                                             <p class="course-item__info-section__title">Create an LMS Website with LearnPress</p>
                                             <div class="d-flex align-items-center justify-content-evenly" style="margin-top: 4rem; margin-bottom:4rem;">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="mini-icon">
-                                                        <i class="mdi -calendar"></i>
+                                                    <span class="mini-icon mdi-b calendar">
                                                     </span>
                                                     <span class="course-item__info-section__text">
                                                         2 Tuần
                                                     </span>
                                                 </div>
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="mini-icon">
-                                                        <i class=" mdi -student"></i>
+                                                    <span class="mini-icon mdi-b student">
                                                     </span>
                                                     <span class="course-item__info-section__text">
                                                         2 Học viên
                                                     </span>
                                                 </div>
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="mini-icon">
-                                                        <i class="mdi -document"></i>
+                                                    <span class="mini-icon mdi-b document">
                                                     </span>
                                                     <span class="course-item__info-section__text">
                                                         20 Bài học
@@ -131,7 +121,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-between ps-3">
+                                        <div class="d-flex align-items-center justify-content-between ps-3" style="padding-bottom: 6rem; padding-right:8rem;">
                                             <p class="course-item__info-section__price">3000000 VND</p>
 
                                             <a href="/courses/detail.php" class="course-item__info-section__link">Xem chi tiết</a>
@@ -148,7 +138,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                 <ul class="pagination">
                                     <li class="pagination-item">
                                         <a href="#">
-                                            <i class="mdi -prev"></i>
+                                            <i class="mdi-b prev"></i>
                                         </a>
                                     </li>
                                     <li class=" pagination-item active">
@@ -162,7 +152,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                     </li>
                                     <li class="pagination-item">
                                         <a href="#">
-                                            <i class="mdi -next"></i>
+                                            <i class="mdi-b next"></i>
                                         </a>
                                     </li>
                                 </ul>

@@ -4,7 +4,6 @@ if (!defined("__UTILS__REQUIR__")) {
 
     function requira(string $path)
     {
-        echo $path;
         $realpath = exec("realpath \$WS_PATH_BASE/" . $path);
         if (defined("DEBUG_REQUIR")) {
             echo "<br>Backtrace: ";
@@ -12,7 +11,6 @@ if (!defined("__UTILS__REQUIR__")) {
             echo "Path: ", $path, "<br>",
                 "RealPath: ", $realpath, "<br>";
         }
-        // echo $realpath;
         require_once $realpath;
     }
     function requirc(string $path)

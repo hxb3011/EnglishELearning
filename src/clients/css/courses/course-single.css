@@ -1,17 +1,26 @@
-.mdi.-calendar::before{
-    content: '\F0679';
+*{
+    font-family: "Roboto Regular";
 }
-.mdi.-student::before{
-    content: '\F1A20';
+.mdi-b.calendar::before{
+    content: var(--mdi-account-school);
 }
-.mdi.-document::before{
-    content: '\F1517';
+.mdi-b.student::before{
+    content: var(--mdi-account-school);
 }
-.mdi.-quiz::before{
-    content: '\F086F';
+.mdi-b.document::before{
+    content: var(--mdi-file-document-multiple);
 }
-.mdi.-video::before{
-    content: '\F05C3';
+.mdi-b.quiz::before{
+    content: var(--mdi-file-question);
+}
+.mdi-b.video::before{
+    content:var(--mdi-video);
+}
+.mdi-b.file::before{
+    content: var(--mdi-file-document);
+}
+.mdi-b.quiz::before{
+    content: var(--mdi-help-circle-outline);
 }
 .wrapper{
     width: 100%;
@@ -21,9 +30,9 @@ main{
 }
 .top{
     background-color: black;
-    padding: 12rem 0 28rem 0;
-    border-bottom-left-radius: 4rem;
-    border-bottom-right-radius: 4rem;
+    padding: 28rem 0 48rem 0;
+    border-bottom-left-radius: 8rem;
+    border-bottom-right-radius: 8rem;
 
 }
 .course_category{
@@ -37,27 +46,27 @@ main{
 }
 .course_tutor{
     color: white;
-    font-size: 12rem;
+    font-size: 20rem;
     font-weight: 600;
     margin-left: 4rem;
 }
 .course_name{
-    font-size: 16rem;
+    font-size: 24rem;
     color: white;
     text-transform: capitalize;
-    font-family: Exo, 'Source Sans Pro';
     margin-top: 8rem;
+    font-family: "Roboto Medium";
     margin-bottom: 8rem;
 }
 .course_info{ 
     color: white;
-    font-size: 8rem;
+    font-size: 14rem;
     text-transform: capitalize;
-    font-family: Exo, 'Source Sans Pro';
     padding: 0 12rem 0 12rem;
 }
-.course_info i {
+.course_info span.mdi-b {
     color: #ff782d;
+    margin-right: 4rem;
 
 }
 .course__wrapper{
@@ -70,20 +79,17 @@ main{
 }
 .course_price{
     color: #fc0000;
-    font-size: 8rem;
+    font-size: 18rem;
     font-weight: 700;
-    text-transform: capitalize;
-    font-family: Exo, 'Source Sans Pro';
 }
 .course_gobtn{
     color: white;
     background-color: #fc0000;
-    padding: 2rem 4rem 2rem 4rem;
-    border-radius: 2rem;
-    font-size: 8rem;
+    padding: 8rem 12rem 8rem 12rem;
+    border-radius: 6rem;
+    font-size: 12rem;
     font-weight: 700;
-    text-transform: capitalize;
-    font-family: Exo, 'Source Sans Pro';    
+    text-transform: capitalize; 
 }
 .course_gobtn:hover{
     background-color: #e10000;
@@ -92,7 +98,7 @@ main{
 }
 
 .course__wrapper-inner{
-    padding: 4rem 8rem 4rem 8rem;
+    padding: 8rem 10rem 8rem 10rem;
 }
 /**  Course Tab */
 .main-body{
@@ -107,13 +113,12 @@ main{
 }
 
 .course_tab-item{
-    font-size: 12rem;
-    text-transform: capitalize;
-    font-family: Exo, 'Source Sans Pro';    
+    font-size: 24rem;
+    text-transform: capitalize; 
     color:black;
-    padding: 4rem 6rem 4rem 6rem;
-    border-top-left-radius: 2rem;
-    border-top-right-radius: 2rem;
+    padding: 6rem 8rem 6rem 8rem;
+    border-top-left-radius: 6rem;
+    border-top-right-radius: 6rem;
 
 }
 .course_tab-item.active{
@@ -128,34 +133,51 @@ main{
 /** Course Tab Content */
 .course_tabContent{
     background-color: rgb(240, 237, 237);
-    border-bottom-left-radius: 2rem;
-    border-bottom-right-radius: 2rem;
-    padding: 8rem;
+    border-bottom-left-radius: 6rem;
+    border-bottom-right-radius: 6rem;
+    padding: 10rem;
 }
 #nav-tong-quan{
-    font-size: 10rem;
-    text-transform: capitalize;
-    font-family: 'Source Sans Pro';  
+    font-size: 16rem;
     font-weight: 400;
 }
 
 .course_lesson{
-    background: white;
-    border-radius: 2rem;
-    margin-top: 4rem;
-    padding: 6rem 4rem 6rem 4rem  ;
+    background: #e3eaef;
+    border-radius: 6rem;
+    margin-top: 8rem;
+    padding: 10rem 8rem 10rem 6rem  ;
+}
+.course_lesson p{
+    cursor: default;
 }
 .course_lesson-title a{
     text-transform: capitalize;
-    font-family: 'Source Sans Pro'; 
-    font-size: 10rem;
+    font-size: 20rem;
     color: black;
+    font-family: "Roboto Bold";
     text-decoration: none;
 }
-.course_lesson_duration{
-    text-transform: capitalize;
-    font-family: 'Source Sans Pro'; 
-    font-size: 8rem;
-
+.course_lesson-title a[aria-expanded="false"] .mdi-b.toggle::before
+{
+    content: var(--mdi-plus);
+}
+.course_lesson-title a[aria-expanded="true"] .mdi-b.toggle::before
+{
+    content: var(--mdi-minus);
+}
+.course_lesson-content{
+    box-shadow: 0 0 35px 0 rgba(154, 161, 171, .15);
+}
+.course_lesson-doc{
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 10rem;
+    border-radius: 6rem;
+    font-size: 18rem;
+    margin-top: 8rem;
+    font-family: "Roboto Bold";
+    cursor: default;
 }
 /* End Course Tab Content */
