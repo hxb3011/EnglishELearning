@@ -44,7 +44,7 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
             <div class="row">
                 <div class="col-md-12">
                     <div class="admin-header">
-                        <i class="mdi mdi-apple-keyboard-command admin-header__icon"></i>
+                        <i class="mdi-b apple-keyboard-command admin-header__icon"></i>
                         Thêm khóa học
                     </div>
                 </div>
@@ -61,7 +61,7 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                                             Thêm khóa học
                                         </span>
                                         <a type="button" href="/administration/courses/index.php" class="btn btn-outline-primary btn-rounded btn-icon">
-                                            <i class="mdi back"></i> Danh sách khóa học
+                                            <span class="mdi-b back"></span> Danh sách khóa học
                                         </a>
                                     </div>
                                 </div>
@@ -73,25 +73,25 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                                         <ul class="nav nav-justified nav-pills form-wizard-header">
                                             <li class="nav-item">
                                                 <a class="nav-link rounded-0 pt-2 pb-2 active" data-bs-toggle="tab" href="#basic">
-                                                    <i class="mdi mdi-fountain-pen-tip"></i>
+                                                    <span class="mdi-b fountain-pen"></span>
                                                     <span class="d-none d-sm-inline">Cơ bản</span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link rounded-0 pt-2 pb-2" data-bs-toggle="tab" href="#tutor">
-                                                    <i class="mdi mdi-camera-control"></i>
+                                                    <span class="mdi-b camera-control"></span>
                                                     <span class="d-none d-sm-inline">Phân việc</span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link rounded-0 pt-2 pb-2" data-bs-toggle="tab" href="#pricing">
-                                                    <i class="mdi mdi-currency-cny"></i>
+                                                    <span class="mdi-b currency-cny"></span>
                                                     <span class="d-none d-sm-inline">Giá</span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link rounded-0 pt-2 pb-2" data-bs-toggle="tab" href="#media">
-                                                    <i class="mdi poster"></i>
+                                                    <spanm class="mdi-b poster"></spanm>
                                                     <span class="d-none d-sm-inline">Poster</span>
                                                 </a>
                                             </li>
@@ -167,7 +167,7 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                                                                     <div class="box image-box">
                                                                         <div class="js--image-preview" style="background-image: url(https://placehold.co/600x600); background-color: #F5F5F5;"></div>
                                                                         <div class="upload-options">
-                                                                            <label for="course_poster" class="btn" style="width:100%;"> <i class="mdi mdi-camera"></i> Poster <br> <small>(600 X 600)</small> </label>
+                                                                            <label for="course_poster" class="btn" style="width:100%;"> <i class="mdi-b camera"></i> Poster <br> <small>(600 X 600)</small> </label>
                                                                             <input id="course_poster" style="visibility:hidden;" type="file" class="image-upload" name="course_poster" id="course_poster" accept="image/*">
                                                                         </div>
                                                                     </div>

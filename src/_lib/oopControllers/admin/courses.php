@@ -3,10 +3,14 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/CourseModel.php');
 requirm('/dao/LessonModel.php');
 requirm('/dao/ExcerciseModel.php');
+requirm('/dao/DocumentModel.php');
+
 
 requirm('/access/Course.php');
 requirm('/access/Lesson.php');
 requirm('/access/Excercise.php');
+requirm('/access/Document.php');
+
 
 
 class AdminCourses
@@ -23,6 +27,7 @@ class AdminCourses
         $this->courseModel = new CourseModel();
         $this->lessonModel = new LessonModel();
         $this->excerciseModel  = new ExcerciseModel();
+        $this->documentModel = new DocumentModel();
     }
     /* trả về view  */
     public function index()
@@ -50,14 +55,15 @@ class AdminCourses
         $lessons = $this->lessonModel->getLessonsByCourseId($courseId);
         foreach($lessons as $lesson)
         {
-            $lesson->documents = $this->documentModel->getDocumentsByLessonID($lesson->ID);
+            $lesson->Documents = $this->documentModel->getDocumentsByLessonID($lesson->ID);
+            usort($lesson->Documents, array('AdminCourses', 'compareOrderN'));
         }
         $excercises = $this->excerciseModel->getExcercisesByCourseId($courseId);
         $page->programs = array_merge($lessons, $excercises);
         usort($page->programs, array('AdminCourses', 'compareOrderN'));
         requira("_adminLayout.php");
     }
-    /* xử lí thêm,sửa,xóa từ các form */
+    /* xử lí thêm,sửa,xóa từ các form , lời gọi từ ajax*/
     public function add_course()
     {
 
@@ -109,36 +115,6 @@ class AdminCourses
             echo $e->getMessage();
         }
     }
-    private function saveImageToFolder($courseID)
-    {
-        $targetDir = getenv('WS_PATH_BASE')."uploads/";
-        // tạo thư mục uploads nếu không tồn tại
-        if (!file_exists($targetDir)) {
-            mkdir($targetDir, 0777, true);
-        }
-
-        //tạo thư mục cho khóa học trong thư mục upload
-        $targetDir = $targetDir . $courseID . '/poster' . '/';
-        if (!file_exists($targetDir)) {
-            mkdir($targetDir, 0777, true);
-        }
-
-        $targetFile = $targetDir . basename($_FILES['course_poster']["name"]);
-        // tạo đường dẫn mới cho file ảnh
-        if (move_uploaded_file($_FILES['course_poster']["tmp_name"], $targetFile)) {
-            $relativePath = str_replace("/var/www/html/", "", $targetFile);
-            return $relativePath;
-        }
-        return "";
-    }
-    private function removeFile($filePath)
-    {
-        $realFilePath=  getenv('WS_PATH_BASE').$filePath;
-        if (file_exists($realFilePath)) {
-            unlink($realFilePath) ;
-        } 
-    }
-    /* Ajax call */
     public function add_lesson()
     {
         try {
@@ -265,6 +241,35 @@ class AdminCourses
             }
         }
     }
+    public function add_document()
+    {
+        try {
+            $document = new Document();
+            $document->ID = $this->documentModel->generateValidDocumentID();
+            $document->Description = $_POST['description'];
+            $document->State = $_POST['state'];
+            $document->LessonID = $_POST['lessonId'];
+            $document->Type = $_POST['type'];
+
+            $totalDocInLesson = $this->documentModel->getTotalDocumentInLesson($document->LessonID);
+            $document->OrderN = $totalDocInLesson + 1;
+            //
+            $document->DocUri = "Tạm thời....";
+            $result = $this->documentModel->addDocument($document);
+            if ($result >= 1) {
+                $lesson = $this->lessonModel->getLessonById($document->LessonID);
+                $redirect = "Location: /administration/courses/edit.php?courseId=" . $lesson->CourseID;
+                header($redirect);
+                exit;
+            }
+        } catch (Exception $ex) 
+        {
+        }
+    }
+    public function update_document()
+    {
+        
+    }
     /* Modal */
     public function lesson_modal()
     {
@@ -293,6 +298,14 @@ class AdminCourses
     }
     public function document_modal()
     {
+        global $lesson;
+        global $document;
+        $lesson = $this->lessonModel->getLessonById($_REQUEST['lessonId']);
+        $editMode = isset($_REQUEST['editmode']);
+        if($editMode)
+        {
+            $document = $this->documentModel->getDocumentsByLessonID($lesson->ID);
+        }
         requirv("admin/courses/modal/document.php");
     }
     public function sort_program_modal()
@@ -349,5 +362,35 @@ class AdminCourses
     private static function compareOrderN($a, $b)
     {
         return $a->OrderN - $b->OrderN;
+    }
+    /* Khác */
+    private function saveImageToFolder($courseID)
+    {
+        $targetDir = getenv('WS_PATH_BASE')."uploads/";
+        // tạo thư mục uploads nếu không tồn tại
+        if (!file_exists($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
+
+        //tạo thư mục cho khóa học trong thư mục upload
+        $targetDir = $targetDir . $courseID . '/poster' . '/';
+        if (!file_exists($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
+
+        $targetFile = $targetDir . basename($_FILES['course_poster']["name"]);
+        // tạo đường dẫn mới cho file ảnh
+        if (move_uploaded_file($_FILES['course_poster']["tmp_name"], $targetFile)) {
+            $relativePath = str_replace("/var/www/html/", "", $targetFile);
+            return $relativePath;
+        }
+        return "";
+    }
+    private function removeFile($filePath)
+    {
+        $realFilePath=  getenv('WS_PATH_BASE').$filePath;
+        if (file_exists($realFilePath)) {
+            unlink($realFilePath) ;
+        } 
     }
 }

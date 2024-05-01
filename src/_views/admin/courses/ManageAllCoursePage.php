@@ -44,7 +44,7 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
             <div class="row">
                 <div class="col-md-12">
                     <div class="admin-header">
-                        <i class="mdi mdi-apple-keyboard-command admin-header__icon"></i>
+                        <span class="mdi-b apple-keyboard-command admin-header__icon"></span>
                         Danh sách khóa học
                     </div>
                 </div>
@@ -122,7 +122,7 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                                                     <td>
                                                         <div class="dropright">
                                                             <button type="button" class="btn btn-sm btn-outline-primary btn-rounded btn-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="mdi mdi-dots-vertical"></i>
+                                                                <span class="mdi-b dots-vertical"></span>
                                                             </button>
                                                             <ul class="dropdown-menu">
                                                                 <?
