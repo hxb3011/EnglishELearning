@@ -55,7 +55,7 @@ $page->beforeDocument();
     <nav>
         <a class="mdi-b nav-item -search _action" hint="Tìm kiếm" href="#"></a>
         <a class="mdi-b nav-item -dictionary" hint="Từ điển" href="#"></a>
-        <a class="mdi-b nav-item -courses" hint="Khoá học" href="#"></a>
+        <a class="mdi-b nav-item -courses" hint="Khoá học" href="/courses/all.php"></a>
         <a class="mdi-b nav-item -blogs" hint="Bài viết" href="/blog/all.php"></a>
         <a class="mdi-b nav-item -profile" hint="Cá nhân" href="/profile/index.php"></a>
     </nav>

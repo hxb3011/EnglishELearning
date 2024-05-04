@@ -117,3 +117,6 @@ a.btn:focus-visible{
     border-color: #ff782d !important;
     color: white;
 }
+.card {
+    transition: all 0.4s ease-in;
+}
