@@ -448,9 +448,9 @@ class AdminCourses
             header('Location: /error');
         }
     }
-    public function sort_excercise_modal()
+    public function list_question_modal()
     {
-        requirv("admin/courses/modal/sort_excercise.php");
+        requirv("admin/courses/modal/list_question.php");
     }
     public function question_modal()
     {
