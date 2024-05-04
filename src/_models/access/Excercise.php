@@ -1,6 +1,6 @@
 <?
 class Excercise{
-    public string $ID;
+    public int $ID;
     public string $Description;
     public DateTime $Deadline;
     public string $CourseID;
@@ -10,15 +10,9 @@ class Excercise{
     {
         
     }
-    public function construct( string $ID,  string $Description,  DateTime $Deadline,  string $CourseID,int $OrderN){
-        $this->ID = $ID;
-        $this->Description = $Description;
-        $this->Deadline = $Deadline ;
-        $this->CourseID = $CourseID;
-        $this->OrderN = $OrderN;
-    }
+
     public function constructFromArray( $arrayValue){
-        $this->ID = $arrayValue['ID'] ;
+        $this->ID = intval($arrayValue['ID']) ;
         $this->Description = $arrayValue['Description'];
         $this->Deadline =  new DateTime($arrayValue['Deadline']);   
         $this->CourseID = $arrayValue['CourseID'] ;

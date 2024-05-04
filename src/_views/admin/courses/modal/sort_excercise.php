@@ -48,9 +48,9 @@
         a.prototype.init = function() {
             r('[data-plugin="dragula"]').each(function() {
                 var a = r(this).data("containers"),
-                t = [];
+                    t = [];
                 if (a)
-                for (var n = 0; n < a.length; n++) t.push(r("#" + a[n])[0]);
+                    for (var n = 0; n < a.length; n++) t.push(r("#" + a[n])[0]);
                 else t = [r(this)[0]];
                 var i = r(this).data("handleclass");
                 i ? dragula(t, {
@@ -65,5 +65,4 @@
         "use strict";
         window.jQuery.Dragula.init()
     }();
-
 </script>

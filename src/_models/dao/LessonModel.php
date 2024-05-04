@@ -121,4 +121,17 @@ class LessonModel
             return 0;
         }
     }
+    public function deleteLesson(string $lessonId)
+    {
+        $sqlQuery = "DELETE FROM lesson WHERE ID = ? ";
+        $params = array(
+            $lessonId
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
 }

@@ -55,7 +55,7 @@ class DocumentModel{
     }
     public function getNumberOfTotalDocument()
     {
-        $sqlQuery = "SELECT COUNT(*) AS total_documents FROM lesson";
+        $sqlQuery = "SELECT COUNT(*) AS total_documents FROM document";
         try {
             $result = Database::executeQuery($sqlQuery);
             return intval($result[0]['total_documents']);
@@ -105,6 +105,33 @@ class DocumentModel{
             $document->OrderN,
             $document->Type,
             $document->ID
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    public function deleteDocument(string $documentId)
+    {
+        $sqlQuery = "DELETE FROM document WHERE ID = ? ";
+        $params = array(
+            $documentId
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+    public function updateOrder(string $documentId,int $orderN)
+    {
+        $sqlQuery = "UPDATE document SET OrderN = ? WHERE ID = ?";
+        $params = array(
+            $orderN,
+            $documentId
         );
         try {
             $result = Database::executeNonQuery($sqlQuery, $params);

@@ -85,7 +85,6 @@ class CourseModel
     }
     public function updateCourse(Course $course)
     {
-        $params = array();
         $params = array(
             "name" => $course->name,
             "description" => $course->description,
@@ -102,7 +101,21 @@ class CourseModel
             $result = Database::executeNonQuery($sqlQuery, $params);
             return $result;
         } catch (Exception $e) {
-            return false;
+            return 0;
+        }
+    }
+
+    public function deleteCourse($courseId)
+    {
+        $sqlQuery = "DELETE FROM course WHERE ID = ?";
+        $params=[
+            $courseId
+        ];
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return 0;
         }
     }
 }

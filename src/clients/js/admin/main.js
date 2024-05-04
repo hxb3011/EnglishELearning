@@ -113,9 +113,17 @@ function confirm_delete_modal(url, title, text) {
                 url : url,
                 success : function(data)
                 {
-                    if (data.status = '204')
+                    jsonObject = JSON.parse(data)
+                    console.log(jsonObject.status);
+                    if (jsonObject.status == "204")
                     {
                         toastr.success('Xóa thành công')
+                        setTimeout(
+                            function()
+                            {
+                              location.reload();
+                          }, 1000);
+          
                     }else{
                         toastr.error('Xóa thất bại')
                     }
