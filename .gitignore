@@ -3,3 +3,4 @@ src/node_modules
 src/node_modules/*
 db/*
 .DS_Store
+src/_lib/vendor

@@ -107,4 +107,18 @@ class ExcerciseModel
             return false;
         }
     }
+    public function deleteExcercise(int $excerciseId)
+    {
+        $sqlQuery = "DELETE FROM excercise WHERE ID = ? ";
+        $params = array(
+            $excerciseId
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return false;
+        }
+        return false;
+    }
 }

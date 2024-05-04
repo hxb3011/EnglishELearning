@@ -6,17 +6,10 @@ class Lesson{
     public int $State;
     public string $CourseID;
     public int $OrderN;
-    public array  $documents;
+    public array  $Documents;
     public function __construct()
     {
-        
-    }
-    public function construct( string $ID,  string $Description,  int $State,  string $CourseID,int $OrderN){
-        $this->ID = $ID;
-        $this->Description = $Description;
-        $this->State = $State ;
-        $this->CourseID = $CourseID;
-        $this->OrderN = $OrderN;
+        $this->Documents = array();
     }
     public function constructFromArray( $arrayValue){
         $this->ID = $arrayValue['ID'] ;
@@ -24,6 +17,6 @@ class Lesson{
         $this->State =  $arrayValue['State']  ;
         $this->CourseID = $arrayValue['CourseID'] ;
         $this->OrderN = intval($arrayValue['OrderN']) ;
-
+        $this->Documents = array();
     }
 }

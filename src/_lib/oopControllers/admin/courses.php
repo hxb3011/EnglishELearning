@@ -3,11 +3,15 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/CourseModel.php');
 requirm('/dao/LessonModel.php');
 requirm('/dao/ExcerciseModel.php');
+requirm('/dao/DocumentModel.php');
+
 
 requirm('/access/Course.php');
 requirm('/access/Lesson.php');
 requirm('/access/Excercise.php');
+requirm('/access/Document.php');
 
+requirl('/services/S3Service.php');
 
 class AdminCourses
 {
@@ -17,12 +21,14 @@ class AdminCourses
     public ExcerciseModel $excerciseModel;
     public DocumentModel $documentModel;
 
-
+    public S3Service $s3Service;
     public function __construct()
     {
         $this->courseModel = new CourseModel();
         $this->lessonModel = new LessonModel();
         $this->excerciseModel  = new ExcerciseModel();
+        $this->documentModel = new DocumentModel();
+        $this->s3Service =  new S3Service();
     }
     /* trả về view  */
     public function index()
@@ -48,16 +54,18 @@ class AdminCourses
         $page = new EditCoursePage();
         $page->course = $this->courseModel->getCourseById($courseId);
         $lessons = $this->lessonModel->getLessonsByCourseId($courseId);
-        foreach($lessons as $lesson)
-        {
-            $lesson->documents = $this->documentModel->getDocumentsByLessonID($lesson->ID);
+        foreach ($lessons as $lesson) {
+            $lesson->Documents = $this->documentModel->getDocumentsByLessonID($lesson->ID);
+            usort($lesson->Documents, array('AdminCourses', 'compareOrderN'));
         }
         $excercises = $this->excerciseModel->getExcercisesByCourseId($courseId);
         $page->programs = array_merge($lessons, $excercises);
+        $page->basePath = $this->s3Service->getBasePath();
         usort($page->programs, array('AdminCourses', 'compareOrderN'));
+        $page->course->posterURI = $this->s3Service->encodeKey($page->course->posterURI);
         requira("_adminLayout.php");
     }
-    /* xử lí thêm,sửa,xóa từ các form */
+    /* xử lí thêm,sửa,xóa từ các form , lời gọi từ ajax*/
     public function add_course()
     {
 
@@ -96,7 +104,7 @@ class AdminCourses
             $course->beginDate  = DateTime::createFromFormat('Y-m-d\TH:i', $_POST['start_date']);
             $course->endDate  = DateTime::createFromFormat('Y-m-d\TH:i', $_POST['end_date']);
             // lưu file vào folder upload của dự án 
-            if ( strlen($_FILES['course_poster']["name"])>0 ) {
+            if (strlen($_FILES['course_poster']["name"]) > 0) {
                 $this->removeFile($course->posterURI);
                 $course->posterURI = $this->saveImageToFolder($course->id);
             }
@@ -109,36 +117,28 @@ class AdminCourses
             echo $e->getMessage();
         }
     }
-    private function saveImageToFolder($courseID)
+    public function delete_course()
     {
-        $targetDir = getenv('WS_PATH_BASE')."uploads/";
-        // tạo thư mục uploads nếu không tồn tại
-        if (!file_exists($targetDir)) {
-            mkdir($targetDir, 0777, true);
+        $response = array();
+        $jsonData = "";
+        if (isset($_REQUEST['courseId'])) {
+            $deletePoster = $this->s3Service->deleteFileInFolder('public/poster/' . $_REQUEST['courseId'] . '/');
+            $deleteTextFile = $this->s3Service->deleteFileInFolder('private/text/' . $_REQUEST['courseId'] . '/');
+            $delete = $this->s3Service->deleteFileInFolder('private/video/' . $_REQUEST['courseId'] . '/');
+
+            $result = $this->courseModel->deleteCourse($_REQUEST['courseId']);
+        }
+        if (isset($result) && $result > 0) {
+            $response['status'] = '204';
+            $response['message'] = 'Xóa thành công';
+        } else {
+            $response['status'] = '404';
+            $response['message'] = 'Không xóa được';
         }
 
-        //tạo thư mục cho khóa học trong thư mục upload
-        $targetDir = $targetDir . $courseID . '/poster' . '/';
-        if (!file_exists($targetDir)) {
-            mkdir($targetDir, 0777, true);
-        }
-
-        $targetFile = $targetDir . basename($_FILES['course_poster']["name"]);
-        // tạo đường dẫn mới cho file ảnh
-        if (move_uploaded_file($_FILES['course_poster']["tmp_name"], $targetFile)) {
-            $relativePath = str_replace("/var/www/html/", "", $targetFile);
-            return $relativePath;
-        }
-        return "";
+        $jsonData = json_encode($response);
+        echo $jsonData;
     }
-    private function removeFile($filePath)
-    {
-        $realFilePath=  getenv('WS_PATH_BASE').$filePath;
-        if (file_exists($realFilePath)) {
-            unlink($realFilePath) ;
-        } 
-    }
-    /* Ajax call */
     public function add_lesson()
     {
         try {
@@ -178,21 +178,26 @@ class AdminCourses
     }
     public function delete_lesson()
     {
+        //
         $response = array();
         $jsonData = "";
-        if (isset($_REQUEST['courseId']) && isset($_REQUEST['lessonId'])) {
+        if (isset($_REQUEST['lessonId'])) {
+            $lesson = $this->lessonModel->getLessonById($_REQUEST['lessonId']);
+            $deleteLessonTextFolder = $this->s3Service->deleteFileInFolder('private/text/' . $lesson->CourseID . '/' . $lesson->ID . '/');
+            $deleteLessonVideoFolder = $this->s3Service->deleteFileInFolder('private/video/' . $lesson->CourseID . '/' . $lesson->ID . '/');
+
+            $result = $this->lessonModel->deleteLesson($lesson->ID);
+        }
+        if (isset($result) && $result > 0) {
             $response['status'] = '204';
             $response['message'] = 'Xóa thành công';
-            $jsonData = json_encode($response);
-            echo $jsonData;
         } else {
-
             $response['status'] = '404';
-            $response['message'] = 'Không truyền thông tin của khóa học hoặc bài học cần xóa';
-
-            $jsonData = json_encode($response);
-            echo $jsonData;
+            $response['message'] = 'Không xóa được';
         }
+
+        $jsonData = json_encode($response);
+        echo $jsonData;
     }
     public function add_excercise()
     {
@@ -228,42 +233,131 @@ class AdminCourses
                 exit;
             }
         } catch (Exception $ex) {
-        }  
+        }
     }
     public function delete_excercise()
     {
-
+        $response = array();
+        $jsonData = "";
+        $result = 0;
+        if (isset($_REQUEST['excerciseId'])) {
+            $result = $this->excerciseModel->deleteExcercise($_REQUEST['excerciseId']);
+        }
+        if (isset($result) && $result == true) {
+            $response['status'] = '204';
+            $response['message'] = 'Xóa thành công';
+        } else {
+            $response['status'] = '404';
+            $response['message'] = 'Không xóa được';
+        }
+        $jsonData = json_encode($response);
+        echo $jsonData;
     }
     public function delete_question()
     {
-
-        $response = array();
-        $jsonData = "";
-        if (isset($_REQUEST['courseId']) && isset($_REQUEST['questionId'])) {
-            $response['status'] = '204';
-            $response['message'] = 'Xóa thành công';
-            $jsonData = json_encode($response);
-            echo $jsonData;
-        } else {
-
-            $response['status'] = '404';
-            $response['message'] = 'Không truyền thông tin câu hỏi cần xóa';
-
-            $jsonData = json_encode($response);
-            echo $jsonData;
-        }
+        //
     }
     public function sort_program()
     {
         $programs = json_decode(file_get_contents("php://input"), true);
-        foreach($programs as $index => $program){
-            if($program["type"] == "lesson")
-            {
-                $this->lessonModel->updateOrder($program["id"],$index);
-            }else{
-                $this->excerciseModel->updateOrder($program["id"],$index);
+        foreach ($programs as $index => $program) {
+            if ($program["type"] == "lesson") {
+                $this->lessonModel->updateOrder($program["id"], $index+1);
+            } else {
+                $this->excerciseModel->updateOrder($program["id"], $index+1);
             }
         }
+    }
+    public function add_document()
+    {
+        try {
+            $document = new Document();
+            $document->ID = $this->documentModel->generateValidDocumentID();
+            $document->Description = $_POST['description'];
+            $document->State = $_POST['state'];
+            $document->LessonID = $_POST['lessonId'];
+            $document->Type = $_POST['type'];
+
+            $totalDocInLesson = $this->documentModel->getTotalDocumentInLesson($document->LessonID);
+            $document->OrderN = $totalDocInLesson + 1;
+            //
+            $lesson = $this->lessonModel->getLessonById($document->LessonID);
+            $fileSource = $_FILES['document_src']["tmp_name"];
+            $filePath = ($document->Type == 'VIDEO') ? "private/video/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"] :
+                "private/text/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"];
+
+            $this->uploadFile($fileSource, $filePath, false);
+            $document->DocUri = $filePath;
+
+            $result = $this->documentModel->addDocument($document);
+            if ($result >= 1) {
+                $lesson = $this->lessonModel->getLessonById($document->LessonID);
+                $redirect = "Location: /administration/courses/edit.php?courseId=" . $lesson->CourseID;
+                header($redirect);
+                exit;
+            }
+        } catch (Exception $ex) {
+            echo $ex;
+        }
+    }
+    public function update_document()
+    {
+        try {
+            $document = $this->documentModel->getDocumentByID($_POST['documentId']);
+            $document->Description = $_POST['description'];
+            if (strlen($_FILES['document_src']["name"]) > 0) {
+                $this->removeFile($document->DocUri);
+                $lesson = $this->lessonModel->getLessonById($_POST['lessonId']);
+                $fileSource = $_FILES['document_src']["tmp_name"];
+                $filePath = ($document->Type == 'VIDEO') ? "private/video/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"] :
+                    "private/text/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"];
+                $this->uploadFile($fileSource, $filePath, false);
+                $document->DocUri = $filePath;
+            }
+            $result = $this->documentModel->updateDocument($document);
+            if ($result == true) {
+                $redirect = "Location: /administration/courses/edit.php?courseId=" . $lesson->CourseID;
+                header($redirect);
+                exit;
+            }
+        } catch (Exception $e) {
+        }
+    }
+    public function delete_document()
+    {
+        $response = array();
+        $jsonData = "";
+        if (isset($_REQUEST['documentId'])) {
+            $document = $this->documentModel->getDocumentByID($_REQUEST['documentId']);
+            $lesson = $this->lessonModel->getLessonById($document->LessonID);
+            if ($document->Type == "VIDEO") {
+                $deleteDocumentFolder = $this->s3Service->deleteFileInFolder('private/video/' . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID) . '/';
+            } else {
+                $deleteDocumentFolder = $this->s3Service->deleteFileInFolder('private/text/' . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/');
+            }
+            $result = $this->documentModel->deleteDocument($document->ID);
+        }
+        if ($result == true) {
+            $response["status"] = '204';
+            $response['message'] = 'Xóa thành công';
+            $response['isdeleted'] = $result;
+        } else {
+            $response['status'] = '404';
+            $response['message'] = 'Không xóa được';
+            $response['isdeleted'] = $result;
+        }
+
+        $jsonData = json_encode($response);
+        echo $jsonData;
+    }
+    public function sort_document()
+    {
+        $documents = json_decode(file_get_contents("php://input"), true);
+        $arr = [];
+        foreach ($documents as $index => $id) {
+            $this->documentModel->updateOrder($id, $index+1);
+        }
+        echo json_encode($arr);
     }
     /* Modal */
     public function lesson_modal()
@@ -293,6 +387,14 @@ class AdminCourses
     }
     public function document_modal()
     {
+        global $lesson;
+        global $document;
+        $lesson = $this->lessonModel->getLessonById($_REQUEST['lessonId']);
+        $editMode = isset($_REQUEST['editmode']);
+        if ($editMode) {
+            $document = $this->documentModel->getDocumentByID($_REQUEST['documentId']);
+            $document->DocUri = $this->s3Service->encodeKey($document->DocUri);
+        }
         requirv("admin/courses/modal/document.php");
     }
     public function sort_program_modal()
@@ -306,7 +408,7 @@ class AdminCourses
             $programs = array_merge($lessons, $excercises);
             usort($programs, array('AdminCourses', 'compareOrderN'));
             requirv("admin/courses/modal/sort_program.php");
-        }else{
+        } else {
             header('Location: /error');
         }
     }
@@ -336,7 +438,16 @@ class AdminCourses
     }
     public function sort_document_modal()
     {
-        requirv("admin/courses/modal/sort_document.php");
+        global $lesson;
+        global $documents;
+        if (isset($_REQUEST['lessonId'])) {
+            $lesson = $this->lessonModel->getLessonById($_REQUEST['lessonId']);
+            $documents = $this->documentModel->getDocumentsByLessonID($_REQUEST['lessonId']);
+            usort($documents, array('AdminCourses', 'compareOrderN'));
+            requirv("admin/courses/modal/sort_document.php");
+        } else {
+            header('Location: /error');
+        }
     }
     public function sort_excercise_modal()
     {
@@ -349,5 +460,24 @@ class AdminCourses
     private static function compareOrderN($a, $b)
     {
         return $a->OrderN - $b->OrderN;
+    }
+    /* Khác */
+    private function saveImageToFolder($courseID)
+    {
+        $relativeDir = 'public/' . 'poster/' . $courseID . '/';
+
+        $relativeFilePath = $relativeDir . basename($_FILES['course_poster']["name"]);
+        $fileSource = $_FILES['course_poster']["tmp_name"];
+        $result = $this->s3Service->uploadFileToBucket($fileSource, $relativeFilePath);
+        return $relativeFilePath;
+    }
+    private function uploadFile($fileSource, $filePath, $isPublic = true)
+    {
+        $result = $this->s3Service->uploadFileToBucket($fileSource, $filePath, $isPublic);
+        return str_replace($this->s3Service->getBasePath(), '', $result['ObjectURL']);
+    }
+    private function removeFile($filePath)
+    {
+        $this->s3Service->deleteFileInBucket($filePath);
     }
 }

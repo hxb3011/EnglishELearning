@@ -47,4 +47,97 @@ class DocumentModel{
             return null;
         }
     }
+    public function generateValidDocumentID()
+    {
+        $max = $this->getNumberOfTotalDocument();
+        $max = $max + 1;
+        return 'DOCUMENT' . $max;
+    }
+    public function getNumberOfTotalDocument()
+    {
+        $sqlQuery = "SELECT COUNT(*) AS total_documents FROM document";
+        try {
+            $result = Database::executeQuery($sqlQuery);
+            return intval($result[0]['total_documents']);
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+    public function getTotalDocumentInLesson($lessonId)
+    {
+        $sqlQuery = "SELECT COUNT(*) AS total_documents FROM document WHERE LessonID = ?";
+        $params = array(
+            $lessonId
+        );
+        try {
+            $result = Database::executeQuery($sqlQuery, $params);
+            return intval($result[0]['total_documents']);
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    public function addDocument(Document $document)
+    {
+        $sqlQuery = "INSERT INTO document(ID,Description,DocUri,State,LessonID,OrderN,Type) VALUES(?,?,?,?,?,?,?)";
+        $params = array(
+            $document->ID,
+            $document->Description,
+            $document->DocUri,
+            $document->State,
+            $document->LessonID,
+            $document->OrderN,
+            $document->Type
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    public function updateDocument(Document $document)
+    {
+        $sqlQuery = "UPDATE document SET Description = ? ,DocUri= ? ,State= ? ,OrderN = ? ,Type = ? WHERE ID = ?";
+        $params = array(
+            $document->Description,
+            $document->DocUri,
+            $document->State,
+            $document->OrderN,
+            $document->Type,
+            $document->ID
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    public function deleteDocument(string $documentId)
+    {
+        $sqlQuery = "DELETE FROM document WHERE ID = ? ";
+        $params = array(
+            $documentId
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+    public function updateOrder(string $documentId,int $orderN)
+    {
+        $sqlQuery = "UPDATE document SET OrderN = ? WHERE ID = ?";
+        $params = array(
+            $orderN,
+            $documentId
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }

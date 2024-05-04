@@ -15,18 +15,6 @@ class Course{
     {
         
     }
-    public function construct(string $id ,string $posterURI,string $description ,int $state,string $profileID,DateTime $beginDate,DateTime $endDate,float $price,string $name)
-    {
-        $this->id = $id;
-        $this->posterURI = $posterURI;
-        $this->description = $description;
-        $this->state = $state;
-        $this->profileID = $profileID;
-        $this->beginDate = $beginDate;
-        $this->endDate = $endDate;
-        $this->price = $price;
-        $this->name = $name;
-    }
 
     public function constructFromArray($arrayValue)
     {

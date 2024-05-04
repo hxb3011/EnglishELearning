@@ -5,40 +5,40 @@
     padding: 0;
 }
 
-.mdi.-menuIcon::before {
-    content: "\F035C";
+.mdi-b.-menuIcon::before {
+    content: var(--mdi-menu);
 }
 
-.mdi.-courseIcon::before {
-    content: "\F16C9";
+.mdi-b.-courseIcon::before {
+    content: var(--mdi-book-education);
 }
 
-.mdi.-blog::before {
-    content: "\F1008";
+.mdi-b.-blog::before {
+    content: var(--mdi-post);
 }
 
-.mdi.-user::before {
-    content: "\F0004";
+.mdi-b.-user::before {
+    content: var(--mdi-account);
 }
 
-.mdi.-dash::before {
-    content: '\F15FC';
+.mdi-b.-dash::before {
+    content: var(--mdi-dots-grid);
 }
 
-.mdi.-vocab::before {
-    content: '\F0C2C';
+.mdi-b.-vocab::before {
+    content: var(--mdi-alpha-v-circle-outline);
 }
 
-.mdi.mdi-apple-keyboard-command::before {
-    content: "\F0633";
+.mdi-b.apple-keyboard-command::before {
+    content: var(--mdi-apple-keyboard-command);
 }
 
-.mdi.mdi-dots-vertical::before {
-    content: '\F01D9';
+.mdi-b.dots-vertical::before {
+    content: var(--mdi-dots-vertical);
 }
 
-.mdi.back::before {
-    content: '\F0CDD';
+.mdi-b.back::before {
+    content: var(--mdi-arrow-left-circle);
 }
 
 a {
