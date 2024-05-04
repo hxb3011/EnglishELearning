@@ -277,13 +277,12 @@ class AdminCourses
             $document->State = $_POST['state'];
             $document->LessonID = $_POST['lessonId'];
             $document->Type = $_POST['type'];
-
             $totalDocInLesson = $this->documentModel->getTotalDocumentInLesson($document->LessonID);
             $document->OrderN = $totalDocInLesson + 1;
             //
             $lesson = $this->lessonModel->getLessonById($document->LessonID);
             $fileSource = $_FILES['document_src']["tmp_name"];
-            $filePath = ($document->Type == 'VIDEO') ? "private/video/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"] :
+            $filePath = ($document->Type == 'video') ? "private/video/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"] :
                 "private/text/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"];
 
             $this->uploadFile($fileSource, $filePath, false);
@@ -309,7 +308,7 @@ class AdminCourses
                 $this->removeFile($document->DocUri);
                 $lesson = $this->lessonModel->getLessonById($_POST['lessonId']);
                 $fileSource = $_FILES['document_src']["tmp_name"];
-                $filePath = ($document->Type == 'VIDEO') ? "private/video/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"] :
+                $filePath = ($document->Type == 'video') ? "private/video/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"] :
                     "private/text/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"];
                 $this->uploadFile($fileSource, $filePath, false);
                 $document->DocUri = $filePath;
@@ -330,7 +329,7 @@ class AdminCourses
         if (isset($_REQUEST['documentId'])) {
             $document = $this->documentModel->getDocumentByID($_REQUEST['documentId']);
             $lesson = $this->lessonModel->getLessonById($document->LessonID);
-            if ($document->Type == "VIDEO") {
+            if ($document->Type == "video") {
                 $deleteDocumentFolder = $this->s3Service->deleteFileInFolder('private/video/' . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID) . '/';
             } else {
                 $deleteDocumentFolder = $this->s3Service->deleteFileInFolder('private/text/' . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/');

@@ -156,7 +156,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                                         <div class="program__lesson bg-white ps-3 pe-3 pt-3 pb-3 mt-3 rounded-1 d-flex justify-content-between align-items-center" style="box-shadow: 0 0 35px 0 rgba(154, 161, 171, .15);">
                                                                                             <h5 class="card-title mb-0">
                                                                                                 <span class="font-weight-light">
-                                                                                                    <? if ($document->Type == "VIDEO") : ?>
+                                                                                                    <? if ($document->Type == "video") : ?>
                                                                                                         <i class="mdi-b video"></i>
                                                                                                     <? else : ?>
                                                                                                         <i class="mdi-b document"></i>
