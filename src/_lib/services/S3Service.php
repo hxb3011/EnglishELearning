@@ -1,7 +1,6 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
-requirl("vendor/aws/aws-autoloader.php");
-
+requirl('/composer/vendor/autoload.php');
 use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
 class S3Service
