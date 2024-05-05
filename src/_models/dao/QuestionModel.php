@@ -73,6 +73,28 @@ class QuestionModel
             return null;
         }
     }
+    public function getQuestionById(int $questionId)
+    {
+        $sqlQuery = "SELECT * FROM question WHERE ID= ?";
+        $params = array(
+            $questionId
+        );
+        try {
+            $result = Database::executeQuery($sqlQuery, $params);
+            if ($result != null) {
+                $question = [];
+                foreach ($result as $index => $value) {
+                    $question = new Question();
+                    $question->constructFromArray($value);
+                }
+                return $question;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            return array();
+        }
+    }
     //QMulchOption
     public function insertMulchQuestion(QMulchOption $question)
     {

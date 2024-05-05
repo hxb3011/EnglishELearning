@@ -4,12 +4,14 @@ requirm('/dao/CourseModel.php');
 requirm('/dao/LessonModel.php');
 requirm('/dao/ExcerciseModel.php');
 requirm('/dao/DocumentModel.php');
-
+requirm('/dao/QuestionModel.php');
 
 requirm('/access/Course.php');
 requirm('/access/Lesson.php');
 requirm('/access/Excercise.php');
 requirm('/access/Document.php');
+requirm('/access/Question.php');
+
 
 requirl('/services/S3Service.php');
 
@@ -20,7 +22,7 @@ class AdminCourses
     public LessonModel $lessonModel;
     public ExcerciseModel $excerciseModel;
     public DocumentModel $documentModel;
-
+    public QuestionModel $questionModel;
     public S3Service $s3Service;
     public function __construct()
     {
@@ -28,6 +30,7 @@ class AdminCourses
         $this->lessonModel = new LessonModel();
         $this->excerciseModel  = new ExcerciseModel();
         $this->documentModel = new DocumentModel();
+        $this->questionModel = new QuestionModel();
         $this->s3Service =  new S3Service();
     }
     /* trả về view  */
@@ -253,6 +256,19 @@ class AdminCourses
         $jsonData = json_encode($response);
         echo $jsonData;
     }
+    public function add_question()
+    {
+        foreach ($_POST as $key => $value) {
+            if(!is_array($value))
+                echo "Field: " . htmlspecialchars($key) . ", Value: " . htmlspecialchars($value) . "<br>";
+            else
+                {
+                    echo "Field: ".htmlspecialchars($key)."<br>";
+                    print_r($value);
+                    echo "<br>";
+                }
+        }
+    }
     public function delete_question()
     {
         //
@@ -450,10 +466,22 @@ class AdminCourses
     }
     public function list_question_modal()
     {
+        global $excerciseId;
+        global $questions;
+        $excerciseId  = $_REQUEST['excerciseId'];
+        $questions = $this->questionModel->getQuestionByExcerciseID($excerciseId);
         requirv("admin/courses/modal/list_question.php");
     }
     public function question_modal()
     {
+        global $question;
+        global $excerciseId;
+        $excerciseId = $_REQUEST['excerciseId'];
+        $editMode = isset($_REQUEST['editmode']);
+        if($editMode)
+        {
+
+        }
         requirv("admin/courses/modal/question.php");
     }
     private static function compareOrderN($a, $b)
