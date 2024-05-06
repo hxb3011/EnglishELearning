@@ -114,4 +114,38 @@ class Database
         $command->close();
         $con->close();
     }
+
+    public static function executeInsertQueryReturnID($sql, $params = null)
+    {
+        $con = Database::connectDatabase();
+        $command = $con->prepare($sql);
+        // xử lí các param truyền vào 
+        if ($params != null) {
+            $types = "";
+            $values = array();
+
+            foreach ($params as $field => $value) {
+                if (is_float($value)) {
+                    $types .= "d";
+                } elseif (is_integer($value)) {
+                    $types .= "i";
+                } elseif (is_string($value)) {
+                    $types .= "s";
+                } else {
+                    $types .= "b";
+                }
+                array_push($values, $value);
+            }
+            $command->bind_param($types, ...$values); // Gán giá trị tham số
+        }
+        // thực thi câu truy vấn
+        if ($command->execute()) {
+            $new_id = $con->insert_id;
+            return $new_id;
+        } else {
+            return false;
+        }
+        $command->close();
+        $con->close();
+    }
 }

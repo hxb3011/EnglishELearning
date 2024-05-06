@@ -156,7 +156,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                                         <div class="program__lesson bg-white ps-3 pe-3 pt-3 pb-3 mt-3 rounded-1 d-flex justify-content-between align-items-center" style="box-shadow: 0 0 35px 0 rgba(154, 161, 171, .15);">
                                                                                             <h5 class="card-title mb-0">
                                                                                                 <span class="font-weight-light">
-                                                                                                    <? if ($document->Type == "VIDEO") : ?>
+                                                                                                    <? if ($document->Type == "video") : ?>
                                                                                                         <i class="mdi-b video"></i>
                                                                                                     <? else : ?>
                                                                                                         <i class="mdi-b document"></i>
@@ -187,7 +187,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                                             <? echo ($program->Description); ?>
                                                                                         </div>
                                                                                         <div class="card-widget" id="<? echo ("widget-of-EXCERCISE" . $program->ID); ?>" style="display:none;">
-                                                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showLargeModal('http://localhost:62280/administration/courses/show_modal.php?action=sort_excercise_modal&excerciseId=<? echo $program->ID ?>', 'Câu hỏi')"><i class="mdi-b sort"></i>Câu hỏi</a>
+                                                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showLargeModal('http://localhost:62280/administration/courses/show_modal.php?action=list_question_modal&excerciseId=<? echo $program->ID ?>', 'Câu hỏi')"><i class="mdi-b sort"></i>Câu hỏi</a>
                                                                                             <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showAjaxModal('http://localhost:62280/administration/courses/show_modal.php?action=excercise_modal&editmode=1&excerciseId=<? echo $program->ID ?>', 'Sửa bài kiểm')"><i class="mdi-b pen"></i> Sửa bài kiểm</a>
                                                                                             <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_excercise&excerciseId=<? echo $program->ID ?>','Xóa bài kiểm','Bạn có chắc muốn xóa bài kiểm này')"><i class="mdi-b delete"></i> Xóa bài kiểm</a>
                                                                                         </div>

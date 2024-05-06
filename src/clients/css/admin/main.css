@@ -93,6 +93,7 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 .toggle-btn {
     background-color: transparent;
     cursor: pointer;
@@ -250,6 +251,7 @@ button.close {
         min-width: 70px;
         transition: all 0.5s ease-in-out;
     }
+
     #sidebar.expand {
         width: 260px;
         min-width: 260px;
@@ -343,11 +345,21 @@ button.close {
         transform: rotate(45deg);
         transition: all .2s ease-out;
     }
-    .hide-in-lg-md{
+
+    .hide-in-lg-md {
         display: none;
     }
 }
-.modal-dialog-scrollable{
+
+.modal-dialog-scrollable {
     height: unset !important;
-    max-height:calc(100% - var(--bs-modal-margin)* 2);;
+    max-height: calc(100% - var(--bs-modal-margin)* 2);
+    ;
 }
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+

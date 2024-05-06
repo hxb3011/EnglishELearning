@@ -5,7 +5,6 @@ global $document;
 <div class="alert alert-info" role="alert">
     <? if (isset($document->Description)) echo ("Tên bài: <strong><? echo($document->Description) ?></strong>");
     else echo ("Thêm mới") ?>
-
 </div>
 <div class="mt-3">
     <form method="POST" action="<? if (isset($document->ID)) echo ("/administration/courses/api/ajax_call_action.php?action=update_document");
@@ -20,8 +19,8 @@ global $document;
             <label class="form-check-label" for="flexRadioDefault1">
                 Video
             </label>
-            <input class="form-check-input" type="radio" value="video" name="type" value="VIDEO" <? if (!isset($document->Type)) echo ('onchange="changeAccept(\'VIDEO\')" ');
-                                                                                                    else echo ('disabled') ?> <? if (isset($document->Type) && $document->Type == "VIDEO") {
+            <input class="form-check-input" type="radio" value="video" name="type" value="video" <? if (!isset($document->Type)) echo ('onchange="changeAccept(\'video\')" ');
+                                                                                                    else echo ('disabled') ?> <? if (isset($document->Type) && $document->Type == "video") {
                                                                                                                                                                                                             echo ('checked');
                                                                                                                                                                                                         } ?>id="flexRadioDefault1">
         </div>
@@ -29,8 +28,8 @@ global $document;
             <label class="form-check-label" for="flexRadioDefault1">
                 Word,PDF...
             </label>
-            <input class="form-check-input" type="radio" video="word" name="type" value="TEXT" <? if (!isset($document->Type)) echo ('onchange="changeAccept(\'TEXT\')" ');
-                                                                                                else echo ('disabled') ?> <? if (isset($document->Type) && $document->Type == "TEXT") {
+            <input class="form-check-input" type="radio" video="word" name="type" value="text" <? if (!isset($document->Type)) echo ('onchange="changeAccept(\'text\')" ');
+                                                                                                else echo ('disabled') ?> <? if (isset($document->Type) && $document->Type == "text") {
                                                                                                                                                                                                         echo ('checked');
                                                                                                                                                                                                     } ?> id="flexRadioDefault2">
         </div>
@@ -142,10 +141,10 @@ global $document;
             if(type)
             {
                 switch (type) {
-                case 'VIDEO':
+                case 'video':
                     $('#document_src').attr('accept', 'video/mp4')
                     break;
-                case 'TEXT':
+                case 'text':
                     $('#document_src').attr('accept', '.docx,.pdf,.txt')
                     break;
             }

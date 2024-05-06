@@ -33,6 +33,7 @@ services:
         RUN apt install -y zip unzip
         RUN a2enmod rewrite
         RUN docker-php-ext-install mysqli
+        
       # COPY src/ /var/www/html/
     container_name: ws
     depends_on:
