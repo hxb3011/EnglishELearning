@@ -86,9 +86,9 @@ class AdminCourses
             // lưu file vào folder upload của dự án 
             $course->posterURI = $this->saveImageToFolder($course->id);
             $result = $this->courseModel->addCourse($course);
-            if ($result >= 1) {
-                header('Location: /administration/courses/index.php');
-            }
+            // if ($result >= 1) {
+            //     header('Location: /administration/courses/index.php');
+            // }
         } catch (Exception $e) {
             echo $e->getMessage();
         }
@@ -259,14 +259,13 @@ class AdminCourses
     public function add_question()
     {
         foreach ($_POST as $key => $value) {
-            if(!is_array($value))
+            if (!is_array($value))
                 echo "Field: " . htmlspecialchars($key) . ", Value: " . htmlspecialchars($value) . "<br>";
-            else
-                {
-                    echo "Field: ".htmlspecialchars($key)."<br>";
-                    print_r($value);
-                    echo "<br>";
-                }
+            else {
+                echo "Field: " . htmlspecialchars($key) . "<br>";
+                print_r($value);
+                echo "<br>";
+            }
         }
     }
     public function delete_question()
@@ -278,9 +277,9 @@ class AdminCourses
         $programs = json_decode(file_get_contents("php://input"), true);
         foreach ($programs as $index => $program) {
             if ($program["type"] == "lesson") {
-                $this->lessonModel->updateOrder($program["id"], $index+1);
+                $this->lessonModel->updateOrder($program["id"], $index + 1);
             } else {
-                $this->excerciseModel->updateOrder($program["id"], $index+1);
+                $this->excerciseModel->updateOrder($program["id"], $index + 1);
             }
         }
     }
@@ -370,7 +369,7 @@ class AdminCourses
         $documents = json_decode(file_get_contents("php://input"), true);
         $arr = [];
         foreach ($documents as $index => $id) {
-            $this->documentModel->updateOrder($id, $index+1);
+            $this->documentModel->updateOrder($id, $index + 1);
         }
         echo json_encode($arr);
     }
@@ -478,9 +477,7 @@ class AdminCourses
         global $excerciseId;
         $excerciseId = $_REQUEST['excerciseId'];
         $editMode = isset($_REQUEST['editmode']);
-        if($editMode)
-        {
-
+        if ($editMode) {
         }
         requirv("admin/courses/modal/question.php");
     }
