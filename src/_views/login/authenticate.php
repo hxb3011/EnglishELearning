@@ -33,11 +33,14 @@ final class AuthenticatePage extends BaseHTMLDocumentPage
     {
         $this->styles(
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
-            "/clients/css/login/authenticate.css"
+            "/clients/css/login/authenticate.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"   
         );
-        // $this->scripts(
-
-        // );
+        $this->scripts(
+            "https://code.jquery.com/jquery-3.5.1.min.js",
+            "/clients/js/authenticate/authenticate.js",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        );
     }
 
     public function body()
@@ -47,21 +50,22 @@ final class AuthenticatePage extends BaseHTMLDocumentPage
             <div class="forms-container">
                 <div class="signin-signup">
                     <!-- Sign in -->
-                    <form action="" class="sign-in-form">
+                    <form id="signinform" action="" method="POST" class="sign-in-form">
                         <h2 class="title">Sign in</h2>
+                        <div id="result" class="text-lg alert d-none rounded"></div>
                         <div class="input-field">
                             <i class="fas fa-user"></i>
-                            <input type="text" placeholder="Email or username" required>
+                            <input type="text" id="username" placeholder="Email or username" required>
                         </div>
                         <div class="input-field">
                             <i class="fas fa-lock"></i>
-                            <input class="input" type="password" placeholder="Password" required>
+                            <input class="input" id="password" type="password" placeholder="Password" required>
                             <i class="fa-solid fa-eye" data-index="0"></i>
                         </div>
-                        <a href="/login/forgetpassword" class="btn-link">Forgot password?</a>
-                        <input type="submit" value="login" class="btn solid">
+                        <a href="/authentication/forgetPassword.php" class="btn-link">Forgot password?</a>
+                        <input type="submit" id="loginbtn" value="login" class="btn solid">
 
-                        <p class="social-text">Or Sign in with social platforms</p>
+                        <p class="text-lg">Or Sign in with social platforms</p>
                         <div class="line-seperate"></div>
                         <div class="social-media">
                             <a href="#" class="social-icon">
@@ -77,29 +81,30 @@ final class AuthenticatePage extends BaseHTMLDocumentPage
                     </form>
 
                     <!-- Sign-up  -->
-                    <form action="" class="sign-up-form">
+                    <form id="signupform" action="" method="POST" class="sign-up-form">
                         <h2 class="title">Sign up</h2>
+                        <div class="alert text-lg d-none rounded" id="error"></div>
                         <div class="input-field">
                             <i class="fas fa-user"></i>
-                            <input type="text" placeholder="Username" required>
+                            <input type="text" id="username-register" placeholder="Username" required>
                         </div>
                         <div class="input-field">
                             <i class="fas fa-envelope"></i>
-                            <input type="email" placeholder="Email">
+                            <input type="email" id="email-register" placeholder="Email">
                         </div>
                         <div class="input-field">
                             <i class="fas fa-lock"></i>
-                            <input class="input" type="password" placeholder="Password" required>
+                            <input class="input" id="password-register" type="password" placeholder="Password" required>
                             <i class="fa-solid fa-eye" data-index="1"></i>
                         </div>
                         <div class="input-field">
                             <i class="fas fa-lock"></i>
-                            <input class="input" type="password" placeholder="Password Again" required>
+                            <input class="input" id="retype-password-register" type="password" placeholder="Password Again" required>
                             <i class="fa-solid fa-eye" data-index="2"></i>
                         </div>
-                        <input type="submit" value="Sign up" class="btn solid">
+                        <input type="submit" id="registerbtn" value="Sign up" class="btn solid">
 
-                        <p class="social-text">Or Sign up with social platforms</p>
+                        <p class="text-lg">Or Sign up with social platforms</p>
                         <div class="line-seperate"></div>
                         <div class="social-media">
                             <a href="#" class="social-icon">

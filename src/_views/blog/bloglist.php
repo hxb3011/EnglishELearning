@@ -32,10 +32,24 @@ final class BlogListPage extends BaseHTMLDocumentPage
     public function head()
     {
         $this->style(
-            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
+            "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        );
+        $this->script(
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+            "sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         );
         $this->styles(
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
+            "/clients/css/home/home_main.css",
+            "/clients/css/header/header.css",
+            "/clients/css/footer/footer.css",
             "/clients/css/blog/bloglist.css"
+        );
+        $this->scripts(
+            "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
+            "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         );
         // $this->scripts(
 
@@ -45,18 +59,18 @@ final class BlogListPage extends BaseHTMLDocumentPage
     public function body()
     {
         ?>
-        <div class="container-fluid py-5">
-            <div class="container py-5">
+        <div class="container-fluid py-5 my-5">
+            <div class="container py-5 my-5" >
                 <div class="row">
                     <!-- Blog list -->
                     <div class="col-lg-8">
                         <!-- Search Form -->
-                        <div class="row pb-3 d-inline search-form">
-                            <div class="col-lg-8 d-flex align-items-center">
-                                <h3 class="text-uppercase mb-0" style="white-space: nowrap; font-weight: 600; font-size: 2.2rem; letter-spacing: 3px">All Articles</h3>
-                                <form action="" class="mb-0" style="max-width: 195px;">
+                        <div class="row pb-5 d-flex search-form my-5">
+                            <div class="col-lg-8 d-flex justify-content-between w-100">
+                                <h3 class="title-h3 my-5" >All Articles</h3>
+                                <form action="" class="mb-0 " >
                                     <div class="input-group">
-                                        <input type="text" class="form-control form-control-lg input-search" style="max-width: 100%; height: 38px; font-size: 1.5rem;" placeholder="Search here">
+                                        <input type="text" class="form-control form-control-lg input-search" placeholder="Search here">
                                         <div class="input-group-append">
                                             <i class="fas fa-search"></i>
                                         </div>
@@ -65,13 +79,12 @@ final class BlogListPage extends BaseHTMLDocumentPage
                             </div>
                         </div>
                         <!-- End Search -->
-
                         <!-- Blog items -->
-                        <div class="col pb-3">
+                        <div class="col pb-3 margin-y-3">
                             <div class="row-md-6 mb-4">
                                 <div class="row g-0">
                                     <div class="col-md-6">
-                                        <img class="img-fluid img-blog mb-3 mb-md-0" style="width: 100%" src="/assets/images/blog.png" alt="">
+                                        <img class="img-fluid img-blog mb-3 mb-md-0"  src="/assets/images/blog.png" alt="">
                                     </div>
                                     <div class="col-md-6">
                                         <div class="blog-item position-relative overflow-hidden rounded mb-2" style="min-height: 100%;">
@@ -89,11 +102,11 @@ final class BlogListPage extends BaseHTMLDocumentPage
                             </div>
                         </div>
 
-                        <div class="col pb-3">
+                        <div class="col pb-3 margin-y-3">
                             <div class="row-md-6 mb-4">
                                 <div class="row g-0">
                                     <div class="col-md-6">
-                                        <img class="img-fluid img-blog mb-3 mb-md-0" style="width: 100%" src="/assets/images/blog.png" alt="">
+                                        <img class="img-fluid img-blog mb-3 mb-md-0"  src="/assets/images/blog.png" alt="">
                                     </div>
                                     <div class="col-md-6">
                                         <div class="blog-item position-relative overflow-hidden rounded mb-2" style="min-height: 100%;">
@@ -111,77 +124,11 @@ final class BlogListPage extends BaseHTMLDocumentPage
                             </div>
                         </div>
 
-                        <div class="col pb-3">
+                        <div class="col pb-3 margin-y-3">
                             <div class="row-md-6 mb-4">
                                 <div class="row g-0">
                                     <div class="col-md-6">
-                                        <img class="img-fluid img-blog mb-3 mb-md-0" style="width: 100%" src="/assets/images/blog.png" alt="">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="blog-item position-relative overflow-hidden rounded mb-2" style="min-height: 100%;">
-                                            <a class="blog-overlay text-decoration-none" href="">
-                                                <h4 class="text-border mb-2">Best LearnPress WordPress Theme Collection For 2024</h4>
-                                                <div class="date-group">
-                                                    <i class="fas fa-calendar-days"></i>
-                                                    <p class="">Jan 01, 2024</p>
-                                                </div>
-                                                <span class="text-muted">Looking for a amazing & well-functional LearnPress WordPress Theme? Online education...</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col pb-3">
-                            <div class="row-md-6 mb-4">
-                                <div class="row g-0">
-                                    <div class="col-md-6">
-                                        <img class="img-fluid img-blog mb-3 mb-md-0" style="width: 100%" src="/assets/images/blog.png" alt="">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="blog-item position-relative overflow-hidden rounded mb-2" style="min-height: 100%;">
-                                            <a class="blog-overlay text-decoration-none" href="">
-                                                <h4 class="text-border mb-2">Best LearnPress WordPress Theme Collection For 2024</h4>
-                                                <div class="date-group">
-                                                    <i class="fas fa-calendar-days"></i>
-                                                    <p class="">Jan 01, 2024</p>
-                                                </div>
-                                                <span class="text-muted">Looking for a amazing & well-functional LearnPress WordPress Theme? Online education...</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col pb-3">
-                            <div class="row-md-6 mb-4">
-                                <div class="row g-0">
-                                    <div class="col-md-6">
-                                        <img class="img-fluid img-blog mb-3 mb-md-0" style="width: 100%" src="/assets/images/blog.png" alt="">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="blog-item position-relative overflow-hidden rounded mb-2" style="min-height: 100%;">
-                                            <a class="blog-overlay text-decoration-none" href="">
-                                                <h4 class="text-border mb-2">Best LearnPress WordPress Theme Collection For 2024</h4>
-                                                <div class="date-group">
-                                                    <i class="fas fa-calendar-days"></i>
-                                                    <p class="">Jan 01, 2024</p>
-                                                </div>
-                                                <span class="text-muted">Looking for a amazing & well-functional LearnPress WordPress Theme? Online education...</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col pb-3">
-                            <div class="row-md-6 mb-4">
-                                <div class="row g-0">
-                                    <div class="col-md-6">
-                                        <img class="img-fluid img-blog mb-3 mb-md-0" style="width: 100%" src="/assets/images/blog.png" alt="">
+                                        <img class="img-fluid img-blog mb-3 mb-md-0"  src="/assets/images/blog.png" alt="">
                                     </div>
                                     <div class="col-md-6">
                                         <div class="blog-item position-relative overflow-hidden rounded mb-2" style="min-height: 100%;">
@@ -202,7 +149,7 @@ final class BlogListPage extends BaseHTMLDocumentPage
 
                         <!-- Pagination -->
                         <div class="col-12">
-                            <nav aria-label="Page navigation">
+                            <nav aria-label="Page navigation" style="all:unset">
                                 <ul class="pagination pagination-lg justify-content-center mb-0">
                                     <li class="page-item disabled">
                                         <a class="page-link" href="#" aria-label="Previous">
@@ -225,32 +172,32 @@ final class BlogListPage extends BaseHTMLDocumentPage
                     <!-- End Blog list -->
 
                     <!-- Category list etc... -->
-                    <div class="col-lg-4 mt-5">
+                    <div class="col-lg-4 pl-3">
                         <!-- Category List -->
-                        <div class="mb-5 category-list">
-                            <h3 class="text-uppercase mb-4" style="font-weight: 600; font-size: 2.2rem;">Categories</h3>
+                        <div class=" category-list">
+                            <h3 class="title-h3 margin-y-3" >Categories</h3>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0" style="font-size: 1.5rem;">
+                                <li class="list-group-item d-flex justify-content-between align-items-center border px-5  " >
                                     <a href="" class="text-decoration-none h4 m-0">Commerical</a>
                                     <span>15</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0" style="font-size: 1.5rem;">
+                                <li class="list-group-item d-flex justify-content-between align-items-center border px-5" >
                                     <a href="" class="text-decoration-none h4 m-0">Office</a>
                                     <span>15</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0" style="font-size: 1.5rem;">
+                                <li class="list-group-item d-flex justify-content-between align-items-center border px-5" >
                                     <a href="" class="text-decoration-none h4 m-0">Shop</a>
                                     <span>15</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0" style="font-size: 1.5rem;">
+                                <li class="list-group-item d-flex justify-content-between align-items-center border px-5" >
                                     <a href="" class="text-decoration-none h4 m-0">Educate</a>
                                     <span>15</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0" style="font-size: 1.5rem;">
+                                <li class="list-group-item d-flex justify-content-between align-items-center border px-5" >
                                     <a href="" class="text-decoration-none h4 m-0">Academy</a>
                                     <span>15</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0" style="font-size: 1.5rem;">
+                                <li class="list-group-item d-flex justify-content-between align-items-center border px-5" >
                                     <a href="" class="text-decoration-none h4 m-0">Single family home</a>
                                     <span>15</span>
                                 </li>
@@ -258,21 +205,21 @@ final class BlogListPage extends BaseHTMLDocumentPage
                         </div>
 
                         <!-- Recent Post -->
-                        <div class="mb-5 recent-post">
-                            <h3 class="text-uppercase mb-4">Recent Post</h3>
-                            <a class="d-flex align-items-center text-decoration-none mb-3" href="">
+                        <div class="mb-5 recent-post margin-y-3">
+                            <h3 class="title-h3 mb-4">Recent Post</h3>
+                            <a class="d-flex align-items-center text-decoration-none margin-y-3 border " href="">
+                                <img class="img-fluid rounded" src="/assets/images/blog4.png" alt="wordpress image" style="max-width: 50%;">
+                                <div class="pl-3 ">
+                                    <h4>Best LearnPress WordPress Theme Collection For 2024</h4>
+                                </div>
+                            </a>
+                            <a class="d-flex align-items-center text-decoration-none margin-y-3 border" href="">
                                 <img class="img-fluid rounded" src="/assets/images/blog4.png" alt="wordpress image" style="max-width: 50%;">
                                 <div class="pl-3">
                                     <h4>Best LearnPress WordPress Theme Collection For 2024</h4>
                                 </div>
                             </a>
-                            <a class="d-flex align-items-center text-decoration-none mb-3" href="">
-                                <img class="img-fluid rounded" src="/assets/images/blog4.png" alt="wordpress image" style="max-width: 50%;">
-                                <div class="pl-3">
-                                    <h4>Best LearnPress WordPress Theme Collection For 2024</h4>
-                                </div>
-                            </a>
-                            <a class="d-flex align-items-center text-decoration-none mb-3" href="">
+                            <a class="d-flex align-items-center text-decoration-none margin-y-3 border" href="">
                                 <img class="img-fluid rounded" src="/assets/images/blog4.png" alt="wordpress image" style="max-width: 50%;">
                                 <div class="pl-3">
                                     <h4>Best LearnPress WordPress Theme Collection For 2024</h4>
@@ -282,14 +229,14 @@ final class BlogListPage extends BaseHTMLDocumentPage
 
                         <!-- Tag Cloud -->
                         <div class="mb-5 tags">
-                            <h3 class="text-uppercase mb-4">Tags</h3>
+                            <h3 class="title-h3 mb-4">Tags</h3>
                             <div class="d-flex flex-wrap m-n1">
-                                <a href="" class="btn btn-outline-dark m-1">Development</a>
-                                <a href="" class="btn btn-outline-dark m-1">Design</a>
-                                <a href="" class="btn btn-outline-dark m-1">Marketing</a>
-                                <a href="" class="btn btn-outline-dark m-1">SEO</a>
-                                <a href="" class="btn btn-outline-dark m-1">Writing</a>
-                                <a href="" class="btn btn-outline-dark m-1">Consulting</a>
+                                <a href="" class="btn btn-outline-dark m-5 p-5">Development</a>
+                                <a href="" class="btn btn-outline-dark m-5 p-5">Design</a>
+                                <a href="" class="btn btn-outline-dark m-5 p-5">Marketing</a>
+                                <a href="" class="btn btn-outline-dark m-5 p-5">SEO</a>
+                                <a href="" class="btn btn-outline-dark m-5 p-5">Writing</a>
+                                <a href="" class="btn btn-outline-dark m-5 p-5">Consulting</a>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,66 @@
+<?
+require_once "/var/www/html/_lib/utils/requir.php";
+requirm('/dao/database.php');
+requirm('/access/Course.php');
+class CourseModel{
+    public function getNumberOfTotalCourse()
+    {
+        $sqlQuery = "SELECT COUNT(*) AS total_courses FROM course";
+        try{
+            $result = Database::executeQuery($sqlQuery);
+            return $result;
+        }catch(Exception $e){
+            return null;
+        }
+
+    }
+    public function generateValidCourseID(){
+        $total_string = $this->getNumberOfTotalCourse();
+        $total = intval($total_string)+1;
+        return 'COURSE'.$total;
+    }
+    public function getAllCourse()
+    {
+       $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID";
+        try{
+            $result = Database::executeQuery($sqlQuery);
+            if ($result != null)
+            {
+                $courses = [];
+                foreach($result as $index=>$value){
+                     $course = new Course();
+                     $course->constructFromArray($value);
+
+                     $courses[] = $course;
+                }
+                return $courses;
+            }else{
+                return null;
+            }
+        }catch(Exception $e){
+            return null;
+        }
+    }
+    public function addCourse(Course $course)
+    {
+        $sqlQuery = "INSERT INTO course(ID,Name,PosterUri,Description,State,ProfileID,BeginDate,EndDate,Price) VALUES (?,?,?,?,?,?,STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),?)";
+        $params = array(
+            "id"=>$course->id,
+            "name"=>$course->name,
+            "posteruri"=> $course->posterURI,
+            "description" => $course->description,
+            "state"=> $course->state,
+            "profileid"=>$course->profileID,
+            "begindate"=>$course->beginDate->format('d-m-Y H:i:s'),
+            "enddate"=>$course->endDate->format('d-m-Y H:i:s'),
+            "price"=>$course->price,
+        );
+        try{
+            $result = Database::executeNonQuery($sqlQuery,$params);
+            return $result;
+        }catch(Exception $e)
+        {
+            return false;
+        }
+    }
+}

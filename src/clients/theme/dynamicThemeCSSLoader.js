@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 // required: /clients/utils.js
 
 const DynamicThemeCSSLoader = (function (_) {

@@ -223,7 +223,6 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
         </card> -->
         <?
     }
-
     // public function afterDocument()
     // {
     //     parent::afterDocument();

@@ -1,0 +1,59 @@
+main {
+    background-color: #fdccbc;
+}
+
+.col > h1 {
+    font-size: 30rem;
+    color: #fff;
+}
+
+.card  {
+    background-color: #424242;
+    color: #fff;
+    border-radius: 15px;
+    padding: 20rem;
+}
+
+.card-body > .col-md-2 {
+    font-size: 20rem;
+    color: #fff;
+}
+
+.col-md-2 > div > img {
+    max-width: 50% !important;
+    height: auto;
+    object-fit: contain;
+    border-radius: 15px;
+}
+
+.card-body > .order-total{
+    font-size: 20rem;
+    color: #fff;
+    margin-left: 20rem;
+}
+
+.order-total > .total{
+    font-size: 20rem;
+    color: #fff;
+}
+
+.input-group > .btn {
+    font-size: 20rem;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+.input-group > .btn-light {
+    margin-right: 10rem !important;
+    border-radius: 15px !important;
+}
+
+.input-group > .btn-primary {
+    margin-left: 10rem !important;
+    border-radius: 15px !important;
+}
+
+.card.mb-5 {
+    margin-top: 20rem;
+    margin-bottom: 20rem;
+}

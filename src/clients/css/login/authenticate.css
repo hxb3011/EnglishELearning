@@ -12,6 +12,10 @@ input{
   font-size: 20rem !important;
 }
 
+#error {
+  font-size: 15rem;
+}
+
 h2 {
   font-size: 30rem !important;
 }
@@ -139,7 +143,7 @@ form.sign-in-form {
 
 .social-text {
   padding: 0.7rem 0;
-  font-size: 1.5rem;
+  font-size: 10rem !important;
 }
 
 .social-media {
