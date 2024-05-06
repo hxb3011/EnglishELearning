@@ -1,6 +1,6 @@
 src/package-lock.json
 src/node_modules
 src/node_modules/*
-db/*
+db/
 .DS_Store
 src/_lib/vendor

@@ -3,6 +3,12 @@ global $excerciseId;
 global $question;
 global $content;
 ?>
+<style>
+    .highlight {
+        background-color: yellow;
+    }
+</style>
+
 <form action="<? if (isset($quesion)) echo "";
                 else echo "/administration/courses/api/ajax_call_action.php?action=add_question" ?>" method="post" id="question_form">
     <div class="form-group">
@@ -114,21 +120,22 @@ global $content;
                     questions_area.empty();
                     questions_area.html(
                         `
-                        <textarea name="complete_content" id="complete_content" class="form-group" onchange="completionChange(this)"  style="width:100%;height:200px;"></textarea>
+                        <textarea name="complete_content" id="complete_content" class="form-group" onchange="completionChange(this)"  style="width:100%;height:100px;"></textarea>
+                        <textarea name="preview_content" id="preview_content" class="form-group mt-1"  style="width:100%;height:100px;" disabled></textarea>
+
                         <div class="col-md-2 col-sm-2 p3">
-                            <button type="button" class="btn btn-outline-primary btn-rounded btn-icon" onclick="setHeightAndOffset()">Chọn</button>
+                            <button type="button" class="btn btn-outline-primary btn-rounded btn-icon mt-1" onclick="setHeightAndOffset()">Chọn</button>
                         </div>
                         <div id="completion_container">
                             <div class="completion-row row g-2 mb-1">
                                     <div class= "col-md-5 col-sm-12 p3">
-                                        <input type="text" class="form-control col-md-5" name="offsets" placeholder="Offset" required>
+                                        <input type="text" class="form-control col-md-5" name="offsets" placeholder="Offset"  class="tmp" required>
                                     </div>
                                     <div class="col-md-5 col-sm-10 p3">
                                         <input type="text" class="form-control col-md-5" name="length" placeholder="Chiều dài" required>
                                     </div>
                             </div>                        
                         </div>
-                        <button type="button" class="btn btn-outline-primary btn-rounded btn-icon col-md-6 offset-md-3 mt-3" onclick="addCompletionRow()">Thêm Câu Hỏi</button>
                         `
                     )
                     break;
@@ -185,22 +192,30 @@ global $content;
 </script>
 <!-- completion -->
 <script>
-    let c
     function validateOffsetLength(offset, length) {
-        if (offset != 0 && length != 0) {
+        if (length != 0) {
             let offsets = [];
             $("input[name='offsets']").each(function(index, element) {
-                offsets.push(element.value);
+                if (element.value != '')
+                    offsets.push(element.value);
             })
             let length = [];
             $("input[name='length']").each(function(index, element) {
-                offsets.push(element.value);
+                if (element.value != '')
+
+                    offsets.push(element.value);
             })
             console.log(offsets);
             console.log(length);
             for (let i = 0; i < offsets.length; i++) {
+                console.log(offsets[i]);
+                console.log(length[i]);
+                console.log(offset)
+                console.log(length)
                 if ((offset >= offsets[i]) && (offset <= offsets[i] + length[i])) return false;
+                console.log('hello');
                 if ((offset + length) >= offsets[i] && offset <= offsets[i]) return false;
+                console.log("hehe");
             }
             return true;
         }
@@ -212,14 +227,15 @@ global $content;
             `
             <div class="completion-row row g-2 mb-1">
                                     <div class= "col-md-5 col-sm-12 p3">
-                                        <input type="text" class="form-control col-md-5" name="completion[]" placeholder="Offset" required>
+                                        <input type="text" class="form-control col-md-5" name="offsets" placeholder="Offset" required>
                                     </div>
                                     <div class="col-md-5 col-sm-10 p3">
-                                        <input type="text" class="form-control col-md-5" name="mask[]" placeholder="Chiều dài" required>
+                                        <input type="text" class="form-control col-md-5" name="length" placeholder="Chiều dài" required>
                                     </div>
             </div>  
             `
         )
+        $('#preview_content').val($('#complete_content').val())
     }
 
     function addCompletionRow() {
@@ -232,10 +248,10 @@ global $content;
             newMatchingRow.innerHTML = `
                     <div class="completion-row row g-2 mb-1">
                                         <div class= "col-md-5 col-sm-12 p3">
-                                            <input type="text" class="form-control col-md-5" name="completion[]" placeholder="Offset" required>
+                                            <input type="text" class="form-control col-md-5" name="offsets" placeholder="Offset" required>
                                         </div>
                                         <div class="col-md-5 col-sm-10 p3">
-                                            <input type="text" class="form-control col-md-5" name="mask[]" placeholder="Chiều dài" required>
+                                            <input type="text" class="form-control col-md-5" name="length" placeholder="Chiều dài" required>
                                         </div>
                                         <div class="col-md-2 col-sm-2 p3">
                                             <button type="button" class="btn btn-outline-primary btn-rounded btn-icon" onclick="removeCompletionRow(this)">-</button>
@@ -247,24 +263,52 @@ global $content;
             toastr.error('Vui lòng chọn giá trị cho mask mới nhất trước khi thêm')
         }
     }
+
     function removeCompletionRow(element) {
+        let container = element.parentNode.parentNode;
+        let offset = container.querySelector("input[name='offsets']")
+        let length = container.querySelector("input[name='length']")
+        previewCompletionContent(offset, length, true)
         element.parentNode.parentNode.remove();
     }
+
     function setHeightAndOffset() {
-        let textArea= $('#complete_content')
-        offset= textArea.selectionStart;
-        length=textArea.selectionEnd-offset;
-        if (offset != 0 && length != 0) {
+        let textArea = document.getElementById('complete_content')
+        offset = textArea.selectionStart;
+        length = textArea.selectionEnd - offset;
+        if (length) {
             if (validateOffsetLength(offset, length)) {
-                let lastOffset = $('input[name=\'offsets\']:last').val(offset);
-                let lastLength = $('input[name=\'length\']:last').val(length);
+                $("#completion_container input[name=\"offsets\"]:last").val(offset);
+                $('#completion_container input[name=\'length\']:last').val(length);
+                previewCompletionContent(offset, length)
+                addCompletionRow()
             } else {
                 toastr.error('Khoảng bạn chọn bị trùng')
             }
         }
     }
-    function clearTimer(){
 
+    function previewCompletionContent(offset, length, reverse = false) {
+        if (length) {
+            if (!reverse) {
+                var text = $('#preview_content').val();
+                let mask = "";
+                for (i = 0; i < length; i++) {
+                    mask += ".";
+                }
+                text = text.substring(0, offset) + mask + text.substring(offset + length)
+                console.log(text)
+                $('#preview_content').val(text)
+            }else{
+                var text = $('#preview_content').val();
+                var textCompletion = $('#completion_content').val()
+                let tmp = textCompletion.substring(offset,offset+length)
+                text = text.substring(0, offset) + tmp + text.substring(offset + length)
+                console.log(text)
+                $('#preview_content').val(text)
+            }
+
+        }
     }
 </script>
 <!-- validatie  -->
