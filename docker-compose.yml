@@ -42,7 +42,6 @@ services:
       COMPOSER: /var/www/html/_lib/composer/composer.json
       COMPOSER_HOME: /var/www/html/_lib/composer/.home
       COMPOSER_VENDOR_DIR: /var/www/html/_lib/composer/vendor
-      WS_PATH_BASE: /var/www/html/
       WSM_DBHELPER_SERVER: db
       WSM_DBHELPER_USERNAME: user0
       WSM_DBHELPER_PASSWORD: Hello|11

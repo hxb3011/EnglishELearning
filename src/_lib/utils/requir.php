@@ -4,7 +4,7 @@ if (!defined("__UTILS__REQUIR__")) {
 
     function requira(string $path)
     {
-        $realpath = exec("realpath \$WS_PATH_BASE/" . $path);
+        $realpath = exec("realpath /var/www/html/" . $path);
         if (defined("DEBUG_REQUIR")) {
             echo "<br>Backtrace: ";
             debug_print_backtrace();
@@ -29,7 +29,7 @@ if (!defined("__UTILS__REQUIR__")) {
     {
         requira("_views/" . $path);
     }
-    requirl("composer/vendor/autoload.php");
 
+    requirl("composer/vendor/autoload.php");
 }
 ?>
