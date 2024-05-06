@@ -1,4 +1,4 @@
-main card {
+card {
     background-color: var(--mdc-surface-container);
     border-radius: 24rem;
     box-sizing: border-box;
@@ -9,11 +9,11 @@ main card {
     unicode-bidi: isolate;
 }
 
-main card.section {
+card.section {
     padding: 20rem;
 }
 
-main card.section>.heading {
+card.section>.heading {
     align-items: start;
     display: flex;
     flex-flow: column nowrap;
@@ -23,7 +23,7 @@ main card.section>.heading {
     height: 50rem;
 }
 
-main card.section>.heading[title]::before {
+card.section>.heading[title]::before {
     display: block;
     font-size: 20rem;
     font-weight: 600;
@@ -34,7 +34,7 @@ main card.section>.heading[title]::before {
     white-space: nowrap;
 }
 
-main card.section>.heading[sub-title]::after {
+card.section>.heading[sub-title]::after {
     display: block;
     font-size: 11.25rem;
     font-weight: 400;
@@ -46,7 +46,7 @@ main card.section>.heading[sub-title]::after {
     white-space: nowrap;
 }
 
-main card.section>.heading>a {
+card.section>.heading>a {
     background-color: var(--mdc-surface-container);
     border: solid 1.25rem var(--mdc-outline-variant);
     border-radius: 12.5rem;
@@ -67,17 +67,17 @@ main card.section>.heading>a {
     width: 100rem;
 }
 
-main card.section>.heading>a:is(:focus, :hover) {
+card.section>.heading>a:is(:focus, :hover) {
     background-color: var(--mdc-surface-container-highest);
     border: solid 1.25rem var(--mdc-outline);
 }
 
-main card.section>.heading>a:active {
+card.section>.heading>a:active {
     background-color: var(--mdc-surface-container-highest);
     border: solid 1.25rem var(--mdc-surface-tint);
 }
 
-main card.banner {
+card.banner {
     align-items: start;
     display: flex;
     flex-flow: column nowrap;
@@ -88,7 +88,7 @@ main card.banner {
     position: relative;
 }
 
-main card.banner>h1 {
+card.banner>h1 {
     color: var(--mdc-on-primary-fixed);
     font-family: Exo, 'Source Sans Pro';
     font-size: 4.2em;
@@ -98,7 +98,7 @@ main card.banner>h1 {
     width: 60%;
 }
 
-main card.banner>p {
+card.banner>p {
     color: var(--mdc-on-primary-fixed-variant);
     font-family: Jost, 'Source Sans Pro';
     font-size: 1.675em;
@@ -109,7 +109,7 @@ main card.banner>p {
     width: 47.5%;
 }
 
-main card.banner>a {
+card.banner>a {
     background-color: var(--mdc-primary);
     border-radius: 1.2em;
     color: var(--mdc-on-primary);
@@ -125,12 +125,12 @@ main card.banner>a {
     white-space: nowrap;
 }
 
-main card.banner>a:is(:focus, :hover) {
+card.banner>a:is(:focus, :hover) {
     background-color: var(--mdc-primary-fixed);
     color: var(--mdc-on-primary-fixed);
 }
 
-main card.banner>a:active {
+card.banner>a:active {
     background-color: var(--mdc-primary-fixed-dim);
     color: var(--mdc-on-primary-fixed-variant);
 }
