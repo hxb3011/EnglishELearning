@@ -76,7 +76,6 @@ class CourseModel
             "enddate" => $course->endDate->format('d-m-Y H:i:s'),
             "price" => $course->price,
         );
-        print_r($params);
         try {
             $result = Database::executeNonQuery($sqlQuery, $params);
             return $result;

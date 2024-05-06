@@ -86,9 +86,9 @@ class AdminCourses
             // lưu file vào folder upload của dự án 
             $course->posterURI = $this->saveImageToFolder($course->id);
             $result = $this->courseModel->addCourse($course);
-            // if ($result >= 1) {
-            //     header('Location: /administration/courses/index.php');
-            // }
+            if ($result >= 1) {
+                header('Location: /administration/courses/index.php');
+            }
         } catch (Exception $e) {
             echo $e->getMessage();
         }
