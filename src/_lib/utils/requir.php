@@ -29,5 +29,7 @@ if (!defined("__UTILS__REQUIR__")) {
     {
         requira("_views/" . $path);
     }
+    requirl("composer/vendor/autoload.php");
+
 }
 ?>

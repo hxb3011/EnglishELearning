@@ -29,7 +29,7 @@ CREATE TABLE `account` (
   `UserName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Status` tinyint DEFAULT NULL,
-  `Permissions` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Permissions` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`UID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -40,7 +40,6 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES ('0','adminne','M19001098m̃',1,'ALL');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,7 +252,6 @@ DROP TABLE IF EXISTS `course`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `course` (
   `ID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `PosterUri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `State` tinyint NOT NULL,
@@ -273,7 +271,6 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES ('COURSE1','Hả ý m là sao','uploads/COURSE1/poster/6df4428b-02b2-425e-9054-983df9f3650b.jfif','                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <p>k</p>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ',1,'PRO01','2024-04-29 22:00:00','2024-04-29 22:00:00',5000000);
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -289,11 +286,9 @@ CREATE TABLE `document` (
   `Description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `DocUri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `State` tinyint DEFAULT NULL,
-  `Type` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `LessonID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `OrderN` int DEFAULT '0',
-  KEY `FK_LessonID_course_lesson` (`LessonID`),
-  CONSTRAINT `FK_LessonID_course_lesson` FOREIGN KEY (`LessonID`) REFERENCES `lesson` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  `CourseID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  KEY `FK_CourseID_document_course` (`CourseID`),
+  CONSTRAINT `FK_CourseID_document_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -346,11 +341,10 @@ CREATE TABLE `excercise` (
   `Deadline` datetime DEFAULT NULL,
   `State` tinyint DEFAULT NULL,
   `CourseID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `OrderN` int DEFAULT '0',
   PRIMARY KEY (`ID`),
   KEY `FK_CourseID_excercise_course` (`CourseID`),
-  CONSTRAINT `FK_CourseID_excercise_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `FK_CourseID_excercise_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -450,14 +444,13 @@ DROP TABLE IF EXISTS `lesson`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `lesson` (
-  `ID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `ID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `Description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `State` tinyint DEFAULT NULL,
   `CourseID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `OrderN` tinyint NOT NULL,
-  PRIMARY KEY (`ID`),
   KEY `FK_CourseID_lesson_course` (`CourseID`),
-  CONSTRAINT `FK_CourseID_lesson_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`) ON DELETE CASCADE
+  CONSTRAINT `FK_CourseID_lesson_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -585,7 +578,6 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
-INSERT INTO `profile` VALUES ('PRO01','Lê Tấn ','Minh Toàn',1,'2003-05-22','Người dạy học',1,'0','RO01');
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -613,6 +605,29 @@ CREATE TABLE `pronunciation` (
 LOCK TABLES `pronunciation` WRITE;
 /*!40000 ALTER TABLE `pronunciation` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pronunciation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `property`
+--
+
+DROP TABLE IF EXISTS `property`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `property` (
+  `key` varchar(100) NOT NULL,
+  `value` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `property`
+--
+
+LOCK TABLES `property` WRITE;
+/*!40000 ALTER TABLE `property` DISABLE KEYS */;
+/*!40000 ALTER TABLE `property` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -728,12 +743,9 @@ DROP TABLE IF EXISTS `qmulchoption`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `qmulchoption` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `QuestionID` int NOT NULL,
   `Content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `Correct` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `FK_QuestionID_qmulchoption_question` (`QuestionID`),
-  CONSTRAINT `FK_QuestionID_qmulchoption_question` FOREIGN KEY (`QuestionID`) REFERENCES `question` (`ID`)
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -758,10 +770,9 @@ CREATE TABLE `question` (
   `Content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `State` tinyint DEFAULT NULL,
   `ExcerciseID` int DEFAULT NULL,
-  `OrderN` int DEFAULT '0',
   PRIMARY KEY (`ID`),
   KEY `FK_ExcerciseID_question_excercise` (`ExcerciseID`),
-  CONSTRAINT `FK_ExcerciseID_question_excercise` FOREIGN KEY (`ExcerciseID`) REFERENCES `excercise` (`ID`) ON DELETE CASCADE
+  CONSTRAINT `FK_ExcerciseID_question_excercise` FOREIGN KEY (`ExcerciseID`) REFERENCES `excercise` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -795,8 +806,36 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES ('RO01','Admin','ALL'),('RO02','Teacher','ALL'),('RO03','Student','NONE');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `subscription`
+--
+
+DROP TABLE IF EXISTS `subscription`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `subscription` (
+  `ID` varchar(100) NOT NULL,
+  `AtDateTime` datetime DEFAULT NULL,
+  `ProfileID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `CourseID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_CourseID_subcription_course` (`CourseID`),
+  KEY `FK_ProfileID_subcription_profile` (`ProfileID`),
+  CONSTRAINT `FK_CourseID_subcription_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`),
+  CONSTRAINT `FK_ProfileID_subcription_profile` FOREIGN KEY (`ProfileID`) REFERENCES `profile` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `subscription`
+--
+
+LOCK TABLES `subscription` WRITE;
+/*!40000 ALTER TABLE `subscription` DISABLE KEYS */;
+/*!40000 ALTER TABLE `subscription` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -809,7 +848,11 @@ DROP TABLE IF EXISTS `verification`;
 CREATE TABLE `verification` (
   `ProfileID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `KeyVerify` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`ProfileID`),
+  `email` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `reset_token_hash` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `reset_token_expires_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`ProfileID`,`KeyVerify`),
+  UNIQUE KEY `reset_token_hash_UNIQUE` (`reset_token_hash`),
   CONSTRAINT `FK_ProfilE_Verify_Profile` FOREIGN KEY (`ProfileID`) REFERENCES `profile` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -832,4 +875,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-03 22:10:55
+-- Dump completed on 2024-05-06 16:56:26

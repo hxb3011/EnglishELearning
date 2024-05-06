@@ -40,7 +40,7 @@ global $content;
 
     </div>
     <div class="text-center">
-        <button class="btn btn-success mt-2" id="submitButton" type="button" name="submit" data-bs-dismiss="modal">Gửi</button>
+        <button class="btn btn-success mt-2" id="submitButton" type="button" name="submit">Gửi</button>
     </div>
 </form>
 <script type="text/javascript">
@@ -114,17 +114,17 @@ global $content;
                     questions_area.empty();
                     questions_area.html(
                         `
-                        <textarea name="complete_content" id="complete_content" class="form-group" onchange="completionChange(this)"  onmouseup="completionMouse(this)"></textarea>
+                        <textarea name="complete_content" id="complete_content" class="form-group" onchange="completionChange(this)"  style="width:100%;height:200px;"></textarea>
+                        <div class="col-md-2 col-sm-2 p3">
+                            <button type="button" class="btn btn-outline-primary btn-rounded btn-icon" onclick="setHeightAndOffset()">Chọn</button>
+                        </div>
                         <div id="completion_container">
                             <div class="completion-row row g-2 mb-1">
                                     <div class= "col-md-5 col-sm-12 p3">
-                                        <input type="text" class="form-control col-md-5" name="completion[]" placeholder="Offset" required>
+                                        <input type="text" class="form-control col-md-5" name="offsets" placeholder="Offset" required>
                                     </div>
                                     <div class="col-md-5 col-sm-10 p3">
-                                        <input type="text" class="form-control col-md-5" name="mask[]" placeholder="Chiều dài" required>
-                                    </div>
-                                    <div class="col-md-2 col-sm-2 p3">
-                                        <button type="button" class="btn btn-outline-primary btn-rounded btn-icon" onclick="removeCompletionRow(this)">-</button>
+                                        <input type="text" class="form-control col-md-5" name="length" placeholder="Chiều dài" required>
                                     </div>
                             </div>                        
                         </div>
@@ -138,25 +138,26 @@ global $content;
             }
         })
     })
-
-
-
     $('#submitButton').click(function(event) {
-        // $.ajax({
-        //     url: 'http://localhost/academy/admin/quiz_questions/2/add',
-        //     type: 'post',
-        //     data: $('form#mcq_form').serialize(),
-        //     success: function(response) {
-        //         if (response == 1) {
-        //             success_notify('Question has been added');
-        //         } else {
-        //             error_notify('No options can be blank and there has to be atleast one answer');
-        //         }
-        //     }
-        // });
-        // showLargeModal('http://localhost/academy/modal/popup/quiz_questions/2', 'Manage quiz questions');
-        event.stopPropagation();
-        event.preventDefault();
+        if ($('#question_form').valid()) {
+            $('#scrollable-modal').hide();
+            $('.modal-backdrop').hide();
+            // $.ajax({
+            //     url: 'http://localhost/academy/admin/quiz_questions/2/add',
+            //     type: 'post',
+            //     data: $('form#mcq_form').serialize(),
+            //     success: function(response) {
+            //         if (response == 1) {
+            //             success_notify('Question has been added');
+            //         } else {
+            //             error_notify('No options can be blank and there has to be atleast one answer');
+            //         }
+            //     }
+            // });
+            // showLargeModal('http://localhost/academy/modal/popup/quiz_questions/2', 'Manage quiz questions');
+        }
+
+
     });
 </script>
 <!-- -->
@@ -173,9 +174,6 @@ global $content;
                         <div class="col-md-5 col-sm-10 p3">
                             <input type="text" class="form-control col-md-5" name="answer[]" placeholder="Câu trả lời" required>
                         </div>
-                        <div class="col-md-2 col-sm-2 p3">
-                            <button type="button" class="btn btn-outline-primary btn-rounded btn-icon" onclick="removeMatchingRow(this)">-</button>
-                        </div>
                     </div>
             `;
         matchingContainer.appendChild(newMatchingRow);
@@ -187,9 +185,24 @@ global $content;
 </script>
 <!-- completion -->
 <script>
+    let c
     function validateOffsetLength(offset, length) {
         if (offset != 0 && length != 0) {
-
+            let offsets = [];
+            $("input[name='offsets']").each(function(index, element) {
+                offsets.push(element.value);
+            })
+            let length = [];
+            $("input[name='length']").each(function(index, element) {
+                offsets.push(element.value);
+            })
+            console.log(offsets);
+            console.log(length);
+            for (let i = 0; i < offsets.length; i++) {
+                if ((offset >= offsets[i]) && (offset <= offsets[i] + length[i])) return false;
+                if ((offset + length) >= offsets[i] && offset <= offsets[i]) return false;
+            }
+            return true;
         }
     }
 
@@ -204,50 +217,54 @@ global $content;
                                     <div class="col-md-5 col-sm-10 p3">
                                         <input type="text" class="form-control col-md-5" name="mask[]" placeholder="Chiều dài" required>
                                     </div>
-                                    <div class="col-md-2 col-sm-2 p3">
-                                        <button type="button" class="btn btn-outline-primary btn-rounded btn-icon" onclick="removeCompletionRow(this)">-</button>
-                                    </div>
             </div>  
             `
         )
     }
 
     function addCompletionRow() {
-        const matchingContainer = document.getElementById('completion_container');
-        const newMatchingRow = document.createElement('div');
-        newMatchingRow.classList.add('completion-row');
-        newMatchingRow.innerHTML = `
-                <div class="completion-row row g-2 mb-1">
-                                    <div class= "col-md-5 col-sm-12 p3">
-                                        <input type="text" class="form-control col-md-5" name="completion[]" placeholder="Offset" required>
-                                    </div>
-                                    <div class="col-md-5 col-sm-10 p3">
-                                        <input type="text" class="form-control col-md-5" name="mask[]" placeholder="Chiều dài" required>
-                                    </div>
-                                    <div class="col-md-2 col-sm-2 p3">
-                                        <button type="button" class="btn btn-outline-primary btn-rounded btn-icon" onclick="removeCompletionRow(this)">-</button>
-                                    </div>
-                </div>  
-            `;
-        matchingContainer.appendChild(newMatchingRow);
+        let lastOffset = $('input[name=\'offsets\']:last').val();
+        let lastLength = $('input[name=\'length\']:last').val();
+        if (lastOffset && lastLength) {
+            const matchingContainer = document.getElementById('completion_container');
+            const newMatchingRow = document.createElement('div');
+            newMatchingRow.classList.add('completion-row');
+            newMatchingRow.innerHTML = `
+                    <div class="completion-row row g-2 mb-1">
+                                        <div class= "col-md-5 col-sm-12 p3">
+                                            <input type="text" class="form-control col-md-5" name="completion[]" placeholder="Offset" required>
+                                        </div>
+                                        <div class="col-md-5 col-sm-10 p3">
+                                            <input type="text" class="form-control col-md-5" name="mask[]" placeholder="Chiều dài" required>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 p3">
+                                            <button type="button" class="btn btn-outline-primary btn-rounded btn-icon" onclick="removeCompletionRow(this)">-</button>
+                                        </div>
+                    </div>  
+                `;
+            matchingContainer.appendChild(newMatchingRow);
+        } else {
+            toastr.error('Vui lòng chọn giá trị cho mask mới nhất trước khi thêm')
+        }
     }
-
     function removeCompletionRow(element) {
-
+        element.parentNode.parentNode.remove();
     }
+    function setHeightAndOffset() {
+        let textArea= $('#complete_content')
+        offset= textArea.selectionStart;
+        length=textArea.selectionEnd-offset;
+        if (offset != 0 && length != 0) {
+            if (validateOffsetLength(offset, length)) {
+                let lastOffset = $('input[name=\'offsets\']:last').val(offset);
+                let lastLength = $('input[name=\'length\']:last').val(length);
+            } else {
+                toastr.error('Khoảng bạn chọn bị trùng')
+            }
+        }
+    }
+    function clearTimer(){
 
-    function completionMouse(textarea) {
-        // Lấy vị trí bắt đầu của văn bản được tô chọn
-        var startPos = textarea.selectionStart;
-
-        // Lấy vị trí kết thúc của văn bản được tô chọn
-        var endPos = textarea.selectionEnd;
-
-        // Tính độ dài của văn bản được tô chọn
-        var length = endPos - startPos;
-
-        // Hiển thị thông tin về offset và độ dài
-        console.log("Offset: " + startPos + ", Length: " + length);
     }
 </script>
 <!-- validatie  -->
@@ -267,11 +284,17 @@ global $content;
             content: {
                 required: true,
             },
+            type: {
+                required: true,
+            }
         },
         messages: {
             content: {
                 required: "Vui lòng nhập nội dung câu hỏi",
             },
+            type: {
+                required: ""
+            }
         },
         errorPlacement: function(error, element) {
             error.insertAfter(element); // Place error message after the input element
