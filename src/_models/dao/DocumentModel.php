@@ -5,7 +5,7 @@ requirm('/access/Document.php');
 class DocumentModel{
     public function getDocumentsByLessonID($lessonID)
     {
-        $sqlQuery = "SELECT * FROM document WHERE lessonID = ?";
+        $sqlQuery = "SELECT * FROM document WHERE LessonID = ?";
         $params = array(
             'lessonID' => $lessonID
         );
