@@ -38,9 +38,8 @@ class AdminCourses
     {
         requirv("admin/courses/ManageAllCoursePage.php");
         global $page;
-        //$this->courseModel->seedDumbData();
         $page = new ManageAllCoursePage();
-        $page->courses = $this->courseModel->getAllCourse();
+        $page->courses = array_slice($this->courseModel->getAllCourse(),0,5);
         requira("_adminLayout.php");
     }
     public function add()
@@ -509,6 +508,25 @@ class AdminCourses
             $this->documentModel->updateOrder($id, $index + 1);
         }
         echo json_encode($arr);
+    }
+    public function get_total_page()
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+        $courses = $this->courseModel->getAllCourse($data['name'],$data['tutor']);
+        $totalCourses = count($courses);
+        $totalPages= $totalCourses / 5;
+
+        echo json_encode(ceil($totalPages));
+    }
+    public function get_course_by_page()
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+        $response = array();
+
+        $response['page'] = $data['page'];
+        $course = $this->courseModel->getCourseFromPage(intval($data['page']),5,$data['name'],$data['tutor']);
+        $response['course'] = $course;
+        echo json_encode($response);
     }
     /* Modal */
     public function lesson_modal()
