@@ -33,7 +33,6 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
     {
         $this->styles(
             "/node_modules/bootstrap/dist/css/bootstrap.min.css",
-            "/clients/css/home/home_main.css",
             "/clients/css/pagination.css",
             "/clients/css/courses/course-single.css",
         );
@@ -44,7 +43,7 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
 
     public function body()
     {
-    ?>
+?>
         <div class="wrapper">
             <div class="top">
                 <div class="container">
@@ -64,19 +63,20 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
                             </div>
                             <div class="d-flex justify-content-between align-items-center course_info">
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <i class="mdi -calendar"></i>
+                                    <span class="mdi-b student"></span>
+                                    150 Học viên
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <span class="mdi-b calendar"></span>
                                     2 Tuần
                                 </div>
+
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <i class="mdi -student"></i>
-                                    150 Học Viên
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <i class="mdi -document"></i>
+                                    <span class="mdi-b document"></span>
                                     15 Bài học
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <i class="mdi -quiz"></i>
+                                    <span class="mdi-b quiz"></span>
                                     12 Bài Tập
                                 </div>
                             </div>
@@ -113,86 +113,50 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
                                     eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
                                 </div>
                                 <div class="tab-pane fade" id="nav-chuong-trinh" role="tabpanel" aria-labelledby="nav-chuong-trinh-tab">
-                                    <div class="course_lesson d-flex justify-content-between align-items-center">
+                                    <div class="course_lesson">
                                         <div class="course_lesson-title">
-                                            <a href="">
+                                            <a data-bs-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+                                                <span class="mdi-b toggle" styles="margin-right:4rem;"></span>
                                                 Lesson 1 : Title of the lesson
                                             </a>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="course_lesson_duration me-3">
-                                                12:30
-                                            </span>
+                                        <div class="course_lesson-content collapse" id="collapse1" style="padding-left: 8rem;">
+                                            <div class="course_lesson-doc">
+                                                <span class="mdi-b video" style="margin-right:8rem;"></span>
+                                                Hello World
+                                            </div>
+                                            <div class="course_lesson-doc">
+                                                <span class="mdi-b file" style="margin-right:8rem;"></span>
+                                                Hello World
+                                            </div>
+                                            <div class="course_lesson-doc">
+                                                <span class="mdi-b quiz" style="margin-right:8rem;"></span>
+                                                Hello World
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="course_lesson d-flex justify-content-between align-items-center">
+                                    <div class="course_lesson">
                                         <div class="course_lesson-title">
-                                            <a href="">
+                                            <a data-bs-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">
+                                                <span class="mdi-b toggle" styles="margin-right:4rem;"></span>
                                                 Lesson 1 : Title of the lesson
                                             </a>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="course_lesson_duration me-3">
-                                                12:30
-                                            </span>
-                                            
-
+                                        <div class="course_lesson-content collapse" id="collapse2" style="padding-left: 8rem;">
+                                            <div class="course_lesson-doc">
+                                                <span class="mdi-b video" style="margin-right:8rem;"></span>
+                                                Hello World
+                                            </div>
+                                            <div class="course_lesson-doc">
+                                                <span class="mdi-b file" style="margin-right:8rem;"></span>
+                                                Hello World
+                                            </div>
+                                            <div class="course_lesson-doc">
+                                                <span class="mdi-b quiz" style="margin-right:8rem;"></span>
+                                                Hello World
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="course_lesson d-flex justify-content-between align-items-center">
-                                        <div class="course_lesson-title">
-                                            <a href="">
-                                                Lesson 1 : Title of the lesson
-                                            </a>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="course_lesson_duration me-3">
-                                                12:30
-                                            </span>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="course_lesson d-flex justify-content-between align-items-center">
-                                        <div class="course_lesson-title">
-                                            <a href="">
-                                                Lesson 1 : Title of the lesson
-                                            </a>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="course_lesson_duration me-3">
-                                                12:30
-                                            </span>
-                                            
-
-                                        </div>
-                                    </div>
-                                    <div class="course_lesson d-flex justify-content-between align-items-center">
-                                        <div class="course_lesson-title">
-                                            <a href="">
-                                                Lesson 1 : Title of the lesson
-                                            </a>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="course_lesson_duration me-3">
-                                                12:30
-                                            </span>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="course_lesson d-flex justify-content-between align-items-center">
-                                        <div class="course_lesson-title">
-                                            <a href="">
-                                                Lesson 1 : Title of the lesson
-                                            </a>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="course_lesson_duration me-3">
-                                                12:30
-                                            </span>
-                                            
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -202,10 +166,9 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
         </div>
 
 
-    <?
+<?
         $this->scripts(
             "/node_modules/jquery/dist/jquery.min.js",
-            "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
         );
     }
 

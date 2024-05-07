@@ -31,8 +31,11 @@ $page->beforeDocument();
     );
     $page->favIcon(svg: "/assets/images/favicon.svg");
     $page->styles(
+        "https://fonts.googleapis.com/css?family=Exo%3A600%2C700",
+        "https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C600%2C700",
+        "https://fonts.googleapis.com/css?family=Jost%3A400%2C500",
         "/clients/css/fonts/roboto.css",
-        "/clients/css/icons/mdi.css",
+        "/clients/css/icons/mdi.x.css",
         "/clients/css/admin/main.css",
     );
     $page->scripts(
@@ -46,10 +49,10 @@ $page->beforeDocument();
 
 <body>
     <div class="wrapper">
-        <aside id="sidebar">
-            <div class="d-flex">
-                <button class="toggle-btn" type="button">
-                    <i class="mdi -menuIcon"></i>
+        <nav id="sidebar" class="">
+            <div class="d-flex justify-content-center" style="padding: 1rem 1rem;">
+                <button class="toggle-btn hide-in-lg-md" type="button">
+                    <span class="mdi-b -menuIcon"></span>
                 </button>
                 <div class="sidebar-logo">
                     <a href="/">E-Learning</a>
@@ -58,13 +61,13 @@ $page->beforeDocument();
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
                     <a href="/administration/dashboard.php" class="sidebar-link" >
-                        <i class="mdi -dash"></i>
+                        <span class="mdi-b -dash"></span>
                         <span class="sidebar-item__text">Dashboard</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#courses" aria-expanded="false" aria-controls="courses">
-                        <i class="mdi -courseIcon"></i>
+                        <span class="mdi-b -courseIcon"></span>
                         <span class="sidebar-item__text">Khóa học</span>
                     </a>
                     <ul id="courses" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -76,56 +79,14 @@ $page->beforeDocument();
                         </li>
                     </ul>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#blog" aria-expanded="false" aria-controls="blog">
-                        <i class=" mdi -blog"></i>
-                        <span class="sidebar-item__text">Bài viết</span>
-                    </a>
-                    <ul id="blog" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">...</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">..</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#vocab" aria-expanded="false" aria-controls="vocab">
-                        <i class=" mdi -vocab"></i>
-                        <span class="sidebar-item__text">Từ vựng</span>
-                    </a>
-                    <ul id="vocab" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">...</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">..</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#user" aria-expanded="false" aria-controls="user">
-                        <i class=" mdi -user"></i>
-                        <span class="sidebar-item__text">Người dùng</span>
-                    </a>
-                    <ul id="user" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">...</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">..</a>
-                        </li>
-                    </ul>
-                </li>
             </ul>
             <div class="sidebar-footer">
                 <a href="/" class="sidebar-link">
-                    <i class="lni lni-exit"></i>
+                    <span class="mdi-b back"></span>
                     <span class="sidebar-item__text">Quay lại trang chủ</span>
                 </a>
             </div>
-        </aside>
+        </nav>
         <div class="main">
             <main class="content px-3 py-4">
                 <? $page->body() ?>

@@ -83,7 +83,10 @@ class UserRepo
     public function Register($username, $password, $email)
     {
         try {
-            $sqlCheckExistUserNameOrEmail = "SELECT * FROM account WHERE username = ? OR email = ?";
+            $sqlCheckExistUserNameOrEmail = "select * from account ac 
+                                            join profile pf on ac.UID = pf.UID
+                                            join verification vr on pf.ID = ProfileID
+                                            where UserName = ? or email = ?";
             $paramsCheck = array(
                 "username" => $username,
                 "email" => $email
@@ -108,6 +111,16 @@ class UserRepo
                 $result = Database::executeNonQuery($sqlQuery, $params);
                 return $result;
             }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function InsertEmail($email){
+        try {
+            $sqlQuery = "INSERT INTO verification (email) VALUES (?)";
+            $result = Database::executeNonQuery($sqlQuery, [$email]);
+            return $result;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }

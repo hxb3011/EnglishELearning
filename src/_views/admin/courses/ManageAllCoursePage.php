@@ -32,9 +32,10 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
     {
         $this->styles(
             "/node_modules/bootstrap/dist/css/bootstrap.min.css",
+            "/node_modules/toastr/build/toastr.css",
+            "/node_modules/sweetalert2/dist/sweetalert2.min.css",
             "/clients/css/admin/main.css"
         );
-
     }
 
     public function body()
@@ -44,7 +45,7 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
             <div class="row">
                 <div class="col-md-12">
                     <div class="admin-header">
-                        <i class="mdi mdi-apple-keyboard-command admin-header__icon"></i>
+                        <span class="mdi-b apple-keyboard-command admin-header__icon"></span>
                         Danh sách khóa học
                     </div>
                 </div>
@@ -97,48 +98,45 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                                             </tr>
                                         </thead>
                                         <tbody id="table_body">
-                                            <?php
-                                            foreach ($this->courses as $index => $course) :
-                                            ?>
-                                                <tr>
-                                                    <th scope="row"><? echo ($index + 1) ?></th>
-                                                    <td><? echo ($course->name) ?></td>
-                                                    <td><? echo ($course->tutorName) ?></td>
-                                                    <td>
-                                                        Ngày bắt đầu : <? echo ($course->beginDate->format('d-m-Y')); ?>
-                                                        <br />
-                                                        Ngày kết thúc : <? echo ($course->endDate->format('d-m-Y')); ?>
-                                                    </td>
-                                                    <td>
-                                                        <? if ($course->state == 1) : ?>
-                                                            <span class="badge text-bg-success">Hoạt động</span>
-                                                        <? else : ?>
-                                                            <span class="badge text-bg-danger">Ngưng</span>
-                                                        <? endif ?>
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge text-bg-secondary"><? echo ($course->price); ?> VNĐ</span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="dropright">
-                                                            <button type="button" class="btn btn-sm btn-outline-primary btn-rounded btn-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="mdi mdi-dots-vertical"></i>
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <?
-                                                                echo (
-                                                                    '<li><a class="dropdown-item" href="/courses/detail.php/' . $course->id . '" target="_blank">Xem khóa học</a></li>'
-                                                                );
-                                                                echo (
-                                                                    '<li><a class="dropdown-item" href="/administration/courses/edit.php/' . $course->id . '">Sửa khóa học</a></li>
-                                                                        '
-                                                                );
-                                                                ?>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach ?>
+                                            <? if($this->courses != null): ?>
+                                                <?php
+                                                foreach ($this->courses as $index => $course) :
+                                                ?>
+                                                    <tr>
+                                                        <th scope="row"><? echo ($index + 1) ?></th>
+                                                        <td><? echo ($course->name) ?></td>
+                                                        <td><? echo ($course->tutorName) ?></td>
+                                                        <td>
+                                                            Ngày bắt đầu : <? echo ($course->beginDate->format('d-m-Y')); ?>
+                                                            <br />
+                                                            Ngày kết thúc : <? echo ($course->endDate->format('d-m-Y')); ?>
+                                                        </td>
+                                                        <td>
+                                                            <? if ($course->state == 1) : ?>
+                                                                <span class="badge text-bg-success">Hoạt động</span>
+                                                            <? else : ?>
+                                                                <span class="badge text-bg-danger">Ngưng</span>
+                                                            <? endif ?>
+                                                        </td>
+                                                        <td>
+                                                            <span class="badge text-bg-secondary"><? echo ($course->price); ?> VNĐ</span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="dropright">
+                                                                <button type="button" class="btn btn-sm btn-outline-primary btn-rounded btn-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <span class="mdi-b dots-vertical"></span>
+                                                                </button>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a class="dropdown-item" href="/courses/detail.php/<?echo $course->id?>" target="_blank">Xem khóa học</a></li>
+                                                                    <li><a class="dropdown-item" href="/administration/courses/edit.php?courseId=<?echo $course->id?>">Sửa khóa học</a></li>
+                                                                    <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=<? echo ($course->id); ?>','Xóa khóa học')">Xóa khóa học</a></li>
+
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach ?>
+                                            <? endif?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -154,6 +152,8 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
         $this->scripts(
             "/node_modules/jquery/dist/jquery.min.js",
             "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+            "/node_modules/toastr/build/toastr.min.js",
+            "/node_modules/sweetalert2/dist/sweetalert2.min.js",
             "/clients/js/admin/main.js"
         );
     }
