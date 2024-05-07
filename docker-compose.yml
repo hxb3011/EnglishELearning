@@ -47,7 +47,6 @@ services:
       - 62280:80
     volumes:
       - ./src:/var/www/html:rw
-
 # volumes:
 #   mysql_data:
 
