@@ -79,6 +79,24 @@ $page->beforeDocument();
                         </li>
                     </ul>
                 </li>
+                <li class="sidebar-item">
+                    <a href="/administration/dashboard.php" class="sidebar-link" >
+                        <span class="mdi-b -account"></span>
+                        <span class="sidebar-item__text">Tài khoản</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/administration/dashboard.php" class="sidebar-link" >
+                        <span class="mdi-b -user"></span>
+                        <span class="sidebar-item__text">User</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/administration/dashboard.php" class="sidebar-link" >
+                        <span class="mdi-b -role"></span>
+                        <span class="sidebar-item__text">Role</span>
+                    </a>
+                </li>
             </ul>
             <div class="sidebar-footer">
                 <a href="/" class="sidebar-link">

@@ -36,11 +36,18 @@
 .mdi-b.dots-vertical::before {
     content: var(--mdi-dots-vertical);
 }
-
 .mdi-b.back::before {
     content: var(--mdi-arrow-left-circle);
 }
-
+.mdi-b.-account::before{
+    content: var(--mdi-home-account);
+}
+.mdi-b.-role::before{
+    content: var(--mdi-shield-key-outline);
+}
+.mdi-b.-user::before{
+    content: var(--mdi-account);
+}
 a {
     text-decoration: none;
 }
