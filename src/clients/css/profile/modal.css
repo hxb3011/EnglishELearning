@@ -1,0 +1,104 @@
+form.modal>card {
+    align-content: start;
+    align-items: center;
+    background-color: var(--mdc-surface);
+    display: flex;
+    flex-flow: row wrap;
+    height: min(fit-content, 100%);
+    justify-content: end;
+    margin: 0;
+    overflow-y: scroll;
+}
+
+form.modal>card>.title {
+    color: var(--mdc-on-surface-variant);
+    display: block;
+    font-family: "Roboto Bold";
+    font-size: 32rem;
+    line-height: 1.2;
+    margin: 0;
+    padding: 4rem 4rem 20rem;
+    text-align: center;
+    white-space: nowrap;
+    width: 100%;
+}
+
+form.modal>card>:is(input, select) {
+    background-color: var(--mdc-surface);
+    border: 2rem solid var(--mdc-outline-variant);
+    border-radius: 8rem;
+    box-sizing: border-box;
+    color: var(--mdc-on-surface);
+    display: block;
+    font-family: "Roboto Bold";
+    font-size: 18rem;
+    line-height: 24rem;
+    margin: 4rem 4rem 16rem;
+    padding: 14rem 16rem;
+    white-space: nowrap;
+    width: 100%;
+}
+
+form.modal>card>:is(input, select):is(:hover, :focus) {
+    border: 2rem solid var(--mdc-surface-tint);
+}
+
+form.modal>card>label:has(+input, +select) {
+    background-color: var(--mdc-surface);
+    box-sizing: border-box;
+    color: var(--mdc-on-surface);
+    display: block;
+    font-family: "Roboto Bold";
+    font-size: 18rem;
+    line-height: 24rem;
+    margin: 0;
+    padding: 0 20rem;
+    white-space: nowrap;
+    width: 100%;
+}
+
+form.modal>card>input:is([type="reset"], [type="submit"]) {
+    border-radius: 20rem;
+    font-family: "Roboto Medium";
+    font-size: 18rem;
+    line-height: 24rem;
+    margin: 8rem;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+form.modal>card>input[type="submit"] {
+    background-color: var(--mdc-primary);
+    border: none;
+    color: var(--mdc-on-primary);
+    padding: 8rem 24rem;
+}
+
+form.modal>card>input[type="submit"]:is(:focus, :hover) {
+    background-color: var(--mdc-primary-fixed-dim);
+    color: var(--mdc-on-primary-fixed);
+}
+
+form.modal>card>input[type="submit"]:active {
+    background-color: var(--mdc-primary-fixed);
+    color: var(--mdc-on-primary-fixed-variant);
+}
+
+form.modal>card>input[type="reset"] {
+    background-color: var(--mdc-surface);
+    border: 2rem solid var(--mdc-outline-variant);
+    color: var(--mdc-surface-tint);
+    padding: 6rem 22rem;
+}
+
+form.modal>card>input[type="reset"]:is(:focus, :hover) {
+    background-color: var(--mdc-surface-container-highest);
+    border: 1rem solid var(--mdc-outline);
+    padding: 7rem 23rem;
+}
+
+form.modal>card>input[type="reset"]:active {
+    background-color: var(--mdc-surface-container-highest);
+    border: 2rem solid var(--mdc-surface-tint);
+    padding: 6rem 22rem;
+}
