@@ -2,7 +2,7 @@
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
 
-final class ProfileMainPage extends BaseHTMLDocumentPage
+final class BlogDetailPage extends BaseHTMLDocumentPage
 {
     public function __construct()
     {
@@ -43,12 +43,32 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
     public function body()
     {
         ?>
-            <div class="container-fluid py-5">
+            <div class="container-fluid py-5">4
+                <!-- Pagination -->
                 <div class="container py-5">
+                    <div class="col-12 mt-5">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination pagination-lg">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <p aria-hidden="true">&laquo;</p>
+                                    </a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <p aria-hidden="true">&raquo;</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- End Pagination -->
                     <div class="row">
                         <!-- Blog Detail -->
                         <div class="col-lg-8">
-
                             <!-- Blog Detail Content -->
                             <div class="row mb-5">
                                 <h3 class="text-uppercase mb-2" style="white-space: nowrap; font-weight: 600; font-size: 2.2rem;">Best LearnPress WordPress Theme Collection For 2024</h3>
@@ -57,7 +77,7 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
                                     <div class="mb-3 mr-3">
                                         <i class="fa-solid fa-user" style="color: orange;"></i>
                                         <span class="text-muted">Chấn Phong</span>
-                                    </div>
+                                    </div>000000000000000000000
                                     <div class="mb-3 mr-3">
                                         <i class="fa-regular fa-calendar" style="color: orange;"></i>
                                         <span class="text-muted">Jan 24. 2024</span>
@@ -183,11 +203,11 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
                                 <!-- End Comment -->
                             </div>
                             <!-- End Blog Detail Content -->
-
-                            <!-- Pagination -->
-                            <div class="col-12 mt-5">
+<!-- Pagination -->
+<!--
+                            <div class="col-12 mt-5" id="blogdetail_page_nav">
                                 <nav aria-label="Page navigation">
-                                    <ul class="pagination pagination-lg justify-content-center mb-0">
+                                    <ul class="pagination pagination-lg  mb-0">
                                         <li class="page-item disabled">
                                             <a class="page-link" href="#" aria-label="Previous">
                                                 <p aria-hidden="true">&laquo;</p>
@@ -204,8 +224,8 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
                                     </ul>
                                 </nav>
                             </div>
-                            <!-- End Pagination -->
-
+-->
+<!-- End Pagination -->
                             <!-- Leave a comment form -->
                             <div class="col-12 mt-5 form-cmt">
                                 <h3 class="text-uppercase mb-4" style="font-weight: 600; font-size: 2.2rem;">Leave a comment</h3>

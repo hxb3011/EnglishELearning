@@ -29,7 +29,7 @@ $page->beforeDocument();
         "CSS, and APIs for both websites and HTML Apps.",
         title: "English E-Learning"
     );
-    $page->favIcon(svg: "/assets/images/favicon.svg");
+    $page->favIcon(svg: "/assets/images/faqs.png");
     $page->styles(
         "https://fonts.googleapis.com/css?family=Exo%3A600%2C700",
         "https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C600%2C700",

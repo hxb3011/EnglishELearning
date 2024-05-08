@@ -86,6 +86,7 @@ final class BlogListPage extends BaseHTMLDocumentPage
                                     <div class="col-md-6">
                                         <img class="img-fluid img-blog mb-3 mb-md-0"  src="/assets/images/blog.png" alt="">
                                     </div>
+                                <a href="/blog/detail.php"> 
                                     <div class="col-md-6">
                                         <div class="blog-item position-relative overflow-hidden rounded mb-2" style="min-height: 100%;">
                                             <a class="blog-overlay text-decoration-none" href="">
@@ -98,50 +99,7 @@ final class BlogListPage extends BaseHTMLDocumentPage
                                             </a>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col pb-3 margin-y-3">
-                            <div class="row-md-6 mb-4">
-                                <div class="row g-0">
-                                    <div class="col-md-6">
-                                        <img class="img-fluid img-blog mb-3 mb-md-0"  src="/assets/images/blog.png" alt="">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="blog-item position-relative overflow-hidden rounded mb-2" style="min-height: 100%;">
-                                            <a class="blog-overlay text-decoration-none" href="">
-                                                <h4 class="text-border mb-2">Best LearnPress WordPress Theme Collection For 2024</h4>
-                                                <div class="date-group">
-                                                    <i class="fas fa-calendar-days"></i>
-                                                    <p class="">Jan 01, 2024</p>
-                                                </div>
-                                                <span class="text-muted">Looking for a amazing & well-functional LearnPress WordPress Theme? Online education...</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col pb-3 margin-y-3">
-                            <div class="row-md-6 mb-4">
-                                <div class="row g-0">
-                                    <div class="col-md-6">
-                                        <img class="img-fluid img-blog mb-3 mb-md-0"  src="/assets/images/blog.png" alt="">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="blog-item position-relative overflow-hidden rounded mb-2" style="min-height: 100%;">
-                                            <a class="blog-overlay text-decoration-none" href="">
-                                                <h4 class="text-border mb-2">Best LearnPress WordPress Theme Collection For 2024</h4>
-                                                <div class="date-group">
-                                                    <i class="fas fa-calendar-days"></i>
-                                                    <p class="">Jan 01, 2024</p>
-                                                </div>
-                                                <span class="text-muted">Looking for a amazing & well-functional LearnPress WordPress Theme? Online education...</span>
-                                            </a>
-                                        </div>
-                                    </div>
+                                </a>
                                 </div>
                             </div>
                         </div>
@@ -213,18 +171,6 @@ final class BlogListPage extends BaseHTMLDocumentPage
                                     <h4>Best LearnPress WordPress Theme Collection For 2024</h4>
                                 </div>
                             </a>
-                            <a class="d-flex align-items-center text-decoration-none margin-y-3 border" href="">
-                                <img class="img-fluid rounded" src="/assets/images/blog4.png" alt="wordpress image" style="max-width: 50%;">
-                                <div class="pl-3">
-                                    <h4>Best LearnPress WordPress Theme Collection For 2024</h4>
-                                </div>
-                            </a>
-                            <a class="d-flex align-items-center text-decoration-none margin-y-3 border" href="">
-                                <img class="img-fluid rounded" src="/assets/images/blog4.png" alt="wordpress image" style="max-width: 50%;">
-                                <div class="pl-3">
-                                    <h4>Best LearnPress WordPress Theme Collection For 2024</h4>
-                                </div>
-                            </a>
                         </div>
 
                         <!-- Tag Cloud -->
@@ -265,7 +211,8 @@ final class BlogListPage extends BaseHTMLDocumentPage
         <?
     }
 
-    // public function afterDocument()
+    // publi
+    function afterDocument(){}
     // {
     //     parent::afterDocument();
     // }
