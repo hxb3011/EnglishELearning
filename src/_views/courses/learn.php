@@ -8,6 +8,8 @@ final class LearnPage extends BaseHTMLDocumentPage
     public Course $course;
     public array $programs;
     public string $videoPath;
+    public Document $currentProgram;
+    public $currentExcercise;
     public function __construct()
     {
         parent::__construct();
@@ -65,8 +67,9 @@ final class LearnPage extends BaseHTMLDocumentPage
                 <div class="row">
                     <div class="col-md-8 col-sm-12">
                         <div id="course_content">
+                            
                             <div class="learn__video-wrapper">
-                                <video id="courseVideo" preload="auto" controlslist="nodownload" src="" class="learn__video"></video>
+                                <video id="courseVideo" preload="auto" src="<? echo $this->videoPath ?>" controlslist="nodownload" src="" class="learn__video"></video>
                                 <button class="btn learn__video__btn-play" id="playBtn">
                                     <i class="mdi-b play"></i>
                                 </button>
@@ -113,7 +116,7 @@ final class LearnPage extends BaseHTMLDocumentPage
                                     <div class="learn__lesson-item">
                                         <div class="learn__lesson-item-inner">
                                             <div class="">
-                                                <a class="learn_lesson-name " role="button" aria-expanded="false" >
+                                                <a class="learn_lesson-name " role="button" aria-expanded="false">
                                                     <? echo $program->Description ?>
                                                     <span class="mdi-b toggle"></span>
                                                 </a>
@@ -133,6 +136,23 @@ final class LearnPage extends BaseHTMLDocumentPage
             "/node_modules/jquery/dist/jquery.min.js",
         );
         ?>
+        <script>
+            function setUpVideoStream() {
+                var video = document.getElementById("courseVideo");
+                video.addEventListener("click", function() {
+                    if (video.paused) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
+                });
+                video.addEventListener("dblclick", function() {
+                    video.currentTime += 10;
+                });
+
+            }
+            setUpVideoStream();
+        </script>
 <?
 
     }

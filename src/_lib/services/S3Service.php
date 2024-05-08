@@ -112,7 +112,7 @@ class S3Service
             'Bucket' => $this->s3Config['bucket'],
             'Key'=> $filePath
         ]);
-        $request = $s3->createPresignedRequest($cmd, $expires);
+        $request = $s3->createPresignedRequest($cmd, '+1 hour');
         $presignedUrl = (string)$request->getUri();
 
         return $presignedUrl;
