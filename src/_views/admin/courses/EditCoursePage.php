@@ -15,7 +15,6 @@ class EditCoursePage extends BaseHTMLDocumentPage
             array('ID' => 'PRO02', "Name" => "Nguyễn Thanh Sang"),
             array('ID' => 'PRO03', "Name" => "Huỳnh Xuân Bách"),
             array('ID' => 'PRO04', "Name" => "Lâm Hùy"),
-
         );
     }
     // public function beforeDocument()

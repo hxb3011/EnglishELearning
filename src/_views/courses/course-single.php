@@ -4,6 +4,11 @@ requirl("utils/htmlDocument.php");
 
 final class CourseSinglePage extends BaseHTMLDocumentPage
 {
+    public Course $course;
+    public array $programs = array();
+    public string $basePath;
+    public int $totalLesson;
+    public int $totalExcercise;
     public function __construct()
     {
         parent::__construct();
@@ -50,34 +55,34 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
                     <div class="row">
                         <div class="col-md-9 col-lg-9">
                             <div class="d-flex align-items-center justify-content-start">
-                                <div class="course_category">
-                                    Toeic
-                                </div>
-                                <span class="text-white ms-4 me-1" style="font-size: 10rem;">By</span>
+                                <span class="text-white ms-4 me-1" style="font-size: 14rem;">Giảng dạy bởi : </span>
                                 <div class="course_tutor">
-                                    Toàn Lê
+                                    <? echo $this->course->tutorName ?>
                                 </div>
                             </div>
                             <div class="course_name">
-                                The Ultimate Guild To Pass The English Test In Sai Gon University
+                                <? echo $this->course->name ?>
                             </div>
                             <div class="d-flex justify-content-between align-items-center course_info">
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <span class="mdi-b student"></span>
+                                    <span class="mdi-b student"style="font-size: 18rem;"></span>
                                     150 Học viên
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center">
                                     <span class="mdi-b calendar"></span>
-                                    2 Tuần
+                                    <?
+                                    $interval = $this->course->beginDate->diff($this->course->endDate);
+                                    echo ($interval->days . ' Ngày')
+                                    ?>
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <span class="mdi-b document"></span>
-                                    15 Bài học
+                                    <span class="mdi-b document" style="font-size: 18rem;"></span>
+                                    <? echo ($this->totalLesson) ?> Bài học
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <span class="mdi-b quiz"></span>
-                                    12 Bài Tập
+                                    <span class="mdi-b quiz" style="font-size: 18rem;"></span>
+                                    <? echo ($this->totalExcercise) ?> Bài Tập
                                 </div>
                             </div>
                         </div>
@@ -86,9 +91,9 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
                                 <img src="/assets/images/blog4.png" alt="" class="card-img-top course__img">
                                 <div class="card-body d-flex justify-content-between align-items-center course__wrapper-inner">
                                     <div class="card-text course_price">
-                                        1200000 VNĐ
+                                        <? echo ($this->course->price) ?> VNĐ
                                     </div>
-                                    <a href="/courses/learn.php?courseID=1" class="btn course_gobtn">
+                                    <a href="/courses/learn.php?courseId=<?echo $this->course->id?>" class="btn course_gobtn">
                                         Vào học
                                     </a>
                                 </div>
@@ -109,54 +114,39 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
                             </div>
                             <div class="tab-content course_tabContent" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-tong-quan" role="tabpanel" aria-labelledby="nav-tong-quan-tab" align="justify">
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae,
-                                    eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
+                                    <? echo ($this->course->description) ?>
                                 </div>
                                 <div class="tab-pane fade" id="nav-chuong-trinh" role="tabpanel" aria-labelledby="nav-chuong-trinh-tab">
-                                    <div class="course_lesson">
-                                        <div class="course_lesson-title">
-                                            <a data-bs-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
-                                                <span class="mdi-b toggle" styles="margin-right:4rem;"></span>
-                                                Lesson 1 : Title of the lesson
-                                            </a>
-                                        </div>
-                                        <div class="course_lesson-content collapse" id="collapse1" style="padding-left: 8rem;">
-                                            <div class="course_lesson-doc">
-                                                <span class="mdi-b video" style="margin-right:8rem;"></span>
-                                                Hello World
+                                    <? foreach ($this->programs as $index => $program) : ?>
+                                        <? if ($program instanceof Lesson) : ?>
+                                            <div class="course_lesson">
+                                                <div class="course_lesson-title">
+                                                    <a data-bs-toggle="collapse" href="#collapse<?echo ($index+1)?>" role="button" aria-expanded="false" aria-controls="collapse1">
+                                                        <span class="mdi-b toggle" styles="margin-right:4rem;"></span>
+                                                        <? echo ($program->Description) ?>
+                                                    </a>
+                                                </div>
+                                                <div class="course_lesson-content collapse" id="collapse<?echo ($index+1)?>" style="padding-left: 8rem;">
+                                                    <? foreach ($program->Documents as $index => $document) : ?>
+                                                        <div class="course_lesson-doc">
+                                                            <span class="mdi-b <? if ($document->Type == 'text') echo ('file');
+                                                                                else echo ('video') ?>" style="margin-right:8rem;"></span>
+                                                            <? echo $document->Description ?>
+                                                        </div>
+                                                    <? endforeach ?>
+                                                </div>
                                             </div>
-                                            <div class="course_lesson-doc">
-                                                <span class="mdi-b file" style="margin-right:8rem;"></span>
-                                                Hello World
+                                        <? else : ?>
+                                            <div class="course_lesson">
+                                                <div class="course_lesson-title">
+                                                    <a  role="button" aria-expanded="false" >
+                                                        <span class="mdi-b quiz" styles="margin-right:4rem;"></span>
+                                                        <? echo ($program->Description) ?>
+                                                    </a>
+                                                </div>
                                             </div>
-                                            <div class="course_lesson-doc">
-                                                <span class="mdi-b quiz" style="margin-right:8rem;"></span>
-                                                Hello World
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="course_lesson">
-                                        <div class="course_lesson-title">
-                                            <a data-bs-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">
-                                                <span class="mdi-b toggle" styles="margin-right:4rem;"></span>
-                                                Lesson 1 : Title of the lesson
-                                            </a>
-                                        </div>
-                                        <div class="course_lesson-content collapse" id="collapse2" style="padding-left: 8rem;">
-                                            <div class="course_lesson-doc">
-                                                <span class="mdi-b video" style="margin-right:8rem;"></span>
-                                                Hello World
-                                            </div>
-                                            <div class="course_lesson-doc">
-                                                <span class="mdi-b file" style="margin-right:8rem;"></span>
-                                                Hello World
-                                            </div>
-                                            <div class="course_lesson-doc">
-                                                <span class="mdi-b quiz" style="margin-right:8rem;"></span>
-                                                Hello World
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <? endif ?>
+                                    <? endforeach ?>
                                 </div>
                             </div>
                         </div>

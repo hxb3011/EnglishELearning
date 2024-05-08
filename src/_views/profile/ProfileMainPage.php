@@ -74,8 +74,8 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
                 if ($key->isPermissionGranted(Permission_ProfileRead)) {
                     $name = $holder->lastName . " " . $holder->firstName;
                     $type = $holder->type === ProfileType_Instructor ? "Giảng viên"
-                            : $holder->type === ProfileType_Instructor ? "Học viên"
-                            : "Không xác định";
+                            : ($holder->type === ProfileType_Instructor ? "Học viên"
+                            : "Không xác định");
                 }
             }
             ?>

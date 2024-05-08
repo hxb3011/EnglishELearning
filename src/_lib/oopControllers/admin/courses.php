@@ -6,11 +6,11 @@ requirm('/dao/ExcerciseModel.php');
 requirm('/dao/DocumentModel.php');
 requirm('/dao/QuestionModel.php');
 
-requirm('/access/Course.php');
-requirm('/access/Lesson.php');
-requirm('/access/Excercise.php');
-requirm('/access/Document.php');
-requirm('/access/Question.php');
+requirm('/learn/Course.php');
+requirm('/learn/Lesson.php');
+requirm('/learn/Excercise.php');
+requirm('/learn/Document.php');
+requirm('/learn/Question.php');
 
 
 requirl('/services/S3Service.php');
