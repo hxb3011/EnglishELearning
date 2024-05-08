@@ -862,8 +862,8 @@
     `email` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL,
     `reset_token_hash` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
     `reset_token_expires_at` datetime DEFAULT NULL,
-    PRIMARY KEY (`ProfileID`,`KeyVerify`),
-    UNIQUE KEY `reset_token_hash_UNIQUE` (`reset_token_hash`),
+    CONSTRAINT `PK_verification` PRIMARY KEY (`ProfileID`,`KeyVerify`),
+    UNIQUE KEY `reset_token_hash_UNIQUE` (`reset_token_hash`, `KeyVerify`),
     CONSTRAINT `FK_ProfilE_Verify_Profile` FOREIGN KEY (`ProfileID`) REFERENCES `profile` (`ID`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
   /*!40101 SET character_set_client = @saved_cs_client */;

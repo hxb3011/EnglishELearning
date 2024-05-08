@@ -1,4 +1,5 @@
 [mdc-theme] {
+    /* <element mdc-theme="<[dark|light|system]>"> */
     --theme-label: Material Design (Color Theme 1);
 }
 

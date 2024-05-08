@@ -44,35 +44,35 @@ $page->beforeDocument();
     $page->scripts(
         "/clients/utils/general.js",
         "/clients/utils/log.js",
-        "/clients/theme/dynamicThemeCSSLoader.js"
+        "/clients/theme/dynamicThemeCSSLoader.js",
+        "/clients/layout/main.js"
     );
     $page->head();
     ?>
 </head>
 
 <body mdc-theme="light">
-    <? if ( !property_exists($page,'hideNav')): ?>
     <nav>
         <a class="mdi-b nav-item -search _action" hint="Tìm kiếm" href="#"></a>
-        <a class="mdi-b nav-item -dictionary" hint="Từ điển" href="#"></a>
-        <a class="mdi-b nav-item -courses" hint="Khoá học" href="/courses/all.php"></a>
-        <a class="mdi-b nav-item -blogs" hint="Bài viết" href="/blog/all.php"></a>
-        <a class="mdi-b nav-item -profile" hint="Cá nhân" href="/profile/index.php"></a>
+        <a class="mdi-b nav-item -dictionary<?= ($page->activeNav & NAV_BASE_MASK) === NAV_DICT ? " _selected" : "" ?>" hint="Từ điển" href="#"></a>
+        <a class="mdi-b nav-item -courses<?= ($page->activeNav & NAV_BASE_MASK) === NAV_COURSE ? " _selected" : "" ?>" hint="Khoá học" href="#"></a>
+        <a class="mdi-b nav-item -blogs<?= ($page->activeNav & NAV_BASE_MASK) === NAV_BLOG ? " _selected" : "" ?>" hint="Bài viết" href="/blog/all.php"></a>
+        <a class="mdi-b nav-item -profile<?= ($page->activeNav & NAV_BASE_MASK) === NAV_PROF ? " _selected" : "" ?>" hint="Cá nhân" href="/profile/index.php"></a>
     </nav>
     <nav class="drawer -dictionary _closed">
         <a class="mdi-b nav-item -back _action" hint="Từ điển" href="#"></a>
-        <a class="mdi-b nav-item -dictionary" hint="Tất cả từ" href="#"></a>
-        <a class="mdi-b nav-item -dictionary _selected" hint="Ôn từ vựng" href="#"></a>
+        <a class="mdi-b nav-item -dictionary<?= ($page->activeNav === NAV_DICT_ALL) ? " _selected" : "" ?>" hint="Tất cả từ" href="#"></a>
+        <a class="mdi-b nav-item -dictionary<?= ($page->activeNav === NAV_DICT_REVIEW) ? " _selected" : "" ?>" hint="Ôn từ vựng" href="#"></a>
     </nav>
     <nav class="drawer -courses _closed">
         <a class="mdi-b nav-item -back _action" hint="Khoá học" href="#"></a>
-        <a class="mdi-b nav-item -courses" hint="Các khoá học" href="/courses/all.php"></a>
-        <a class="mdi-b nav-item -courses" hint="Khoá học của tôi" href="#"></a>
-        <a class="mdi-b nav-item -courses _selected" hint="Giới thiệu" href="#"></a>
+        <a class="mdi-b nav-item -courses<?= ($page->activeNav === NAV_COURSE_ALL) ? " _selected" : "" ?>" hint="Các khoá học" href="/courses/all.php"></a>
+        <a class="mdi-b nav-item -courses<?= ($page->activeNav === NAV_COURSE_MY) ? " _selected" : "" ?>" hint="Khoá học của tôi" href="#"></a>
+        <a class="mdi-b nav-item -courses<?= ($page->activeNav === NAV_COURSE_INTRO) ? " _selected" : "" ?>" hint="Giới thiệu" href="/introduction/index.php"></a>
     </nav>
-    <? endif ?>
     <main><? $page->body(); ?></main>
     <scrim></scrim>
+    <? $page->modal(); ?>
 </body>
 </html>
 <? $page->afterDocument(); ?>
