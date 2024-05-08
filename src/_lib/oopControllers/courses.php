@@ -6,10 +6,10 @@ requirm('/dao/DocumentModel.php');
 requirm('/dao/ExcerciseModel.php');
 
 
-requirm('/access/Course.php');
-requirm('/access/Lesson.php');
-requirm('/access/Document.php');
-requirm('/access/Excercise.php');
+requirm('/learn/Course.php');
+requirm('/learn/Lesson.php');
+requirm('/learn/Document.php');
+requirm('/learn/Excercise.php');
 
 requirl('/services/S3Service.php');
 class Courses {
@@ -72,6 +72,17 @@ class Courses {
         requirv("courses/learn.php");
         global $page;
         $page = new LearnPage();
+        $page->course = $this->courseModel->getCourseById($courseID);
+        $lessons = $this->lessonModel->getLessonsByCourseId($courseID);
+        foreach ($lessons as $lesson) {
+            $lesson->Documents = $this->documentModel->getDocumentsByLessonID($lesson->ID);
+            usort($lesson->Documents, array('Courses', 'compareOrderN'));
+        }
+        $excercises = $this->excerciseModel->getExcercisesByCourseId($courseID);
+        $page->programs = array_merge($lessons, $excercises);
+        $page->videoPath = $this->s3Service->presignUrl("private/video/COURSE/LESSON1/DOCUMENT2/002 What Is NgRx.mp4",1800);
+        usort($page->programs, array('Courses', 'compareOrderN'));
+
         requira("_layout.php");
     }
 
