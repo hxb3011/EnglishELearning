@@ -1,7 +1,7 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/database.php');
-requirm('/access/Lesson.php');
+requirm('/learn/Lesson.php');
 class LessonModel
 {
     public function generateValidLessonID()

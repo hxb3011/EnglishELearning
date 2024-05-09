@@ -62,6 +62,8 @@ class QMatching{
         $this->ID = intval($arrayValue['ID']) ;
         $this->Content = $arrayValue['Content'];
         $this->QuestionID = $arrayValue['QuestionID'];
+        $this->KeyQ = $arrayValue['KeyQ'];
+
     }
 }
 
@@ -95,7 +97,7 @@ class QCompMask{
         $this->ID = intval($arrayValue['ID']) ;
         $this->Length = intval($arrayValue['Length']) ;
         $this->Offset = intval($arrayValue['Offset']);
-        $this->QCompID= intval($arrayValue['QComID']);
+        $this->QCompID= intval($arrayValue['QCompID']);
 
     }
 }

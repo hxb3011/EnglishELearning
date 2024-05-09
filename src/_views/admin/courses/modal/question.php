@@ -2,6 +2,7 @@
 global $excerciseId;
 global $question;
 global $content;
+global $type;
 ?>
 <style>
     .highlight {
@@ -9,14 +10,13 @@ global $content;
     }
 </style>
 
-<form action="<? if (isset($quesion)) echo "";
-                else echo "/administration/courses/api/ajax_call_action.php?action=add_question" ?>" method="post" id="question_form">
+<form id="question_form">
     <div class="form-group">
         <input type="hidden" name="excerciseId" value="<? echo $excerciseId ?>">
         <input type="hidden" name="questionId" value="<? if (isset($question->ID)) echo $question->ID ?>">
 
         <label for="content">Nội dung câu hỏi</label>
-        <input class="form-control" type="text" name="content" readonly id="content" value="<? if (isset($question->content)) echo $question->content ?>">
+        <input class="form-control" type="text" name="content" id="content" value="<? if (isset($question->Content)) echo $question->Content ?>">
     </div>
     <div class="mb-3">
         <label for="state" class="form-label">Trạng thái</label>
@@ -26,40 +26,114 @@ global $content;
         </select>
     </div>
     <div class="form-group">
-        <p for="">Loại câu hỏi</p>
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="ms-1">
-                <input type="radio" name="type" value="multi_choice" <? if (isset($question->ID)) echo "disabled" ?>>
-                <label for="">Nhiều lựa chọn</label>
+        <? if (!isset($question->ID)) : ?>
+            <p for="">Loại câu hỏi</p>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="ms-1">
+                    <input type="radio" name="type" value="multi_choice">
+                    <label for="">Nhiều lựa chọn</label>
+                </div>
+                <div class="ms-1">
+                    <input type="radio" name="type" value="matching">
+                    <label for="">Nối</label>
+                </div>
+                <div class="ms-1">
+                    <input type="radio" name="type" value="completion">
+                    <label for="">Điền khuyết</label>
+                </div>
             </div>
-            <div class="ms-1">
-                <input type="radio" name="type" value="matching" <? if (isset($question->ID)) echo "disabled" ?>>
-                <label for="">Nối</label>
-            </div>
-            <div class="ms-1">
-                <input type="radio" name="type" value="completion" <? if (isset($question->ID)) echo "disabled" ?>>
-                <label for="">Điền khuyết</label>
-            </div>
-        </div>
+        <? else : ?>
+            <input type="hidden" name="type" value="<? echo $type ?>">
+        <? endif ?>
+
     </div>
     <div id="questions_area">
+        <? if (isset($type) && $type == "multi_choice") : ?>
+            <? foreach ($content['multiChoice'] as $index => $value) : ?>
+                <div class="form-group options">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="mul_options[]" id="option_<? echo ($index + 1) ?>" placeholder="Lựa chọn 1" value=<? echo $value->Content ?> required="">
+                        <span class="input-group-text">
+                            <input type="checkbox" name="correct_answers[]" value="<? echo ($index + 1) ?>" <? if ($value->Correct) echo "checked" ?>>
+                        </span>
+                    </div>
+                </div>
+            <? endforeach ?>
+        <? endif ?>
+        <? if (isset($type) && $type == "matching") : ?>
+            <div id="matchingContainer" class="container ">
+                <? foreach ($content['qmatching'] as $index => $value) : ?>
+                    <div class="matching-row row g-2 mb-1">
+                        <div class="col-md-5 col-sm-12 p3">
+                            <input type="text" class="form-control col-md-5" name="question[]" value="<? echo $value->Content ?>" placeholder="Câu hỏi" required>
+                        </div>
+                        <div class="col-md-5 col-sm-10 p3">
+                            <input type="text" class="form-control col-md-5" name="answer[]" value="<? echo $content['qmatchingkey'][$value->ID]->Content ?>" placeholder="Câu trả lời" required>
+                        </div>
+                        <? if ($index > 0) : ?>
+                            <div class="col-md-2 col-sm-2 p3">
+                                <button type="button" class="btn btn-outline-primary btn-rounded btn-icon" onclick="removeMatchingRow(this)">-</button>
+                            </div>
+                        <? endif ?>
+                    </div>
+                <? endforeach ?>
+                <button type="button" class="btn btn-outline-primary btn-rounded btn-icon col-md-6 offset-md-3 mt-3" onclick="addMatchingRow()">Thêm Câu Hỏi</button>
+            </div>
+        <? endif ?>
+        <? if (isset($type) && $type == "completion") : ?>
+            <textarea name="complete_content" id="complete_content" class="form-group" value="<? echo $content['qcompletion']->Content ?>" onchange="completionChange(this)" style="width:100%;height:100px;"><? echo $content['qcompletion']->Content ?></textarea>
+            <textarea name="preview_content" id="preview_content" class="form-group mt-1" style="width:100%;height:100px;" disabled></textarea>
 
+            <div class="col-md-2 col-sm-2 p3">
+                <button type="button" class="btn btn-outline-primary btn-rounded btn-icon mt-1" onclick="setHeightAndOffset()">Chọn</button>
+            </div>
+
+
+            <div id="completion_container">
+                <? foreach ($content['qcompmask'] as $index => $value) : ?>
+                    <div class="completion-row row g-2 mb-1">
+                        <div class="col-md-5 col-sm-12 p3">
+                            <input type="text" class="form-control col-md-5" name="offsets[]" value="<? echo $value->Offset ?>" placeholder="Offset" class="tmp" required>
+                        </div>
+                        <div class="col-md-5 col-sm-10 p3">
+                            <input type="text" class="form-control col-md-5" name="length[]" value="<? echo ($value->Length) ?>" placeholder="Chiều dài" required>
+                        </div>
+                        <? if ($index > 0) : ?>
+                            <div class="col-md-2 col-sm-2 p3">
+                                <button type="button" class="btn btn-outline-primary btn-rounded btn-icon" onclick="removeCompletionRow(this)">-</button>
+                            </div>
+                        <? endif ?>
+                    </div>
+                <? endforeach ?>
+                <div class="completion-row row g-2 mb-1">
+                    <div class="col-md-5 col-sm-12 p3">
+                        <input type="text" class="form-control col-md-5" name="offsets[]" placeholder="Offset" required>
+                    </div>
+                    <div class="col-md-5 col-sm-10 p3">
+                        <input type="text" class="form-control col-md-5" name="length[]" placeholder="Chiều dài" required>
+                    </div>
+                    <div class="col-md-2 col-sm-2 p3">
+                        <button type="button" class="btn btn-outline-primary btn-rounded btn-icon" onclick="removeCompletionRow(this)">-</button>
+                    </div>
+                </div>
+            </div>
+        <? endif ?>
     </div>
     <div class="text-center">
         <button class="btn btn-success mt-2" id="submitButton" type="button" name="submit">Gửi</button>
     </div>
 </form>
-<script type="text/javascript">
-    $(document).ready(() => {
-        $("input[name='type']").change(function() {
-            let selectedOption = $('input[name="type"]:checked').val()
-            let questions_area = $('#questions_area')
-            console.log(selectedOption);
-            switch (selectedOption) {
-                case 'multi_choice':
-                    questions_area.empty();
-                    questions_area.html(
-                        `
+<? if (!isset($question->ID)) : ?>
+    <script>
+        $(document).ready(() => {
+            $("input[name='type']").change(function() {
+                let selectedOption = $('input[name="type"]:checked').val()
+                let questions_area = $('#questions_area')
+                switch (selectedOption) {
+                    case 'multi_choice':
+                        questions_area.empty();
+                        questions_area.html(
+                            `
                         <div class="form-group options">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="mul_options[]" id="option_1" placeholder="Lựa chọn 1" required="">
@@ -93,12 +167,12 @@ global $content;
                                 </div>
                         </div>
                         `
-                    )
-                    break;
-                case 'matching':
-                    questions_area.empty();
-                    questions_area.html(
-                        `
+                        )
+                        break;
+                    case 'matching':
+                        questions_area.empty();
+                        questions_area.html(
+                            `
                         <div id="matchingContainer" class="container ">
                             <div class="matching-row row g-2 mb-1">
                                 <div class= "col-md-5 col-sm-12 p3">
@@ -107,19 +181,16 @@ global $content;
                                 <div class="col-md-5 col-sm-10 p3">
                                     <input type="text" class="form-control col-md-5" name="answer[]" placeholder="Câu trả lời" required>
                                 </div>
-                                <div class="col-md-2 col-sm-2 p3">
-                                    <button type="button" class="btn btn-outline-primary btn-rounded btn-icon" onclick="removeMatchingRow(this)">-</button>
-                                </div>
                             </div>
                         </div>
                         <button type="button" class="btn btn-outline-primary btn-rounded btn-icon col-md-6 offset-md-3 mt-3" onclick="addMatchingRow()">Thêm Câu Hỏi</button>
                         `
-                    )
-                    break;
-                case 'completion':
-                    questions_area.empty();
-                    questions_area.html(
-                        `
+                        )
+                        break;
+                    case 'completion':
+                        questions_area.empty();
+                        questions_area.html(
+                            `
                         <textarea name="complete_content" id="complete_content" class="form-group" onchange="completionChange(this)"  style="width:100%;height:100px;"></textarea>
                         <textarea name="preview_content" id="preview_content" class="form-group mt-1"  style="width:100%;height:100px;" disabled></textarea>
 
@@ -129,39 +200,47 @@ global $content;
                         <div id="completion_container">
                             <div class="completion-row row g-2 mb-1">
                                     <div class= "col-md-5 col-sm-12 p3">
-                                        <input type="text" class="form-control col-md-5" name="offsets" placeholder="Offset"  class="tmp" required>
+                                        <input type="text" class="form-control col-md-5" name="offsets[]" placeholder="Offset"  class="tmp" required>
                                     </div>
                                     <div class="col-md-5 col-sm-10 p3">
-                                        <input type="text" class="form-control col-md-5" name="length" placeholder="Chiều dài" required>
+                                        <input type="text" class="form-control col-md-5" name="length[]" placeholder="Chiều dài" required>
                                     </div>
                             </div>                        
                         </div>
                         `
-                    )
-                    break;
-                default:
-                    questions_area.empty()
+                        )
+                        break;
+                    default:
+                        questions_area.empty()
 
-            }
+                }
+            })
         })
-    })
+    </script>
+<? endif ?>
+
+<script type="text/javascript">
     $('#submitButton').click(function(event) {
         if ($('#question_form').valid()) {
-            $('#scrollable-modal').hide();
-            $('.modal-backdrop').hide();
-            // $.ajax({
-            //     url: 'http://localhost/academy/admin/quiz_questions/2/add',
-            //     type: 'post',
-            //     data: $('form#mcq_form').serialize(),
-            //     success: function(response) {
-            //         if (response == 1) {
-            //             success_notify('Question has been added');
-            //         } else {
-            //             error_notify('No options can be blank and there has to be atleast one answer');
-            //         }
-            //     }
-            // });
-            // showLargeModal('http://localhost/academy/modal/popup/quiz_questions/2', 'Manage quiz questions');
+            let editMode = $('#question_form input[name="questionId"]').val() ? true : false;
+            let url;
+            if (editMode) {
+                url = "/administration/courses/api/ajax_call_action.php?action=update_question"
+            } else {
+                url = "/administration/courses/api/ajax_call_action.php?action=add_question"
+            }
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: $('form#question_form').serialize(),
+                success: function(response) {
+                    console.log(response)
+                    toastr.success("Thêm/sửa thành công câu hỏi thành công")
+                    $('#scrollable-modal').modal('hide')
+                    showLargeModal('http://localhost:62280/administration/courses/show_modal.php?action=list_question_modal&excerciseId=<? echo $excerciseId ?>', 'Câu hỏi');
+                }
+            });
+
         }
 
 
@@ -181,6 +260,9 @@ global $content;
                         <div class="col-md-5 col-sm-10 p3">
                             <input type="text" class="form-control col-md-5" name="answer[]" placeholder="Câu trả lời" required>
                         </div>
+                        <div class="col-md-2 col-sm-2 p3">
+                                    <button type="button" class="btn btn-outline-primary btn-rounded btn-icon" onclick="removeMatchingRow(this)">-</button>
+                        </div>
                     </div>
             `;
         matchingContainer.appendChild(newMatchingRow);
@@ -192,30 +274,22 @@ global $content;
 </script>
 <!-- completion -->
 <script>
-    function validateOffsetLength(offset, length) {
-        if (length != 0) {
+    function validateOffsetLength(offset, len) {
+        if (len != 0) {
             let offsets = [];
-            $("input[name='offsets']").each(function(index, element) {
+            $("input[name='offsets[]']").each(function(index, element) {
                 if (element.value != '')
                     offsets.push(element.value);
             })
             let length = [];
-            $("input[name='length']").each(function(index, element) {
+            $("input[name='length[]']").each(function(index, element) {
                 if (element.value != '')
 
-                    offsets.push(element.value);
+                    length.push(element.value);
             })
-            console.log(offsets);
-            console.log(length);
             for (let i = 0; i < offsets.length; i++) {
-                console.log(offsets[i]);
-                console.log(length[i]);
-                console.log(offset)
-                console.log(length)
                 if ((offset >= offsets[i]) && (offset <= offsets[i] + length[i])) return false;
-                console.log('hello');
-                if ((offset + length) >= offsets[i] && offset <= offsets[i]) return false;
-                console.log("hehe");
+                if ((offset + len) >= offsets[i] && offset <= offsets[i]) return false;
             }
             return true;
         }
@@ -227,10 +301,10 @@ global $content;
             `
             <div class="completion-row row g-2 mb-1">
                                     <div class= "col-md-5 col-sm-12 p3">
-                                        <input type="text" class="form-control col-md-5" name="offsets" placeholder="Offset" required>
+                                        <input type="text" class="form-control col-md-5" name="offsets[]" placeholder="Offset" required>
                                     </div>
                                     <div class="col-md-5 col-sm-10 p3">
-                                        <input type="text" class="form-control col-md-5" name="length" placeholder="Chiều dài" required>
+                                        <input type="text" class="form-control col-md-5" name="length[]" placeholder="Chiều dài" required>
                                     </div>
             </div>  
             `
@@ -239,8 +313,8 @@ global $content;
     }
 
     function addCompletionRow() {
-        let lastOffset = $('input[name=\'offsets\']:last').val();
-        let lastLength = $('input[name=\'length\']:last').val();
+        let lastOffset = $('input[name=\'offsets[]\']:last').val();
+        let lastLength = $('input[name=\'length[]\']:last').val();
         if (lastOffset && lastLength) {
             const matchingContainer = document.getElementById('completion_container');
             const newMatchingRow = document.createElement('div');
@@ -248,10 +322,10 @@ global $content;
             newMatchingRow.innerHTML = `
                     <div class="completion-row row g-2 mb-1">
                                         <div class= "col-md-5 col-sm-12 p3">
-                                            <input type="text" class="form-control col-md-5" name="offsets" placeholder="Offset" required>
+                                            <input type="text" class="form-control col-md-5" name="offsets[]" placeholder="Offset" required>
                                         </div>
                                         <div class="col-md-5 col-sm-10 p3">
-                                            <input type="text" class="form-control col-md-5" name="length" placeholder="Chiều dài" required>
+                                            <input type="text" class="form-control col-md-5" name="length[]" placeholder="Chiều dài" required>
                                         </div>
                                         <div class="col-md-2 col-sm-2 p3">
                                             <button type="button" class="btn btn-outline-primary btn-rounded btn-icon" onclick="removeCompletionRow(this)">-</button>
@@ -266,9 +340,11 @@ global $content;
 
     function removeCompletionRow(element) {
         let container = element.parentNode.parentNode;
-        let offset = container.querySelector("input[name='offsets']")
-        let length = container.querySelector("input[name='length']")
-        previewCompletionContent(offset, length, true)
+        let offsets = container.querySelectorAll("input[name='offsets[]']")
+        let lengths = container.querySelectorAll("input[name='length[]']")
+        offset = offsets[offsets.length - 1].value
+        len = lengths[lengths.length - 1].value;
+        previewCompletionContent(offset, len, true)
         element.parentNode.parentNode.remove();
     }
 
@@ -278,8 +354,8 @@ global $content;
         length = textArea.selectionEnd - offset;
         if (length) {
             if (validateOffsetLength(offset, length)) {
-                $("#completion_container input[name=\"offsets\"]:last").val(offset);
-                $('#completion_container input[name=\'length\']:last').val(length);
+                $("#completion_container input[name=\"offsets[]\"]:last").val(offset);
+                $('#completion_container input[name=\'length[]\']:last').val(length);
                 previewCompletionContent(offset, length)
                 addCompletionRow()
             } else {
@@ -287,6 +363,8 @@ global $content;
             }
         }
     }
+
+
 
     function previewCompletionContent(offset, length, reverse = false) {
         if (length) {
@@ -297,14 +375,13 @@ global $content;
                     mask += ".";
                 }
                 text = text.substring(0, offset) + mask + text.substring(offset + length)
-                console.log(text)
                 $('#preview_content').val(text)
-            }else{
+            } else {
                 var text = $('#preview_content').val();
-                var textCompletion = $('#completion_content').val()
-                let tmp = textCompletion.substring(offset,offset+length)
-                text = text.substring(0, offset) + tmp + text.substring(offset + length)
-                console.log(text)
+                var textCompletion = $('#complete_content').val()
+                let tmp = textCompletion.substring(+offset, (+offset) + (+length))
+                let after = (+offset) + (+length);
+                text = text.substring(0, offset) + tmp + text.substring(after)
                 $('#preview_content').val(text)
             }
 
@@ -348,3 +425,31 @@ global $content;
         }
     })
 </script>
+<? if (isset($type) && $type == "completion") : ?>
+    <script>
+        function initPreviewCompletionContent() {
+            let offsets = [];
+            $("input[name='offsets[]']").each(function(index, element) {
+                if (element.value != '')
+                    offsets.push(element.value);
+            })
+            let length = [];
+            $("input[name='length[]']").each(function(index, element) {
+                if (element.value != '')
+
+                    length.push(element.value);
+            })
+            var text = $('#complete_content').val();
+            let tmp = text;
+            for (let i = 0; i < offsets.length; i++) {
+                let mask = "";
+                for (j = 0; j < length[i]; j++) {
+                    mask += ".";
+                }
+                text = text.substring(0, offsets[i]) + mask + text.substring(+offsets[i] + (+length[i]))
+            }
+            $('#preview_content').val(text)
+        }
+        initPreviewCompletionContent()
+    </script>
+<? endif ?>

@@ -28,7 +28,7 @@ class QuestionModel
             return array();
         }
     }
-    public function insertQuestion(Question $question)
+    public function addQuestion(Question $question)
     {
         $sqlQuery = "INSERT INTO question(Content,State,ExcerciseID,OrderN) VALUES(?,?,?,?)";
         $params = array(
@@ -95,8 +95,21 @@ class QuestionModel
             return array();
         }
     }
+    public function getTotalQuestionInExcercise($excerciseId)
+    {
+        $sqlQuery = "SELECT COUNT(*) AS total_questions FROM question WHERE ExcerciseID = ?";
+        $params = array(
+            $excerciseId
+        );
+        try {
+            $result = Database::executeQuery($sqlQuery, $params);
+            return intval($result[0]['total_questions']);
+        } catch (Exception $e) {
+            return false;
+        }
+    }
     //QMulchOption
-    public function insertMulchQuestion(QMulchOption $question)
+    public function addMulchQuestion(QMulchOption $question)
     {
         $sqlQuery = "INSERT INTO qmulchoption(Content,QuestionID,Correct) VALUES(?,?,?)";
         $params = array(
@@ -161,7 +174,7 @@ class QuestionModel
         }
     }
     //QMatching & QMatchingKey
-    public function insertQMatching(QMatching $question)
+    public function addQMatching(QMatching $question)
     {
         $sqlQuery = "INSERT INTO qmatching(Content,QuestionID,KeyQ) VALUES(?,?,?)";
         $params = array(
@@ -225,7 +238,7 @@ class QuestionModel
             return array();
         }
     }
-    public function insertQMatchingKey(QMatchingKey $question)
+    public function addQMatchingKey(QMatchingKey $question)
     {
         $sqlQuery = "INSERT INTO qmatchingKey(Content) VALUES(?)";
         $params = array(
@@ -260,13 +273,11 @@ class QuestionModel
         try {
             $result = Database::executeQuery($sqlQuery, $params);
             if ($result != null) {
-                $questions = [];
+                $question = new QMatchingKey();
                 foreach ($result as $index => $value) {
-                    $question = new QMatchingKey();
                     $question->constructFromArray($value);
-                    $questions[] = $question;
                 }
-                return $questions;
+                return $question;
             } else {
                 return array();
             }
@@ -275,9 +286,10 @@ class QuestionModel
         }
     }
     //QCompletion & QCompletionMask
-    public function insertQCompletion(QCompletion $question){
-        $sqlQuery = "INSERT INTO qcompletion(Content,State) VALUES(?,?)";
+    public function addQCompletion(QCompletion $question){
+        $sqlQuery = "INSERT INTO qcompletion(ID,Content,State) VALUES(?,?,?)";
         $params = array(
+            $question->ID,
             $question->Content,
             $question->State
         );
@@ -288,7 +300,7 @@ class QuestionModel
             return null;
         }
     }
-    public function deleteQCompletion(int $questionId){
+    public function deleteQCompletionByQuestion(int $questionId){
         $sqlQuery = "DELETE FROM qcompletion WHERE ID = ? ";
         $params = array(
             $questionId
@@ -309,23 +321,21 @@ class QuestionModel
         try {
             $result = Database::executeQuery($sqlQuery, $params);
             if ($result != null) {
-                $questions = [];
+                $question = new QCompletion();
                 foreach ($result as $index => $value) {
-                    $question = new QCompletion();
                     $question->constructFromArray($value);
-                    $questions[] = $question;
                 }
-                return $questions;
+                return $question;
             } else {
-                return array();
+                return null;
             }
         } catch (Exception $e) {
-            return array();
+            return null;
         }
     }
-    public function insertQCompletionMask(QCompMask $qcomp)
+    public function addQCompletionMask(QCompMask $qcomp)
     {
-        $sqlQuery = "INSERT INTO qcompletionmask(Offset,Length,QCompID) VALUES(?,?,?)";
+        $sqlQuery = "INSERT INTO qcompmask(Offset,Length,QCompID) VALUES(?,?,?)";
         $params = array(
             $qcomp->Offset,
             $qcomp->Length,

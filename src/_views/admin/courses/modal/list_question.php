@@ -12,9 +12,9 @@ global $questions;
                             <h5 class="mt-0">Danh sách câu hỏi <button type="button" class="btn btn-outline-primary btn-sm btn-rounded alignToTitle" id="" onclick="showAjaxModal('http://localhost:62280/administration/courses/show_modal.php?action=question_modal&excerciseId=<? echo $excerciseId ?>', 'Thêm câu hỏi')" name="button" data-bs-dismiss="modal">Thêm câu hỏi</button> <button type="button" class="btn btn-outline-primary btn-sm btn-rounded alignToTitle" id="section-sort-btn" onclick="sort()" name="button">Sắp xếp</button>
                             </h5>
                             <div id="section-list" class="py-2">
-                                <div class="card mb-0 mt-2 draggable-item" id="1">
-                                    <? if ($questions != null) : ?>
-                                        <? foreach ($questions as $key => $question) : ?>
+                                <? if ($questions != null) : ?>
+                                    <? foreach ($questions as $key => $question) : ?>
+                                        <div class="card mb-0 mt-2 draggable-item" id="1" style="flex-direction: row;">
                                             <div class="card-body">
                                                 <div class="media">
                                                     <div class="media-body">
@@ -22,18 +22,20 @@ global $questions;
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card-widget">
-                                                <a class="" onclick="showAjaxModal('http://localhost:62280/administration/courses/show_modal.php?action=document_modal&amp;editmode=1&amp;lessonId=LESSON1&amp;documentId=DOCUMENT3','Sửa tài liệu tài liệu')">
+                                            <div class="card-widget d-flex pe-3">
+                                                <a class="d-flex align-items-center mr-1" style="text-decoration:none;" data-bs-dismiss="modal" onclick="showAjaxModal('http://localhost:62280/administration/courses/show_modal.php?action=question_modal&editmode=1&excerciseId=<?echo $excerciseId?>&questionId=<? echo $question->ID?> ','Sửa nội dung câu hỏi')">
                                                     <i class="mdi-b pen"></i>
                                                 </a>
-                                                <a onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_document&amp;documentId=DOCUMENT3','Xóa tài liệu','Bạn có chắc muốn xóa tài liệu này')">
+                                                <a class="d-flex align-items-center" style="text-decoration:none;" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_question&questionId=<?echo $question->ID?>','Xóa câu hỏi','Bạn có chắc muốn xóa câu hỏi này')">
                                                     <i class="mdi-b close"></i>
                                                 </a>
                                             </div>
-                                        <? endforeach ?>
-                                    <? endif ?>
 
-                                </div>
+                                        </div>
+
+                                    <? endforeach ?>
+                                <? endif ?>
+
 
                             </div>
                         </div>
@@ -90,11 +92,6 @@ global $questions;
             success: function(response) {
                 console.log(response);
                 toastr.success("Sắp xếp lại thành công", "Thông báo : ")
-                setTimeout(
-                    function() {
-                        location.reload();
-                    }, 1000);
-
             }
         });
     }
