@@ -11,8 +11,14 @@ function getMode()
         $query_o = strtolower($query_o);
         if ($query_o === "updateprofile")
             $mode = ProfilePageMode_UpdateProfile;
-        if ($query_o === "changepassword")
+        elseif ($query_o === "changepassword")
             $mode = ProfilePageMode_ChangePassword;
+        elseif ($query_o === "addverification")
+            $mode = ProfilePageMode_AddVerification;
+        elseif ($query_o === "deletephone")
+            $mode = ProfilePageMode_DeletePhone;
+        elseif ($query_o === "deleteemail")
+            $mode = ProfilePageMode_DeleteEmail;
     }
     return $mode;
 }

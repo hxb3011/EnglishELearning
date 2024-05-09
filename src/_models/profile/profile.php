@@ -16,7 +16,7 @@ final class Profile implements IPermissionHolder
     public string $birthday;
     public int $type;
     public int $status;
-    private PermissionHolderKey $_key;
+    private ?PermissionHolderKey $_key;
     public function __construct(string $id, string $firstName = "", string $lastName = "", int $gender = Gender_Male, string $birthday = "2000-01-01", int $type = ProfileType_Learner, int $status = 0)
     {
         $this->id = $id;
@@ -37,9 +37,9 @@ final class Profile implements IPermissionHolder
     }
     function getKey(): IPermissionHolderKey
     {
-        $key = $this->_key;
+        $key = &$this->_key;
         if (!isset($key))
-            $this->_key = $key = new PermissionHolderKey();
+            $key = new PermissionHolderKey();
         return $key;
     }
     function getRole()

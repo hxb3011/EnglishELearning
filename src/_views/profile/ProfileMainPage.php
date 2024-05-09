@@ -4,8 +4,12 @@ requirl("utils/htmlDocument.php");
 requirm("profile/profile.php");
 
 const ProfilePageMode_Normal = 0;
-const ProfilePageMode_UpdateProfile = 0;
-const ProfilePageMode_ChangePassword = 0;
+const ProfilePageMode_UpdateProfile = 1;
+const ProfilePageMode_ChangePassword = 2;
+const ProfilePageMode_AddVerification = 3;
+const ProfilePageMode_DeletePhone = 4;
+const ProfilePageMode_DeleteEmail = 5;
+
 final class ProfileMainPage extends BaseHTMLDocumentPage
 {
     private ?IPermissionHolder $holder;
@@ -52,51 +56,9 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
         );
     }
 
-    public function signedInHeader() {
-        ?>
-        <card class="header signed">
-            <img class="prof-pic" src="/assets/images/banner-2.png" alt="Ảnh hồ sơ">
-            <p class="mdi-b alt-prof-pic"></p>
-            <?
-            $holder = $this->holder;
-            $key = $holder->getKey();
-            $name = "Không xác định";
-            $type = "Không xác định";
-            if ($holder instanceof Account)
-            {
-                if ($key->isPermissionGranted(Permission_AccountRead)) {
-                    $name = $holder->userName;
-                    $type = "Quản trị viên";
-                }
-            }
-            elseif ($holder instanceof Profile)
-            {
-                if ($key->isPermissionGranted(Permission_ProfileRead)) {
-                    $name = $holder->lastName . " " . $holder->firstName;
-                    $type = $holder->type === ProfileType_Instructor ? "Giảng viên"
-                            : ($holder->type === ProfileType_Instructor ? "Học viên"
-                            : "Không xác định");
-                }
-            }
-            ?>
-            <p class="name"><?= $name ?></p>
-            <p class="type"><?= $type ?><input type="button" value="Đăng xuất"></p>
-        </card>
-        <?
-    }
-
-    public function signedOutHeader() {
-        ?>
-        <card class="header">
-            <p class="title">Thông tin cá nhân</p>
-            <input class="outlined" type="button" value="Đăng ký">
-            <input type="button" value="Đăng nhập">
-        </card>
-        <?
-    }
-
     public function editProfile() {
         $holder = $this->holder;
+        if (!isset($holder)) return;
         $key = $holder->getKey();
         $updateProfile = $key->isPermissionGranted(Permission_ProfileUpdate);
         $updateAccount = $key->isPermissionGranted(Permission_AccountUpdate);
@@ -183,28 +145,74 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
         <?
     }
 
+    public function deleteEmail() {
+        // TODO:
+    }
+
+    public function deletePhone() {
+        // TODO:
+    }
+
     public function body()
     {
-        if (isset($this->holder))
-            $this->signedInHeader();
-        else
-            $this->signedOutHeader();
-
         $holder = $this->holder;
-        $key = $holder->getKey();
-        $profile = null;
-        $account = null;
-        if ($holder instanceof Account)
+        if (!isset($this->holder))
         {
+            ?>
+            <card class="header">
+                <p class="title">Thông tin cá nhân</p>
+                <input class="outlined" type="button" value="Đăng ký">
+                <input type="button" value="Đăng nhập">
+            </card>
+            <?
+        }
+        else
+        {
+            ?>
+            <card class="header signed">
+                <img class="prof-pic" src="/assets/images/banner-2.png" alt="Ảnh hồ sơ">
+                <p class="mdi-b alt-prof-pic"></p>
+                <?
+                $holder = $this->holder;
+                $key = $holder->getKey();
+                $name = "Không xác định";
+                $type = "Không xác định";
+                if ($holder instanceof Account)
+                {
+                    if ($key->isPermissionGranted(Permission_AccountRead)) {
+                        $name = $holder->userName;
+                        $type = "Quản trị viên";
+                    }
+                }
+                elseif ($holder instanceof Profile)
+                {
+                    if ($key->isPermissionGranted(Permission_ProfileRead)) {
+                        $name = $holder->lastName . " " . $holder->firstName;
+                        $type = $holder->type === ProfileType_Instructor ? "Giảng viên"
+                                : ($holder->type === ProfileType_Instructor ? "Học viên"
+                                : "Không xác định");
+                    }
+                }
+                ?>
+                <p class="name"><?= $name ?></p>
+                <p class="type"><?= $type ?><input type="button" value="Đăng xuất"></p>
+            </card>
+            <?
+
+            $key = $holder->getKey();
             $profile = null;
-            $account = $holder;
-        }
-        elseif ($holder instanceof Profile)
-        {
-            $profile = $holder;
-            $account = $profile->getAccount();
-        }
-        if (isset($holder)) {
+            $account = null;
+            if ($holder instanceof Account)
+            {
+                $profile = null;
+                $account = $holder;
+            }
+            elseif ($holder instanceof Profile)
+            {
+                $profile = $holder;
+                $account = $profile->getAccount();
+            }
+            
             $updateProfile = $key->isPermissionGranted(Permission_ProfileUpdate);
             $updateAccount = $key->isPermissionGranted(Permission_AccountUpdate);
             ?>
