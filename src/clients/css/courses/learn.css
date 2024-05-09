@@ -103,31 +103,6 @@ main {
 .learn__video-wrapper {
     position: relative;
 }
-
-.learn__video__btn-play {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40rem;
-    height: 40rem;
-    font-size: 14rem;
-    border-radius: 50%;
-    background-color: rgba(94, 94, 94, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.learn__video__btn-play i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    font-size: 20rem;
-    transform: translate(-50%, -50%);
-
-}
-
 .learn__video {
     width: 100%;
     height: 413.2px;

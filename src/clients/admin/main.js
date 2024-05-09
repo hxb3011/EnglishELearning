@@ -1,5 +1,4 @@
 const hamBurger = document.querySelector(".toggle-btn");
-
 hamBurger.addEventListener("click", function () {
     document.querySelector("#sidebar").classList.toggle("expand");
 });
@@ -109,28 +108,35 @@ function confirm_delete_modal(url, title, text) {
         confirmButtonText: "Xác nhận"
     }).then((result) => {
         if (result.isConfirmed) {
+            toastr.info('Vui lòng đợi')
             $.ajax({
-                url : url,
-                success : function(data)
-                {
-                    console.log(data);
+                url: url,
+                success: function (data) {
                     jsonObject = JSON.parse(data)
-                    console.log(jsonObject);
-                    if (jsonObject.status == "204")
-                    {
+                    if (jsonObject.status == "204") {
                         toastr.success('Xóa thành công')
                         setTimeout(
-                            function()
-                            {
-                              location.reload();
-                          }, 1000);
-          
-                    }else{
+                            function () {
+                                location.reload();
+                            }, 1000);
+
+                    } else {
                         toastr.error('Xóa thất bại')
                     }
                 }
             })
         }
     });
+}
+function showLoading(text, color = 'green') {
+    load = new loading({
+        "text": text,
+        "color": color,
+        "interval": 100,
+        "stream": process.stdout,
+        "frames": ["🕐 ", "🕑 ", "🕒 ", "🕓 ", "🕔 ", "🕕 ", "🕖 ", "🕗 ", "🕘 ", "🕙 ", "🕚 "]
+    })
+    console.log(load)
+    return load;
 }
 

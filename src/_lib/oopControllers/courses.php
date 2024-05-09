@@ -80,7 +80,7 @@ class Courses {
         }
         $excercises = $this->excerciseModel->getExcercisesByCourseId($courseID);
         $page->programs = array_merge($lessons, $excercises);
-        $page->videoPath = $this->s3Service->presignUrl("private/video/COURSE/LESSON1/DOCUMENT2/002 What Is NgRx.mp4",1800);
+        
         usort($page->programs, array('Courses', 'compareOrderN'));
 
         requira("_layout.php");

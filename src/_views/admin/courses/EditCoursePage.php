@@ -338,7 +338,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
             "/node_modules/dragula/dist/dragula.min.js",
             "/node_modules/toastr/build/toastr.min.js",
             "/node_modules/sweetalert2/dist/sweetalert2.min.js",
-            "/clients/js/admin/main.js",
+            "/clients/admin/main.js",
 
         );
         ?>
