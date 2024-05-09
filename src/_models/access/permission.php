@@ -1,77 +1,77 @@
 <?
-const Permission_SystemPrivilege = 1;
-const Permission_AccountManage = 2; //*
-const Permission_AccountCreate = 3;
-const Permission_AccountRead = 4;
-const Permission_AccountUpdate = 5;
-const Permission_AccountDelete = 6;
-const Permission_RoleManager = 7; //*
-const Permission_RoleCreate = 8;
-const Permission_RoleRead = 9;
-const Permission_RoleUpdate = 10;
-const Permission_RoleDelete = 11;
-const Permission_ProfileManage = 12; //*
-const Permission_ProfileCreate = 13;
-const Permission_ProfileRead = 14;
-const Permission_ProfileUpdate = 15;
-const Permission_ProfileDelete = 16;
-const Permission_VerificationCreate = 17;
-const Permission_VerificationRead = 18;
-const Permission_VerificationUpdate = 19;
-const Permission_VerificationDelete = 20;
-const Permission_PaymentCreate = 21;
-const Permission_PaymentRead = 22;
-const Permission_PaymentUpdate = 23;
-const Permission_PaymentDelete = 24;
-const Permission_DictionaryManage = 25; // *
-const Permission_ConjugationRead = 26;
-const Permission_ConjugationWrite = 27;
-const Permission_ContributionRead = 28;
-const Permission_ContributionWrite = 29;
-const Permission_ExampleRead = 30;
-const Permission_ExampleWrite = 31;
-const Permission_LearntRecordRead = 32;
-const Permission_LearntRecordWrite = 33;
-const Permission_LemmaRead = 34;
-const Permission_LemmaWrite = 35;
-const Permission_MeaningRead = 36;
-const Permission_MeaningWrite = 37;
-const Permission_PronunciationRead = 38;
-const Permission_PronunciationWrite = 39;
-const Permission_CourseManage = 40; // *
-const Permission_CourseCreate = 41;
-const Permission_CourseRead = 42;
-const Permission_CourseUpdate = 43;
-const Permission_CourseDelete = 44;
-const Permission_CourseSubscribe = 45;
-const Permission_DocumentCreate = 46;
-const Permission_DocumentRead = 47;
-const Permission_DocumentUpdate = 48;
-const Permission_DocumentDelete = 49;
-const Permission_LessonCreate = 50;
-const Permission_LessonRead = 51;
-const Permission_LessonUpdate = 52;
-const Permission_LessonDelete = 53;
-const Permission_QuestionsCreate = 54;
-const Permission_QuestionsRead = 55;
-const Permission_QuestionsUpdate = 56;
-const Permission_QuestionsDelete = 57;
-const Permission_AnswersCreate = 58;
-const Permission_AnswersRead = 59;
-const Permission_AnswersUpdate = 60;
-const Permission_AnswersDelete = 61;
-const Permission_QAExtensionCompletion = 62;
-const Permission_QAExtensionMatching = 63;
-const Permission_QAExtensionMultipleChoices = 64;
-const Permission_BlogManage = 65; // *
-const Permission_PostCreate = 66;
-const Permission_PostRead = 67;
-const Permission_PostUpdate = 68;
-const Permission_PostDelete = 69;
-const Permission_CommentCreate = 70;
-const Permission_CommentRead = 71;
-const Permission_CommentUpdate = 72;
-const Permission_CommentDelete = 73;
+const Permission_SystemPrivilege = 0;
+const Permission_AccountManage = 1; //*
+const Permission_AccountCreate = 2;
+const Permission_AccountRead = 3;
+const Permission_AccountUpdate = 4;
+const Permission_AccountDelete = 5;
+const Permission_RoleManager = 6; //*
+const Permission_RoleCreate = 7;
+const Permission_RoleRead = 8;
+const Permission_RoleUpdate = 9;
+const Permission_RoleDelete = 10;
+const Permission_ProfileManage = 11; //*
+const Permission_ProfileCreate = 12;
+const Permission_ProfileRead = 13;
+const Permission_ProfileUpdate = 14;
+const Permission_ProfileDelete = 15;
+const Permission_VerificationCreate = 16;
+const Permission_VerificationRead = 17;
+const Permission_VerificationUpdate = 18; // ?remove
+const Permission_VerificationDelete = 19;
+const Permission_PaymentCreate = 20;
+const Permission_PaymentRead = 21;
+const Permission_PaymentUpdate = 22; // ?remove
+const Permission_PaymentDelete = 23;
+const Permission_DictionaryManage = 24; // *
+const Permission_ConjugationRead = 25;
+const Permission_ConjugationWrite = 26;
+const Permission_ContributionRead = 27;
+const Permission_ContributionWrite = 28;
+const Permission_ExampleRead = 29;
+const Permission_ExampleWrite = 30;
+const Permission_LearntRecordRead = 31;
+const Permission_LearntRecordWrite = 32;
+const Permission_LemmaRead = 33;
+const Permission_LemmaWrite = 34;
+const Permission_MeaningRead = 35;
+const Permission_MeaningWrite = 36;
+const Permission_PronunciationRead = 37;
+const Permission_PronunciationWrite = 38;
+const Permission_CourseManage = 39; // *
+const Permission_CourseCreate = 40;
+const Permission_CourseRead = 41;
+const Permission_CourseUpdate = 42;
+const Permission_CourseDelete = 43;
+const Permission_CourseSubscribe = 44;
+const Permission_DocumentCreate = 45;
+const Permission_DocumentRead = 46;
+const Permission_DocumentUpdate = 47;
+const Permission_DocumentDelete = 48;
+const Permission_LessonCreate = 49;
+const Permission_LessonRead = 50;
+const Permission_LessonUpdate = 51;
+const Permission_LessonDelete = 52;
+const Permission_QuestionsCreate = 53;
+const Permission_QuestionsRead = 54;
+const Permission_QuestionsUpdate = 55;
+const Permission_QuestionsDelete = 56;
+const Permission_AnswersCreate = 57;
+const Permission_AnswersRead = 58;
+const Permission_AnswersUpdate = 59;
+const Permission_AnswersDelete = 60;
+const Permission_QAExtensionCompletion = 61;
+const Permission_QAExtensionMatching = 62;
+const Permission_QAExtensionMultipleChoices = 63;
+const Permission_BlogManage = 64; // *
+const Permission_PostCreate = 65;
+const Permission_PostRead = 66;
+const Permission_PostUpdate = 67;
+const Permission_PostDelete = 68;
+const Permission_CommentCreate = 69;
+const Permission_CommentRead = 70;
+const Permission_CommentUpdate = 71;
+const Permission_CommentDelete = 72;
 
 const AccountStates_None = 0;
 const AccountStates_Linked = 1;
@@ -117,21 +117,21 @@ final class _PermissionHolderKey implements IPermissionHolderKey
         return $holder;
     }
 
-    function isPermissionGranted($permission): bool
+    function isPermissionGranted(int $permission): bool
     {
-        $bs = $this->_binaryPermissions;
+        $bs = &$this->_binaryPermissions;
         if (!isset($bs))
-            $this->_binaryPermissions = $bs = array_fill(0, 60, 0);
+            $bs = array_fill(0, 60, 0);
         $x = $permission >> 3;
         $y = ~$permission & 0x7;
         return (($bs[$x] >> $y) & 1) === 1;
     }
 
-    function setPermissionGranted($permission, bool $granted = true): void
+    function setPermissionGranted(int $permission, bool $granted = true): void
     {
-        $bs = $this->_binaryPermissions;
+        $bs = &$this->_binaryPermissions;
         if (!isset($bs))
-            $this->_binaryPermissions = $bs = array_fill(0, 60, 0);
+            $bs = array_fill(0, 60, 0);
         $x = $permission >> 3;
         $y = 1 << (~$permission & 0x7);
         if ($granted)
@@ -144,14 +144,17 @@ final class _PermissionHolderKey implements IPermissionHolderKey
     {
         if (!$permissions)
             return false;
-        $permissions = unpack("C*", base64_decode($permissions));
+        $permissions = base64_decode($permissions);
         if ($permissions === false)
             return false;
-        $bs = $this->_binaryPermissions;
+        $permissions = unpack("C*", $permissions);
+        if ($permissions === false)
+            return false;
+        $bs = &$this->_binaryPermissions;
         if (!isset($bs))
-            $this->_binaryPermissions = $bs = array_fill(0, 60, 0);
-        for ($i = 0, $j = 0, $m = count($bs), $n = count($permissions); $i < $m; )
-            $bs[$i++] = $j < $n ? $permissions[$j++] : 0;
+            $bs = array_fill(0, 60, 0);
+        for ($i = 0, $j = 1, $m = count($bs), $n = count($permissions); $i < $m; )
+            $bs[$i++] = $j <= $n ? $permissions[$j++] : 0;
         return true;
     }
 
@@ -184,7 +187,7 @@ final class PermissionHolderKey implements IPermissionHolderKey
         return $this->_role;
     }
 
-    function isPermissionGranted($permission): bool
+    function isPermissionGranted(int $permission): bool
     {
         $k = $this->getRole();
         $result = isset($k) && $k->getKey()->isPermissionGranted($permission);
@@ -192,7 +195,7 @@ final class PermissionHolderKey implements IPermissionHolderKey
         return $result || (isset($k) && $k->getKey()->isPermissionGranted($permission));
     }
 
-    function setPermissionGranted($permission, bool $granted = true): void
+    function setPermissionGranted(int $permission, bool $granted = true): void
     {
         $h = $this->getRole();
         if (isset($h) && $h->getKey()->isPermissionGranted($permission) && $granted)
@@ -244,7 +247,7 @@ final class Account implements IPermissionHolder
     public string $userName;
     public string $password;
     private int $_state;
-    private _PermissionHolderKey $_key;
+    private ?_PermissionHolderKey $_key;
     function __construct(string $uid, string $userName = "", string $password = "", int $state = AccountStates_None)
     {
         $this->_uid = $uid;
@@ -291,9 +294,9 @@ final class Account implements IPermissionHolder
     }
     function getKey(): IPermissionHolderKey
     {
-        $key = $this->_key;
+        $key = &$this->_key;
         if (!isset($key))
-            $this->_key = $key = new _PermissionHolderKey($this);
+            $key = new _PermissionHolderKey($this);
         return $key;
     }
 }
@@ -301,8 +304,8 @@ final class Account implements IPermissionHolder
 final class Role implements IPermissionHolder
 {
     private string $_id;
-    public string $_name;
-    private _PermissionHolderKey $_key;
+    public string $name;
+    private ?_PermissionHolderKey $_key;
     function __construct(string $id, string $name = "")
     {
         $this->_id = $id;
@@ -314,9 +317,9 @@ final class Role implements IPermissionHolder
     }
     function getKey(): IPermissionHolderKey
     {
-        $key = $this->_key;
+        $key = &$this->_key;
         if (!isset($key))
-            $this->_key = $key = new _PermissionHolderKey($this);
+            $key = new _PermissionHolderKey($this);
         return $key;
     }
 }

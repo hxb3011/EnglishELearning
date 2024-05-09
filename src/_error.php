@@ -7,9 +7,9 @@ final class ErrorPage extends BaseHTMLDocumentPage
     private $ersp;
     private $title;
     private $desc;
-    public function __construct()
+    public function __construct(int $activeNav)
     {
-        parent::__construct();
+        parent::__construct($activeNav);
         $ersp = &$_GET["ersp"];
         $uri = &$_GET["uri"];
         if (!isset($uri))
@@ -73,13 +73,13 @@ final class ErrorPage extends BaseHTMLDocumentPage
     public function body()
     {
         ?>
-                        <div class="error -content">
-                            <img src="/clients/images/favicon.svg" alt="biểu tượng ứng dụng">
-                            <h1><?= $this->ersp ?></h1>
-                            <h3><?= $this->title ?></h3>
-                            <p><?= $this->desc ?></p>
-                        </div>
-                        <?
+        <div class="error -content">
+            <img src="/clients/images/favicon.svg" alt="biểu tượng ứng dụng">
+            <h1><?= $this->ersp ?></h1>
+            <h3><?= $this->title ?></h3>
+            <p><?= $this->desc ?></p>
+        </div>
+        <?
     }
 
     // public function afterDocument()
@@ -89,6 +89,8 @@ final class ErrorPage extends BaseHTMLDocumentPage
 }
 
 global $page;
-$page = new ErrorPage();
+global $activeNavGetError;
+if (!isset($activeNavGetError)) $activeNavGetError = NAV_COURSE_INTRO;
+$page = new ErrorPage($activeNavGetError);
 requira("_layout.php");
 ?>
