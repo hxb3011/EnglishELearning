@@ -1,11 +1,11 @@
 $(document).ready(function () {
-    $("form").submit(function (e) {
-        sendEmail(e);
+    $("#form-forget-password").submit(function (e) {
+        e.preventDefault();
+        sendEmail();
     })
 })
 
-function sendEmail(e) {
-    e.preventDefault();
+function sendEmail() {
     let email = $("#email").val();
     let formdata = {
         email: email,
@@ -18,19 +18,21 @@ function sendEmail(e) {
         return;
     }
     $.ajax({
+        url: "/authentication/forgetPasswordSVController.php",
         type: "POST",
-        url: "/authentication/forgetPassword.php",
         data: JSON.stringify(formdata),
-        contentType: "application/json",
+        contentType: "application/json", 
         success: (data) => {
-            if (data["status"] == "success") {
+            console.log(data);
+            if (data == "success") {
                 checkUI();
                 document.getElementById("message").classList.add("alert-success");
-                $("#message").text(data["message"]);
+                $("#message").text("Email has been sent successfully," +
+                " Please check your email to reset password");
             } else {
                 checkUI();
                 document.getElementById("message").classList.add("alert-danger");
-                $("#message").text(data["message"]);
+                $("#message").text(data);
             }
         },
         error: (jqXHR, textStatus, errorThrown) => {

@@ -10,16 +10,14 @@ class Authentication
 
     public function auth($obj)
     {
-        $data = $obj;
-        $username = $data['username'];
-        $password = $data['password'];
-        $action = $data['action'];
+        $username = $obj['username'];
+        $password = $obj['password'];
+        $action = $obj['action'];
         if ($action == "login") {
             $subject = $username;
             $this->login($subject, $password);
         } else if ($action == "register") {
-            $email = $data['email'];
-            $this->register($username, $password, $email);
+            $this->register($obj);
         }
     }
 
@@ -43,10 +41,6 @@ class Authentication
                 return;
             }
             $user = new UserRepo();
-            if (!$user->checkPassword($password)) {
-                echo "Password is incorrect";
-                return;
-            }
             $auth = $user->Login($subject, $password);
             if ($auth != null) {
                 if (!isset($_SESSION)) {
@@ -56,18 +50,25 @@ class Authentication
                 $_SESSION["Permissions"] = $auth['Permissions'];
                 echo "success";
             } else {
-                echo "Account was not exists";
+                echo "Account was not exists or password was incorrect";
             }
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 
-    public function register($username, $password, $email)
+    public function register($obj)
     {
         try {
+            $username = $obj['username'];
+            $password = $obj['password'];
+            $email = $obj['email'];
+            $firstName = $obj['firstname'];
+            $lastName = $obj['lastname'];
+            $gender = $obj['gender'];
+            $birthday = $obj['birthday'];
             $user = new UserRepo();
-            echo $user->Register($username, $password, $email) ? "success" : "";
+            echo $user->Register($username,$password,$email,$firstName,$lastName,$gender,$birthday) ? "success" : "";
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }

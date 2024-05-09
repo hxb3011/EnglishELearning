@@ -4,9 +4,25 @@ $(document).ready(function () {
         authenticate();
     });
     $("#registerbtn").click(function (e) {
-        register(e);
+        e.preventDefault();
+        register();
+    });
+    $("#nextBtn").click(function (e) {
+        e.preventDefault();
+        nextProfile();
     });
 })
+
+function nextProfile() {
+    let username = $("#username-register").val();
+    let password = $("#password-register").val();
+    let email = $("#email-register").val();
+    let retypePassword = $("#retype-password-register").val();
+    if (checkValidateRegisterForm(username, email, password, retypePassword)) {
+        sessionStorage.setItem("profiles", JSON.stringify({ username: username, password: password, email: email }));
+        window.location.href = "/authentication/authenticateSubmit.php";
+    }
+}
 
 function authenticate() {
     let username = $("#username").val();
@@ -34,13 +50,16 @@ function authenticate() {
     }
 }
 
-function register(e) {
-    let username = $("#username-register").val();
-    let password = $("#password-register").val();
-    let email = $("#email-register").val();
-    let retypePassword = $("#retype-password-register").val();
-    let formdata = { action: "register", username: username, password: password, email: email };
-    if (checkValidateRegisterForm(username, email, password, retypePassword)) {
+function register() {
+    let username = sessionStorage.getItem("profiles") ? JSON.parse(sessionStorage.getItem("profiles")).username : $("#username-register").val();
+    let password = sessionStorage.getItem("profiles") ? JSON.parse(sessionStorage.getItem("profiles")).password : $("#password-register").val();
+    let email = sessionStorage.getItem("profiles") ? JSON.parse(sessionStorage.getItem("profiles")).email : $("#email-register").val();
+    let firstname = $("#firstName-register").val();
+    let lastname = $("#lastName-register").val();
+    let gender = $("#gender-male-register").is(':checked') ? "Male" : "Female";
+    let birthday = new Date($("#date-register").val().toString()).toISOString().slice(0, 10);
+    let formdata = { action: "register", username, password, email, firstname, lastname, gender, birthday};
+    if (checkValidateFormRegisterTwo(firstname, lastname,gender,birthday)) {
         $.ajax({
             type: "POST",
             url: "/authentication/checkRegister.php",
@@ -52,10 +71,13 @@ function register(e) {
                     checkUI();
                     document.getElementById("error").classList.add("alert-success");
                     $("#error").text("Register success");
+                    destroySession();
+                    reflecttionHandler("success");
                 } else {
                     checkUI();
                     document.getElementById("error").classList.add("alert-danger");
                     $("#error").html(data);
+                    reflecttionHandler("failed");
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -64,7 +86,19 @@ function register(e) {
             }
         });
     }
-    e.preventDefault();
+}
+
+function reflecttionHandler(status){
+    setTimeout(()=> {
+        window.location.href = "/authentication/authenticate.php";
+    },3000);
+    if (status == "failed") {
+        let container = document.querySelector(".container-authen");
+        container.classList.add("sign-up-mode");
+        console.log(JSON.parse(sessionStorage.getItem("profiles")).email);
+        $("#username-register").val(sessionStorage.getItem("profiles") ? JSON.parse(sessionStorage.getItem("profiles")).username : "");
+        $("#email-register").val(sessionStorage.getItem("profiles") ? JSON.parse(sessionStorage.getItem("profiles")).email : "");
+    }
 }
 
 function checkUI() {
@@ -91,6 +125,28 @@ function checkUIformLogin() {
     if (document.getElementById("result").classList.contains("alert-success")) {
         document.getElementById("result").classList.remove("alert-success");
     }
+}
+
+function checkValidateFormRegisterTwo(firstname, lastname, gender, birthday){
+    if (firstname == "" || lastname == "" || gender == "" || birthday == "") {
+        checkUI();
+        document.getElementById("error").classList.add("alert-danger");
+        $("#error").text("Please fill out all fields");
+        return false;
+    }
+    if (!checkValidDateOfBirthday(birthday)) {
+        checkUI();
+        document.getElementById("error").classList.add("alert-danger");
+        $("#error").text("Invalid date of birthday");
+        return false;
+    }
+    if (!checkDateOfBirthday(birthday)) {
+        checkUI();
+        document.getElementById("error").classList.add("alert-danger");
+        $("#error").text("Date of birthday must be less than today");
+        return false;
+    }
+    return true;
 }
 
 function checkEmail(email) {
@@ -169,6 +225,24 @@ function checkValidateRegisterForm(username, email, password, retypePassword) {
         checkUI();
         document.getElementById("error").classList.add("alert-danger");
         $("#error").text("Retype password not match");
+        return false;
+    }
+    return true;
+}
+
+function destroySession(){
+    sessionStorage.clear();
+}
+
+function checkValidDateOfBirthday(date){
+    var re = /^\d{4}-\d{2}-\d{2}$/;
+    return re.test(date);
+}
+
+function checkDateOfBirthday(date){
+    const today = new Date();
+    const birthday = new Date(date);
+    if (birthday > today) {
         return false;
     }
     return true;

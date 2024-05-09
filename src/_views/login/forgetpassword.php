@@ -62,7 +62,7 @@ final class ForgetPasswordPage extends BaseHTMLDocumentPage
                         <h1 class="h3">Forgot your password?</h1>
                         <p class="mb-4">Don't worry! Just type in your email and we will send you a code to reset your password!</p>
                         <!-- Form -->
-                        <form action="#" method="POST">
+                        <form id="form-forget-password" action="#" method="POST">
                             <div class="mb-4">
                                 <div id="message" class="alert d-none"></div>
                                 <label for="email">Your Email:</label>
@@ -71,7 +71,7 @@ final class ForgetPasswordPage extends BaseHTMLDocumentPage
                                 </div>
                             </div>
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-secondary">Send Email</button>
+                                <button type="submit" id="send-email-btn" class="btn btn-secondary">Send Email</button>
                             </div>
                         </form>
                         <!-- End of Form -->

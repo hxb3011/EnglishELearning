@@ -5,7 +5,7 @@ class RegisterController {
         requirl("/oopControllers/authentication.php");
         $json = file_get_contents('php://input');
         // Converts it into a PHP array
-        $data = json_decode($json, true);
+        $data = json_decode($json,true);
         new Authentication($data);
     }
 }
