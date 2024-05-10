@@ -44,16 +44,21 @@ class UserRepo
         }
     }
 
-    public function checkEmail($email){
-        $sqlQuery = "SELECT * FROM account ac
+    public function checkEmail($email)
+    {
+        try {
+            $sqlQuery = "SELECT COUNT(*) FROM account ac
                      join profile pf on ac.UID = pf.UID
                      join verification vr on pf.id = vr.ProfileID
                      WHERE email = ?";
-        $result = Database::executeQuery($sqlQuery, [$email]);
-        if ($result !== null) {
-            return true;
+            $result = Database::executeQuery($sqlQuery, [$email]);
+            if ($result !== null && $result[0]['COUNT(*)'] > 0){
+                return true;
+            }
+            return false;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
         }
-        return false;
     }
 
     public function updateResetToken($email)
@@ -74,7 +79,8 @@ class UserRepo
         }
     }
 
-    public function getResetToken($email) {
+    public function getResetToken($email)
+    {
         $sqlQuery = "SELECT reset_token_hash FROM verification WHERE email = ?";
         $result = Database::executeQuery($sqlQuery, [$email]);
         if ($result !== null) {
@@ -83,7 +89,8 @@ class UserRepo
         return null;
     }
 
-    public function getEmailByToken($token) {
+    public function getEmailByToken($token)
+    {
         $sqlQuery = "SELECT email FROM verification WHERE reset_token_hash = ?";
         $result = Database::executeQuery($sqlQuery, [$token]);
         if ($result !== null) {
@@ -92,17 +99,19 @@ class UserRepo
         return null;
     }
 
-    public function resetPassword($password, $username){
+    public function resetPassword($password, $username)
+    {
         $password = password_hash($password, PASSWORD_BCRYPT);
         $sqlQuery = "UPDATE account SET password = ? WHERE username = ?";
-        $result = Database::executeNonQuery($sqlQuery, [$password,$username]);
+        $result = Database::executeNonQuery($sqlQuery, [$password, $username]);
         if ($result) {
             return true;
         }
         return false;
     }
 
-    public function findUserNameByEmail($email){
+    public function findUserNameByEmail($email)
+    {
         $sqlQuery = "SELECT username FROM account ac
                      join profile pf on ac.UID = pf.UID
                      join verification vr on pf.id = vr.ProfileID
@@ -145,7 +154,7 @@ class UserRepo
                     $paramsProfile = array($idProfile, $lastName, $firstName, $newGender, $birthday, $type, $status, $uid, $roleID);
                     $resultProfile = $this->insertProfile($paramsProfile);
                     if ($resultProfile) {
-                        $keyVerify = "z".$email;
+                        $keyVerify = "z" . $email;
                         $paramsVerification = array($idProfile, $keyVerify, $email);
                         $resultVerification = $this->insertVerification($paramsVerification);
                         if ($resultVerification) {
@@ -160,7 +169,8 @@ class UserRepo
         }
     }
 
-    public function insertAccount($params){
+    public function insertAccount($params)
+    {
         try {
             $sqlQuery = "INSERT INTO account (uid, username, password, status, permissions) VALUES (?, ?, ?, ?, ?)";
             $result = Database::executeNonQuery($sqlQuery, $params);
@@ -170,24 +180,26 @@ class UserRepo
         }
     }
 
-    public function insertProfile($params){
+    public function insertProfile($params)
+    {
         try {
             $sqlQuery = "INSERT INTO profile (id, lastname,firstname,  gender, birthday, type, status, uid, RoleID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $result = Database::executeNonQuery($sqlQuery, $params);
             return $result;
-        } catch(Exception $e) {
-             
-            throw new Exception($e->getMessage()); 
+        } catch (Exception $e) {
+
+            throw new Exception($e->getMessage());
         }
     }
 
-    public function insertVerification($params){
+    public function insertVerification($params)
+    {
         try {
             $sqlQuery = "INSERT INTO verification (profileID, keyVerify, email) VALUES (?, ?, ?)";
             $result = Database::executeNonQuery($sqlQuery, $params);
             return $result;
-        } catch(Exception $e) { 
-            throw new Exception($e->getMessage()); 
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
         }
     }
 }

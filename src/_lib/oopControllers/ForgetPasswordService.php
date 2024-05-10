@@ -9,8 +9,6 @@ class ForgetPasswordService {
         if ($action == 'forgetPassword') {
             $email = $formdata['email'];
             $this->forgetpassword($email);
-        }else {
-            $this->logout();
         }
     }
 
@@ -53,6 +51,6 @@ class ForgetPasswordService {
     {
         session_start();
         session_destroy();
-        header('Location: /');
+        header('Location: /authentication/authenticate.php');
     }
 }
