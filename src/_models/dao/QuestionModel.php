@@ -350,7 +350,7 @@ class QuestionModel
     }
     public function getQCompletionMaskByQCompletion($qcomid)
     {
-        $sqlQuery = "SELECT *  FROM qcompmask WHERE QCompID = ?";
+        $sqlQuery = "SELECT *  FROM qcompmask WHERE QCompID = ? ORDER BY offset";
         $params = array(
             $qcomid
         );

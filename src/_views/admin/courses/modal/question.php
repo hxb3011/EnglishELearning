@@ -77,8 +77,8 @@ global $type;
                         <? endif ?>
                     </div>
                 <? endforeach ?>
-                <button type="button" class="btn btn-outline-primary btn-rounded btn-icon col-md-6 offset-md-3 mt-3" onclick="addMatchingRow()">Thêm Câu Hỏi</button>
             </div>
+            <button type="button" class="btn btn-outline-primary btn-rounded btn-icon col-md-6 offset-md-3 mt-3" onclick="addMatchingRow()">Thêm Câu Hỏi</button>
         <? endif ?>
         <? if (isset($type) && $type == "completion") : ?>
             <textarea name="complete_content" id="complete_content" class="form-group" value="<? echo $content['qcompletion']->Content ?>" onchange="completionChange(this)" style="width:100%;height:100px;"><? echo $content['qcompletion']->Content ?></textarea>
@@ -241,8 +241,6 @@ global $type;
             });
 
         }
-
-
     });
 </script>
 <!-- -->

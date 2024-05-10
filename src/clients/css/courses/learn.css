@@ -35,6 +35,45 @@ main {
     padding: 0;
     position: static;
 }
+
+.question_checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 14rem;
+    height: 14rem;
+    background-color: #e0e0e0;
+    border-radius: 6rem;
+    cursor: pointer;
+}
+
+.question_checkbox:checked {
+    -webkit-appearance: none;
+    /* Loại bỏ giao diện mặc định của trình duyệt */
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fc0000;
+    color: white;
+}
+.question_select {
+    padding: 4rem;
+    width: 80rem;
+    text-align: center;
+    border: 1rem solid #ccc;
+    border-radius: 2rem;
+    font-size: 12rem;
+    color: #555;
+    background-color: #f9f9f9;
+    appearance: none; 
+    cursor: pointer;
+}
+.question_select:focus {
+    outline: none;
+    border-color: #007bff;
+}
+.question_select:hover {
+    background-color: #e9ecef;
+}
 .toast-title{
     font-size: 20rem;
 }

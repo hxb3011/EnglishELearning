@@ -167,6 +167,10 @@ class Courses
         }
         echo json_encode($response);
     }
+    public function submit_test()
+    {
+        print("<pre>".print_r($_POST,true)."</pre>");
+    }
     /* Khác */
     public function isRegisteredToCourse($profileID, $courseID)
     {
@@ -179,6 +183,10 @@ class Courses
     public function loadQuestions(Excercise &$excercise)
     {
             $excercise->questions = $this->questionModel->getQuestionByExcerciseID($excercise->ID);
+            foreach($excercise->questions as $key => $question)
+            {
+                $question->main = $this->loadSingleQuestion($question->ID);
+            }
     }
     public function loadSingleQuestion($questionId)
     {
@@ -188,7 +196,7 @@ class Courses
             return $qmulchoption;
         }
         $qmatchings = $this->questionModel->getQMatchingByQuestion($questionId);
-        if(!(empty($mainContent)))
+        if(!(empty($qmatchings)))
         {
             foreach($qmatchings as $key => $value){
                 $value->QMatchingKey = $this->questionModel->getQMatchingKey($value->KeyQ);
@@ -196,6 +204,13 @@ class Courses
 
             return $qmatchings;
         }
-        
+
+        $qcompletion = $this->questionModel->getQCompletionByQuestion($questionId);
+        if(isset($qcompletion))
+        {
+            $qcompletion->mask = $this->questionModel->getQCompletionMaskByQCompletion($qcompletion->ID);
+            return $qcompletion;
+        }
+        return null;
     }
 }

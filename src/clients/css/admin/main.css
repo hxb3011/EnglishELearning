@@ -48,6 +48,15 @@
 .mdi-b.-user::before{
     content: var(--mdi-account);
 }
+.mdi-b.dictionary::before{
+    content: var(--mdi-book-alphabet);
+}
+.mdi-b.post::before{
+    content: var(--mdi-post);
+}
+.mdi-b.comment::before{
+    content: var(--mdi-comment);
+}
 a {
     text-decoration: none;
 }
