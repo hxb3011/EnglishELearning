@@ -35,7 +35,12 @@ main {
     padding: 0;
     position: static;
 }
-
+.toast-title{
+    font-size: 20rem;
+}
+.toast-message{
+    font-size: 18rem;
+}
 .learn__header {
     top: 0;
     left: 0;
@@ -98,7 +103,19 @@ main {
 
 
 }
-
+#btnDownload{
+    width: 80rem;
+    font-size: 18rem;
+    text-decoration: none;
+    color: black;
+    padding: 4rem;
+    border : 2rem  solid;
+    border-radius: 6rem;
+}
+#btnDownload:hover{
+    color: white;
+    background-color: #ff782d;
+}
 /* Video */
 .learn__video-wrapper {
     position: relative;
