@@ -108,19 +108,20 @@ class Courses
     {
         $data = json_decode(file_get_contents("php://input"), true);
         $checkState = $data['checked'];
+        $response = array();
+
         if ($checkState == 'checked') {
             $tracking = new Tracking();
             $tracking->ProfileID = $data['profileId'];
             $tracking->CourseID = $data['courseId'];
             $tracking->LearnedDocumentID = $data['documentId'];
             $tracking->AtDateTime = new DateTime('now');
-
-            $this->trackingModel->addTracking($tracking);
-            echo json_encode("Cập nhật thành công");
+            $result = $this->trackingModel->addTracking($tracking);
         } else {
-            $this->trackingModel->deleteTracking($data['profileId'], $data['courseId'], $data['documentId']);
+            $result=  $this->trackingModel->deleteTracking($data['profileId'], $data['courseId'], $data['documentId']);
         }
-        echo json_encode("Cập nhật thành công");
+        $response['message'] = ($result == true) ? "Cập nhập thành công" : "Cập nhật thất bại";
+        echo json_encode($response);
     }
     public function get_total_page()
     {

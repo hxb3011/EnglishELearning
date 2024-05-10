@@ -1,4 +1,7 @@
 <?
+
+use function PHPSTORM_META\type;
+
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/database.php');
 requirm('/learn/Tracking.php');
@@ -22,9 +25,9 @@ class TrackingModel
         }
     }
 
-    public function deleteTracking($ProfileID,$CourseID,$LearnedDocumentID)
+    public function deleteTracking(string $ProfileID, string $CourseID,string $LearnedDocumentID)
     {
-        $sqlQuery  = "DELETE FROM tracking WHERE ProfileID = ? AND CourseID = ? AND LearnedDocumentID=?";
+        $sqlQuery  = "DELETE FROM tracking WHERE ProfileID = ? AND CourseID = ? AND LearnedDocumentID = ?";
         $params = array(
             $ProfileID,
             $CourseID,

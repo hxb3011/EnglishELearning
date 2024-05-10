@@ -76,7 +76,7 @@ final class LearnPage extends BaseHTMLDocumentPage
                                     </div>
                                 <? elseif ($this->currentProgram instanceof Document && $this->currentProgram->Type == 'text') : ?>
                                     <div id="documentText-container" style="padding: 24rem;">
-                                        <table class="table table-striped table-bordered align-middle">
+                                        <table class="table table-striped-columns table-bordered align-middle">
                                             <tbody>
                                                 <tr>
                                                     <td class="text-center" style="padding: 8rem;">Tên tài liệu</td>
@@ -119,9 +119,9 @@ final class LearnPage extends BaseHTMLDocumentPage
                                                     <? $learnDocument = array_filter($this->tracking,function($track) use($program,$document){
                                                              return $track->CourseID == $program->CourseID && $track->LearnedDocumentID== $document->ID ;
                                                     })?>
-                                                    <div class="learn_lesson-doc">
+                                                    <div class="learn_lesson-doc <? if( isset($this->currentProgram)&&$this->currentProgram->ID == $document->ID) echo ('active')?>" >
                                                         <div style="margin-right:8rem;">
-                                                            <input type="checkbox"  class="learn__lesson-item-status" data-course-id="<? echo $program->CourseID ?>"  <? if(!empty($learnDocument)) echo 'checked'?> data-document-id="<? echo $document->ID ?> ?>">
+                                                            <input type="checkbox"  class="learn__lesson-item-status" data-course-id="<? echo $program->CourseID ?>"  <? if(!empty($learnDocument)) echo 'checked '?>  data-document-id="<? echo $document->ID ?>">
                                                         </div>
                                                         <div class="wrap" style="width:100%;padding-right:10rem; overflow:hidden;">
                                                             <a href="/courses/learn.php?courseId=<? echo $program->CourseID ?>&documentId=<? echo $document->ID ?>" class="learn_lesson-doc_name">
@@ -192,23 +192,23 @@ final class LearnPage extends BaseHTMLDocumentPage
                 $('.learn__lesson-item-status').change(function() {
                     let checked = $(this).is(':checked') ? 'checked' : 'unchecked';
                     let profileId = <?echo $this->profileID?>;
-                    let documentId = $(this).data('document-id')
-                    let courseId = $(this).data('course-id')
+                    let documentId = $(this).data('document-id');
+                    let courseId = $(this).data('course-id');
                     toastr.info("Vui lòng chờ thông báo tiếp theo","Thông báo")
-                    console.log('hehe')
                     $.ajax({
-                        url: 'http://localhost:62280/courses/ajax_call_action.php?action=update_tracking',
-                        type: 'POST',
-                        data: JSON.stringify({
-                            courseId: courseId,
-                            documentId: documentId,
-                            checked : checked,
-                            profileId:profileId
-                        }),
-                        success: function(response) {
-                            toastr.success(response);
-                        }
-                    })
+                         url: 'http://localhost:62280/courses/ajax_call_action.php?action=update_tracking',
+                         type: 'POST',
+                         data: JSON.stringify({
+                             courseId: courseId,
+                             documentId: documentId,
+                             checked : checked,
+                             profileId:profileId
+                         }),
+                         success: function(response) {
+                             let object = JSON.parse(response);
+                             toastr.success(object.message,"Thông báo")
+                         }
+                     })
                 })
             })
         </script>

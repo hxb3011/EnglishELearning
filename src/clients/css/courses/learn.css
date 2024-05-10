@@ -135,7 +135,17 @@ main {
     max-height: 800px;
     overflow-y: auto;
 }
+.learn_lesson-doc {
+    display: flex;
+    align-items: center;
+    font-size: 18rem;
+    padding: 2rem;
+    border-radius: 4rem;
 
+}
+.learn_lesson-doc:hover ,.learn_lesson-doc.active{
+    background: rgb(195 195 195); 
+}
 .learn__lesson-item-inner {
     padding: 4rem;
 }
@@ -150,10 +160,6 @@ main {
     border-radius: 6rem;
     border: 0.25rem solid #ccc;
     cursor: pointer;
-}
-
-.learn_lesson-doc {
-    font-size: 18rem;
 }
 
 .learn__lesson-item-status:checked {
@@ -185,11 +191,7 @@ main {
     color: #ff782d;
 }
 
-.learn_lesson-doc {
-    display: flex;
-    align-items: center;
 
-}
 
 .learn_lesson-doc_name {
     text-decoration: none;
