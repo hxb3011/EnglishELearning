@@ -46,7 +46,7 @@ services:
       WSM_DBHELPER_USERNAME: user0
       WSM_DBHELPER_PASSWORD: Hello|11
       WSM_DBHELPER_DATABASE: enelearnsys
-  # image: php:8.3-apache
+    #image: php:8.3-apache
     networks:
       - enelearn
     ports:

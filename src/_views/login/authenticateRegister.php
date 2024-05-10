@@ -2,7 +2,7 @@
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
 
-final class AuthenticatePage extends BaseHTMLDocumentPage
+final class AuthenticateRegisterPage extends BaseHTMLDocumentPage
 {
     public function __construct()
     {
@@ -46,11 +46,11 @@ final class AuthenticatePage extends BaseHTMLDocumentPage
     public function body()
     {
         ?>
-        <div class="container-authen sign-up-mode">
+        <div class="container-authen">
             <div class="forms-container">
                 <div class="signin-signup">
                     <!-- Sign in -->
-                    <!-- <form id="signinform" action="" method="POST" class="sign-in-form">
+                    <form id="signinform" action="" method="POST" class="sign-in-form">
                         <h2 class="title">Sign in</h2>
                         <div id="result" class="text-lg alert d-none rounded"></div>
                         <div class="input-field">
@@ -71,14 +71,21 @@ final class AuthenticatePage extends BaseHTMLDocumentPage
                             <a href="#" class="social-icon">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a href="#" class="social-icon">
+                            <a href="
+                            <?php
+                                $client = require "/var/www/html/_lib/configs/oauthGoogleConfig.php";
+                                $authUrl =  $client->createAuthUrl();
+                                error_log($authUrl);
+                                echo $authUrl;
+                            ?>
+                            " id="google-login" class="social-icon">
                                 <i class="fab fa-google"></i>
                             </a>
                             <a href="#" class="social-icon">
                                 <i class="fab fa-github"></i>
                             </a>
                         </div>
-                    </form> -->
+                    </form>
 
                     <!-- Sign-up  -->
                     <form id="signupform" action="" method="POST" class="sign-up-form">
@@ -86,40 +93,23 @@ final class AuthenticatePage extends BaseHTMLDocumentPage
                         <div class="alert text-lg d-none rounded" id="error"></div>
                         <div class="input-field">
                             <i class="fas fa-user"></i>
-                            <input type="text" id="firstName-register" placeholder="First Name" required>
+                            <input type="text" id="username-register" placeholder="Username" required>
                         </div>
                         <div class="input-field">
-                            <i class="fas fa-user"></i>
-                            <input type="text" id="lastName-register" placeholder="Last Name" required>
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email-register" placeholder="Email">
                         </div>
-                        <div class="input-field-group">
-                            <i class="fas fa-user"></i>
-                            <div>
-                                <input type="radio" name="gender" id="gender-male-register">
-                                <label for="gender-male-register">Male</label>
-                                <input type="radio" name="gender" id="gender-female-register">
-                                <label for="gender-female-register">Female</label>
-                            </div>
+                        <div class="input-field">
+                            <i class="fas fa-lock"></i>
+                            <input class="input" id="password-register" type="password" placeholder="Password" required>
+                            <i class="fa-solid fa-eye" data-index="1"></i>
                         </div>
-                        <div class="input-field-date">
-                            <i class="fa-solid fa-calendar-days"></i>
-                            <input class="input" id="date-register" type="date" required>
+                        <div class="input-field">
+                            <i class="fas fa-lock"></i>
+                            <input class="input" id="retype-password-register" type="password" placeholder="Password Again" required>
+                            <i class="fa-solid fa-eye" data-index="2"></i>
                         </div>
-                        <input type="submit" id="registerbtn" value="Sign Up" class="btn solid">
-
-                        <p class="text-lg">Or Sign up with social platforms</p>
-                        <div class="line-seperate"></div>
-                        <div class="social-media">
-                            <a href="#" class="social-icon">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="#" class="social-icon">
-                                <i class="fab fa-google"></i>
-                            </a>
-                            <a href="#" class="social-icon">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
+                        <input type="submit" id="nextBtn" value="Next" class="btn solid">
                     </form>
                 </div>
             </div>
@@ -135,6 +125,11 @@ final class AuthenticatePage extends BaseHTMLDocumentPage
                 </div>
 
                 <div class="panel right-panel">
+                    <div class="content">
+                        <h3>One of us ?</h3>
+                        <p>Đăng nhập ở đây</p>
+                        <button class="btn btn-transaparent" id="sign-in-btn">Sign In</button>
+                    </div>
                     <img src="/assets/images/register.svg" class="image" alt="">
                 </div>
             </div>
@@ -150,9 +145,9 @@ final class AuthenticatePage extends BaseHTMLDocumentPage
                 container.classList.add("sign-up-mode");
             });
 
-            // sign_in_btn.addEventListener("click", () => {
-            //     container.classList.remove("sign-up-mode");
-            // });
+            sign_in_btn.addEventListener("click", () => {
+                container.classList.remove("sign-up-mode");
+            });
 
             //Xử lý ẩn/hiện password
             let inputs = document.querySelectorAll(".input");

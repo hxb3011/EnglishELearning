@@ -1,6 +1,16 @@
 <?
-require_once "/var/www/html/_lib/utils/requir.php";
-requirl("oopControllers/authentication.php");
-$ctrl = new Authentication();
-$ctrl->auth();
-?>
+require_once("/var/www/html/_lib/utils/requir.php");
+class AuthenticateRegisterController{
+
+    public function __construct() {
+        requirv("login/authenticateRegister.php");
+        global $page;
+        $page = new AuthenticateRegisterPage();
+        requira("_layout.php");
+    }
+    
+}
+
+new AuthenticateRegisterController();
+
+

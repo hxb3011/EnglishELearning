@@ -1,6 +1,16 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
-requirl("oopControllers/authentication.php");
-$ctrl = new Authentication();
-$ctrl->forgetpassword();
-?>
+class ForgetPassword {
+    public function __construct() {
+        $this->forgetpasswordView();
+    }
+
+    public function forgetpasswordView() {
+        requirv("login/forgetpassword.php");
+        global $page;
+        $page = new ForgetPasswordPage();
+        requira("_layout.php");
+    }
+}
+
+new ForgetPassword();
