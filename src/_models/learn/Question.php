@@ -5,6 +5,8 @@ class Question{
     public int $State;
     public int $ExcerciseID;
     public int $OrderN;
+
+    public $main;
     public function __construct()
     {
         
@@ -53,6 +55,8 @@ class QMatching{
     public int $QuestionID;
     public string $Content;
     public int $KeyQ;
+
+    public QMatchingKey $QMatchingKey;
     public function __construct()
     {
         
@@ -72,6 +76,7 @@ class QCompletion{
     public int $State;
     public string $Content;
 
+    public array $mask;
     public function __construct()
     {
         

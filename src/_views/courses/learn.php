@@ -7,9 +7,9 @@ final class LearnPage extends BaseHTMLDocumentPage
     public $hideNav = true;
     public Course $course;
     public array $programs;
-    public string $videoPath;
-    public Document $currentProgram;
-    public $currentExcercise;
+    public $currentProgram;
+    public array $tracking = array();
+    public $profileID;
     public function __construct()
     {
         parent::__construct();
@@ -22,12 +22,12 @@ final class LearnPage extends BaseHTMLDocumentPage
 
     public function documentInfo(string $author, string $description, string $title)
     {
-        parent::documentInfo($author, $description, "Tên khóa học - " . $title);
+        parent::documentInfo($author, $description, $this->course->name . '-' . $title);
     }
 
     public function openGraphInfo(string $image, string $description, string $title)
     {
-        parent::openGraphInfo($image, $description, "Tên khóa học - " . $title);
+        parent::openGraphInfo($image, $description, $this->course->name . '-' . $title);
     }
 
     public function favIcon(string $ico = null, string $svg = null)
@@ -39,6 +39,8 @@ final class LearnPage extends BaseHTMLDocumentPage
     {
         $this->styles(
             "/node_modules/bootstrap/dist/css/bootstrap.min.css",
+            "/node_modules/toastr/build/toastr.css",
+            "/node_modules/sweetalert2/dist/sweetalert2.min.css",
             "/clients/css/courses/learn.css",
         );
         $this->scripts(
@@ -67,13 +69,35 @@ final class LearnPage extends BaseHTMLDocumentPage
                 <div class="row">
                     <div class="col-md-8 col-sm-12">
                         <div id="course_content">
-                            
-                            <div class="learn__video-wrapper">
-                                <video id="courseVideo" preload="auto" src="<? echo $this->videoPath ?>" controlslist="nodownload" src="" class="learn__video"></video>
-                                <button class="btn learn__video__btn-play" id="playBtn">
-                                    <i class="mdi-b play"></i>
-                                </button>
-                            </div>
+                            <? if (isset($this->currentProgram)) : ?>
+                                <? if ($this->currentProgram instanceof Document && $this->currentProgram->Type == 'video') : ?>
+                                    <div class="learn__video-wrapper" id="video-container">
+                                        <video id="courseVideo" preload="auto" src="<? echo $this->currentProgram->DocUri ?>" controls controlslist="nodownload" src="" class="learn__video"></video>
+                                    </div>
+                                <? elseif ($this->currentProgram instanceof Document && $this->currentProgram->Type == 'text') : ?>
+                                    <div id="documentText-container" style="padding: 24rem;">
+                                        <table class="table table-striped-columns table-bordered align-middle">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center" style="padding: 8rem;">Tên tài liệu</td>
+                                                    <td class="text-center" style="padding: 8rem;"><? echo $this->currentProgram->Description ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center" style="padding: 8rem;">Tải tài liệu</td>
+                                                    <td class="text-center" style="padding: 8rem;">
+                                                        <a type="button" class="btn" href="<? echo $this->currentProgram->DocUri ?>" id="btnDownload">
+                                                            <span class="mdi-b back"></span> Tải về
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <? elseif ($this->currentProgram) : ?>
+
+                                <? endif ?>
+                            <? else : ?>
+                            <? endif ?>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-12">
@@ -90,14 +114,17 @@ final class LearnPage extends BaseHTMLDocumentPage
                                                     <span class="mdi-b toggle"></span>
                                                 </a>
                                             </div>
-                                            <div class="collapse" id="collapse<? echo $index + 1 ?>"" style=" padding-left: 12rem; padding-right:12rem;">
+                                            <div class="collapse" id="collapse<? echo $index + 1 ?>" style=" padding-left: 12rem; padding-right:12rem;">
                                                 <? foreach ($program->Documents as $index => $document) : ?>
-                                                    <div class="learn_lesson-doc">
+                                                    <? $learnDocument = array_filter($this->tracking,function($track) use($program,$document){
+                                                             return $track->CourseID == $program->CourseID && $track->LearnedDocumentID== $document->ID ;
+                                                    })?>
+                                                    <div class="learn_lesson-doc <? if( isset($this->currentProgram)&&$this->currentProgram->ID == $document->ID) echo ('active')?>" >
                                                         <div style="margin-right:8rem;">
-                                                            <input type="checkbox" name="checkbox" value="checked" class="learn__lesson-item-status" data-lesson-id="<? echo $program->ID ?>" data-document-id="<? echo $document->ID ?>">
+                                                            <input type="checkbox"  class="learn__lesson-item-status" data-course-id="<? echo $program->CourseID ?>"  <? if(!empty($learnDocument)) echo 'checked '?>  data-document-id="<? echo $document->ID ?>">
                                                         </div>
                                                         <div class="wrap" style="width:100%;padding-right:10rem; overflow:hidden;">
-                                                            <a href="" class="learn_lesson-doc_name">
+                                                            <a href="/courses/learn.php?courseId=<? echo $program->CourseID ?>&documentId=<? echo $document->ID ?>" class="learn_lesson-doc_name">
                                                                 <div class="text-wrapper">
                                                                     <? echo $document->Description ?>
                                                                 </div>
@@ -134,24 +161,56 @@ final class LearnPage extends BaseHTMLDocumentPage
         <?
         $this->scripts(
             "/node_modules/jquery/dist/jquery.min.js",
+            "/node_modules/toastr/build/toastr.min.js",
+            "/node_modules/sweetalert2/dist/sweetalert2.min.js",
         );
         ?>
         <script>
-            function setUpVideoStream() {
-                var video = document.getElementById("courseVideo");
-                video.addEventListener("click", function() {
-                    if (video.paused) {
-                        video.play();
-                    } else {
-                        video.pause();
-                    }
-                });
-                video.addEventListener("dblclick", function() {
-                    video.currentTime += 10;
-                });
-
-            }
-            setUpVideoStream();
+            (function() {
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "2000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+              
+            })();
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('.learn__lesson-item-status').change(function() {
+                    let checked = $(this).is(':checked') ? 'checked' : 'unchecked';
+                    let profileId = <?echo $this->profileID?>;
+                    let documentId = $(this).data('document-id');
+                    let courseId = $(this).data('course-id');
+                    toastr.info("Vui lòng chờ thông báo tiếp theo","Thông báo")
+                    $.ajax({
+                         url: 'http://localhost:62280/courses/ajax_call_action.php?action=update_tracking',
+                         type: 'POST',
+                         data: JSON.stringify({
+                             courseId: courseId,
+                             documentId: documentId,
+                             checked : checked,
+                             profileId:profileId
+                         }),
+                         success: function(response) {
+                             let object = JSON.parse(response);
+                             toastr.success(object.message,"Thông báo")
+                         }
+                     })
+                })
+            })
         </script>
 <?
 

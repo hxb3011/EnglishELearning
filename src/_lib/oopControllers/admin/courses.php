@@ -660,6 +660,14 @@ class AdminCourses
         }
         requirv("admin/courses/modal/question.php");
     }
+    public function sort_question()
+    {
+        $questions = json_decode(file_get_contents("php://input"), true);
+        foreach ($questions as $index => $id) {
+            $this->questionModel->updateOrder($id, $index + 1);
+        }
+        //echo json_encode($questions);
+    }
     private static function compareOrderN($a, $b)
     {
         return $a->OrderN - $b->OrderN;
