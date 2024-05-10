@@ -92,7 +92,7 @@ class Courses
             $page->currentProgram->DocUri = $this->s3Service->presignUrl($page->currentProgram->DocUri, '');
         } elseif (isset($_GET['excerciseId'])) {
             $page->currentProgram = $this->excerciseModel->getExcerciseById($_GET['excerciseId']);
-            $this->loadQuestion($page->currentProgram);
+            $this->loadQuestions($page->currentProgram);
         }
         $page->tracking = $this->trackingModel->getTrackingsByProfileAndCourse($profileID, $courseID);
         $page->course = $this->courseModel->getCourseById($courseID);
@@ -155,7 +155,18 @@ class Courses
         $response['course'] = $courses;
         echo json_encode($response);
     }
-
+    public function get_course_id()
+    {
+        $response= array();
+        if (isset($_GET['courseId']))
+        {
+            $course = $this->courseModel->getCourseById($_GET['courseId']);
+            $response['data'] = $course;
+        }else{
+            $response['message'] = 'Có lỗi xảy ra';
+        }
+        echo json_encode($response);
+    }
     /* Khác */
     public function isRegisteredToCourse($profileID, $courseID)
     {
@@ -165,8 +176,26 @@ class Courses
     {
         return $a->OrderN - $b->OrderN;
     }
-    public function loadQuestion(Excercise &$excercise)
+    public function loadQuestions(Excercise &$excercise)
     {
             $excercise->questions = $this->questionModel->getQuestionByExcerciseID($excercise->ID);
+    }
+    public function loadSingleQuestion($questionId)
+    {
+        $qmulchoption = $this->questionModel->getQMulchOptionByQuestion($questionId);
+        if (!empty($qmulchoption))
+        {
+            return $qmulchoption;
+        }
+        $qmatchings = $this->questionModel->getQMatchingByQuestion($questionId);
+        if(!(empty($mainContent)))
+        {
+            foreach($qmatchings as $key => $value){
+                $value->QMatchingKey = $this->questionModel->getQMatchingKey($value->KeyQ);
+            }
+
+            return $qmatchings;
+        }
+        
     }
 }

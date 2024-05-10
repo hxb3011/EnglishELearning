@@ -663,11 +663,10 @@ class AdminCourses
     public function sort_question()
     {
         $questions = json_decode(file_get_contents("php://input"), true);
-        // $arr = [];
-        // foreach ($questions as $index => $id) {
-        //     $this->questionModel->updateOrder($id, $index + 1);
-        // }
-        echo json_encode($questions);
+        foreach ($questions as $index => $id) {
+            $this->questionModel->updateOrder($id, $index + 1);
+        }
+        //echo json_encode($questions);
     }
     private static function compareOrderN($a, $b)
     {

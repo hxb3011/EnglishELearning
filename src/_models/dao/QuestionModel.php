@@ -7,7 +7,7 @@ class QuestionModel
     //Question
     public function getQuestionByExcerciseID(int $excerciseId)
     {
-        $sqlQuery = "SELECT * FROM question WHERE ExcerciseID = ?";
+        $sqlQuery = "SELECT * FROM question WHERE ExcerciseID = ? ORDER BY OrderN ASC";
         $params = array(
             $excerciseId
         );

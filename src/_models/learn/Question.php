@@ -55,6 +55,8 @@ class QMatching{
     public int $QuestionID;
     public string $Content;
     public int $KeyQ;
+
+    public QMatchingKey $QMatchingKey;
     public function __construct()
     {
         
