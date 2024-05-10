@@ -7,7 +7,7 @@ class QuestionModel
     //Question
     public function getQuestionByExcerciseID(int $excerciseId)
     {
-        $sqlQuery = "SELECT * FROM question WHERE ExcerciseID = ?";
+        $sqlQuery = "SELECT * FROM question WHERE ExcerciseID = ? ORDER BY OrderN ASC";
         $params = array(
             $excerciseId
         );
@@ -369,6 +369,20 @@ class QuestionModel
             }
         } catch (Exception $e) {
             return array();
+        }
+    }
+    public function updateOrder(string $questionId,int $orderN)
+    {
+        $sqlQuery = "UPDATE question SET OrderN = ? WHERE ID = ?";
+        $params = array(
+            $orderN,
+            $questionId
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return false;
         }
     }
 }

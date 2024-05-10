@@ -13,7 +13,6 @@ final class ProfileDAO
         $result = Database::executeQuery($sql);
         if ($result === null)
             return array();
-
         foreach ($result as $key => $value) {
             $prof = new Profile(
                 $value["ID"],
@@ -36,9 +35,8 @@ final class ProfileDAO
     {
         $sql = "SELECT * FROM `profile` WHERE `uid` = ?";
         $result = Database::executeQuery($sql, array($uid));
-        if ($result === null || count($result) !== 0)
+        if ($result === null || count($result) === 0)
             return null;
-
         $value = $result[0];
         $prof = new Profile(
             $value["ID"],

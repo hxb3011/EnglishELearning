@@ -6,6 +6,10 @@ class Excercise{
     public string $CourseID;
     public int $OrderN;
     public int $State;
+
+    public array $questions;
+    public array $excercise;
+    
     public function __construct()
     {
         

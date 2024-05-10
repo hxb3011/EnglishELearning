@@ -149,20 +149,19 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                 </div>
             </div>
         </div>
-
         <?
         $this->scripts(
             "/node_modules/jquery/dist/jquery.min.js",
             "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
             "/node_modules/toastr/build/toastr.min.js",
             "/node_modules/sweetalert2/dist/sweetalert2.min.js",
-            "/clients/js/admin/main.js"
+            "/clients/admin/main.js"
         );
         ?>
         <script>
             var maxPage = 0;
             var tutor = '';
-            var name ='';
+            var name = '';
             $(document).ready(function() {
                 initPagination();
 
@@ -213,7 +212,7 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
             }
 
             function initPagination() {
-                search =0;
+                search = 0;
                 $.ajax({
                     url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=get_total_page',
                     method: 'POST',

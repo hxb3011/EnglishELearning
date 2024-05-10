@@ -1,32 +1,49 @@
 <?
-require_once "/var/www/html/_lib/utils/requir.php"; 
+require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/CourseModel.php');
 requirm('/dao/LessonModel.php');
 requirm('/dao/DocumentModel.php');
 requirm('/dao/ExcerciseModel.php');
+requirm('/dao/SubscriptionModel.php');
+requirm('/dao/TrackingModel.php');
+requirm('/dao/ExcersResponseModel.php');
+requirm('/dao/QuestionModel.php');
 
 
 requirm('/learn/Course.php');
 requirm('/learn/Lesson.php');
 requirm('/learn/Document.php');
 requirm('/learn/Excercise.php');
+requirm('/learn/Subscription.php');
+requirm('/learn/Tracking.php');
+requirm('/learn/Question.php');
+
+requirm('/excerciseresponse/ExcersResponse.php');
+
+
 
 requirl('/services/S3Service.php');
-class Courses {
+class Courses
+{
     public CourseModel $courseModel;
     public LessonModel $lessonModel;
     public DocumentModel $documentModel;
     public ExcerciseModel $excerciseModel;
+    public SubscriptionModel $subscriptionModel;
+    public TrackingModel $trackingModel;
+    public QuestionModel $questionModel;
     public S3Service $s3Service;
 
-    
+
     public function __construct()
     {
         $this->courseModel = new CourseModel();
         $this->lessonModel = new LessonModel();
         $this->documentModel = new DocumentModel();
         $this->excerciseModel = new ExcerciseModel();
-
+        $this->subscriptionModel = new SubscriptionModel();
+        $this->trackingModel = new TrackingModel();
+        $this->questionModel = new QuestionModel();
         $this->s3Service =  new S3Service();
     }
     public function all()
@@ -34,12 +51,10 @@ class Courses {
         requirv("courses/all-courses.php");
         global $page;
         $page = new AllCoursesPage();
-        $page->courses = array_slice($this->courseModel->getAllCourseBySearch(),0,5);
+        $page->courses = array_slice($this->courseModel->getAllCourseBySearch(), 0, 5);
         $page->basePath = $this->s3Service->getBasePath();
-        if($page->courses != null)
-        {
-            foreach($page->courses as $key=>$course)
-            {
+        if ($page->courses != null) {
+            foreach ($page->courses as $key => $course) {
                 $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id);
             }
         }
@@ -58,7 +73,7 @@ class Courses {
             $lesson->Documents = $this->documentModel->getDocumentsByLessonID($lesson->ID);
             usort($lesson->Documents, array('Courses', 'compareOrderN'));
         }
-        
+
         $excercises = $this->excerciseModel->getExcercisesByCourseId($courseId);
         $page->totalExcercise = count($excercises);
         $page->programs = array_merge($lessons, $excercises);
@@ -67,11 +82,19 @@ class Courses {
 
         requira("_layout.php");
     }
-    public function learn($courseID)
+    public function learn($profileID, $courseID)
     {
         requirv("courses/learn.php");
         global $page;
         $page = new LearnPage();
+        if (isset($_GET['documentId'])) {
+            $page->currentProgram = $this->documentModel->getDocumentByID($_GET['documentId']);
+            $page->currentProgram->DocUri = $this->s3Service->presignUrl($page->currentProgram->DocUri, '');
+        } elseif (isset($_GET['excerciseId'])) {
+            $page->currentProgram = $this->excerciseModel->getExcerciseById($_GET['excerciseId']);
+            $this->loadQuestions($page->currentProgram);
+        }
+        $page->tracking = $this->trackingModel->getTrackingsByProfileAndCourse($profileID, $courseID);
         $page->course = $this->courseModel->getCourseById($courseID);
         $lessons = $this->lessonModel->getLessonsByCourseId($courseID);
         foreach ($lessons as $lesson) {
@@ -80,18 +103,40 @@ class Courses {
         }
         $excercises = $this->excerciseModel->getExcercisesByCourseId($courseID);
         $page->programs = array_merge($lessons, $excercises);
-        $page->videoPath = $this->s3Service->presignUrl("private/video/COURSE/LESSON1/DOCUMENT2/002 What Is NgRx.mp4",1800);
+        $page->tracking = $this->trackingModel->getTrackingsByProfileAndCourse($profileID, $courseID);
+        $page->profileID = $profileID;
         usort($page->programs, array('Courses', 'compareOrderN'));
 
         requira("_layout.php");
     }
 
+
+    /* Ajax call function */
+    public function update_tracking()
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+        $checkState = $data['checked'];
+        $response = array();
+
+        if ($checkState == 'checked') {
+            $tracking = new Tracking();
+            $tracking->ProfileID = $data['profileId'];
+            $tracking->CourseID = $data['courseId'];
+            $tracking->LearnedDocumentID = $data['documentId'];
+            $tracking->AtDateTime = new DateTime('now');
+            $result = $this->trackingModel->addTracking($tracking);
+        } else {
+            $result=  $this->trackingModel->deleteTracking($data['profileId'], $data['courseId'], $data['documentId']);
+        }
+        $response['message'] = ($result == true) ? "Cập nhập thành công" : "Cập nhật thất bại";
+        echo json_encode($response);
+    }
     public function get_total_page()
     {
         $data = json_decode(file_get_contents("php://input"), true);
-        $courses = $this->courseModel->getAllCourseBySearch($data['name'],$data['tutor']);
+        $courses = $this->courseModel->getAllCourseBySearch($data['name'], $data['tutor']);
         $totalCourses = count($courses);
-        $totalPages= $totalCourses / 5;
+        $totalPages = $totalCourses / 5;
 
         echo json_encode(ceil($totalPages));
     }
@@ -101,18 +146,56 @@ class Courses {
         $response = array();
 
         $response['page'] = $data['page'];
-        $courses = $this->courseModel->getCourseFromPage(intval($data['page']),5,$data['name'],$data['tutor']);
-        if($courses != null)
-        {
-            foreach($courses as $key => $course){
+        $courses = $this->courseModel->getCourseFromPage(intval($data['page']), 5, $data['name'], $data['tutor']);
+        if ($courses != null) {
+            foreach ($courses as $key => $course) {
                 $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id);
             }
         }
         $response['course'] = $courses;
         echo json_encode($response);
     }
+    public function get_course_id()
+    {
+        $response= array();
+        if (isset($_GET['courseId']))
+        {
+            $course = $this->courseModel->getCourseById($_GET['courseId']);
+            $response['data'] = $course;
+        }else{
+            $response['message'] = 'Có lỗi xảy ra';
+        }
+        echo json_encode($response);
+    }
+    /* Khác */
+    public function isRegisteredToCourse($profileID, $courseID)
+    {
+        return $this->subscriptionModel->getSubscriptionByProAndCourse($profileID, $courseID);
+    }
     private static function compareOrderN($a, $b)
     {
         return $a->OrderN - $b->OrderN;
+    }
+    public function loadQuestions(Excercise &$excercise)
+    {
+            $excercise->questions = $this->questionModel->getQuestionByExcerciseID($excercise->ID);
+    }
+    public function loadSingleQuestion($questionId)
+    {
+        $qmulchoption = $this->questionModel->getQMulchOptionByQuestion($questionId);
+        if (!empty($qmulchoption))
+        {
+            return $qmulchoption;
+        }
+        $qmatchings = $this->questionModel->getQMatchingByQuestion($questionId);
+        if(!(empty($mainContent)))
+        {
+            foreach($qmatchings as $key => $value){
+                $value->QMatchingKey = $this->questionModel->getQMatchingKey($value->KeyQ);
+            }
+
+            return $qmatchings;
+        }
+        
     }
 }

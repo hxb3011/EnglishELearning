@@ -234,7 +234,6 @@ global $type;
                 type: 'POST',
                 data: $('form#question_form').serialize(),
                 success: function(response) {
-                    console.log(response)
                     toastr.success("Thêm/sửa thành công câu hỏi thành công")
                     $('#scrollable-modal').modal('hide')
                     showLargeModal('http://localhost:62280/administration/courses/show_modal.php?action=list_question_modal&excerciseId=<? echo $excerciseId ?>', 'Câu hỏi');

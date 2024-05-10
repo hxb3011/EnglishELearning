@@ -197,7 +197,7 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
             "/node_modules/jquery-validation/dist/jquery.validate.min.js",
             "/node_modules/summernote/dist/summernote-bs5.min.js",
             "/node_modules/toastr/build/toastr.min.js",
-            "/clients/js/admin/main.js",
+            "/clients/admin/main.js",
         );
         ?>
         <script>
