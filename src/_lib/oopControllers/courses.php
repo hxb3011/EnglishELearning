@@ -6,6 +6,9 @@ requirm('/dao/DocumentModel.php');
 requirm('/dao/ExcerciseModel.php');
 requirm('/dao/SubscriptionModel.php');
 requirm('/dao/TrackingModel.php');
+requirm('/dao/ExcersResponseModel.php');
+requirm('/dao/QuestionModel.php');
+
 
 requirm('/learn/Course.php');
 requirm('/learn/Lesson.php');
@@ -13,6 +16,10 @@ requirm('/learn/Document.php');
 requirm('/learn/Excercise.php');
 requirm('/learn/Subscription.php');
 requirm('/learn/Tracking.php');
+requirm('/learn/Question.php');
+
+requirm('/excerciseresponse/ExcersResponse.php');
+
 
 
 requirl('/services/S3Service.php');
@@ -24,7 +31,7 @@ class Courses
     public ExcerciseModel $excerciseModel;
     public SubscriptionModel $subscriptionModel;
     public TrackingModel $trackingModel;
-
+    public QuestionModel $questionModel;
     public S3Service $s3Service;
 
 
@@ -36,6 +43,7 @@ class Courses
         $this->excerciseModel = new ExcerciseModel();
         $this->subscriptionModel = new SubscriptionModel();
         $this->trackingModel = new TrackingModel();
+        $this->questionModel = new QuestionModel();
         $this->s3Service =  new S3Service();
     }
     public function all()
@@ -83,8 +91,8 @@ class Courses
             $page->currentProgram = $this->documentModel->getDocumentByID($_GET['documentId']);
             $page->currentProgram->DocUri = $this->s3Service->presignUrl($page->currentProgram->DocUri, '');
         } elseif (isset($_GET['excerciseId'])) {
-            $page->currentProgram = $this->documentModel->getDocumentByID($_GET['documentId']);
-            $page->currentProgram->DocUri = $this->s3Service->presignUrl($page->currentProgram->DocUri, '');
+            $page->currentProgram = $this->excerciseModel->getExcerciseById($_GET['excerciseId']);
+            $this->loadQuestion($page->currentProgram);
         }
         $page->tracking = $this->trackingModel->getTrackingsByProfileAndCourse($profileID, $courseID);
         $page->course = $this->courseModel->getCourseById($courseID);
@@ -156,5 +164,9 @@ class Courses
     private static function compareOrderN($a, $b)
     {
         return $a->OrderN - $b->OrderN;
+    }
+    public function loadQuestion(Excercise &$excercise)
+    {
+            $excercise->questions = $this->questionModel->getQuestionByExcerciseID($excercise->ID);
     }
 }

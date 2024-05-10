@@ -14,7 +14,7 @@ global $questions;
                             <div id="section-list" class="py-2">
                                 <? if ($questions != null) : ?>
                                     <? foreach ($questions as $key => $question) : ?>
-                                        <div class="card mb-0 mt-2 draggable-item" id="1" style="flex-direction: row;">
+                                        <div class="card mb-0 mt-2 draggable-item" data-id="<? echo $question->ID?>" style="flex-direction: row;">
                                             <div class="card-body">
                                                 <div class="media">
                                                     <div class="media-body">
@@ -90,7 +90,6 @@ global $questions;
             contentType: 'application/json',
             data: JSON.stringify(itemArray),
             success: function(response) {
-                console.log(response);
                 toastr.success("Sắp xếp lại thành công", "Thông báo : ")
             }
         });

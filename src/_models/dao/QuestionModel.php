@@ -371,4 +371,18 @@ class QuestionModel
             return array();
         }
     }
+    public function updateOrder(string $questionId,int $orderN)
+    {
+        $sqlQuery = "UPDATE question SET OrderN = ? WHERE ID = ?";
+        $params = array(
+            $orderN,
+            $questionId
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }
