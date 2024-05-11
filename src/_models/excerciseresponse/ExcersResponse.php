@@ -15,10 +15,11 @@ class ExcersResponse{
 }
 class Answer{
   public int  $ID;
-  public string $Content;
+  public string $Content = '';
   public int $QuestionID;
   public string $ExcsRespID;
 
+  public string $Type;
   public function constructFromArray($arrayValue)
   {
     $this->ID = $arrayValue['ID'];

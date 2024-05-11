@@ -117,6 +117,7 @@ final class LearnPage extends BaseHTMLDocumentPage
                                         <form method="post" action="/courses/ajax_call_action.php?action=submit_test" class="card" style="padding: 12rem;" id="excerciseSMForm">
                                             <input type="hidden" name="courseId" value="<? echo ($this->course->id) ?>">
                                             <input type="hidden" name="excerciseId" value="<? echo ($this->currentProgram->ID) ?>">
+                                            <input type="hidden" name="profileId" value="<? echo ($this->profileID) ?>">
                                             <div class="card-title">
                                                 <b>Tên bài test : </b> <? echo  $this->currentProgram->Description ?>
                                             </div>
@@ -137,7 +138,7 @@ final class LearnPage extends BaseHTMLDocumentPage
                                                                 <? foreach ($question->main as $optionIndex => $option) : ?>
                                                                     <div class="d-flex align-items-center" style="padding: 2rem;">
                                                                         <label class="d-flex align-items-center">
-                                                                            <input type="checkbox" class="question_checkbox" value="<?echo $option->ID?>" name="cau[<? echo $key + 1 ?>][option_select][]" style="margin-right:8rem;"> <? echo $option->Content ?>
+                                                                            <input type="checkbox" class="question_checkbox" value="<? echo $option->ID ?>" name="cau[<? echo $key + 1 ?>][option_select][]" style="margin-right:8rem;"> <? echo $option->Content ?>
                                                                         </label>
                                                                     </div>
                                                                 <? endforeach ?>
@@ -191,8 +192,8 @@ final class LearnPage extends BaseHTMLDocumentPage
 
                                                 <? endforeach ?>
                                             </div>
-                                            <div class="card-footer">
-                                                <input type="submit" value="submit" placeholder="submit">
+                                            <div class="card-footer text-center "style="padding:12rem;">
+                                                <input type="submit" class="custom-btn" value="submit" placeholder="submit">
                                             </div>
                                         </form>
 
@@ -289,6 +290,42 @@ final class LearnPage extends BaseHTMLDocumentPage
                 }
 
             })();
+        </script>
+        <script>
+            $('#excerciseSMForm').submit(function(event) {
+                event.preventDefault();
+                let isValid = true;
+
+                $('#excerciseSMForm .card').each(function(index, element) {
+                    let selectInputs = element.querySelectorAll('select')
+                    if (selectInputs.length == 0) {
+                        let checkBoxInputs = element.querySelectorAll('input[type="checkbox"]')
+                        if (checkBoxInputs.length > 0) {
+                            let checkedBoxInputs = Array.from(checkBoxInputs).filter(function(checkbox) {
+                                return checkbox.checked;
+                            })
+                            if (checkBoxInputs.length <= 0) {
+                                isValid = false;
+                                return false;
+                            }
+                        } else {
+                            let textInputs = element.querySelectorAll('input[type="text"]')
+                            let isAllTextInputNotEmpty = Array.from(textInputs).every(function(textInput) {
+                                return textInput.value.trim().length > 0;
+                            })
+                            if (!isAllTextInputNotEmpty) {
+                                isValid = false;
+                            }
+                        }
+                    }
+                })
+
+                if (isValid) {
+                    this.submit()
+                } else {
+                    toastr.error('Vui lòng điền hết đáp án', 'Thông báo');
+                }
+            })
         </script>
         <script>
             $(document).ready(function() {

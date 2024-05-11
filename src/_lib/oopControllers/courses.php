@@ -17,6 +17,7 @@ requirm('/learn/Excercise.php');
 requirm('/learn/Subscription.php');
 requirm('/learn/Tracking.php');
 requirm('/learn/Question.php');
+requirm('/learn/Question.php');
 
 requirm('/excerciseresponse/ExcersResponse.php');
 
@@ -32,6 +33,7 @@ class Courses
     public SubscriptionModel $subscriptionModel;
     public TrackingModel $trackingModel;
     public QuestionModel $questionModel;
+    public ExcersResponseModel $excersResponseModel;
     public S3Service $s3Service;
 
 
@@ -44,6 +46,7 @@ class Courses
         $this->subscriptionModel = new SubscriptionModel();
         $this->trackingModel = new TrackingModel();
         $this->questionModel = new QuestionModel();
+        $this->excersResponseModel = new ExcersResponseModel();
         $this->s3Service =  new S3Service();
     }
     public function all()
@@ -169,7 +172,61 @@ class Courses
     }
     public function submit_test()
     {
-        print("<pre>".print_r($_POST,true)."</pre>");
+       $courseId = $_POST['courseId'];
+       $excercise = $_POST['excerciseId'];
+       $caus = $_POST['cau'];
+
+       $excersResponse = new ExcersResponse();
+       $excersResponse->ID= $this->excersResponseModel->generateExcersResponseID();
+       $excersResponse->AtDateTime = new DateTime();
+       $excersResponse->ProfileID =$_POST['profileId'];
+       $excersResponse->ExcerciseID = $excercise;
+
+       $this->excersResponseModel->addEcersResponse($excersResponse);
+       foreach($caus as $index => $cau)
+       {
+         $answer = new Answer();
+         $answer->QuestionID = intval($cau['questionId']);
+         $answer->ExcsRespID = $excersResponse->ID;
+
+         $newAnswerId = $this->excersResponseModel->addAnswer($answer);
+
+            switch($cau['type'])
+            {
+                case 'multi_option':
+                    foreach($cau['option_select'] as $index=>$optionKey)
+                    {
+                       $aMulopCh = new AMulchOption();
+                       $aMulopCh->QOptID = $optionKey;
+                       $aMulopCh->AnsID = $newAnswerId;
+                       $this->excersResponseModel->addAMulchOption($aMulopCh); 
+                    }
+                    break;
+                case 'matching':
+                    foreach($cau['matching'] as $index=>$matching)
+                    {
+                        $aMatching = new AMatching();
+                        $aMatching->AnsID = $newAnswerId;
+                        $aMatching->QMat = $matching;
+                        $aMatching->QMatKey = $cau['matchingkey'][$index];
+
+                        $this->excersResponseModel->addAMatching($aMatching);
+                        
+                    }
+                    break;
+                case 'completion':
+                    foreach($cau['masks_id'] as $key=>$maskId)
+                    {
+                        $aCompMask  = new ACompMask();
+                        $aCompMask->AnswerID = $newAnswerId;
+                        $aCompMask->QCoMaskID = $maskId;
+                        $aCompMask->Content = $cau['masks_content'][$key];
+
+                        $this->excersResponseModel->addACompMask($aCompMask);
+                    }
+                    break;
+            }
+       }
     }
     /* Khác */
     public function isRegisteredToCourse($profileID, $courseID)
