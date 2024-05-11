@@ -8,7 +8,7 @@ class Excercise{
     public int $State;
 
     public array $questions;
-    public array $excercise;
+    public array $response;
     
     public function __construct()
     {
