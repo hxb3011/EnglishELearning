@@ -17,7 +17,8 @@ requirm('/learn/Excercise.php');
 requirm('/learn/Subscription.php');
 requirm('/learn/Tracking.php');
 requirm('/learn/Question.php');
-requirm('/learn/Question.php');
+requirm('/dao/profile.php');
+
 
 requirm('/excerciseresponse/ExcersResponse.php');
 
@@ -55,6 +56,7 @@ class Courses
         global $page;
         $page = new AllCoursesPage();
         $page->courses = array_slice($this->courseModel->getAllCourseBySearch(), 0, 5);
+        $page->tutors = ProfileDAO::getProfileByType(0);
         $page->basePath = $this->s3Service->getBasePath();
         if ($page->courses != null) {
             foreach ($page->courses as $key => $course) {

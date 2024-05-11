@@ -105,10 +105,10 @@ class CourseModel
                 }
                 return $courses;
             } else {
-                return null;
+                return array();
             }
         } catch (Exception $e) {
-            return null;
+            return array();
         }
     }
     public function getCourseFromPage($page=1, $perPage=5,$courseName="",$profileId = "")
@@ -186,10 +186,10 @@ class CourseModel
                 }
                 return $courses;
             } else {
-                return null;
+                return array();
             }
         } catch (Exception $e) {
-            return null;
+            return array();
         }
     } 
 

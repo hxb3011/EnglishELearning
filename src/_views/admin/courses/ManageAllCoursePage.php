@@ -4,6 +4,7 @@ requirl("utils/htmlDocument.php");
 class ManageAllCoursePage extends BaseHTMLDocumentPage
 {
     public $courses = array();
+    public $tutors = array();
     public function __construct()
     {
         parent::__construct();
@@ -64,9 +65,9 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                                     </span>
                                     <select class="form-select" name="giangvien" id="giangvien">
                                         <option value="">Lựa chọn giảng viên</option>
-                                        <option value="PRO1">Saab</option>
-                                        <option value="PRO2">Mercedes</option>
-                                        <option value="PRO3">Audi</option>
+                                        <?foreach($this->tutors as $index=>$tutor):?>
+                                            <option value="<?echo $tutor->getId()?>"><?echo($tutor->lastName.' '.$tutor->firstName)?></option>
+                                        <?endforeach?>
                                     </select>
                                 </div>
                                 <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12   ">

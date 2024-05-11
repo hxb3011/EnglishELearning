@@ -3,6 +3,7 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
 class AddNewCoursePage extends BaseHTMLDocumentPage
 {
+    public array $tutors = array();
     public function __construct()
     {
         parent::__construct();
@@ -136,9 +137,9 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                                                             <div class="col-md-10">
                                                                 <select class="form-select form-select-md mb-3" name="tutor" id="tutor">
                                                                     <option value="">Lựa chọn giảng viên</option>
-                                                                    <option value="PRO01">Lê Tấn Minh Toàn</option>
-                                                                    <option value="B">Huỳnh Xuân Bách</option>
-                                                                    <option value="C">Koong Chấn Phong</option>
+                                                                    <? foreach ($this->tutors as $index => $tutor) : ?>
+                                                                        <option value="<? echo $tutor->getId() ?>"><? echo ($tutor->lastName . ' ' . $tutor->firstName) ?></option>
+                                                                    <? endforeach ?>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -212,8 +213,7 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                     onkeyup: function(e) {
                         $(e).valid()
                     },
-                    onchange:function(e){
-                    },
+                    onchange: function(e) {},
                     errorPlacement: function() {},
                     invalidHandler: function() {
                         // setTimeout(function() {
@@ -223,7 +223,7 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                         //         $('.nav-tabs').find('a[href^="#' + id + '"]').append(' <small class="required">***</small>');
                         //     });
                         // });
-                        toastr.error("Vui lòng kiểm tra lại các trường dữ liệu","Thêm khóa học : ")
+                        toastr.error("Vui lòng kiểm tra lại các trường dữ liệu", "Thêm khóa học : ")
                     },
                     rules: {
                         title: {
