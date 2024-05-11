@@ -1,4 +1,7 @@
 <?
+
+use Google\Service\Analytics\Resource\Data;
+
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/database.php');
 requirm('/learn/Subscription.php');
@@ -22,6 +25,41 @@ class SubscriptionModel{
             }
         }catch(Exception $e){
             echo $e->getMessage();
+        }
+    }
+    public function getNumberOfTotalSub()
+    {
+        $sqlQuery = "SELECT COUNT(*) as total_sub FROM subscription";
+        try{
+            $result = Database::executeQuery($sqlQuery);
+            return intval($result[0]['total_sub']);
+        }catch(Exception $e)
+        {
+            return -1;
+        }
+    }
+    public function generateValidDocumentID()
+    {
+        $max = $this->getNumberOfTotalSub();
+        $max = $max + 1;
+        return 'SUB' . $max;
+    }
+
+    public function addSubscription(Subscription $sub)
+    {
+        $sqlQuery = "INSERT INTO subscription(ID,AtDateTime,ProfileID,CourseID)";
+        $params= array(
+            $sub->ID,
+            $sub->AtDateTime->format('d-m-Y H:i:s'),
+            $sub->ProfileID,
+            $sub->CourseID,
+        );
+        try{
+            $result = Database::executeNonQuery($sqlQuery,$params);
+            return $result;
+        }catch(Exception $e)
+        {
+            return false;
         }
     }
 }

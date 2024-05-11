@@ -263,3 +263,15 @@ main {
 
 
 }
+.correct{
+    background-color: rgba(14, 224, 32, 0.378) !important;
+}
+.uncorrect{
+    background-color:rgba(221, 76, 76, 0.378) ;
+}
+select.correct{
+
+}
+select.uncorrect{
+
+}

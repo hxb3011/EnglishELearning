@@ -17,7 +17,8 @@ requirm('/learn/Excercise.php');
 requirm('/learn/Subscription.php');
 requirm('/learn/Tracking.php');
 requirm('/learn/Question.php');
-requirm('/learn/Question.php');
+requirm('/dao/profile.php');
+
 
 requirm('/excerciseresponse/ExcersResponse.php');
 
@@ -55,10 +56,11 @@ class Courses
         global $page;
         $page = new AllCoursesPage();
         $page->courses = array_slice($this->courseModel->getAllCourseBySearch(), 0, 5);
+        $page->tutors = ProfileDAO::getProfileByType(0);
         $page->basePath = $this->s3Service->getBasePath();
         if ($page->courses != null) {
             foreach ($page->courses as $key => $course) {
-                $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id);
+                $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id,1);
             }
         }
         //$page->tutors
@@ -70,7 +72,7 @@ class Courses
         global $page;
         $page = new CourseSinglePage();
         $page->course = $this->courseModel->getCourseById($courseId);
-        $lessons = $this->lessonModel->getLessonsByCourseId($courseId);
+        $lessons = $this->lessonModel->getLessonsByCourseId($courseId,1);
         $page->totalLesson = count($lessons);
         foreach ($lessons as $lesson) {
             $lesson->Documents = $this->documentModel->getDocumentsByLessonID($lesson->ID);
@@ -80,6 +82,7 @@ class Courses
         $excercises = $this->excerciseModel->getExcercisesByCourseId($courseId);
         $page->totalExcercise = count($excercises);
         $page->programs = array_merge($lessons, $excercises);
+        $page->basePath = $this->s3Service->getBasePath();
         usort($page->programs, array('Courses', 'compareOrderN'));
         $page->course->posterURI = $this->s3Service->encodeKey($page->course->posterURI);
 
@@ -96,10 +99,11 @@ class Courses
         } elseif (isset($_GET['excerciseId'])) {
             $page->currentProgram = $this->excerciseModel->getExcerciseById($_GET['excerciseId']);
             $this->loadQuestions($page->currentProgram);
+            $this->loadResponses($page->currentProgram);
         }
         $page->tracking = $this->trackingModel->getTrackingsByProfileAndCourse($profileID, $courseID);
         $page->course = $this->courseModel->getCourseById($courseID);
-        $lessons = $this->lessonModel->getLessonsByCourseId($courseID);
+        $lessons = $this->lessonModel->getLessonsByCourseId($courseID,1);
         foreach ($lessons as $lesson) {
             $lesson->Documents = $this->documentModel->getDocumentsByLessonID($lesson->ID);
             usort($lesson->Documents, array('Courses', 'compareOrderN'));
@@ -149,10 +153,10 @@ class Courses
         $response = array();
 
         $response['page'] = $data['page'];
-        $courses = $this->courseModel->getCourseFromPage(intval($data['page']), 5, $data['name'], $data['tutor']);
+        $courses = $this->courseModel->getCourseFromPage2(intval($data['page']), 5, $data['name'], $data['tutor']);
         if ($courses != null) {
             foreach ($courses as $key => $course) {
-                $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id);
+                $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id,1);
             }
         }
         $response['course'] = $courses;
@@ -227,6 +231,8 @@ class Courses
                     break;
             }
        }
+
+       header("Location: http://localhost:62280/courses/learn.php?courseId={$courseId}&excerciseId={$excercise}");
     }
     /* Khác */
     public function isRegisteredToCourse($profileID, $courseID)
@@ -236,6 +242,36 @@ class Courses
     private static function compareOrderN($a, $b)
     {
         return $a->OrderN - $b->OrderN;
+    }
+    public function loadResponses(Excercise &$excercise)
+    {
+        $excercise->response = $this->excersResponseModel->getExcersResponseByExcerID($excercise->ID);
+        if($excercise->response != null)
+        {
+            $excercise->response->answers = $this->excersResponseModel->getAnswerByExcsResp($excercise->response->ID);
+
+            foreach($excercise->response->answers  as $key=>$answer)
+            {
+                $answer->main = $this->loadSingleAnswer($answer->ID);
+            }
+        }
+    }
+    public function loadSingleAnswer($answerID)
+    {
+        $aCompMasks = $this->excersResponseModel->getACompMaskByAnswer($answerID);
+        if(!empty($aCompMasks)) return $aCompMasks;
+        $aMatching = $this->excersResponseModel->getAMatchingsByAnswer($answerID);
+        if(!empty($aMatching))
+        {
+            foreach($aMatching  as $key=>$matching)
+            {
+                $matching->QMatKeyText = $this->questionModel->getQMatchingKey($matching->QMatKey)->Content;
+            }
+            return $aMatching;
+        }
+        $aMulopCh = $this->excersResponseModel->getAMulchOptionsByAnswer($answerID);
+        if(!empty($aMulopCh)) return $aMulopCh;
+
     }
     public function loadQuestions(Excercise &$excercise)
     {

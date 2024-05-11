@@ -73,7 +73,7 @@ class ExcersResponseModel
             return null;
         }
     }
-    public function getAnswerByExcsResp(int $excsrespId)
+    public function getAnswerByExcsResp(string $excsrespId)
     {
         $sqlQuery = "SELECT * FROM answer WHERE ExcsRespID = ?";
         $params =array($excsrespId);
@@ -186,7 +186,8 @@ class ExcersResponseModel
             if ($result != null) {
                 $amulchoptions = [];
                 foreach ($result as $index => $value) {
-                    $amulchoption = new AMatching();
+                    $amulchoption = new AMulchOption();
+                    print_r($value);
                     $amulchoption->constructFromArray($value);
                     $amulchoptions[] = $amulchoption;
                 }

@@ -1,4 +1,7 @@
 <?
+
+use function Aws\filter;
+
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
 
@@ -64,8 +67,33 @@ final class LearnPage extends BaseHTMLDocumentPage
 
         return $result;
     }
-    function processCompletionViewer()
+    function processCompletionViewer($answer,$text,$masks)
     {
+       
+        $result = '';
+        $last_offset = 0;
+        foreach ($masks as $mask) {
+            $offset = +$mask->Offset;
+            $length = +$mask->Length;
+            $maskID = $mask->ID;
+            $aMasks = array_filter($answer,function($element) use($maskID){
+                return $element->QCoMaskID == $maskID;
+            });
+            $aMask= reset($aMasks);
+            $maskText= mb_substr($text,$offset,$length);
+
+            $isCorrect = ($aMask->Content == $maskText) ? 'correct' :'uncorrect';
+            $title='';
+            if($isCorrect == 'uncorrect'){
+                $title ='Đáp án đúng :'.$maskText.';';
+            }
+            $result .= mb_substr($text, $last_offset, $offset - $last_offset, 'UTF-8');
+            $result .= "<input type='text' class='{$isCorrect}' title='{$title}' value='{$aMask->Content}' name='' placeholder=''  disabled/>";
+
+            $last_offset = $offset + $length;
+        }
+        $result .= mb_substr($text, $last_offset, strlen($text) - $last_offset, 'UTF-8');
+        return $result;
     }
     public function body()
     {
@@ -113,60 +141,155 @@ final class LearnPage extends BaseHTMLDocumentPage
                                         </table>
                                     </div>
                                 <? elseif ($this->currentProgram instanceof Excercise) : ?>
-                                    <? if (!isset($this->currentProgram->response)) : ?>
-                                        <form method="post" action="/courses/ajax_call_action.php?action=submit_test" class="card" style="padding: 12rem;" id="excerciseSMForm">
-                                            <input type="hidden" name="courseId" value="<? echo ($this->course->id) ?>">
-                                            <input type="hidden" name="excerciseId" value="<? echo ($this->currentProgram->ID) ?>">
-                                            <input type="hidden" name="profileId" value="<? echo ($this->profileID) ?>">
-                                            <div class="card-title">
-                                                <b>Tên bài test : </b> <? echo  $this->currentProgram->Description ?>
-                                            </div>
+                                    <form method="post" action="/courses/ajax_call_action.php?action=submit_test" class="card" style="padding: 12rem;" id="excerciseSMForm">
+                                        <input type="hidden" name="courseId" value="<? echo ($this->course->id) ?>">
+                                        <input type="hidden" name="excerciseId" value="<? echo ($this->currentProgram->ID) ?>">
+                                        <input type="hidden" name="profileId" value="<? echo ($this->profileID) ?>">
+                                        <div class="card-title">
+                                            <b>Tên bài test : </b> <? echo  $this->currentProgram->Description ?>
+                                        </div>
+                                        <div class="card-description">
+                                            <b>Deadline : </b> <? echo  $this->currentProgram->Deadline->format('d/m/Y H:i') ?>
+                                        </div>
+                                        <? if (isset($this->currentProgram->response)) : ?>
                                             <div class="card-description">
-                                                <b>Deadline : </b> <? echo  $this->currentProgram->Deadline->format('d/m/Y H:i') ?>
+                                                <b>Thời gian đã nộp : </b> <? echo  $this->currentProgram->response->AtDateTime->format('d/m/Y H:i') ?>
                                             </div>
+                                        <? endif ?>
+                                        <? if (!isset($this->currentProgram->response)) : ?>
+                                            <? $currentDateTime = new DateTime(); ?>
+                                            <? if ($this->currentProgram->Deadline->format('d/m/Y H:i') > $currentDateTime->format('d/m/Y H:i')) : ?>
+                                                <div class="card-body" id="excerciseContainer" style="padding:12rem;">
+                                                    <? foreach ($this->currentProgram->questions as $key => $question) : ?>
+                                                        <? if (is_array($question->main) && $question->main[0] instanceof QMulchOption) : ?>
+                                                            <div class="card" style="border-radius:6rem; overflow:hidden;<? if ($key != 0) echo ('margin-top:4rem;') ?>">
+                                                                <input type="hidden" name="cau[<? echo $key + 1 ?>][type]" value="multi_option">
+                                                                <input type="hidden" name="cau[<? echo $key + 1 ?>][questionId]" value="<? echo $question->ID ?>">
+                                                                <div class="card-header text-white bg-primary" style="padding: 4rem; ">
+                                                                    Câu hỏi <? echo (($key + 1) . ' '); ?>:
+                                                                    <? echo ($question->Content) ?>
+                                                                </div>
+                                                                <div class="card-body" style="padding: 8rem;">
+                                                                    <? foreach ($question->main as $optionIndex => $option) : ?>
+                                                                        <div class="d-flex align-items-center" style="padding: 4rem;">
+                                                                            <label class="d-flex align-items-center">
+                                                                                <input type="checkbox" class="question_checkbox" value="<? echo $option->ID ?>" name="cau[<? echo $key + 1 ?>][option_select][]" style="margin-right:8rem;"> <? echo $option->Content ?>
+                                                                            </label>
+                                                                        </div>
+                                                                    <? endforeach ?>
+                                                                </div>
+                                                            </div>
+                                                        <? elseif (is_array($question->main) && $question->main[0] instanceof QMatching) : ?>
+                                                            <?
+                                                            $keys = '';
+                                                            shuffle($question->main);
+                                                            foreach ($question->main as $index => $matching) {
+                                                                $keys = $keys . "<option value='{$matching->QMatchingKey->ID}'>{$matching->QMatchingKey->Content}</option>";
+                                                            }
+                                                            ?>
+                                                            <div class="card" style="border-radius:6rem; overflow:hidden;<? if ($key != 0) echo ('margin-top:12rem;') ?>">
+                                                                <input type="hidden" name="cau[<? echo $key + 1 ?>][type]" value="matching">
+                                                                <input type="hidden" name="cau[<? echo $key + 1 ?>][questionId]" value="<? echo $question->ID ?>">
+                                                                <div class="card-header text-white bg-primary" style="padding: 4rem; ">
+                                                                    Câu hỏi <? echo (($key + 1) . ' '); ?>:
+                                                                    <? echo ($question->Content) ?>
+                                                                </div>
+                                                                <div class="card-body" style="padding: 8rem;">
+                                                                    <? foreach ($question->main as $index => $matching) : ?>
+                                                                        <div class="d-flex align-items-center" style="padding: 4rem;">
+
+                                                                            <label class="d-flex align-items-center" style="margin-right:12rem;"><? echo $matching->Content ?></label>
+                                                                            <input type="hidden" name="cau[<? echo $key + 1 ?>][matching][]" value="<? echo $matching->ID ?>">
+                                                                            <select class="question_select" name="cau[<? echo $key + 1 ?>][matchingkey][]">
+                                                                                <? echo ($keys) ?>
+                                                                            </select>
+                                                                        </div>
+
+                                                                    <? endforeach ?>
+                                                                </div>
+                                                            </div>
+                                                        <? elseif ($question->main instanceof QCompletion) : ?>
+                                                            <div class="card" style="border-radius:6rem; overflow:hidden;<? if ($key != 0) echo ('margin-top:12rem;') ?>">
+                                                                <input type="hidden" name="cau[<? echo $key + 1 ?>][type]" value="completion">
+                                                                <input type="hidden" name="cau[<? echo $key + 1 ?>][questionId]" value="<? echo $question->ID ?>">
+                                                                <div class="card-header text-white bg-primary" style="padding: 4rem; ">
+                                                                    Câu hỏi <? echo (($key + 1) . ' '); ?>:
+                                                                    <? echo ($question->Content) ?>
+                                                                </div>
+                                                                <div class="card-body" style="padding: 8rem;">
+                                                                    <div>
+                                                                        <?
+                                                                        echo $this->processCompletion($key + 1, $question->main->Content, $question->main->mask);
+                                                                        ?>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <? endif ?>
+
+                                                    <? endforeach ?>
+                                                </div>
+                                                <div class="card-footer text-center " style="padding:12rem;">
+                                                    <input type="submit" class="custom-btn" value="submit" placeholder="submit">
+                                                </div>
+                                            <? elseif (1) : ?>
+                                                <span class="badge bg-danger" style="font-size: 24rem; border-radius:5rem;">Đã quá hạn nộp</span>
+                                            <? endif ?>
+                                        <? else : ?>
                                             <div class="card-body" id="excerciseContainer" style="padding:12rem;">
                                                 <? foreach ($this->currentProgram->questions as $key => $question) : ?>
+                                                    <?
+                                                    $questionID = $question->ID;
+                                                    $filter_arr = array_filter($this->currentProgram->response->answers, function ($element) use ($questionID) {
+                                                        return $element->QuestionID == $questionID;
+                                                    });
+                                                    $currentAnswer = reset($filter_arr);
+                                                    ?>
                                                     <? if (is_array($question->main) && $question->main[0] instanceof QMulchOption) : ?>
                                                         <div class="card" style="border-radius:6rem; overflow:hidden;<? if ($key != 0) echo ('margin-top:4rem;') ?>">
-                                                            <input type="hidden" name="cau[<? echo $key + 1 ?>][type]" value="multi_option">
-                                                            <input type="hidden" name="cau[<? echo $key + 1 ?>][questionId]" value="<? echo $question->ID ?>">
                                                             <div class="card-header text-white bg-primary" style="padding: 4rem; ">
                                                                 Câu hỏi <? echo (($key + 1) . ' '); ?>:
                                                                 <? echo ($question->Content) ?>
                                                             </div>
                                                             <div class="card-body" style="padding: 8rem;">
                                                                 <? foreach ($question->main as $optionIndex => $option) : ?>
-                                                                    <div class="d-flex align-items-center" style="padding: 2rem;">
+                                                                    <?
+                                                                    $isOptionSelected = !empty(array_filter($currentAnswer->main, function ($selectOp) use ($option) {
+                                                                        return $selectOp->QOptID == $option->ID;
+                                                                    }));
+                                                                    ?>
+                                                                    <div class="d-flex align-items-center <? if ($option->Correct == 1) echo ('correct') ?> <? if ($isOptionSelected && $option->Correct == 0) echo ('uncorrect') ?>" style="padding: 4rem; ">
                                                                         <label class="d-flex align-items-center">
-                                                                            <input type="checkbox" class="question_checkbox" value="<? echo $option->ID ?>" name="cau[<? echo $key + 1 ?>][option_select][]" style="margin-right:8rem;"> <? echo $option->Content ?>
+                                                                            <input type="checkbox" <? if ($isOptionSelected) echo ('checked') ?> disabled class="question_checkbox" style="margin-right:8rem;"> <? echo $option->Content ?>
                                                                         </label>
                                                                     </div>
                                                                 <? endforeach ?>
                                                             </div>
                                                         </div>
                                                     <? elseif (is_array($question->main) && $question->main[0] instanceof QMatching) : ?>
-                                                        <?
-                                                        $keys = '';
-                                                        foreach ($question->main as $index => $matching) {
-                                                            $keys = $keys . "<option value='{$matching->QMatchingKey->ID}'>{$matching->QMatchingKey->Content}</option>";
-                                                        }
-                                                        ?>
+
                                                         <div class="card" style="border-radius:6rem; overflow:hidden;<? if ($key != 0) echo ('margin-top:12rem;') ?>">
-                                                            <input type="hidden" name="cau[<? echo $key + 1 ?>][type]" value="matching">
-                                                            <input type="hidden" name="cau[<? echo $key + 1 ?>][questionId]" value="<? echo $question->ID ?>">
                                                             <div class="card-header text-white bg-primary" style="padding: 4rem; ">
                                                                 Câu hỏi <? echo (($key + 1) . ' '); ?>:
                                                                 <? echo ($question->Content) ?>
                                                             </div>
                                                             <div class="card-body" style="padding: 8rem;">
                                                                 <? foreach ($question->main as $index => $matching) : ?>
-                                                                    <div class="d-flex align-items-center" style="padding: 2rem;">
-
+                                                                    <?
+                                                                    $qMat = $matching->ID;
+                                                                    $aMatchings = array_filter($currentAnswer->main, function ($element) use ($qMat) {
+                                                                        return $element->QMat == $qMat;
+                                                                    });
+                                                                    $aMatching = reset($aMatchings);
+                                                                    ?>
+                                                                    <div class="d-flex align-items-center" style="padding: 4rem;">
                                                                         <label class="d-flex align-items-center" style="margin-right:12rem;"><? echo $matching->Content ?></label>
-                                                                        <input type="hidden" name="cau[<? echo $key + 1 ?>][matching][]" value="<? echo $matching->ID ?>">
-                                                                        <select class="question_select" name="cau[<? echo $key + 1 ?>][matchingkey][]">
-                                                                            <? echo ($keys) ?>
+                                                                        <select class="question_select <? if ($aMatching->QMatKey == $matching->KeyQ) echo ('correct');
+                                                                                                        else echo ('uncorrect') ?>" disabled>
+                                                                            <option value=""><? echo ($aMatching->QMatKeyText) ?></option>
                                                                         </select>
+                                                                        <? if ($aMatching->QMatKey != $matching->KeyQ) : ?>
+                                                                            <span style="margin-left:16rem;"><b>Đáp án đúng : </b> <? echo ($matching->QMatchingKey->Content) ?></span>
+                                                                        <? endif ?>
                                                                     </div>
 
                                                                 <? endforeach ?>
@@ -174,8 +297,6 @@ final class LearnPage extends BaseHTMLDocumentPage
                                                         </div>
                                                     <? elseif ($question->main instanceof QCompletion) : ?>
                                                         <div class="card" style="border-radius:6rem; overflow:hidden;<? if ($key != 0) echo ('margin-top:12rem;') ?>">
-                                                            <input type="hidden" name="cau[<? echo $key + 1 ?>][type]" value="completion">
-                                                            <input type="hidden" name="cau[<? echo $key + 1 ?>][questionId]" value="<? echo $question->ID ?>">
                                                             <div class="card-header text-white bg-primary" style="padding: 4rem; ">
                                                                 Câu hỏi <? echo (($key + 1) . ' '); ?>:
                                                                 <? echo ($question->Content) ?>
@@ -183,7 +304,7 @@ final class LearnPage extends BaseHTMLDocumentPage
                                                             <div class="card-body" style="padding: 8rem;">
                                                                 <div>
                                                                     <?
-                                                                    echo $this->processCompletion($key + 1, $question->main->Content, $question->main->mask);
+                                                                    echo $this->processCompletionViewer($currentAnswer->main, $question->main->Content, $question->main->mask);
                                                                     ?>
                                                                 </div>
                                                             </div>
@@ -192,15 +313,12 @@ final class LearnPage extends BaseHTMLDocumentPage
 
                                                 <? endforeach ?>
                                             </div>
-                                            <div class="card-footer text-center "style="padding:12rem;">
-                                                <input type="submit" class="custom-btn" value="submit" placeholder="submit">
-                                            </div>
-                                        </form>
+                                        <? endif ?>
 
-                                    <? endif ?>
+                                    </form>
+
                                 <? endif ?>
                             <? else : ?>
-
                             <? endif ?>
                         </div>
                     </div>

@@ -4,6 +4,7 @@ requirl("utils/htmlDocument.php");
 class ManageAllCoursePage extends BaseHTMLDocumentPage
 {
     public $courses = array();
+    public $tutors = array();
     public function __construct()
     {
         parent::__construct();
@@ -64,9 +65,9 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                                     </span>
                                     <select class="form-select" name="giangvien" id="giangvien">
                                         <option value="">Lựa chọn giảng viên</option>
-                                        <option value="PRO1">Saab</option>
-                                        <option value="PRO2">Mercedes</option>
-                                        <option value="PRO3">Audi</option>
+                                        <?foreach($this->tutors as $index=>$tutor):?>
+                                            <option value="<?echo $tutor->getId()?>"><?echo($tutor->lastName.' '.$tutor->firstName)?></option>
+                                        <?endforeach?>
                                     </select>
                                 </div>
                                 <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12   ">
@@ -124,7 +125,7 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                                                                     <span class="mdi-b dots-vertical"></span>
                                                                 </button>
                                                                 <ul class="dropdown-menu">
-                                                                    <li><a class="dropdown-item" href="/courses/detail.php/<? echo $course->id ?>" target="_blank">Xem khóa học</a></li>
+                                                                    <li><a class="dropdown-item" href="http://localhost:62280/courses/detail.php?courseId=<? echo $course->id ?>" target="_blank">Xem khóa học</a></li>
                                                                     <li><a class="dropdown-item" href="/administration/courses/edit.php?courseId=<? echo $course->id ?>">Sửa khóa học</a></li>
                                                                     <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=<? echo ($course->id); ?>','Xóa khóa học')">Xóa khóa học</a></li>
 
