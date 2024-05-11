@@ -82,6 +82,7 @@ class Courses
         $excercises = $this->excerciseModel->getExcercisesByCourseId($courseId);
         $page->totalExcercise = count($excercises);
         $page->programs = array_merge($lessons, $excercises);
+        $page->basePath = $this->s3Service->getBasePath();
         usort($page->programs, array('Courses', 'compareOrderN'));
         $page->course->posterURI = $this->s3Service->encodeKey($page->course->posterURI);
 
@@ -98,6 +99,7 @@ class Courses
         } elseif (isset($_GET['excerciseId'])) {
             $page->currentProgram = $this->excerciseModel->getExcerciseById($_GET['excerciseId']);
             $this->loadQuestions($page->currentProgram);
+            $this->loadResponses($page->currentProgram);
         }
         $page->tracking = $this->trackingModel->getTrackingsByProfileAndCourse($profileID, $courseID);
         $page->course = $this->courseModel->getCourseById($courseID);
@@ -229,6 +231,8 @@ class Courses
                     break;
             }
        }
+
+       header("Location: http://localhost:62280/courses/learn.php?courseId={$courseId}&excerciseId={$excercise}");
     }
     /* Khác */
     public function isRegisteredToCourse($profileID, $courseID)
@@ -238,6 +242,36 @@ class Courses
     private static function compareOrderN($a, $b)
     {
         return $a->OrderN - $b->OrderN;
+    }
+    public function loadResponses(Excercise &$excercise)
+    {
+        $excercise->response = $this->excersResponseModel->getExcersResponseByExcerID($excercise->ID);
+        if($excercise->response != null)
+        {
+            $excercise->response->answers = $this->excersResponseModel->getAnswerByExcsResp($excercise->response->ID);
+
+            foreach($excercise->response->answers  as $key=>$answer)
+            {
+                $answer->main = $this->loadSingleAnswer($answer->ID);
+            }
+        }
+    }
+    public function loadSingleAnswer($answerID)
+    {
+        $aCompMasks = $this->excersResponseModel->getACompMaskByAnswer($answerID);
+        if(!empty($aCompMasks)) return $aCompMasks;
+        $aMatching = $this->excersResponseModel->getAMatchingsByAnswer($answerID);
+        if(!empty($aMatching))
+        {
+            foreach($aMatching  as $key=>$matching)
+            {
+                $matching->QMatKeyText = $this->questionModel->getQMatchingKey($matching->QMatKey)->Content;
+            }
+            return $aMatching;
+        }
+        $aMulopCh = $this->excersResponseModel->getAMulchOptionsByAnswer($answerID);
+        if(!empty($aMulopCh)) return $aMulopCh;
+
     }
     public function loadQuestions(Excercise &$excercise)
     {
