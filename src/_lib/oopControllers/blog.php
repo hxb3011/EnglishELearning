@@ -15,6 +15,7 @@ class Blog {
         requirv("blog/blogdetail.php");
         global $page;
         $page = new BlogDetailPage();
+        requirv("components/header.php");
         requira("_layout.php");
     }
 }

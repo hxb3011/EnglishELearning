@@ -86,10 +86,9 @@ final class BlogListPage extends BaseHTMLDocumentPage
                                     <div class="col-md-6">
                                         <img class="img-fluid img-blog mb-3 mb-md-0"  src="/assets/images/blog.png" alt="">
                                     </div>
-                                <a href="/blog/detail.php"> 
                                     <div class="col-md-6">
                                         <div class="blog-item position-relative overflow-hidden rounded mb-2" style="min-height: 100%;">
-                                            <a class="blog-overlay text-decoration-none" href="">
+                                            <a class="blog-overlay text-decoration-none" href="/blog/detail.php">
                                                 <h4 class="text-border mb-2">Best LearnPress WordPress Theme Collection For 2024</h4>
                                                 <div class="date-group">
                                                     <i class="fas fa-calendar-days"></i>
@@ -99,7 +98,6 @@ final class BlogListPage extends BaseHTMLDocumentPage
                                             </a>
                                         </div>
                                     </div>
-                                </a>
                                 </div>
                             </div>
                         </div>

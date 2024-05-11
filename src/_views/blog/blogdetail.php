@@ -3,8 +3,7 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
 
 final class BlogDetailPage extends BaseHTMLDocumentPage
-{
-    public function __construct()
+{    public function __construct()
     {
         parent::__construct();
     }
@@ -33,7 +32,8 @@ final class BlogDetailPage extends BaseHTMLDocumentPage
     {
         $this->styles(
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
-            "/clients/css/blog/blogdetail.css"
+            "/clients/css/blog/blogdetail.css",
+            "/clients/css/home/home_main.css",
         );
         // $this->scripts(
 
@@ -43,11 +43,11 @@ final class BlogDetailPage extends BaseHTMLDocumentPage
     public function body()
     {
         ?>
-            <div class="container-fluid py-5">4
+            <div class="wrap_container">
                 <!-- Pagination -->
-                <div class="container py-5">
-                    <div class="col-12 mt-5">
-                        <nav aria-label="Page navigation">
+                <div class="container">
+                    <div class="pagination_wrapper">
+                        <div aria-label="Page navigation" class="pagination_all_blogs">
                             <ul class="pagination pagination-lg">
                                 <li class="page-item disabled">
                                     <a class="page-link" href="#" aria-label="Previous">
@@ -63,35 +63,35 @@ final class BlogDetailPage extends BaseHTMLDocumentPage
                                     </a>
                                 </li>
                             </ul>
-                        </nav>
+                        </div>
                     </div>
                     <!-- End Pagination -->
                     <div class="row">
                         <!-- Blog Detail -->
-                        <div class="col-lg-8">
+                        <div class="col-lg-8 blog_detail">
                             <!-- Blog Detail Content -->
                             <div class="row mb-5">
-                                <h3 class="text-uppercase mb-2" style="white-space: nowrap; font-weight: 600; font-size: 2.2rem;">Best LearnPress WordPress Theme Collection For 2024</h3>
+                                <h3 class="text-uppercase mb-2" style="white-space: nowrap; font-weight: 600; font-size: 20rem;">Best LearnPress WordPress Theme Collection For 2024</h3>
                                 <!-- Begin Author,Date -->
                                 <div class="col-lg-12 d-flex">
                                     <div class="mb-3 mr-3">
                                         <i class="fa-solid fa-user" style="color: orange;"></i>
-                                        <span class="text-muted">Chấn Phong</span>
-                                    </div>000000000000000000000
+                                        <span class="text-muted post_author"><em>Author</em></span>
+                                    </div>
                                     <div class="mb-3 mr-3">
                                         <i class="fa-regular fa-calendar" style="color: orange;"></i>
-                                        <span class="text-muted">Jan 24. 2024</span>
+                                        <span class="text-muted post_date"><em>MM/DD/YYYY</em></span>
                                     </div>
                                     <div class="mb-3 mr-3">
                                         <i class="fa-solid fa-comment" style="color: orange;"></i>
-                                        <span class="text-muted">20</span>
+                                        <span class="text-muted amount_of_comments">...</span>
                                     </div>
                                 </div>
                                 <!-- End Author, Date -->
 
                                 <!-- Begin Blog Detail Data -->
-                                <div class="col-lg-12 mb-5">
-                                    <img class="img-fluid img-blog mb-3 mb-md-0" style="width: 100%; border-radius: 2rem;" src="/assets/images/blog.png" alt="">
+                                <div class="blog_detail_data col-lg-12 mb-5">
+                                    <img class="image img-fluid img-blog mb-3 mb-md-0" style="max-width: 70%; border-radius: 4rem;" src="/assets/images/blog.png" alt="">
                                     <p class="text-muted mt-5">
                                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
                                     </p>
@@ -102,7 +102,7 @@ final class BlogDetailPage extends BaseHTMLDocumentPage
                                 <!-- End Blog Detail Data -->
 
                                 <!-- Begin Share -->
-                                <div class="col-lg-4" style="font-size: 2.2rem;">
+                                <div class="col-lg-4" style="font-size: 10rem;">
                                     Share:
                                     <i class="fa-brands fa-facebook mr-1"></i>
                                     <i class="fa-brands fa-x-twitter mr-1"></i>
@@ -120,16 +120,12 @@ final class BlogDetailPage extends BaseHTMLDocumentPage
                                                 </a>
                                             </div>
                                             <div class="col-md-6 title-prev">
-                                                <p>Prev Article</p>
-                                                <span>Best LearnPress WordPress Theme Collection For 2023</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col next">
                                         <div class="row next-row">
                                                 <div class="col-md-6 title-next">
-                                                    <p>Next Article</p>
-                                                    <span>Best LearnPress WordPress Theme Collection For 2025</span>
                                                 </div>
                                                 <div class="col-md-6 icon-next">
                                                     <a class="page-link d-flex justify-content-center" href="#" aria-label="Previous">
@@ -143,9 +139,12 @@ final class BlogDetailPage extends BaseHTMLDocumentPage
 
                                 <!-- Comment -->
                                 <div class="comment col-lg-12 mt-5">
-                                    <h3 class="text-uppercase mb-4" style="font-weight: 600; font-size: 2.2rem;">Comments</h3>
-                                    <h4 class="mb-4" style="font-weight: 300; font-size: 1.8rem">
-                                        20 <span>Comments</span>
+                                    <h3 class="text-uppercase comment_title mb-4" style="font-weight: 600; font-size: 20rem;">Comments</h3>
+                                    <div class="amount_of_comments">
+                                        <h4 class="mb-4" style="font-weight: 300">
+                                            <!-- 20  -->
+                                            <span>Comments</span>
+                                    </div>
                                     </h4>
                                     <hr>
                                     <div class="media row mb-4">
@@ -164,24 +163,8 @@ final class BlogDetailPage extends BaseHTMLDocumentPage
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Begin Comment reply -->
-                                    <div class="media row ml-5 mb-4">
-                                        <img class="col-md-3 mr-3" src="/assets/images/blog4.png" alt="user image" style="width: 100px;">
-                                        <div class="media-body col-md-10">
-                                            <div class="row">
-                                                <div class="d-flex justify-content-between">
-                                                    <h5 class="author mt-0">Chấn Phong</h5>
-                                                    <p class="date text-muted">Oct 24, 2024</p>
-                                                </div>
-                                                <p class="text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                                                <a href="" class="reply text-decoration-none">
-                                                    <i class="fa-solid fa-reply" style="color: orange;"></i>
-                                                    Reply
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Comment Reply -->
+<!-- Begin Comment reply -->
+<!--
                                     <hr>
                                     <div class="media row mb-4">
                                         <img class="col-md-3 mr-3" src="/assets/images/blog4.png" alt="user image" style="width: 100px;">
@@ -200,6 +183,8 @@ final class BlogDetailPage extends BaseHTMLDocumentPage
                                         </div>
                                     </div>
                                 </div>
+-->
+<!-- End Comment Reply -->
                                 <!-- End Comment -->
                             </div>
                             <!-- End Blog Detail Content -->
@@ -228,8 +213,8 @@ final class BlogDetailPage extends BaseHTMLDocumentPage
 <!-- End Pagination -->
                             <!-- Leave a comment form -->
                             <div class="col-12 mt-5 form-cmt">
-                                <h3 class="text-uppercase mb-4" style="font-weight: 600; font-size: 2.2rem;">Leave a comment</h3>
-                                <p class="text-muted">Your email address will not be published. Required fields are marked *</p>
+                                <h3 class="text-uppercase mb-4" style="font-weight: 600; font-size: 20rem;">Leave a comment</h3>
+                                <p class="text-muted email_notification">Your email address will not be published. Required fields are marked *</p>
                                 <form action="">
                                     <div class="form-row input-author">
                                         <div class="form-group col-md-6">
@@ -250,32 +235,32 @@ final class BlogDetailPage extends BaseHTMLDocumentPage
                         <!-- End Blog Detail -->
 
                         <!-- Category list etc... -->
-                        <div class="col-lg-4 mt-5">
+                        <div class="other_content col-lg-4 mt-5">
                             <!-- Category List -->
-                            <div class="mb-5 category-list">
-                                <h3 class="text-uppercase mb-4" style="font-weight: 600; font-size: 2.2rem;">Categories</h3>
+                            <div class="mb-5 category-list d-flex flex-column">
+                                <h3 class="text-uppercase mb-4" style="font-weight: 600">Categories</h3>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0" style="font-size: 1.5rem;">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0" >
                                         <a href="" class="text-decoration-none h4 m-0">Commerical</a>
                                         <p>15</p>
                                     </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0" style="font-size: 1.5rem;">
-                                        <a href="" class="text-decoration-none h4 m-0">Office</a>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0" >
+                                        <a href="" class="text-decoration-none h4 m-0">Office</a>   
                                         <p>15</p>
                                     </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0" style="font-size: 1.5rem;">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0" >
                                         <a href="" class="text-decoration-none h4 m-0">Shop</a>
                                         <p>15</p>
                                     </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0" style="font-size: 1.5rem;">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0" >
                                         <a href="" class="text-decoration-none h4 m-0">Educate</a>
                                         <p>15</p>
                                     </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0" style="font-size: 1.5rem;">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0" >
                                         <a href="" class="text-decoration-none h4 m-0">Academy</a>
                                         <p>15</p>
                                     </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0" style="font-size: 1.5rem;">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0" >
                                         <a href="" class="text-decoration-none h4 m-0">Single family home</a>
                                         <p>15</p>
                                     </li>
@@ -284,23 +269,11 @@ final class BlogDetailPage extends BaseHTMLDocumentPage
             
                             <!-- Recent Post -->
                             <div class="mb-5 recent-post">
-                                <h3 class="text-uppercase mb-4">Recent Post</h3>
-                                <a class="d-flex align-items-center text-decoration-none mb-3" href="">
-                                    <img class="img-fluid rounded" src="/assets/images/blog4.png" alt="wordpress image" style="max-width: 50%;">
-                                    <div class="pl-3">
-                                        <h4>Best LearnPress WordPress Theme Collection For 2024</h4>
-                                    </div>
-                                </a>
-                                <a class="d-flex align-items-center text-decoration-none mb-3" href="">
-                                    <img class="img-fluid rounded" src="/assets/images/blog4.png" alt="wordpress image" style="max-width: 50%;">
-                                    <div class="pl-3">
-                                        <h4>Best LearnPress WordPress Theme Collection For 2024</h4>
-                                    </div>
-                                </a>
-                                <a class="d-flex align-items-center text-decoration-none mb-3" href="">
-                                    <img class="img-fluid rounded" src="/assets/images/blog4.png" alt="wordpress image" style="max-width: 50%;">
-                                    <div class="pl-3">
-                                        <h4>Best LearnPress WordPress Theme Collection For 2024</h4>
+                                <h3 class=" text-uppercase" style="font-size:20rem">Recent Post</h3>
+                                <img class="img-fluid rounded" src="/assets/images/blog4.png" alt="wordpress image" style="max-width: 50%;">
+                                <a class="d-flex align-items-center text-decoration-none justify-content-center" href="">
+                                    <div class="recent_post_title pl-3">
+                                        <h4 style="font-size: 15rem;">Best LearnPress WordPress Theme Collection For 2024</h4>
                                     </div>
                                 </a>
                             </div>

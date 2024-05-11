@@ -4,7 +4,8 @@ if (!defined("__UTILS__REQUIR__")) {
 
     function requira(string $path)
     {
-        $realpath =exec("realpath /var/www/html/" . $path);
+        $realpath = exec("realpath /var/www/html/" . $path);
+        //$realpath = realpath($_SERVER["DOCUMENT_ROOT"] . "/" . $path);
         if (defined("DEBUG_REQUIR")) {
             echo "<br>Backtrace: ";
             debug_print_backtrace();
