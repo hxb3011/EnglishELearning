@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 // required: /clients/utils.js
 
 const DynamicThemeCSSLoader = (function (_) {
@@ -134,7 +134,17 @@ const DynamicThemeCSSLoader = (function (_) {
         return old;
     };
 
-    loadTheme(theme());
+    /** @this {Window} @param {Event} e  */
+    function onLoadTheme(e) { DynamicThemeCSSLoader.theme(DynamicThemeCSSLoader.theme()); }
+
+    /** @this {Window} @param {Event} e  */
+    function onDispose(e) {
+        window.removeEventListener("load", onLoadTheme);
+        window.removeEventListener("unload", onDispose)
+    }
+
+    window.addEventListener("load", onLoadTheme);
+    window.addEventListener("unload", onDispose)
 
     return {
         theme,

@@ -12,3 +12,9 @@ RewriteRule ^.*$ _controllers/$0 [END]
 ErrorDocument 403 /_error.php?ersp=403&uri=%{REQUEST_URI}
 ErrorDocument 404 /_error.php?ersp=404&uri=%{REQUEST_URI}
 ErrorDocument 500 /_error.php?ersp=500&uri=%{REQUEST_URI}
+
+php_value upload_max_filesize 100M
+php_value post_max_size 100M
+php_value max_execution_time 600
+php_value max_input_time 600
+php_value memory_limit 256M

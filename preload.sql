@@ -1,3 +1,4 @@
+SET FOREIGN_KEY_CHECKS = 0; 
 CREATE DATABASE  IF NOT EXISTS `enelearnsys` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `enelearnsys`;
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
@@ -25,11 +26,11 @@ DROP TABLE IF EXISTS `account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `account` (
-  `UID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `UserName` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `Password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `UID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `UserName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Status` tinyint DEFAULT NULL,
-  `Permissions` varchar(1000) COLLATE utf8mb4_general_ci NOT NULL,
+  `Permissions` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`UID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -40,7 +41,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES ('0','adminne','M19001098m̃',1,'ALL');
+INSERT INTO `account` VALUES ('0','root99','Hello|11',0,'////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('1','letoan2505','M123456m',1,'////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('2','hieuthuan99','M123456m',1,'////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('ACCOUNT1','LETOAN','M123456m',1,'////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('ACCOUNT2','HOANGSON','M12345',1,'////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('ACCOUNT3','LE HOAN','M12345',1,'////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,7 +56,7 @@ CREATE TABLE `acompmask` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `AnswerID` int DEFAULT NULL,
   `QCoMaskID` int DEFAULT NULL,
-  `Content` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Content` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_AnswerID_acompmask_answer` (`AnswerID`),
   KEY `FK_QCoMaskID_acompmask_qcompmask` (`QCoMaskID`),
@@ -137,9 +138,9 @@ DROP TABLE IF EXISTS `answer`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `answer` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `Content` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Content` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `QuestionID` int DEFAULT NULL,
-  `ExcsRespID` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ExcsRespID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_QuestionID_answer_question` (`QuestionID`),
   KEY `FK_ExcsRespID_answer_execsresponse` (`ExcsRespID`),
@@ -165,13 +166,13 @@ DROP TABLE IF EXISTS `comment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comment` (
-  `PProfID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `PSubID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `AuthID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `SubID` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
-  `Content` text COLLATE utf8mb4_general_ci NOT NULL,
+  `PProfID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `PSubID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `AuthID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `SubID` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Status` tinyint NOT NULL,
-  `Updated` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `Updated` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`PProfID`,`PSubID`,`AuthID`,`SubID`),
   KEY `FK_PSubID_Comment_Post` (`PSubID`),
   KEY `FK_AuthID_Comment_Post` (`AuthID`),
@@ -200,7 +201,7 @@ DROP TABLE IF EXISTS `conjugation`;
 CREATE TABLE `conjugation` (
   `InfinitiveID` int NOT NULL,
   `AlternativeID` int NOT NULL,
-  `Description` text COLLATE utf8mb4_general_ci,
+  `Description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`InfinitiveID`,`AlternativeID`),
   KEY `FK_AlternativeID_conjugation_Lemma` (`AlternativeID`),
   CONSTRAINT `FK_AlternativeID_conjugation_Lemma` FOREIGN KEY (`AlternativeID`) REFERENCES `lemma` (`ID`),
@@ -225,8 +226,8 @@ DROP TABLE IF EXISTS `contribution`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `contribution` (
-  `ProfileID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `MeaningID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `ProfileID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `MeaningID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Accepted` bit(1) DEFAULT b'0',
   PRIMARY KEY (`ProfileID`,`MeaningID`),
   KEY `FK_MeaningID_contri_meaning` (`MeaningID`),
@@ -252,15 +253,15 @@ DROP TABLE IF EXISTS `course`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `course` (
-  `ID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `Name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `PosterUri` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `Description` text COLLATE utf8mb4_general_ci NOT NULL,
+  `ID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `PosterUri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `State` tinyint NOT NULL,
-  `ProfileID` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ProfileID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `BeginDate` datetime NOT NULL,
   `EndDate` datetime NOT NULL,
   `Price` decimal(10,0) NOT NULL,
+  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_ProfileID_course_profile` (`ProfileID`),
   CONSTRAINT `FK_ProfileID_course_profile` FOREIGN KEY (`ProfileID`) REFERENCES `profile` (`ID`)
@@ -273,7 +274,7 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES ('COURSE1','Hả ý m là sao','uploads/COURSE1/poster/6df4428b-02b2-425e-9054-983df9f3650b.jfif','                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <p>k</p>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ',1,'PRO01','2024-04-29 22:00:00','2024-04-29 22:00:00',5000000);
+INSERT INTO `course` VALUES ('COURSE','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Không có gì',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',50000,'TOEIC'),('COURSE1','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','fsdfsdf',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE10','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','fsdfsdf',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE11','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','sdfsdf',1,'PRO2','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE16','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO3','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE17','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO3','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE18','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO3','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE19','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO3','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE2','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE20','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE22','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE23','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE3','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE4','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO2','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE5','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO2','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE6','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE7','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE8','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE9','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name');
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -285,12 +286,16 @@ DROP TABLE IF EXISTS `document`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `document` (
-  `ID` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Description` text COLLATE utf8mb4_general_ci,
-  `DocUri` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `DocUri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `State` tinyint DEFAULT NULL,
-  `LessonID` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `OrderN` int DEFAULT '0'
+  `LessonID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Type` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `OrderN` int DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  KEY `FK_LessonID_document_lesson` (`LessonID`),
+  CONSTRAINT `FK_LessonID_document_lesson` FOREIGN KEY (`LessonID`) REFERENCES `lesson` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -300,6 +305,7 @@ CREATE TABLE `document` (
 
 LOCK TABLES `document` WRITE;
 /*!40000 ALTER TABLE `document` DISABLE KEYS */;
+INSERT INTO `document` VALUES ('DOCUMENT1','Giới thiệu khóa học','private/text/COURSE/LESSON1/DOCUMENT1/3121560092_Lê Tấn Minh Toàn.pdf',1,'LESSON1','text',1),('DOCUMENT2','Làm quen với đề thi','private/video/COURSE/LESSON1/DOCUMENT2/002 What Is NgRx.mp4',1,'LESSON1','video',2),('DOCUMENT3','Thực tập nghe','private/video/COURSE/LESSON1/DOCUMENT3/Abc.mp4',1,'LESSON1','video',3),('DOCUMENT4','Bi quyet luyen thi','private/text/COURSE/LESSON1/DOCUMENT4/Báo_Cáo_OSSD.pdf',1,'LESSON1','text',4);
 /*!40000 ALTER TABLE `document` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,9 +318,9 @@ DROP TABLE IF EXISTS `example`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `example` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `MeaningID` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Example` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Explanation` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `MeaningID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Example` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Explanation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_MeaningID_example_meaning` (`MeaningID`),
   CONSTRAINT `FK_MeaningID_example_meaning` FOREIGN KEY (`MeaningID`) REFERENCES `meaning` (`ID`)
@@ -339,15 +345,15 @@ DROP TABLE IF EXISTS `excercise`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `excercise` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `Description` text COLLATE utf8mb4_general_ci,
+  `Description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `Deadline` datetime DEFAULT NULL,
   `State` tinyint DEFAULT NULL,
-  `CourseID` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `CourseID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `OrderN` int DEFAULT '0',
   PRIMARY KEY (`ID`),
   KEY `FK_CourseID_excercise_course` (`CourseID`),
-  CONSTRAINT `FK_CourseID_excercise_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `FK_CourseID_excercise_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -356,7 +362,7 @@ CREATE TABLE `excercise` (
 
 LOCK TABLES `excercise` WRITE;
 /*!40000 ALTER TABLE `excercise` DISABLE KEYS */;
-INSERT INTO `excercise` VALUES (3,'Kiểm thử','2023-05-14 00:00:00',1,'COURSE1',0),(5,'Kiểm tra 45p','2024-04-30 15:29:00',0,'COURSE1',1);
+INSERT INTO `excercise` VALUES (3,'Bài tập 1','2024-05-31 13:27:00',1,'COURSE',4);
 /*!40000 ALTER TABLE `excercise` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -368,10 +374,10 @@ DROP TABLE IF EXISTS `execsresponse`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `execsresponse` (
-  `ID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `ID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `AtDateTime` datetime DEFAULT NULL,
   `ExcerciseID` int DEFAULT NULL,
-  `ProfileID` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ProfileID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_ExcerciseID_execsresponse_excercise` (`ExcerciseID`),
   KEY `FK_ProfileID_execsresponse_profile` (`ProfileID`),
@@ -397,8 +403,8 @@ DROP TABLE IF EXISTS `learntrecord`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `learntrecord` (
-  `ProfileID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `MeaningID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `ProfileID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `MeaningID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `LastReviewed` date DEFAULT NULL,
   PRIMARY KEY (`ProfileID`,`MeaningID`),
   KEY `FK_MeaningID_learntrecord_meaning` (`MeaningID`),
@@ -425,8 +431,8 @@ DROP TABLE IF EXISTS `lemma`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `lemma` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `KeyL` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `PartOfSpeech` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `KeyL` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `PartOfSpeech` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -448,14 +454,14 @@ DROP TABLE IF EXISTS `lesson`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `lesson` (
-  `ID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `Description` text COLLATE utf8mb4_general_ci NOT NULL,
+  `ID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `State` tinyint DEFAULT NULL,
-  `CourseID` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `CourseID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `OrderN` tinyint NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_CourseID_lesson_course` (`CourseID`),
-  CONSTRAINT `FK_CourseID_lesson_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`)
+  CONSTRAINT `FK_CourseID_lesson_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -465,7 +471,7 @@ CREATE TABLE `lesson` (
 
 LOCK TABLES `lesson` WRITE;
 /*!40000 ALTER TABLE `lesson` DISABLE KEYS */;
-INSERT INTO `lesson` VALUES ('LESSON1','kIỂM TRA',1,'COURSE1',2),('LESSON2','Không có gì sao',0,'COURSE1',4),('LESSON3','Không có gì hếtttttttttttttttttttttttttttttt',1,'COURSE1',3);
+INSERT INTO `lesson` VALUES ('LESSON1','Bài 1',1,'COURSE',1),('LESSON2','Ko',1,'COURSE',3),('LESSON3','Bài 2',1,'COURSE',2);
 /*!40000 ALTER TABLE `lesson` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -477,12 +483,12 @@ DROP TABLE IF EXISTS `meaning`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `meaning` (
-  `ID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `ID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `LemmaID` int DEFAULT NULL,
-  `LevelV` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Meaning` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Explanation` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Note` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `LevelV` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Meaning` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Explanation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_LemmaID_meaning_Lemma` (`LemmaID`),
   CONSTRAINT `FK_LemmaID_meaning_Lemma` FOREIGN KEY (`LemmaID`) REFERENCES `lemma` (`ID`)
@@ -506,9 +512,9 @@ DROP TABLE IF EXISTS `payment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `payment` (
-  `ID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `KEYC` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ProfileID` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `KEYC` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ProfileID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_ProfileID_payment_profile` (`ProfileID`),
   CONSTRAINT `FK_ProfileID_payment_profile` FOREIGN KEY (`ProfileID`) REFERENCES `profile` (`ID`)
@@ -532,12 +538,12 @@ DROP TABLE IF EXISTS `post`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `post` (
-  `ProfileID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `SubID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `tags` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ProfileID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `SubID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `tags` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `Status` tinyint NOT NULL,
-  `Updated` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Updated` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ProfileID`,`SubID`),
   KEY `post_subid_indexes` (`SubID`),
   CONSTRAINT `FK_ProfileID_Post_Profile` FOREIGN KEY (`ProfileID`) REFERENCES `profile` (`ID`)
@@ -561,15 +567,15 @@ DROP TABLE IF EXISTS `profile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `profile` (
-  `ID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `LastName` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `FirstName` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `ID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `LastName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `FirstName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Gender` tinyint NOT NULL,
   `BirthDay` date NOT NULL,
-  `Type` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `Type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Status` tinyint NOT NULL,
-  `UID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `RoleID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `UID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `RoleID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_RoleID_Profile_Role` (`RoleID`),
   KEY `FK_UID_Profile_Account` (`UID`),
@@ -584,7 +590,7 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
-INSERT INTO `profile` VALUES ('PRO01','Lê Tấn ','Minh Toàn',1,'2003-05-22','Người dạy học',1,'0','RO01');
+INSERT INTO `profile` VALUES ('0','Nguyễn','Thanh Hồng',1,'1985-03-22','0',0,'1','0'),('1','Vũ','Hiếu Thuận',0,'2000-08-13','1',0,'2','1'),('PRO1','Lê ','Hoàng Lâm',0,'2003-05-05','0',1,'ACCOUNT1','0'),('PRO2','Long','Lân',0,'2003-05-07','0',1,'ACCOUNT2','0'),('PRO3','Liêm','Văn Rô',0,'2003-05-07','0',1,'ACCOUNT3','0');
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -597,9 +603,9 @@ DROP TABLE IF EXISTS `pronunciation`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pronunciation` (
   `LemmaID` int NOT NULL,
-  `Region` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `IPA` text COLLATE utf8mb4_general_ci,
-  `Voice` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Region` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `IPA` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `Voice` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`LemmaID`,`Region`),
   CONSTRAINT `FK_LemmaID_Pronunc_Lemma` FOREIGN KEY (`LemmaID`) REFERENCES `lemma` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -615,6 +621,29 @@ LOCK TABLES `pronunciation` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `property`
+--
+
+DROP TABLE IF EXISTS `property`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `property` (
+  `key` varchar(100) NOT NULL,
+  `value` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `property`
+--
+
+LOCK TABLES `property` WRITE;
+/*!40000 ALTER TABLE `property` DISABLE KEYS */;
+/*!40000 ALTER TABLE `property` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `qcompletion`
 --
 
@@ -623,10 +652,10 @@ DROP TABLE IF EXISTS `qcompletion`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `qcompletion` (
   `ID` int NOT NULL,
-  `Content` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `Content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `State` tinyint DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `FK_ID_qcompletion_question` FOREIGN KEY (`ID`) REFERENCES `question` (`ID`)
+  CONSTRAINT `FK_ID_qcompletion_question` FOREIGN KEY (`ID`) REFERENCES `question` (`ID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -653,8 +682,8 @@ CREATE TABLE `qcompmask` (
   `QCompID` int DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_ QCompID_qcommask_qcompletion` (`QCompID`),
-  CONSTRAINT `FK_ QCompID_qcommask_qcompletion` FOREIGN KEY (`QCompID`) REFERENCES `qcompletion` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `FK_ QCompID_qcommask_qcompletion` FOREIGN KEY (`QCompID`) REFERENCES `qcompletion` (`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -675,15 +704,15 @@ DROP TABLE IF EXISTS `qmatching`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `qmatching` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `Content` text COLLATE utf8mb4_general_ci,
+  `Content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `QuestionID` int DEFAULT NULL,
   `KeyQ` int DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_QuestionID_qmatching_question` (`QuestionID`),
   KEY `FK_KeyQ_qmatching_qmatchingkey` (`KeyQ`),
-  CONSTRAINT `FK_KeyQ_qmatching_qmatchingkey` FOREIGN KEY (`KeyQ`) REFERENCES `qmatchingkey` (`ID`),
-  CONSTRAINT `FK_QuestionID_qmatching_question` FOREIGN KEY (`QuestionID`) REFERENCES `question` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `FK_KeyQ_qmatching_qmatchingkey` FOREIGN KEY (`KeyQ`) REFERENCES `qmatchingkey` (`ID`) ON DELETE CASCADE,
+  CONSTRAINT `FK_QuestionID_qmatching_question` FOREIGN KEY (`QuestionID`) REFERENCES `question` (`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -704,9 +733,9 @@ DROP TABLE IF EXISTS `qmatchingkey`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `qmatchingkey` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `Content` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -715,6 +744,7 @@ CREATE TABLE `qmatchingkey` (
 
 LOCK TABLES `qmatchingkey` WRITE;
 /*!40000 ALTER TABLE `qmatchingkey` DISABLE KEYS */;
+INSERT INTO `qmatchingkey` VALUES (13,'AAAa');
 /*!40000 ALTER TABLE `qmatchingkey` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -727,13 +757,13 @@ DROP TABLE IF EXISTS `qmulchoption`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `qmulchoption` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `QuestionID` int NOT NULL,
-  `Content` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `Correct` tinyint(1) DEFAULT NULL,
+  `QuestionID` int NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_QuestionID_qmulchoption_question` (`QuestionID`),
-  CONSTRAINT `FK_QuestionID_qmulchoption_question` FOREIGN KEY (`QuestionID`) REFERENCES `question` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `FK_QuestionID_qmulchoption_question` FOREIGN KEY (`QuestionID`) REFERENCES `question` (`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -742,6 +772,7 @@ CREATE TABLE `qmulchoption` (
 
 LOCK TABLES `qmulchoption` WRITE;
 /*!40000 ALTER TABLE `qmulchoption` DISABLE KEYS */;
+INSERT INTO `qmulchoption` VALUES (81,'Không',0,36),(82,'Không',1,36),(83,'Có',0,36),(84,'MOT',0,36);
 /*!40000 ALTER TABLE `qmulchoption` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -754,14 +785,14 @@ DROP TABLE IF EXISTS `question`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `question` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `Content` text COLLATE utf8mb4_general_ci,
+  `Content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `State` tinyint DEFAULT NULL,
   `ExcerciseID` int DEFAULT NULL,
   `OrderN` int DEFAULT '0',
   PRIMARY KEY (`ID`),
   KEY `FK_ExcerciseID_question_excercise` (`ExcerciseID`),
-  CONSTRAINT `FK_ExcerciseID_question_excercise` FOREIGN KEY (`ExcerciseID`) REFERENCES `excercise` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `FK_ExcerciseID_question_excercise` FOREIGN KEY (`ExcerciseID`) REFERENCES `excercise` (`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -770,6 +801,7 @@ CREATE TABLE `question` (
 
 LOCK TABLES `question` WRITE;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
+INSERT INTO `question` VALUES (36,'Câu hỏi lựa chọn1a',1,3,2),(37,'MOT HAI BA BON NAM SAU BAY',1,3,1);
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -781,9 +813,9 @@ DROP TABLE IF EXISTS `role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role` (
-  `ID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `Name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `Permissions` varchar(1000) COLLATE utf8mb4_general_ci NOT NULL,
+  `ID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Permissions` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -794,8 +826,69 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES ('RO01','Admin','ALL'),('RO02','Teacher','ALL'),('RO03','Student','NONE');
+INSERT INTO `role` VALUES ('0','Giảng viên (Đầy đủ)','mAb/fn9n/6d/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('1','Học viên (Đầy đủ)','GAb/VdRKInh/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `subscription`
+--
+
+DROP TABLE IF EXISTS `subscription`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `subscription` (
+  `ID` varchar(100) NOT NULL,
+  `AtDateTime` datetime DEFAULT NULL,
+  `ProfileID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `CourseID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_CourseID_subcription_course` (`CourseID`),
+  KEY `FK_ProfileID_subcription_profile` (`ProfileID`),
+  CONSTRAINT `FK_CourseID_subcription_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`),
+  CONSTRAINT `FK_ProfileID_subcription_profile` FOREIGN KEY (`ProfileID`) REFERENCES `profile` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `subscription`
+--
+
+LOCK TABLES `subscription` WRITE;
+/*!40000 ALTER TABLE `subscription` DISABLE KEYS */;
+INSERT INTO `subscription` VALUES ('1','2024-08-13 00:00:00','1','COURSE');
+/*!40000 ALTER TABLE `subscription` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tracking`
+--
+
+DROP TABLE IF EXISTS `tracking`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tracking` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `ProfileID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `CourseID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `LearnedDocumentID` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `AtDateTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_ProfileID_tracking_profile` (`ProfileID`),
+  KEY `FK_CourseID_tracking_course` (`CourseID`),
+  CONSTRAINT `FK_CourseID_tracking_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`),
+  CONSTRAINT `FK_ProfileID_tracking_profile` FOREIGN KEY (`ProfileID`) REFERENCES `profile` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tracking`
+--
+
+LOCK TABLES `tracking` WRITE;
+/*!40000 ALTER TABLE `tracking` DISABLE KEYS */;
+INSERT INTO `tracking` VALUES (6,'1','COURSE','DOCUMENT1','2024-05-10 07:54:12');
+/*!40000 ALTER TABLE `tracking` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -806,9 +899,13 @@ DROP TABLE IF EXISTS `verification`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `verification` (
-  `ProfileID` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `KeyVerify` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`ProfileID`),
+  `ProfileID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `KeyVerify` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `reset_token_hash` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `reset_token_expires_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`ProfileID`,`KeyVerify`),
+  UNIQUE KEY `reset_token_hash_UNIQUE` (`reset_token_hash`),
   CONSTRAINT `FK_ProfilE_Verify_Profile` FOREIGN KEY (`ProfileID`) REFERENCES `profile` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -831,4 +928,6 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-01 15:30:53
+-- Dump completed on 2024-05-10 20:17:33
+  
+SET FOREIGN_KEY_CHECKS = 1;

@@ -9,6 +9,39 @@
 body,
 input{
   font-family: Exo, 'Source Sans Pro';
+  font-size: 20rem !important;
+}
+
+#error {
+  font-size: 15rem;
+}
+
+h2 {
+  font-size: 30rem !important;
+}
+
+i {
+  font-size: 20rem !important;
+}
+
+.btn-link {
+  font-size: 15rem !important;
+}
+
+.panel h3 {
+  font-size: 30rem !important;
+}
+
+.panel p{
+  font-size: 15rem !important;
+}
+
+button {
+  font-size: 20rem !important;
+}
+
+input[type="submit"] {
+  font-size: 20rem !important;
 }
 
 .container-authen {
@@ -78,7 +111,66 @@ form.sign-in-form {
   position: relative;
 }
 
+.input-field-group{
+  max-width: 380px;
+  width: 100%;
+  margin: 10px 0;
+  background-color: #f0f0f0;
+  height: 55px;
+  line-height: 55px;
+  border-radius: 55px;
+  font-size: 20rem;
+  padding: 0 .4rem;
+  display: flex;
+  padding: 0 18px;
+}
+
+.input-field-group input {
+  margin-left: 20px;
+}
+
+.input-field-group i {
+  text-align: center;
+  line-height: 55px;
+  color: #acacac;
+  transition: 0.5s;
+  font-size: 2.1rem;
+}
+
 .input-field i {
+  text-align: center;
+  line-height: 55px;
+  color: #acacac;
+  transition: 0.5s;
+  font-size: 2.1rem;
+}
+
+input#date-register:focus-visible {
+  outline: none;
+}
+
+.input-field-date {
+  max-width: 380px;
+  width: 100%;
+  margin: 10px 0;
+  background-color: #f0f0f0;
+  height: 55px;
+  line-height: 55px;
+  border-radius: 55px;
+  font-size: 20rem;
+  padding: 0 .4rem;
+  display: flex;
+  padding: 0 18px;
+}
+
+.input-field-date input {
+  margin-left: 20px;
+  width: 100%;
+  background-color: #f0f0f0;
+  border: none;
+}
+
+.input-field-date i {
   text-align: center;
   line-height: 55px;
   color: #acacac;
@@ -110,12 +202,14 @@ form.sign-in-form {
 
 .social-text {
   padding: 0.7rem 0;
-  font-size: 1.5rem;
+  font-size: 10rem !important;
 }
 
 .social-media {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  margin: 10px 0;
+  width: 25%;
 }
 
 .social-icon {
@@ -242,7 +336,7 @@ form.sign-in-form {
 
 .container-authen .btn-link {
   margin-right: -35%;
-  font-size: 1.5rem;
+  color: #0443fe;
 }
 
 .right-panel .image,
@@ -326,6 +420,8 @@ form.sign-in-form {
   .left-panel {
     grid-row: 1 / 2;
   }
+
+
 
   .image {
     width: 200px;

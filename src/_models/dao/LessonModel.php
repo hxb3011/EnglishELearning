@@ -1,7 +1,7 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/database.php');
-requirm('/access/Lesson.php');
+requirm('/learn/Lesson.php');
 class LessonModel
 {
     public function generateValidLessonID()
@@ -112,6 +112,19 @@ class LessonModel
         $sqlQuery = "UPDATE lesson SET OrderN = ? WHERE ID = ?";
         $params = array(
             $orderN,
+            $lessonId
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+    public function deleteLesson(string $lessonId)
+    {
+        $sqlQuery = "DELETE FROM lesson WHERE ID = ? ";
+        $params = array(
             $lessonId
         );
         try {

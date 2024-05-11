@@ -1,7 +1,7 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/database.php');
-requirm('/access/Excercise.php');
+requirm('/learn/Excercise.php');
 class ExcerciseModel
 {
     public function getExcerciseById($excerciseId)
@@ -106,5 +106,19 @@ class ExcerciseModel
         } catch (Exception $e) {
             return false;
         }
+    }
+    public function deleteExcercise(int $excerciseId)
+    {
+        $sqlQuery = "DELETE FROM excercise WHERE ID = ? ";
+        $params = array(
+            $excerciseId
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            return false;
+        }
+        return false;
     }
 }

@@ -80,7 +80,6 @@ function sort() {
             success: function(response)
             {
                 toastr.success("Sắp xếp lại thành công", "Thông báo : ")
-                console.log(response)
                 setTimeout(
                   function()
                   {

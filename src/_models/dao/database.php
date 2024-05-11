@@ -17,7 +17,6 @@ class Database
         $c->close();
         return $result;
     }
-
     public static function connectDatabase()
     {
         mysqli_report(MYSQLI_REPORT_OFF);
@@ -32,7 +31,7 @@ class Database
         echo($r->connect_error);
         return $r;
     }
-    public static function executeQuery($sql, $params = null)
+    public static function executeQuery(string $sql, array|null $params = null)
     {
         $con = Database::connectDatabase();
         $command = $con->prepare($sql);
@@ -42,15 +41,15 @@ class Database
             $types = "";
             $values = array();
             foreach ($params as $field => $value) {
-                if (is_float($value)) {
+                if (is_float($value))
                     $types .= "d";
-                } elseif (is_integer($value)) {
+                elseif (is_integer($value))
                     $types .= "i";
-                } elseif (is_string($value)) {
+                elseif (is_string($value))
                     $types .= "s";
-                } else {
+                else
                     $types .= "b";
-                }
+
                 array_push($values, $value);
             }
             $command->bind_param($types, ...$values); // Gán giá trị tham số
@@ -66,22 +65,55 @@ class Database
                 $variables[] = &$data[$field->name];
             call_user_func_array(array($command, 'bind_result'), $variables);
             $i = 0;
-            $result = null;
+            $result = [];
             while ($command->fetch()) {
-                $result[$i] = array();
+                $result[$i] = [];
                 foreach ($data as $k => $v)
                     $result[$i][$k] = $v;
                 $i++;
             }
-            return $result;
+        } else $result = null;
+        $command->close();
+        $con->close();
+        return $result;
+    }
+
+    public static function executeNonQuery(string $sql, array|null $params = null)
+    {
+        $con = Database::connectDatabase();
+        $command = $con->prepare($sql);
+        // xử lí các param truyền vào 
+        if ($params != null) {
+            $types = "";
+            $values = array();
+
+            foreach ($params as $field => $value) {
+                if (is_float($value))
+                    $types .= "d";
+                elseif (is_integer($value))
+                    $types .= "i";
+                elseif (is_string($value))
+                    $types .= "s";
+                else
+                    $types .= "b";
+
+                array_push($values, $value);
+            }
+            $command->bind_param($types, ...$values); // Gán giá trị tham số
+        }
+        // thực thi câu truy vấn
+        if ($command->execute()) {
+            $result = $command->affected_rows > 0;
         } else {
-            return null;
+            print($command->error);
+            $result = false;
         }
         $command->close();
         $con->close();
+        return $result;
     }
 
-    public static function executeNonQuery($sql, $params = null)
+    public static function executeInsertQueryReturnID($sql, $params = null)
     {
         $con = Database::connectDatabase();
         $command = $con->prepare($sql);
@@ -106,9 +138,9 @@ class Database
         }
         // thực thi câu truy vấn
         if ($command->execute()) {
-            return $command->affected_rows > 0;
+            $new_id = $con->insert_id;
+            return $new_id;
         } else {
-            print($command->error);
             return false;
         }
         $command->close();
