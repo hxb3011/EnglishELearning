@@ -169,7 +169,7 @@ class CourseModel
     /* CLIENT */
     public function getAllCourseBySearch($courseName="",$profileId = "")
     {
-        $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID LIKE CONCAT('%', ?, '%') AND Status= 1 ";
+        $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID LIKE CONCAT('%', ?, '%') AND State= 1 ";
         $params = array(
             $courseName,
             $profileId
@@ -197,13 +197,13 @@ class CourseModel
         $offSet = ($page - 1) * $perPage;
         if($profileId != "")
         {
-            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID= ?  AND Status=1 LIMIT $offSet, $perPage";
+            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID= ?  AND State=1 LIMIT $offSet, $perPage";
             $params = array(
                 $courseName,
                 $profileId
             );
         }else{
-            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND Status=1 LIMIT $offSet, $perPage";
+            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND State=1 LIMIT $offSet, $perPage";
             $params = array(
                 $courseName,
             );

@@ -60,7 +60,7 @@ class Courses
         $page->basePath = $this->s3Service->getBasePath();
         if ($page->courses != null) {
             foreach ($page->courses as $key => $course) {
-                $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id);
+                $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id,1);
             }
         }
         //$page->tutors
@@ -72,7 +72,7 @@ class Courses
         global $page;
         $page = new CourseSinglePage();
         $page->course = $this->courseModel->getCourseById($courseId);
-        $lessons = $this->lessonModel->getLessonsByCourseId($courseId);
+        $lessons = $this->lessonModel->getLessonsByCourseId($courseId,1);
         $page->totalLesson = count($lessons);
         foreach ($lessons as $lesson) {
             $lesson->Documents = $this->documentModel->getDocumentsByLessonID($lesson->ID);
@@ -103,7 +103,7 @@ class Courses
         }
         $page->tracking = $this->trackingModel->getTrackingsByProfileAndCourse($profileID, $courseID);
         $page->course = $this->courseModel->getCourseById($courseID);
-        $lessons = $this->lessonModel->getLessonsByCourseId($courseID);
+        $lessons = $this->lessonModel->getLessonsByCourseId($courseID,1);
         foreach ($lessons as $lesson) {
             $lesson->Documents = $this->documentModel->getDocumentsByLessonID($lesson->ID);
             usort($lesson->Documents, array('Courses', 'compareOrderN'));
@@ -153,10 +153,10 @@ class Courses
         $response = array();
 
         $response['page'] = $data['page'];
-        $courses = $this->courseModel->getCourseFromPage(intval($data['page']), 5, $data['name'], $data['tutor']);
+        $courses = $this->courseModel->getCourseFromPage2(intval($data['page']), 5, $data['name'], $data['tutor']);
         if ($courses != null) {
             foreach ($courses as $key => $course) {
-                $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id);
+                $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id,1);
             }
         }
         $response['course'] = $courses;
