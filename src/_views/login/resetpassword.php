@@ -53,12 +53,12 @@ final class ResetPasswordPage extends BaseHTMLDocumentPage
             <div class="row justify-content-center form-bg-image">
                 <div class="col-12 d-flex align-items-center justify-content-center">
                     <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
-                        <h1 class="h3 mb-4 text-center">Reset password</h1>
+                        <h1 class="h3 mb-4 text-center">Đặt lại mật khẩu</h1>
                         <div id="message" class="alert d-none"></div>
                         <form action="#" method="POST">
                             <!-- Form -->
                             <div class="form-group mb-4">
-                                <label for="password">Your Password</label>
+                                <label for="password">Mật khẩu mới</label>
                                 <div class="input-group">
                                     <input type="password" placeholder="Password" class="form-control" id="password" required>
                                 </div>
@@ -66,14 +66,14 @@ final class ResetPasswordPage extends BaseHTMLDocumentPage
                             <!-- End of Form -->
                             <!-- Form -->
                             <div class="form-group mb-4">
-                                <label for="confirm_password">Confirm Password</label>
+                                <label for="confirm_password">Xác nhận mật khẩu</label>
                                 <div class="input-group">
                                     <input type="password" placeholder="Confirm Password" class="form-control" id="confirm_password" required>
                                 </div>
                             </div>
                             <!-- End of Form -->
                             <div class="d-grid">
-                                <button type="submit" id="resetbtn" class="btn btn-success">Reset password</button>
+                                <button type="submit" id="resetbtn" class="btn btn-success">Đặt lại mật khẩu</button>
                             </div>
                         </form>
                     </div>

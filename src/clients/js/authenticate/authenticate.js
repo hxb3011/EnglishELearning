@@ -35,6 +35,7 @@ function authenticate() {
             data: JSON.stringify(formdata),
             contentType: "application/json",
             success: function (data) {
+                console.log(data)
                 if (data == "success") {
                     console.log("Login success");
                     window.location.href = "/introduction/index.php";
@@ -62,7 +63,7 @@ function register() {
     let email = sessionStorage.getItem("profiles") ? JSON.parse(sessionStorage.getItem("profiles")).email : $("#email-register").val();
     let firstname = $("#firstName-register").val();
     let lastname = $("#lastName-register").val();
-    let gender = $("#gender-male-register").is(':checked') ? "Male" : "Female";
+    let gender = $("#gender-male-register").is(':checked') ? "male" : "female";
     let birthday = new Date($("#date-register").val().toString()).toISOString().slice(0, 10);
     let formdata = { action: "register", username, password, email, firstname, lastname, gender, birthday};
     if (checkValidateFormRegisterTwo(firstname, lastname,gender,birthday)) {

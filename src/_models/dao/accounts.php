@@ -170,7 +170,7 @@ class UserRepo
                 $resultAccount = $this->insertAccount($paramsAccount);
                 if ($resultAccount) {
                     $idProfile = uniqid();
-                    $type = "user";
+                    $type = 1;
                     $status = 1;
                     $roleID = "1";
                     $newGender = $gender == "male" ? 1 : 0;

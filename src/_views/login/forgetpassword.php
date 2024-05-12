@@ -59,19 +59,19 @@ final class ForgetPasswordPage extends BaseHTMLDocumentPage
             <div class="row justify-content-center form-bg-image p-6">
                 <div class="col-12 d-flex align-items-center justify-content-center">
                     <div class="signin-inner my-3 my-lg-0 bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
-                        <h1 class="h3">Forgot your password?</h1>
-                        <p class="mb-4">Don't worry! Just type in your email and we will send you a code to reset your password!</p>
+                        <h1 class="h3">Quên mật khẩu?</h1>
+                        <p class="mb-4">Đừng lo! Hãy nhập vào email của bạn ,chúng tôi sẽ gửi mã cho bạn cập nhật lại mật khẩu!</p>
                         <!-- Form -->
                         <form id="form-forget-password" action="#" method="POST">
                             <div class="mb-4">
                                 <div id="message" class="alert d-none"></div>
-                                <label for="email">Your Email:</label>
+                                <label for="email">Email của bạn:</label>
                                 <div class="input-group mt-3">
                                     <input type="email" class="form-control" id="email" placeholder="phong@edu.com" required autofocus>
                                 </div>
                             </div>
                             <div class="d-grid">
-                                <button type="submit" id="send-email-btn" class="btn btn-secondary">Send Email</button>
+                                <button type="submit" id="send-email-btn" class="btn btn-secondary">Gửi Email</button>
                             </div>
                         </form>
                         <!-- End of Form -->
