@@ -22,7 +22,7 @@ global $document;
             <input class="form-check-input" type="radio" value="video" name="type" value="video" <? if (!isset($document->Type)) echo ('onchange="changeAccept(\'video\')" ');
                                                                                                     else echo ('disabled') ?> <? if (isset($document->Type) && $document->Type == "video") {
                                                                                                                                                                                                             echo ('checked');
-                                                                                                                                                                                                        } ?>id="flexRadioDefault1">
+                                                                                                                                                                                                        } ?> id="flexRadioDefault1">
         </div>
         <div class="mb-3 form-check">
             <label class="form-check-label" for="flexRadioDefault1">

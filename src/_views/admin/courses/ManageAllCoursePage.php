@@ -37,7 +37,6 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
             "/node_modules/sweetalert2/dist/sweetalert2.min.css",
             "/clients/css/admin/main.css",
             "/clients/css/admin/pagination.css",
-            "/node_modules/jquery-ui/dist/themes/base/jquery-ui.min.css"
         );
     }
 

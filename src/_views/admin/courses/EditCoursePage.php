@@ -238,7 +238,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                     <select class="form-select form-select-md mb-3" name="tutor" id="tutor">
                                                                         <option>Lựa chọn giảng viên</option>
                                                                         <? foreach ($this->tutors as $index => $tutor) : ?>
-                                                                            <option value="<? echo $tutor->getId() ?>"><? echo ($tutor->lastName . ' ' . $tutor->firstName) ?></option>
+                                                                            <option value="<? echo $tutor->getId() ?>" <?if($tutor->getId()==$this->course->profileID) echo('selected')?>  ><? echo ($tutor->lastName . ' ' . $tutor->firstName) ?></option>
                                                                         <? endforeach ?>
                                                                     </select>
                                                                 </div>
