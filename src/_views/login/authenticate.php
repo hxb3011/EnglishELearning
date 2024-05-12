@@ -109,7 +109,7 @@ final class AuthenticatePage extends BaseHTMLDocumentPage
 
                         <p class="text-lg">Or Sign up with social platforms</p>
                         <div class="line-seperate"></div>
-                        <div class="social-media">
+                        <!-- <div class="social-media">
                             <a href="#" class="social-icon">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
@@ -119,7 +119,7 @@ final class AuthenticatePage extends BaseHTMLDocumentPage
                             <a href="#" class="social-icon">
                                 <i class="fab fa-github"></i>
                             </a>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
             </div>
