@@ -56,7 +56,7 @@ $page->beforeDocument();
         <nav>
             <a class="mdi-b nav-item -search _action" hint="Tìm kiếm" href="#"></a>
             <a class="mdi-b nav-item -dictionary<?= ($page->activeNav & NAV_BASE_MASK) === NAV_DICT ? " _selected" : "" ?>" hint="Từ điển" href="#"></a>
-            <a class="mdi-b nav-item -courses<?= ($page->activeNav & NAV_BASE_MASK) === NAV_COURSE ? " _selected" : "" ?>" hint="Khoá học" href="#"></a>
+            <a class="mdi-b nav-item -courses<?= ($page->activeNav & NAV_BASE_MASK) === NAV_COURSE ? " _selected" : "" ?>" hint="Khoá học" href="/dictionary/all"></a>
             <a class="mdi-b nav-item -blogs<?= ($page->activeNav & NAV_BASE_MASK) === NAV_BLOG ? " _selected" : "" ?>" hint="Bài viết" href="/blog/all.php"></a>
             <a class="mdi-b nav-item -profile<?= ($page->activeNav & NAV_BASE_MASK) === NAV_PROF ? " _selected" : "" ?>" hint="Cá nhân" href="/profile/index.php"></a>
         </nav>

@@ -5,6 +5,7 @@ requirm('/dao/LessonModel.php');
 requirm('/dao/ExcerciseModel.php');
 requirm('/dao/DocumentModel.php');
 requirm('/dao/QuestionModel.php');
+requirm('/dao/profile.php');
 
 requirm('/learn/Course.php');
 requirm('/learn/Lesson.php');
@@ -40,6 +41,7 @@ class AdminCourses
         global $page;
         $page = new ManageAllCoursePage();
         $page->courses = array_slice($this->courseModel->getAllCourse(),0,5);
+        $page->tutors = ProfileDAO::getProfileByType(0);
         requira("_adminLayout.php");
     }
     public function add()
@@ -47,6 +49,8 @@ class AdminCourses
         requirv("admin/courses/AddNewCoursePage.php");
         global $page;
         $page = new AddNewCoursePage();
+        $page->tutors = ProfileDAO::getProfileByType(0);
+
         requira("_adminLayout.php");
     }
     public function edit($courseId)
@@ -55,6 +59,8 @@ class AdminCourses
         global $page;
         $page = new EditCoursePage();
         $page->course = $this->courseModel->getCourseById($courseId);
+        $page->tutors = ProfileDAO::getProfileByType(0);
+
         $lessons = $this->lessonModel->getLessonsByCourseId($courseId);
         foreach ($lessons as $lesson) {
             $lesson->Documents = $this->documentModel->getDocumentsByLessonID($lesson->ID);
