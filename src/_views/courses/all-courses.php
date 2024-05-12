@@ -31,6 +31,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
         $this->styles(
             "/node_modules/bootstrap/dist/css/bootstrap.min.css",
             "/clients/css/courses/all-courses.css",
+            "/node_modules/toastr/build/toastr.css",
             "/clients/css/pagination.css"
         );
         $this->scripts(
@@ -47,24 +48,9 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                         <h3 class="courses-section__header">
                             Danh sách khóa học
                         </h3>
-                        <div class="courses-section__header__search-wrapper d-flex align-items-center" style="width : 18%">
-                            <form style="display:block; width:100%" class="courses-section__header__search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo tên" id="search">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-search " type="button" onclick="onSearchData()">
-                                            <span class="mdi-b search courses-section__header__search-icon"></span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
                     </div>
                     <div class="filter-section row">
-                        <div class="filter-part d-flex align-items-center justify-content-center  col-md-4 col-sm-12  ">
-                            <span class="filter-text">
-                                Giảng viên
-                            </span>
+                        <div class="filter-part d-flex align-items-center justify-content-center  col-lg-4 col-md-4 col-sm-12  ">
                             <select class="form-select" name="giangvien " id="giangvien">
                                 <option value="">Lựa chọn giảng viên</option>
                                 <? foreach ($this->tutors as $index => $tutor) : ?>
@@ -72,8 +58,21 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                 <? endforeach ?>
                             </select>
                         </div>
-                        <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12   ">
-                            <button class="btn  filter-btn">
+                        <div class="filter-part d-flex align-items-center justify-content-center col-lg-4 col-md-4 col-sm-12  ">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm theo tên" id="search">
+                        </div>
+                        <div class="filter-part d-flex align-items-center justify-content-center col-lg-4 col-md-4 col-sm-12  ">
+                            <input type="checkbox" name="is_price" id="is_price" style="margin-right:4rem;">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <input type="number" class="form-control" name="start_price" id="start_price" placeholder="Giá từ" disabled> |
+                                <input type="number" class="form-control" name="end_price" id="end_price" placeholder="Giá đến" disabled>
+                            </div>
+                        </div>
+                        <div class="filter-part d-flex align-items-center justify-content-center col-lg-12 col-md-12 col-sm-12   ">
+                            <button class="btn filter-btn" onclick="onClearData()" style="margin-right:12rem;">
+                                Làm mới
+                            </button>
+                            <button class="btn filter-btn" onclick="onSearchData()">
                                 Lọc
                             </button>
                         </div>
@@ -92,8 +91,8 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                                         <span class="course-item__info-section__author">GV: <? echo $course->tutorName ?></span>
                                                     </div>
                                                     <p class="course-item__info-section__title"><? echo $course->name ?></p>
-                                                    <div class="d-flex align-items-center justify-content-evenly" style="margin-top: 4rem; margin-bottom:4rem;">
-                                                        <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="d-flex align-items-center justify-content-evenly" style=" flex-wrap: wrap;margin-top: 4rem; margin-bottom:4rem;">
+                                                        <div class="d-flex justify-content-between align-items-center b">
                                                             <span class="mini-icon mdi-b calendar">
                                                             </span>
                                                             <span class="course-item__info-section__text">
@@ -103,14 +102,14 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                                                 ?>
                                                             </span>
                                                         </div>
-                                                        <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="d-flex justify-content-between align-items-center b">
                                                             <span class="mini-icon mdi-b student">
                                                             </span>
                                                             <span class="course-item__info-section__text">
                                                                 2 Học viên
                                                             </span>
                                                         </div>
-                                                        <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="d-flex justify-content-between align-items-center b ">
                                                             <span class="mini-icon mdi-b document">
                                                             </span>
                                                             <span class="course-item__info-section__text">
@@ -149,15 +148,28 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
         $this->scripts(
             "/node_modules/jquery/dist/jquery.min.js",
             "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-            "/node_modules/jquery-ui/dist/jquery-ui.js"
+            "/node_modules/toastr/build/toastr.min.js",
         );
         ?>
         <script>
             var maxPage = 0;
             var tutor = '';
             var name = '';
+            var start_price = 0;
+            var end_price = 0;
+
             $(document).ready(function() {
                 initPagination();
+                $('#is_price').change(function() {
+                    if ($(this).is(":checked")) {
+                        $('#start_price').prop('disabled', false);
+                        $('#end_price').prop('disabled', false);
+
+                    } else {
+                        $('#start_price').prop('disabled', true);
+                        $('#end_price').prop('disabled', true);
+                    }
+                })
 
             })
 
@@ -185,18 +197,18 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                             }
                         })
                         $.ajax({
-                            url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=get_course_by_page',
+                            url: 'http://localhost:62280/courses/ajax_call_action.php?action=get_course_by_page',
                             method: 'POST',
                             data: JSON.stringify({
                                 page: targetPage,
                                 tutor: tutor,
-                                name: name
+                                name: name,
+                                start_price: start_price,
+                                end_price: end_price
                             }),
-                            ers: {
-                                'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
-                            },
                             success: function(response) {
                                 let data = JSON.parse(response);
+                                console.log(data)
                                 showData(data);
                             }
                         })
@@ -205,17 +217,41 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                 })
             }
 
+            function onClearData() {
+                tutor = '';
+                name = '';
+                start_price = 0;
+                end_price = 0;
+                $('#start_price').prop('disabled', true);
+                $('#end_price').prop('disabled', true);
+                $('#start_price').val(undefined)
+                $('#end_price').val(undefined)
+                $('#is_price').prop("checked", false)
+                $('#search').val("");
+                $('#giangvien').prop('selectedIndex', 0);
+                onSearchData();
+            }
+
             function initPagination() {
                 search = 0;
+                searchData = {
+                    tutor: tutor,
+                    name: name,
+                }
+                if ($('#is_price').is(':checked')) {
+                    searchData = {
+                        tutor: tutor,
+                        name: name,
+                        start_price: start_price,
+                        end_price: end_price,
+                    }
+                }
                 $.ajax({
                     url: 'http://localhost:62280/courses/ajax_call_action.php?action=get_total_page',
                     method: 'POST',
-                    data: JSON.stringify({
-                        tutor: tutor,
-                        name: name
-                    }),
+                    data: JSON.stringify(searchData),
                     headers: {
-                        'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
+                        'Access-Control-Allow-Origin': '*'
                     },
                     success: function(response) {
                         html = `
@@ -249,6 +285,22 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
             }
 
             function onSearchData() {
+                let tmp_start_price;
+                let tmp_end_price;
+                if ($('#is_price').is(':checked')) {
+                    tmp_start_price = $('#start_price').val()
+                    tmp_end_price = $('#end_price').val()
+                    if (!tmp_start_price) {
+                        toastr.error('Vui lòng nhập giá bắt đầu');
+                        return;
+                    }
+                    if (+tmp_start_price > +tmp_end_price) {
+                        toastr.error('Giá bắt đầu phải nhỏ hơn giá đến');
+                        return;
+                    }
+                    start_price = +tmp_start_price;
+                    end_price = +tmp_end_price;
+                }
                 tutor = $('#giangvien').val();
                 name = $('#search').val();
                 initPagination()
@@ -259,13 +311,16 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                     data: JSON.stringify({
                         page: 1,
                         tutor: tutor,
-                        name: name
+                        name: name,
+                        start_price: start_price,
+                        end_price: end_price,
                     }),
                     headers: {
                         'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
                     },
                     success: function(response) {
                         let data = JSON.parse(response);
+                        console.log(data);
                         showData(data);
                     }
                 })
@@ -273,7 +328,6 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
 
             function showData(data) {
                 $('#courses-section__content').empty()
-                console.log(data)
                 html = ``;
                 startIndex = 5 * (+data['page'] - 1) + 1
                 for (let i = 0; i < data.course.length; i++) {
@@ -290,22 +344,22 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                                         <span class="course-item__info-section__author">GV: ${data.course[i].tutorName}</span>
                                                     </div>
                                                     <p class="course-item__info-section__title">${data.course[i].name}</p>
-                                                    <div class="d-flex align-items-center justify-content-evenly" style="margin-top: 4rem; margin-bottom:4rem;">
-                                                        <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="d-flex align-items-center justify-content-evenly" style=" flex-wrap: wrap;margin-top: 4rem; margin-bottom:4rem;">
+                                                        <div class="d-flex justify-content-between align-items-center b">
                                                             <span class="mini-icon mdi-b calendar">
                                                             </span>
                                                             <span class="course-item__info-section__text">
                                                                 ${dayDiff(data.course[i].beginDate,data.course[i].endDate)} Ngày
                                                             </span>
                                                         </div>
-                                                        <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="d-flex justify-content-between align-items-center b">
                                                             <span class="mini-icon mdi-b student">
                                                             </span>
                                                             <span class="course-item__info-section__text">
                                                                 2 Học viên
                                                             </span>
                                                         </div>
-                                                        <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="d-flex justify-content-between align-items-center b">
                                                             <span class="mini-icon mdi-b document">
                                                             </span>
                                                             <span class="course-item__info-section__text">
@@ -315,7 +369,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between ps-3" style="padding-bottom: 6rem; padding-right:8rem;">
-                                                    <p class="course-item__info-section__price">${data.course[i].price}VND</p>
+                                                    <p class="course-item__info-section__price">${data.course[i].price} VND</p>
 
                                                     <a href="/courses/detail.php?courseId=${data.course[i].id}" class="course-item__info-section__link">Xem chi tiết</a>
                                                 </div>

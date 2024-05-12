@@ -206,7 +206,18 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                 // thêm summer note
                 initSummerNote('#description');
 
+                $.validator.addMethod("greaterThanToday", function(value, element) {
+                    var selectedDate = new Date(value);
+                    var today = new Date();
+                    return selectedDate >= today;
+                }, "Ngày bắt đầu phải từ ngày giờ hiện tại");
 
+                $.validator.addMethod("greaterThanBegin", function(value, element,param) {
+                    var beginDateTimeValue = $(param).val();
+                    var selectedDate = new Date(value);
+                    var beginDatetime = new Date(beginDateTimeValue);
+                    return selectedDate > beginDatetime;
+                }, "Ngày kết thúc phải lớn hơn ngày bắt đầu");
                 //thêm các validate rule cho form
                 $("#form_add_course").validate({
                     ignore: [],
@@ -216,13 +227,6 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                     onchange: function(e) {},
                     errorPlacement: function() {},
                     invalidHandler: function() {
-                        // setTimeout(function() {
-                        //     $('.nav-tabs a small.required').remove();
-                        //     var validatePane = $('.tab-content.tab-validate .tab-pane:has(input.error)').each(function() {
-                        //         var id = $(this).attr('id');
-                        //         $('.nav-tabs').find('a[href^="#' + id + '"]').append(' <small class="required">***</small>');
-                        //     });
-                        // });
                         toastr.error("Vui lòng kiểm tra lại các trường dữ liệu", "Thêm khóa học : ")
                     },
                     rules: {
@@ -235,10 +239,12 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                         },
                         start_date: {
                             required: true,
+                            greaterThanToday:true,
                             date: true
                         },
                         end_date: {
                             required: true,
+                            greaterThanBegin: "#start_date",
                             date: true
                         },
                         tutor: {

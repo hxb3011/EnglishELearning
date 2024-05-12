@@ -141,25 +141,37 @@ class Courses
     public function get_total_page()
     {
         $data = json_decode(file_get_contents("php://input"), true);
-        $courses = $this->courseModel->getAllCourseBySearch($data['name'], $data['tutor']);
+        if (isset($data['start_price']) &&  isset($data['end_price']))
+        {
+            $courses = $this->courseModel->getAllCourseBySearch($data['name'], $data['tutor'],$data['start_price'],$data['end_price']);
+        }else{
+            $courses = $this->courseModel->getAllCourseBySearch($data['name'], $data['tutor']);
+        }
         $totalCourses = count($courses);
         $totalPages = $totalCourses / 5;
-
         echo json_encode(ceil($totalPages));
     }
     public function get_course_by_page()
     {
         $data = json_decode(file_get_contents("php://input"), true);
         $response = array();
-
         $response['page'] = $data['page'];
-        $courses = $this->courseModel->getCourseFromPage2(intval($data['page']), 5, $data['name'], $data['tutor']);
+        if (isset($data['start_price']) &&  isset($data['end_price']))
+        {
+            $courses = $this->courseModel->getCourseFromPage2(intval($data['page']), 5, $data['name'],$data['tutor'],$data['start_price'],$data['end_price']);
+        }else{
+            $courses = $this->courseModel->getCourseFromPage2(intval($data['page']), 5, $data['name'],$data['tutor']);
+        }
         if ($courses != null) {
             foreach ($courses as $key => $course) {
                 $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id,1);
             }
         }
         $response['course'] = $courses;
+        $response['status'] = 'vaoday';
+        $response['start_price'] = $data['start_price'];
+        $response['end_price'] = $data['end_price'];
+
         echo json_encode($response);
     }
     public function get_course_id()
