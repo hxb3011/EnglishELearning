@@ -36,7 +36,6 @@ function authenticate() {
             contentType: "application/json",
             success: function (data) {
                 if (data == "success") {
-                    sessionStorage.setItem("username", username);
                     window.location.href = "/introduction/index.php";
                 } else {
                     checkUIformLogin();
