@@ -37,22 +37,22 @@ class Authentication
     {
         try {
             if (strlen($subject) == 0 || strlen($password) == 0) {
-                echo "Username or password is empty";
+                echo "Username hoặc mật khẩu bỏ trống";
                 return;
             }
             $user = new UserRepo();
             $auth = $user->Login($subject, $password);
             if ($auth != null) {
-                if (session_status() == PHP_SESSION_NONE) {
-                    session_start();
-                }
-                session_regenerate_id();
-                if (!empty($_SESSION['AUTH_UID'])) {
+                // if (session_status() == PHP_SESSION_NONE) {
+                //     session_start();
+                // }
+                //session_regenerate_id();
+                if (empty($_SESSION['AUTH_UID'])) {
                     $_SESSION['AUTH_UID'] = $auth['UID'];
                     echo "success";
                 }
             } else {
-                echo "Account was not exists or password was incorrect";
+                echo "Username hoặc mật khẩu không đúng";
             }
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
