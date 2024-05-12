@@ -36,9 +36,10 @@ function authenticate() {
             contentType: "application/json",
             success: function (data) {
                 if (data == "success") {
-                    sessionStorage.setItem("username", username);
+                    console.log("Login success");
                     window.location.href = "/introduction/index.php";
                 } else {
+                    console.log("Login failed");
                     checkUIformLogin();
                     document.getElementById("result").classList.add("alert-danger");
                     $("#result").text(data);
@@ -50,6 +51,10 @@ function authenticate() {
         });
     }
 }
+
+
+
+
 
 function register() {
     let username = sessionStorage.getItem("profiles") ? JSON.parse(sessionStorage.getItem("profiles")).username : $("#username-register").val();

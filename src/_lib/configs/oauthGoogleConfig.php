@@ -1,4 +1,4 @@
-<?php
+<!---
 require_once '/var/www/html/_lib/utils/requir.php';
 requirl("composer/vendor/autoload.php");
 
@@ -50,4 +50,5 @@ try {
 }
 
 return $client;
+
 

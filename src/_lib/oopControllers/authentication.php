@@ -3,7 +3,7 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirm("/dao/accounts.php");
 class Authentication
 {
-    public function __construct($formdata)
+    public function __construct($formdata) 
     {
         $this->auth($formdata);
     }
@@ -43,12 +43,14 @@ class Authentication
             $user = new UserRepo();
             $auth = $user->Login($subject, $password);
             if ($auth != null) {
-                if (!isset($_SESSION)) {
+                if (session_status() == PHP_SESSION_NONE) {
                     session_start();
                 }
-                $_SESSION["username"] = $auth['UserName'];
-                $_SESSION["Permissions"] = $auth['Permissions'];
-                echo "success";
+                session_regenerate_id();
+                if (!empty($_SESSION['AUTH_UID'])) {
+                    $_SESSION['AUTH_UID'] = $auth['UID'];
+                    echo "success";
+                }
             } else {
                 echo "Account was not exists or password was incorrect";
             }
