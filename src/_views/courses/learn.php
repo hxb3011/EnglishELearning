@@ -449,7 +449,7 @@ final class LearnPage extends BaseHTMLDocumentPage
             $(document).ready(function() {
                 $('.learn__lesson-item-status').change(function() {
                     let checked = $(this).is(':checked') ? 'checked' : 'unchecked';
-                    let profileId = <? echo $this->profileID ?>;
+                    let profileId = '<? echo $this->profileID ?>';
                     let documentId = $(this).data('document-id');
                     let courseId = $(this).data('course-id');
                     toastr.info("Vui lòng chờ thông báo tiếp theo", "Thông báo")

@@ -47,12 +47,13 @@ class SubscriptionModel{
 
     public function addSubscription(Subscription $sub)
     {
-        $sqlQuery = "INSERT INTO subscription(ID,AtDateTime,ProfileID,CourseID) VALUES(?,STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),?,?)";
+        $sqlQuery = "INSERT INTO subscription(ID,AtDateTime,ProfileID,CourseID,Price) VALUES(?,STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),?,?,?)";
         $params= array(
             $sub->ID,
             $sub->AtDateTime->format('d-m-Y H:i:s'),
             $sub->ProfileID,
             $sub->CourseID,
+            $sub->Price
         );
         try{
             $result = Database::executeNonQuery($sqlQuery,$params);

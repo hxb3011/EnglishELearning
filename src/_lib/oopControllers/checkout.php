@@ -33,14 +33,14 @@ class Checkout{
         $data = json_decode(file_get_contents("php://input"), true);
         $profileID = $data['profileID'];
         $courseID = $data['courseID'];
-        $price = intval($data['price']);
+        $price = floatval($data['price']);
         
         $subscription = new Subscription();
         $subscription->ID = $this->subscriptionModel->generateValidID();
         $subscription->ProfileID = $profileID;
         $subscription->CourseID = $courseID;
         $subscription->AtDateTime = new DateTime();
-
+        $subscription->Price = $price;
         $this->subscriptionModel->addSubscription($subscription);
 
         $response = array();
