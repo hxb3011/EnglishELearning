@@ -13,6 +13,7 @@
   "description": "",
   "dependencies": {
     "bootstrap": "^5.0.2",
+    "datatables": "^1.10.18",
     "dragula": "^3.7.3",
     "jquery": "^3.7.1",
     "jquery-validation": "^1.20.0",

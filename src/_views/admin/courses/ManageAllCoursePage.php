@@ -16,17 +16,17 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
 
     public function documentInfo(string $author, string $description, string $title)
     {
-        parent::documentInfo($author, $description, "Hồ sơ - " . $title);
+        parent::documentInfo($author, $description, "Quản lý - " . $title);
     }
 
     public function openGraphInfo(string $image, string $description, string $title)
     {
-        parent::openGraphInfo($image, $description, "Hồ sơ - " . $title);
+        parent::openGraphInfo($image, $description, "Quản lý - " . $title);
     }
 
     public function favIcon(string $ico = null, string $svg = null)
     {
-        parent::favIcon($ico, $svg);
+        parent::favIcon("/assets/images/logo-icon.png", $svg);
     }
 
     public function head()

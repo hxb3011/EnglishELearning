@@ -63,4 +63,15 @@ class SubscriptionModel{
             return false;
         }
     }
+    public function get_all(){
+        //$sqlQuery = "SELECT * FROM subscription,profile,course WHERE subscription.ProfileID = profile.ID AND subscription.CourseID = course.ID";
+        $sqlQuery = "SELECT subscription.ID,subscription.AtDateTime,subscription.Price,course.Name,profile.LastName,profile.FirstName FROM subscription,profile,course WHERE subscription.ProfileID =profile.ID AND subscription.CourseID = course.ID";
+        try{
+            $result = Database::executeQuery($sqlQuery);
+            return $result;
+        }catch(Exception $e)
+        {
+            return false;
+        }
+    }
 }
