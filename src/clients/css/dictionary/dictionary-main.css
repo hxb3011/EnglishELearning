@@ -1,0 +1,149 @@
+/*----  Main Style  ----*/
+.container{
+    width: 100%;
+    align-content: start;
+    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+.section-heading.xx-large{
+    width: fit-content;
+    font-size: 35rem;
+    margin: 20rem auto;
+}
+.padding-5{
+    padding:30rem;
+}
+.form-search{
+    width:50%;
+    border-radius: 20rem;
+}
+.search_bar{
+    height:50rem;
+}
+.search_button{
+    width:10%;
+}
+.icon_search{
+    font-size: 20rem;
+}
+input[type="search"]{
+    font-size: 20rem;
+}
+input::placeholder{
+    font-size: 20rem;
+}
+.autocomplete{
+    position:relative;
+    display: inline;
+}
+.autocomplete-items {
+    position: absolute;
+    border: 1rem solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+.autocomplete-items div {
+    padding: 10rem;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1rem solid ;
+}
+.autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+}
+.autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: #e9e9e9 !important;
+}
+
+.word-detail{
+    display: flex;
+    justify-content: center;
+    width:100%;
+    height: max-content;
+}
+.word-detail .card{
+    background-color: var(--mdc-on-tertiary-fixed-variant);
+    height: fit-content;
+    margin-top: 40rem;
+    max-width: 55%;
+    color: var(--mdc-surface-container);
+    box-shadow: 0px 3rem 4rem rgba(0, 0, 0, 0.40);
+    border-radius: 20rem;
+}.word-detail .card .conjugation>a{
+    font-weight: bold;
+    text-decoration: none;
+}
+.card>.title_n_heart{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+.part-of-speech{
+    width: 100%;
+    font-size:22rem;
+}
+.word_title{
+    width: fit-content;
+    font-size: 35rem;
+    line-height: 1.8;
+    text-transform: capitalize;
+    font-family: Exo, 'Source Sans Pro';
+    white-space: nowrap;
+}
+.word_pronunciation{
+    font-size: 20rem;
+    min-width: 45%;
+    max-width: fit-content;
+    display:  flex;
+    justify-content: space-between;
+}
+.word_pronunciation p{
+    width: fit-content;
+}
+.word_definition{
+    display: inline;
+    font-size: 25rem;
+    line-height: 1.5;
+    font-family: Jost, 'Source Sans Pro';
+    font-weight: 400;
+}
+.flashcard__container .card .word_definition{
+    height: 150rem;
+    overflow: hidden;
+}
+.example{
+    font-size: 19.5rem;
+    line-height: 1.3;
+    font-family: Jost, 'Source Sans Pro';
+    opacity: 0.8;
+}
+.conjugation{
+    font-size: 25rem;
+    line-height: 1.5;
+    font-family: Jost, 'Source Sans Pro';
+}
+.card>div>a.heart-icon::before {
+    content: var(--mdi-heart-outline);
+    color: var(--mdc-surface-container);
+    width: fit-content;
+    text-decoration: none;
+    border-radius: 16rem;
+    box-sizing: border-box;
+    font-size: 40rem;
+    line-height: 24rem;
+    text-align: left;
+}
+
+.card>div>a.heart-icon._selected::before {
+    content: var(--mdi-heart);
+}

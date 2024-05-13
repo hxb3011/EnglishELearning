@@ -28,25 +28,31 @@ services:
       context: .
       dockerfile_inline: |
         FROM php:8.3-apache
+        RUN apt update
+        RUN apt upgrade -y
+        RUN apt install -y zip unzip
         RUN a2enmod rewrite
         RUN docker-php-ext-install mysqli
+        
       # COPY src/ /var/www/html/
     container_name: ws
     depends_on:
       - db
     environment:
-      WS_PATH_BASE: /var/www/html/
+      COMPOSER: /var/www/html/_lib/composer/composer.json
+      COMPOSER_HOME: /var/www/html/_lib/composer/.home
+      COMPOSER_VENDOR_DIR: /var/www/html/_lib/composer/vendor
       WSM_DBHELPER_SERVER: db
       WSM_DBHELPER_USERNAME: user0
       WSM_DBHELPER_PASSWORD: Hello|11
       WSM_DBHELPER_DATABASE: enelearnsys
-  # image: php:8.3-apache
+    #image: php:8.3-apache
     networks:
       - enelearn
     ports:
       - 62280:80
     volumes:
-      - ./src:/var/www/html:rw
+      - ./src:/var/www/html:ro
 
 # volumes:
 #   mysql_data:

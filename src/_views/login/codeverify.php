@@ -66,7 +66,7 @@ final class CodeVerifyPage extends BaseHTMLDocumentPage
                             </div>
                             <!-- End of Form -->
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="submit" class="btn btn-success">Gửi</button>
                             </div>
                         </form>
                     </div>

@@ -4,12 +4,15 @@ requirm('/dao/CourseModel.php');
 requirm('/dao/LessonModel.php');
 requirm('/dao/ExcerciseModel.php');
 requirm('/dao/DocumentModel.php');
+requirm('/dao/QuestionModel.php');
+requirm('/dao/profile.php');
 
+requirm('/learn/Course.php');
+requirm('/learn/Lesson.php');
+requirm('/learn/Excercise.php');
+requirm('/learn/Document.php');
+requirm('/learn/Question.php');
 
-requirm('/access/Course.php');
-requirm('/access/Lesson.php');
-requirm('/access/Excercise.php');
-requirm('/access/Document.php');
 
 requirl('/services/S3Service.php');
 
@@ -20,7 +23,7 @@ class AdminCourses
     public LessonModel $lessonModel;
     public ExcerciseModel $excerciseModel;
     public DocumentModel $documentModel;
-
+    public QuestionModel $questionModel;
     public S3Service $s3Service;
     public function __construct()
     {
@@ -28,6 +31,7 @@ class AdminCourses
         $this->lessonModel = new LessonModel();
         $this->excerciseModel  = new ExcerciseModel();
         $this->documentModel = new DocumentModel();
+        $this->questionModel = new QuestionModel();
         $this->s3Service =  new S3Service();
     }
     /* trả về view  */
@@ -35,9 +39,9 @@ class AdminCourses
     {
         requirv("admin/courses/ManageAllCoursePage.php");
         global $page;
-        //$this->courseModel->seedDumbData();
         $page = new ManageAllCoursePage();
-        $page->courses = $this->courseModel->getAllCourse();
+        $page->courses = array_slice($this->courseModel->getAllCourse(),0,5);
+        $page->tutors = ProfileDAO::getProfileByType(0);
         requira("_adminLayout.php");
     }
     public function add()
@@ -45,6 +49,8 @@ class AdminCourses
         requirv("admin/courses/AddNewCoursePage.php");
         global $page;
         $page = new AddNewCoursePage();
+        $page->tutors = ProfileDAO::getProfileByType(0);
+
         requira("_adminLayout.php");
     }
     public function edit($courseId)
@@ -53,6 +59,8 @@ class AdminCourses
         global $page;
         $page = new EditCoursePage();
         $page->course = $this->courseModel->getCourseById($courseId);
+        $page->tutors = ProfileDAO::getProfileByType(0);
+
         $lessons = $this->lessonModel->getLessonsByCourseId($courseId);
         foreach ($lessons as $lesson) {
             $lesson->Documents = $this->documentModel->getDocumentsByLessonID($lesson->ID);
@@ -253,18 +261,167 @@ class AdminCourses
         $jsonData = json_encode($response);
         echo $jsonData;
     }
+    public function add_question()
+    {
+        $question = new Question();
+
+        $question->Content = $_POST['content'];
+        $question->State = intval($_POST['state']);
+        $question->ExcerciseID = intval($_POST['excerciseId']);
+        $question->OrderN  = $this->questionModel->getTotalQuestionInExcercise($question->ExcerciseID) + 1;
+
+        $newQuestionId = $this->questionModel->addQuestion($question);
+        $response = array();
+        switch ($_POST['type']) {
+            case 'multi_choice':
+                $questions = $_POST['mul_options'];
+                $answers = $_POST['correct_answers'];
+                foreach ($questions as $index => $question) {
+                    $isCorrect = in_array($index + 1, $answers);
+                    $qmulchoption = new QMulchOption();
+                    $qmulchoption->Content = $question;
+                    $qmulchoption->Correct = $isCorrect;
+                    $qmulchoption->QuestionID = $newQuestionId;
+
+                    $this->questionModel->addMulchQuestion($qmulchoption);
+                }
+                break;
+            case 'matching':
+                $questions = $_POST['question'];
+                $answer = $_POST['answer'];
+                foreach ($questions as $index => $value) {
+                    $qmatchingKey = new QMatchingKey();
+                    $qmatchingKey->Content = $answer[$index];
+
+                    $newQMatchingKey = $this->questionModel->addQMatchingKey($qmatchingKey);
+                    $qmatching = new QMatching();
+                    $qmatching->Content = $value;
+                    $qmatching->QuestionID = $newQuestionId;
+                    $qmatching->KeyQ = $newQMatchingKey;
+
+                    $this->questionModel->addQMatching($qmatching);
+                }
+                break;
+            case 'completion':
+                $offsets = $_POST['offsets'];
+                $length = $_POST['length'];
+                $completion_content = $_POST['complete_content'];
+
+                $qcompletion = new QCompletion();
+                $qcompletion->Content = $completion_content;
+                $qcompletion->State = 1;
+                $qcompletion->ID = $newQuestionId;
+
+                $this->questionModel->addQCompletion($qcompletion);
+                foreach ($offsets as $index => $offset) {
+                    $qcompletionMask = new QCompMask();
+                    $qcompletionMask->Offset = $offset;
+                    $qcompletionMask->Length = $length[$index];
+                    $qcompletionMask->QCompID = $qcompletion->ID;
+
+                    $this->questionModel->addQCompletionMask($qcompletionMask);
+                }
+
+                break;
+        }
+        $response["status"] = '204';
+        $response['message'] = 'Xóa thành công';
+
+        echo json_encode($response);
+    }
+    public function update_question()
+    {
+        $questionObj = $this->questionModel->getQuestionById($_POST['questionId']);
+        $questionObj->Content = $_POST['content'];
+        $questionObj->State = intval($_POST['state']);
+
+        $this->questionModel->updateQuestion($questionObj);
+        switch ($_POST['type']) {
+            case 'multi_choice':
+                $this->questionModel->deleteMulchQuestionByQuestion($questionObj->ID);
+                $questions = $_POST['mul_options'];
+                $answers = $_POST['correct_answers'];
+                foreach ($questions as $index => $question) {
+                    $isCorrect = in_array($index + 1, $answers);
+                    $qmulchoption = new QMulchOption();
+                    $qmulchoption->Content = $question;
+                    $qmulchoption->Correct = $isCorrect;
+                    $qmulchoption->QuestionID = intval($questionObj->ID);
+                    $this->questionModel->addMulchQuestion($qmulchoption);
+                }
+                break;
+            case 'matching':
+                $oldMatching = $this->questionModel->getQMatchingByQuestion($questionObj->ID);
+                foreach($oldMatching as $index => $value)
+                {
+                    $this->questionModel->deleteQMatchingKey($value->KeyQ);
+                }
+                $this->questionModel->deleteQMatchingByQuestion($questionObj->ID);
+                $questions = $_POST['question'];
+                $answer = $_POST['answer'];
+                foreach ($questions as $index => $value) {
+                    $qmatchingKey = new QMatchingKey();
+                    $qmatchingKey->Content = $answer[$index];
+
+                    $newQMatchingKey = $this->questionModel->addQMatchingKey($qmatchingKey);
+                    $qmatching = new QMatching();
+                    $qmatching->Content = $value;
+                    $qmatching->QuestionID = $questionObj->ID;
+                    $qmatching->KeyQ = $newQMatchingKey;
+
+                    $this->questionModel->addQMatching($qmatching);
+                }
+                break;
+            case 'completion':
+                $this->questionModel->deleteQCompletionByQuestion($questionObj->ID);
+                $offsets = $_POST['offsets'];
+                $length = $_POST['length'];
+                $completion_content = $_POST['complete_content'];
+
+                $qcompletion = new QCompletion();
+                $qcompletion->Content = $completion_content;
+                $qcompletion->State = 1;
+                $qcompletion->ID = $questionObj->ID;
+
+                $this->questionModel->addQCompletion($qcompletion);
+                foreach ($offsets as $index => $offset) {
+                    $qcompletionMask = new QCompMask();
+                    $qcompletionMask->Offset = $offset;
+                    $qcompletionMask->Length = $length[$index];
+                    $qcompletionMask->QCompID = $qcompletion->ID;
+
+                    $this->questionModel->addQCompletionMask($qcompletionMask);
+                }
+
+                break;
+        }
+        }
     public function delete_question()
     {
-        //
+        $response = array();
+        if (isset($_REQUEST['questionId'])) {
+            $result = $this->questionModel->deleteQuestion($_REQUEST['questionId']);
+        }
+        $response['questionId'] = $_REQUEST['questionId'];
+        if ($result == true) {
+            $response["status"] = '204';
+            $response['message'] = 'Xóa thành công';
+            $response['isdeleted'] = $result;
+        } else {
+            $response['status'] = '404';
+            $response['message'] = 'Không xóa được';
+            $response['isdeleted'] = $result;
+        }
+        echo json_encode($response);
     }
     public function sort_program()
     {
         $programs = json_decode(file_get_contents("php://input"), true);
         foreach ($programs as $index => $program) {
             if ($program["type"] == "lesson") {
-                $this->lessonModel->updateOrder($program["id"], $index+1);
+                $this->lessonModel->updateOrder($program["id"], $index + 1);
             } else {
-                $this->excerciseModel->updateOrder($program["id"], $index+1);
+                $this->excerciseModel->updateOrder($program["id"], $index + 1);
             }
         }
     }
@@ -277,13 +434,12 @@ class AdminCourses
             $document->State = $_POST['state'];
             $document->LessonID = $_POST['lessonId'];
             $document->Type = $_POST['type'];
-
             $totalDocInLesson = $this->documentModel->getTotalDocumentInLesson($document->LessonID);
             $document->OrderN = $totalDocInLesson + 1;
             //
             $lesson = $this->lessonModel->getLessonById($document->LessonID);
             $fileSource = $_FILES['document_src']["tmp_name"];
-            $filePath = ($document->Type == 'VIDEO') ? "private/video/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"] :
+            $filePath = ($document->Type == 'video') ? "private/video/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"] :
                 "private/text/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"];
 
             $this->uploadFile($fileSource, $filePath, false);
@@ -309,7 +465,7 @@ class AdminCourses
                 $this->removeFile($document->DocUri);
                 $lesson = $this->lessonModel->getLessonById($_POST['lessonId']);
                 $fileSource = $_FILES['document_src']["tmp_name"];
-                $filePath = ($document->Type == 'VIDEO') ? "private/video/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"] :
+                $filePath = ($document->Type == 'video') ? "private/video/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"] :
                     "private/text/" . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/' . $_FILES['document_src']["name"];
                 $this->uploadFile($fileSource, $filePath, false);
                 $document->DocUri = $filePath;
@@ -330,7 +486,7 @@ class AdminCourses
         if (isset($_REQUEST['documentId'])) {
             $document = $this->documentModel->getDocumentByID($_REQUEST['documentId']);
             $lesson = $this->lessonModel->getLessonById($document->LessonID);
-            if ($document->Type == "VIDEO") {
+            if ($document->Type == "video") {
                 $deleteDocumentFolder = $this->s3Service->deleteFileInFolder('private/video/' . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID) . '/';
             } else {
                 $deleteDocumentFolder = $this->s3Service->deleteFileInFolder('private/text/' . $lesson->CourseID . '/' . $lesson->ID . '/' . $document->ID . '/');
@@ -355,9 +511,28 @@ class AdminCourses
         $documents = json_decode(file_get_contents("php://input"), true);
         $arr = [];
         foreach ($documents as $index => $id) {
-            $this->documentModel->updateOrder($id, $index+1);
+            $this->documentModel->updateOrder($id, $index + 1);
         }
         echo json_encode($arr);
+    }
+    public function get_total_page()
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+        $courses = $this->courseModel->getAllCourse($data['name'],$data['tutor']);
+        $totalCourses = count($courses);
+        $totalPages= $totalCourses / 5;
+
+        echo json_encode(ceil($totalPages));
+    }
+    public function get_course_by_page()
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+        $response = array();
+
+        $response['page'] = $data['page'];
+        $course = $this->courseModel->getCourseFromPage(intval($data['page']),5,$data['name'],$data['tutor']);
+        $response['course'] = $course;
+        echo json_encode($response);
     }
     /* Modal */
     public function lesson_modal()
@@ -449,13 +624,55 @@ class AdminCourses
             header('Location: /error');
         }
     }
-    public function sort_excercise_modal()
+    public function list_question_modal()
     {
-        requirv("admin/courses/modal/sort_excercise.php");
+        global $excerciseId;
+        global $questions;
+        $excerciseId  = $_REQUEST['excerciseId'];
+        $questions = $this->questionModel->getQuestionByExcerciseID($excerciseId);
+        requirv("admin/courses/modal/list_question.php");
     }
     public function question_modal()
     {
+        global $question;
+        global $excerciseId;
+        global $type;
+        global $content;
+        $excerciseId = $_REQUEST['excerciseId'];
+        $editMode = isset($_REQUEST['editmode']);
+        $content = array();
+        if ($editMode) {
+            $question = $this->questionModel->getQuestionById($_REQUEST['questionId']);
+
+            $data = $this->questionModel->getQMulchOptionByQuestion($question->ID);
+            if (count($data) > 0) {
+                $type = "multi_choice";
+                $content['multiChoice'] = $data;
+            } else {
+                $data = $this->questionModel->getQCompletionByQuestion($question->ID);
+                if ($data != null) {
+                    $type = "completion";
+                    $content['qcompletion'] = $data;
+                    $content['qcompmask'] = $this->questionModel->getQCompletionMaskByQCompletion($data->ID);
+                } else {
+                    $type = "matching";
+                    $data = $this->questionModel->getQMatchingByQuestion($question->ID);
+                    $content['qmatching'] = $data;
+                    foreach ($data as $index => $value) {
+                        $content['qmatchingkey'][$value->ID] = $this->questionModel->getQMatchingKey($value->KeyQ);
+                    }
+                }
+            }
+        }
         requirv("admin/courses/modal/question.php");
+    }
+    public function sort_question()
+    {
+        $questions = json_decode(file_get_contents("php://input"), true);
+        foreach ($questions as $index => $id) {
+            $this->questionModel->updateOrder($id, $index + 1);
+        }
+        //echo json_encode($questions);
     }
     private static function compareOrderN($a, $b)
     {

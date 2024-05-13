@@ -1,7 +1,7 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/database.php');
-requirm('/access/Excercise.php');
+requirm('/learn/Excercise.php');
 class ExcerciseModel
 {
     public function getExcerciseById($excerciseId)

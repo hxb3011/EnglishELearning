@@ -4,6 +4,7 @@ requirl("utils/htmlDocument.php");
 class ManageAllCoursePage extends BaseHTMLDocumentPage
 {
     public $courses = array();
+    public $tutors = array();
     public function __construct()
     {
         parent::__construct();
@@ -34,7 +35,8 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
             "/node_modules/bootstrap/dist/css/bootstrap.min.css",
             "/node_modules/toastr/build/toastr.css",
             "/node_modules/sweetalert2/dist/sweetalert2.min.css",
-            "/clients/css/admin/main.css"
+            "/clients/css/admin/main.css",
+            "/clients/css/admin/pagination.css",
         );
     }
 
@@ -56,29 +58,24 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                     <div class="card">
                         <div class="card-body">
                             <div class="filter-section row">
-                                <div class="filter-part d-flex align-items-center justify-content-center  col-md-4 col-sm-12  ">
-                                    <span class="filter-text">
+                                <div class="filter-part d-flex align-items-center justify-content-center  col-md-5 col-sm-12  ">
+                                    <span class="filter-text" style="flex-grow:1;">
                                         Giảng viên
                                     </span>
-                                    <select class="form-select" name="giangvien " id="giangvien">
+                                    <select class="form-select" name="giangvien" id="giangvien">
                                         <option value="">Lựa chọn giảng viên</option>
-                                        <option value="saab">Saab</option>
-                                        <option value="mercedes">Mercedes</option>
-                                        <option value="audi">Audi</option>
-                                    </select>
-                                </div>
-                                <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12 ">
-                                    <span class="filter-text">
-                                        Gía
-                                    </span>
-                                    <select class="form-select" name="gia" id="gia">
-                                        <option value="">Lựa chọn giá</option>
-                                        <option value="">Miễn phí</option>
-                                        <option value="">Miễn phí</option>
+                                        <?foreach($this->tutors as $index=>$tutor):?>
+                                            <option value="<?echo $tutor->getId()?>"><?echo($tutor->lastName.' '.$tutor->firstName)?></option>
+                                        <?endforeach?>
                                     </select>
                                 </div>
                                 <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12   ">
-                                    <button class="btn  filter-btn">
+                                    <div class="form-outline" data-mdb-input-init>
+                                        <input type="search" id="search_name" class="form-control" placeholder="Tìm theo tên " />
+                                    </div>
+                                </div>
+                                <div class="filter-part d-flex align-items-center justify-content-center col-md-3 col-sm-12" id="btn_search">
+                                    <button class="btn  filter-btn" onclick="onSearchData()">
                                         Lọc
                                     </button>
                                 </div>
@@ -98,7 +95,7 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                                             </tr>
                                         </thead>
                                         <tbody id="table_body">
-                                            <? if($this->courses != null): ?>
+                                            <? if ($this->courses != null) : ?>
                                                 <?php
                                                 foreach ($this->courses as $index => $course) :
                                                 ?>
@@ -127,8 +124,8 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                                                                     <span class="mdi-b dots-vertical"></span>
                                                                 </button>
                                                                 <ul class="dropdown-menu">
-                                                                    <li><a class="dropdown-item" href="/courses/detail.php/<?echo $course->id?>" target="_blank">Xem khóa học</a></li>
-                                                                    <li><a class="dropdown-item" href="/administration/courses/edit.php?courseId=<?echo $course->id?>">Sửa khóa học</a></li>
+                                                                    <li><a class="dropdown-item" href="http://localhost:62280/courses/detail.php?courseId=<? echo $course->id ?>" target="_blank">Xem khóa học</a></li>
+                                                                    <li><a class="dropdown-item" href="/administration/courses/edit.php?courseId=<? echo $course->id ?>">Sửa khóa học</a></li>
                                                                     <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=<? echo ($course->id); ?>','Xóa khóa học')">Xóa khóa học</a></li>
 
                                                                 </ul>
@@ -136,29 +133,206 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                                                         </td>
                                                     </tr>
                                                 <?php endforeach ?>
-                                            <? endif?>
+                                            <? endif ?>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <div class="row"></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="pagination" id="pagination">
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-<?
+        <?
         $this->scripts(
             "/node_modules/jquery/dist/jquery.min.js",
             "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
             "/node_modules/toastr/build/toastr.min.js",
             "/node_modules/sweetalert2/dist/sweetalert2.min.js",
-            "/clients/js/admin/main.js"
+            "/clients/admin/main.js"
         );
+        ?>
+        <script>
+            var maxPage = 0;
+            var tutor = '';
+            var name = '';
+            $(document).ready(function() {
+                initPagination();
+
+            })
+
+            function setUpEvents() {
+                $('.pagination-item').click(function() {
+                    let targetPage = $(this).data('page');
+                    let currentPage = +$('.pagination-item.active').data('page')
+
+                    if (targetPage == 'prev') {
+                        targetPage = currentPage - 1;
+                        targetPage = (targetPage <= 0) ? targetPage = 1 : targetPage;
+                    } else if (targetPage == 'next') {
+                        targetPage = currentPage + 1;
+                        targetPage = (targetPage > maxPage) ? targetPage = maxPage : targetPage;
+                    }
+
+
+                    targetPage = +targetPage;
+
+                    if (targetPage != currentPage) {
+                        $('.pagination-item.active').removeClass('active');
+                        $('.pagination-item').each(function() {
+                            if (+$(this).data('page') == targetPage) {
+                                $(this).addClass('active')
+                            }
+                        })
+                        $.ajax({
+                            url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=get_course_by_page',
+                            method: 'POST',
+                            data: JSON.stringify({
+                                page: targetPage,
+                                tutor: tutor,
+                                name: name
+                            }),
+                            ers: {
+                                'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
+                            },
+                            success: function(response) {
+                                let data = JSON.parse(response);
+                                showData(data);
+                            }
+                        })
+                    }
+
+                })
+            }
+
+            function initPagination() {
+                search = 0;
+                $.ajax({
+                    url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=get_total_page',
+                    method: 'POST',
+                    data: JSON.stringify({
+                        tutor: tutor,
+                        name: name
+                    }),
+                    headers: {
+                        'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
+                    },
+                    success: function(response) {
+                        html = `
+                       <li class="pagination-item" data-page="prev">
+                                <a href="javascript:void(0)">
+                                    <i class="mdi-b prev"></i>
+                                </a>
+                        </li>
+                       `
+                        for (let i = 0; i < +response; i++) {
+                            let pageLink = `
+                                <li class="pagination-item ${i ==0 ? 'active' : ''}" data-page="${i+1}">
+                                        <a href="javascript:void(0)" class="pagination-item__link">${i+1}</a>
+                                </li>
+                            `
+                            html += pageLink;
+                        }
+                        html +=
+                            `
+                        <li class="pagination-item" data-page="next">
+                                <a href="javascript:void(0)">
+                                    <i class="mdi-b next"></i>
+                                </a>
+                        </li>
+                        `
+                        maxPage = response;
+                        $('#pagination').html(html);
+                        setUpEvents()
+                    }
+                })
+            }
+
+            function onSearchData() {
+                tutor = $('#giangvien').val();
+                name = $('#search_name').val();
+                initPagination()
+                search = 1;
+                $.ajax({
+                    url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=get_course_by_page',
+                    method: 'POST',
+                    data: JSON.stringify({
+                        page: 1,
+                        tutor: tutor,
+                        name: name
+                    }),
+                    headers: {
+                        'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
+                    },
+                    success: function(response) {
+                        let data = JSON.parse(response);
+                        showData(data);
+                    }
+                })
+            }
+
+            function showData(data) {
+                $('#table_body').empty()
+                html = ``;
+                startIndex = 5 * (+data['page'] - 1) + 1
+                for (let i = 0; i < data.course.length; i++) {
+                    let beginDate = reuturnFormatDateString(data.course[i].beginDate.date)
+                    let endDate = reuturnFormatDateString(data.course[i].endDate.date)
+                    html +=
+                        `
+                        <tr>
+                                <th scope="row">${startIndex+i}</th>
+                                    <td>${data.course[i].name}</td>
+                                    <td>${data.course[i].tutorName}</td>
+                                    <td>
+                                        Ngày bắt đầu : ${beginDate}
+                                        <br />
+                                        Ngày kết thúc : ${endDate}
+                                    </td>
+                                    <td>
+                                        ${ (data.course[i].state==1) ? "<span class=\"badge text-bg-success\">Hoạt động</span>" : "<span class=\"badge text-bg-success\">Hoạt động</span>"}
+                                    </td>
+                                    <td>
+                                            <span class="badge text-bg-secondary">${data.course[i].price} VNĐ</span>
+                                    </td>
+                                    <td>
+                                        <div class="dropright">
+                                            <button type="button" class="btn btn-sm btn-outline-primary btn-rounded btn-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        <span class="mdi-b dots-vertical"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="/courses/detail.php/${data.course[i].id}" target="_blank">Xem khóa học</a></li>
+                                                <li><a class="dropdown-item" href="/administration/courses/edit.php?courseId=${data.course[i].id}">Sửa khóa học</a></li>
+                                                <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=${data.course[i].id}','Xóa khóa học')">Xóa khóa học</a></li>
+
+                                            </ul>
+                                        </div>
+                                </td>
+                        </tr>            
+                    `
+                }
+                $('#table_body').html(html)
+            }
+            // dd-MM-yyyy
+            function reuturnFormatDateString(dateString) {
+                var date = new Date(dateString);
+
+                // Lấy ngày, tháng và năm từ đối tượng Date
+                var day = ("0" + date.getDate()).slice(-2); // Lấy ngày, thêm "0" và cắt 2 kí tự cuối cùng
+                var month = ("0" + (date.getMonth() + 1)).slice(-2); // Lấy tháng, thêm "0" và cắt 2 kí tự cuối cùng
+                var year = date.getFullYear(); // Lấy năm
+
+                // Định dạng lại chuỗi ngày tháng năm
+                var formattedDate = day + "-" + month + "-" + year;
+                return formattedDate;
+            }
+        </script>
+<?
     }
-    // public function afterDocument()
-    // {
-    //     parent::afterDocument();
-    // }
 }

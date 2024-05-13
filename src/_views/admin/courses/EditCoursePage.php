@@ -5,18 +5,11 @@ class EditCoursePage extends BaseHTMLDocumentPage
 {
     public Course $course;
     public array $programs;
-    public array $tutors;
+    public array $tutors = array();
     public string $basePath;
     public function __construct()
     {
         parent::__construct();
-        $this->tutors = array(
-            array('ID' => 'PRO01', "Name" => "Lê Tấn Minh Toàn"),
-            array('ID' => 'PRO02', "Name" => "Nguyễn Thanh Sang"),
-            array('ID' => 'PRO03', "Name" => "Huỳnh Xuân Bách"),
-            array('ID' => 'PRO04', "Name" => "Lâm Hùy"),
-
-        );
     }
     // public function beforeDocument()
     // {
@@ -156,7 +149,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                                         <div class="program__lesson bg-white ps-3 pe-3 pt-3 pb-3 mt-3 rounded-1 d-flex justify-content-between align-items-center" style="box-shadow: 0 0 35px 0 rgba(154, 161, 171, .15);">
                                                                                             <h5 class="card-title mb-0">
                                                                                                 <span class="font-weight-light">
-                                                                                                    <? if ($document->Type == "VIDEO") : ?>
+                                                                                                    <? if ($document->Type == "video") : ?>
                                                                                                         <i class="mdi-b video"></i>
                                                                                                     <? else : ?>
                                                                                                         <i class="mdi-b document"></i>
@@ -166,7 +159,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                                                 </span>
                                                                                             </h5>
                                                                                             <div class="card-widget">
-                                                                                                <a class="" onclick="showAjaxModal('http://localhost:62280/administration/courses/show_modal.php?action=document_modal&editmode=1&lessonId=<?echo($document->LessonID)?>&documentId=<? echo ($document->ID) ?>','Sửa tài liệu tài liệu')">
+                                                                                                <a class="" onclick="showAjaxModal('http://localhost:62280/administration/courses/show_modal.php?action=document_modal&editmode=1&lessonId=<? echo ($document->LessonID) ?>&documentId=<? echo ($document->ID) ?>','Sửa tài liệu tài liệu')">
                                                                                                     <i class="mdi-b pen"></i>
                                                                                                 </a>
                                                                                                 <a onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_document&documentId=<? echo ($document->ID) ?>','Xóa tài liệu','Bạn có chắc muốn xóa tài liệu này')">
@@ -187,7 +180,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                                             <? echo ($program->Description); ?>
                                                                                         </div>
                                                                                         <div class="card-widget" id="<? echo ("widget-of-EXCERCISE" . $program->ID); ?>" style="display:none;">
-                                                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showLargeModal('http://localhost:62280/administration/courses/show_modal.php?action=sort_excercise_modal&excerciseId=<? echo $program->ID ?>', 'Câu hỏi')"><i class="mdi-b sort"></i>Câu hỏi</a>
+                                                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showLargeModal('http://localhost:62280/administration/courses/show_modal.php?action=list_question_modal&excerciseId=<? echo $program->ID ?>', 'Câu hỏi')"><i class="mdi-b sort"></i>Câu hỏi</a>
                                                                                             <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showAjaxModal('http://localhost:62280/administration/courses/show_modal.php?action=excercise_modal&editmode=1&excerciseId=<? echo $program->ID ?>', 'Sửa bài kiểm')"><i class="mdi-b pen"></i> Sửa bài kiểm</a>
                                                                                             <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_excercise&excerciseId=<? echo $program->ID ?>','Xóa bài kiểm','Bạn có chắc muốn xóa bài kiểm này')"><i class="mdi-b delete"></i> Xóa bài kiểm</a>
                                                                                         </div>
@@ -244,8 +237,8 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                 <div class="col-md-10">
                                                                     <select class="form-select form-select-md mb-3" name="tutor" id="tutor">
                                                                         <option>Lựa chọn giảng viên</option>
-                                                                        <? foreach ($this->tutors as $tutor) : ?>
-                                                                            <option value="<? echo $tutor['ID']; ?>" <? if ($tutor['ID'] == $this->course->profileID) echo ('selected')  ?>><? echo $tutor['Name'] ?></option>
+                                                                        <? foreach ($this->tutors as $index => $tutor) : ?>
+                                                                            <option value="<? echo $tutor->getId() ?>" <?if($tutor->getId()==$this->course->profileID) echo('selected')?>  ><? echo ($tutor->lastName . ' ' . $tutor->firstName) ?></option>
                                                                         <? endforeach ?>
                                                                     </select>
                                                                 </div>
@@ -339,7 +332,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
             "/node_modules/dragula/dist/dragula.min.js",
             "/node_modules/toastr/build/toastr.min.js",
             "/node_modules/sweetalert2/dist/sweetalert2.min.js",
-            "/clients/js/admin/main.js",
+            "/clients/admin/main.js",
 
         );
         ?>

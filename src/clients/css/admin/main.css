@@ -36,11 +36,27 @@
 .mdi-b.dots-vertical::before {
     content: var(--mdi-dots-vertical);
 }
-
 .mdi-b.back::before {
     content: var(--mdi-arrow-left-circle);
 }
-
+.mdi-b.-account::before{
+    content: var(--mdi-home-account);
+}
+.mdi-b.-role::before{
+    content: var(--mdi-shield-key-outline);
+}
+.mdi-b.-user::before{
+    content: var(--mdi-account);
+}
+.mdi-b.dictionary::before{
+    content: var(--mdi-book-alphabet);
+}
+.mdi-b.post::before{
+    content: var(--mdi-post);
+}
+.mdi-b.comment::before{
+    content: var(--mdi-comment);
+}
 a {
     text-decoration: none;
 }
@@ -93,6 +109,7 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 .toggle-btn {
     background-color: transparent;
     cursor: pointer;
@@ -250,6 +267,7 @@ button.close {
         min-width: 70px;
         transition: all 0.5s ease-in-out;
     }
+
     #sidebar.expand {
         width: 260px;
         min-width: 260px;
@@ -343,11 +361,21 @@ button.close {
         transform: rotate(45deg);
         transition: all .2s ease-out;
     }
-    .hide-in-lg-md{
+
+    .hide-in-lg-md {
         display: none;
     }
 }
-.modal-dialog-scrollable{
+
+.modal-dialog-scrollable {
     height: unset !important;
-    max-height:calc(100% - var(--bs-modal-margin)* 2);;
+    max-height: calc(100% - var(--bs-modal-margin)* 2);
+    ;
 }
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+

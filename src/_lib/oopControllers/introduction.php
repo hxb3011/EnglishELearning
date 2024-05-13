@@ -34,12 +34,5 @@ class Introduction
         $page = new BlogListPage();
         requira("_layout.php");
     }
-    public function dictionary()
-    {
-        requirv("dictionary.php");
-        global $page;
-        $page = new DictionaryMainPage();
-        requira("_layout.php");
-    }
 }
 ?>

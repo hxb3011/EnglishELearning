@@ -1,7 +1,7 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/database.php');
-requirm('/access/Lesson.php');
+requirm('/learn/Lesson.php');
 class LessonModel
 {
     public function generateValidLessonID()
@@ -41,12 +41,21 @@ class LessonModel
             return null;
         }
     }
-    public function getLessonsByCourseId($courseId)
+    public function getLessonsByCourseId($courseId, $state=null)
     {
-        $sqlQuery = "SELECT * FROM lesson WHERE CourseID = ?";
-        $params = array(
-            'CourseID' => $courseId
-        );
+        if (!isset($state)) {
+            $sqlQuery = "SELECT * FROM lesson WHERE CourseID = ?";
+            $params = array(
+                'CourseID' => $courseId
+            );
+        }else{
+            $sqlQuery = "SELECT * FROM lesson WHERE CourseID = ? AND State = ?";
+            $params = array(
+                'CourseID' => $courseId,
+                'State' =>$state
+            );
+        }
+
         try {
             $result = Database::executeQuery($sqlQuery, $params);
             if ($result != null) {
@@ -64,13 +73,14 @@ class LessonModel
             return array();
         }
     }
-    public function addLesson(Lesson $lesson){
+    public function addLesson(Lesson $lesson)
+    {
         $sqlQuery = "INSERT INTO lesson(ID,Description,State,CourseID,OrderN) VALUES(?,?,?,?,?)";
         $params = array(
             "id" => $lesson->ID,
             "Description" => $lesson->Description,
-            "State"=> $lesson->State,
-            "CourseID"=>$lesson->CourseID,
+            "State" => $lesson->State,
+            "CourseID" => $lesson->CourseID,
             "OrderN" => $lesson->OrderN
         );
         try {
@@ -80,11 +90,12 @@ class LessonModel
             return false;
         }
     }
-    public function updateLesson(Lesson $lesson){
+    public function updateLesson(Lesson $lesson)
+    {
         $sqlQuery = "UPDATE lesson SET Description = ?,State = ? WHERE id=?";
         $params = array(
             "Description" => $lesson->Description,
-            "State"=> $lesson->State,
+            "State" => $lesson->State,
             "id" => $lesson->ID
         );
         try {
@@ -98,7 +109,7 @@ class LessonModel
     {
         $sqlQuery = "SELECT COUNT(*) AS total_lessons FROM lesson WHERE CourseID = ?";
         $params = array(
-            "courseid"=> $courseId
+            "courseid" => $courseId
         );
         try {
             $result = Database::executeQuery($sqlQuery, $params);
@@ -107,7 +118,7 @@ class LessonModel
             return false;
         }
     }
-    public function updateOrder(string $lessonId,int $orderN)
+    public function updateOrder(string $lessonId, int $orderN)
     {
         $sqlQuery = "UPDATE lesson SET OrderN = ? WHERE ID = ?";
         $params = array(

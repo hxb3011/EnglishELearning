@@ -1,5 +1,6 @@
 nav {
     bottom: 0;
+    box-sizing: border-box;
     background-color: var(--mdc-surface-container);
     display: flex;
     flex-flow: column nowrap;
