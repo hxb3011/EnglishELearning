@@ -116,7 +116,7 @@ $page->beforeDocument();
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="" class="sidebar-link" >
+                    <a href="/administration/history/index.php" class="sidebar-link" >
                         <span class="mdi-b history"></span>
                         <span class="sidebar-item__text">Lịch sử thanh toán</span>
                     </a>

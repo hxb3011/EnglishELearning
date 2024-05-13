@@ -1,0 +1,28 @@
+#history{
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+#history th{
+    background-color: #ff782d;
+    border-bottom: 2px solid #ddd;
+    color:  white;
+}
+#history th, #history td {
+    padding: 8px;
+    text-align: left;
+}
+#history tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#history tbody tr:hover {
+    background-color: #ddd;
+}
+.dataTables_length{
+    margin-bottom: 40px;
+}
+
+
