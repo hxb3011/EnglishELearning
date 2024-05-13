@@ -11,4 +11,10 @@ class Blog {
         $page = new BlogListPage();
         requira("_layout.php");
     }
+    public function detail(){
+        requirv("blog/blogdetail.php");
+        global $page;
+        $page = new BlogDetailPage();
+        requira("_layout.php");
+    }
 }
