@@ -9,27 +9,18 @@ requirm('/access/dictionary/Pronunciation.php');
 
 final class DictionaryMainPage extends BaseHTMLDocumentPage
 {
-    public Meaning $meaning;
     public Lemma $lemma;
-    public Example $example;
-    public Conjugation $conjugation;
-    public Pronunciation $pronunciation;
-    public $meaning_arr = array();
-    public $example_arr = array();
-    public $pronunciation_arr = array();
     public $conjugation_arr = array();
+    public $example_arr = array();
     public function __construct()
     {
         parent::__construct();
 
     }
-    public function detail_contruct($lemma,$meaning,$example,$conjugation,$pronunciation)
+    public function detail_contruct($lemma,$conjugation)
     {
         $this->lemma = $lemma;
-        $this->meaning_arr = $meaning;
-        $this->example_arr = $example;
         $this->conjugation_arr = $conjugation;
-        $this->pronunciation_arr = $pronunciation;
 
     }
     
@@ -72,7 +63,9 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
         $this->scripts(
             "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
             "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
-            "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js",
+            "/clients/js/autocomplete.js",
+
         );
         // $this->scripts(
     }
@@ -85,6 +78,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
                 <form class="form-inline d-flex form-search  mx-auto" method= "get" action="all.php" name="dictionary_search" autocomplete="off">
                 <div class="autocomplete w-100">
                     <input class="form-control border border-dark mr-sm-2 search_bar" id="inp_search" type="search" name="dictionary_search" placeholder=" Search..." aria-label="Search">
+                    <input type="hidden" id="inp_save">
                 </div>
                 <button class="btn btn-dark my-2 my-sm-0 rounded-0 rounded-end search_button" type="submit">
                     <i class="fas fa-search icon_search"></i>
@@ -102,27 +96,27 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
                         <a class="mdi-b heart-icon -dictionary " hint="Yêu thích" href="#"></a>
                     </div>
                     <span class="word_pronunciation ">';
-                    foreach(($this->pronunciation_arr) as $item)
-                        echo '<p class="  text-reset opacity-75 " > <strong>'. $item->region .'</strong>: '.$item->IPA. '  </p>';
+                    foreach(($this->lemma->pronunciation_arr) as $item)
+                        echo ' <p class="  text-reset opacity-75 " >  <strong> '. $item->region .'</strong>: '.$item->IPA. '  &nbsp;&nbsp;&nbsp;&nbsp;</p>';
                     echo '</span>';
-                    foreach(($this->meaning_arr) as $item){
+                    foreach(($this->lemma->meaning_arr) as $item){
                         echo '<p class="word_definition text-reset" align ="jusitify"> '.$item->meaning .' </p>';
                         echo '<p class="word_definition text-reset" align ="jusitify"> '.$item->explanation .' </p>';
-                    }
 
-                    echo '<i class="example " align ="jusitify">Example:</i>';
-                    foreach(($this->example_arr) as $item)  {
-                        echo '<i class="example " align ="jusitify">'.$item->example .'</i>';
-                        echo '<i class="example " align ="jusitify">'.$item->explanation .'</i>';}
+                        echo '<i class="example " align ="jusitify">Example:</i>';
+                        foreach(($item->example_arr) as $example)  {
+                            echo '<i class="example " align ="jusitify">'.$example->example .'</i>';
+                            echo '<i class="example " align ="jusitify">'.$example->explanation .'</i>';}
+                    }
 
                     echo '<p class="conjugation " align ="jusitify">';
                     $firstPrint = true;
                     foreach(($this->conjugation_arr) as  $item)  {
                         if($firstPrint){
-                            echo $item['description'].' <a href="#">'.$item['lemma']->keyL.'</a>  '; 
+                            echo $item['description'].' <a href="http://localhost:62280/dictionary/all.php?dictionary_search='.$item['lemma']->keyL.'">'.$item['lemma']->keyL.'</a>  ';
                             $firstPrint = false;
                         } else
-                            echo ' | '.$item['description'].' <a href="#">'.$item['lemma']->keyL.'</a>  ';}
+                            echo ' | '.$item['description'].' <a href="http://localhost:62280/dictionary/all.php?dictionary_search='.$item['lemma']->keyL.'">'.$item['lemma']->keyL.'</a>  ';}
                     echo '</p> 
                 </div>
                 </div>';
@@ -132,126 +126,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
         <script defer>
         
         var currentFocus = -1;
-        function autocomplete(inp) {
-            // cái input tag
-            inp.addEventListener("input", function(e) {
-
-                closeAllLists(inp);
-                var val = this.value;
-                if (!this.value)
-                    {return false;}
-                currentFocus = -1;
-                var data = {
-                    input : val
-                };
-                //gọi ajax tìm từ
-                $.ajax({
-                    url : 'ajax_call_action.php?action=search',
-                    data : data,
-                    dataType: 'json',
-                    success : function(response)
-                    {
-                        if(response.status == '204')
-                        {
-                            show_autocomplete(inp,val,response.items);
-                        }
-                        else if(response.status == '404')
-                        {
-                            closeAllLists(inp);
-                        }
-                    }
-                });
-            });
-
-            //Xử lí bàn phím
-            inp.addEventListener("keydown", function(e) {
-                console.log(currentFocus);
-                var x = document.getElementById(this.id + "autocomplete-list");
-                if (x) x = x.getElementsByTagName("div");
-                if (e.keyCode == 40) {
-                    /*If the arrow DOWN key is pressed,
-                    increase the currentFocus variable:*/
-                    currentFocus++;
-                    /*and and make the current item more visible:*/
-                    addActive(x);
-                } else if (e.keyCode == 38) { //up
-                    /*If the arrow UP key is pressed,
-                    decrease the currentFocus variable:*/
-                    currentFocus--;
-                    /*and and make the current item more visible:*/
-                    addActive(x);
-                } else if (e.keyCode == 13) {
-                    /*If the ENTER key is pressed, prevent the form from being submitted,*/
-                    e.preventDefault();
-                    if (currentFocus > -1) {
-                    /*and simulate a click on the "active" item:*/
-                    if (x) x[currentFocus].click();
-                    }
-                }
-            });
-
-            document.addEventListener("click", function (e) {
-                //Xóa nếu target của cú click không phải là thanh tìm kiếm hoặc khung autocomplete
-                closeAllLists(inp,e.target);
-            });
-        }
-        function show_autocomplete(inp,val,data){   
-            
-            //Đóng danh sách đang mở nếu có
-            var a, b, i;
-            a = document.createElement("DIV");
-            a.setAttribute("id", inp.id + "autocomplete-list");
-            a.setAttribute("class", "autocomplete-items");
-            // Thêm div vào chung container mẹ với tag input    
-            inp.parentNode.appendChild(a);
-                    
-            for (i = 0; i < data.length; i++) {
-            // Kiểm tra trùng chữ cái đầu
-                    // Tạo div item cho mỗi mục trùng với input
-                    b = document.createElement("DIV");
-                    // In đậu những kí tự trùng
-                    b.innerHTML = "<strong>" + data[i].KeyL.substr(0, val.length) + "</strong>";
-                    b.innerHTML += data[i].KeyL.substr(val.length);
-                    // Tạo trường input để chứa giá trị của item 
-                    b.innerHTML += "<input type='hidden' id='"+ data[i].ID +"' value='" + data[i].KeyL + "'>";
-                    // Thêm event khi nhấn vào item sẽ in value vào input luôn
-                    b.addEventListener("click", function(e) {
-                        inp.value = this.getElementsByTagName("input")[0].value;
-                        /*Sau khi nhấn thì đóng danh sách*/
-                        closeAllLists(inp);
-                    });
-                // Thêm item vừa tạo vào div chứa
-                a.appendChild(b);
-            }  
-        }
-        
-        function addActive(x) {
-                /*a function to classify an item as "active":*/
-                if (!x) return false;
-                /*start by removing the "active" class on all items:*/
-                removeActive(x);
-                if (currentFocus >= x.length) currentFocus = 0;
-                if (currentFocus < 0) currentFocus = (x.length - 1);
-                /*add class "autocomplete-active":*/
-                x[currentFocus].classList.add("autocomplete-active");
-            }
-        function removeActive(x) {
-            /*a function to remove the "active" class from all autocomplete items:*/
-            for (var i = 0; i < x.length; i++) {
-            x[i].classList.remove("autocomplete-active");
-            }
-        }
-        function closeAllLists(inp, elmnt) {
-            //Xóa các mục autocomplete
-            var x = document.getElementsByClassName("autocomplete-items");
-            for (var i = 0; i < x.length; i++) {
-            if (elmnt != x[i] && elmnt != inp) {
-            x[i].parentNode.removeChild(x[i]);
-            }
-        }
-        }
-        
-        autocomplete(document.getElementById("inp_search"));
+        autocomplete(document.getElementById("inp_search"),"inp_save",'ajax_call_action.php?action=search');
         
         // Hết phần autocomplete    
         </script>
