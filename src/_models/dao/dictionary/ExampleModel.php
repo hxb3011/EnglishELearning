@@ -51,9 +51,8 @@ class ExampleModel {
     }
 
     public function addExample(Example $Example){
-        $sql = "INSERT INTO Example (ID, MeaningID, Example, Explanation) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO Example (MeaningID, Example, Explanation) VALUES (?, ?, ?)";
         $params = array(
-            "ID" => $Example->ID,
             "MeaningID" => $Example->meaningID,
             "Example" => $Example->example,
             "Explanation" => $Example->explanation
@@ -85,6 +84,18 @@ class ExampleModel {
         $sql = "DELETE FROM Example WHERE ID like ?";
         $params = array(
             "ID" => $Example->ID,
+        );
+        try{
+            $result = Database::executeNonQuery($sql,$params);
+            return $result;
+        } catch (Exception $e){
+            return false;
+        }
+    }
+    public function deleteExamplesBy_MeaningID($meaningID){
+        $sql = "DELETE FROM Example WHERE MeaningID like ?";
+        $params = array(
+            "MeaningID" => $meaningID,
         );
         try{
             $result = Database::executeNonQuery($sql,$params);

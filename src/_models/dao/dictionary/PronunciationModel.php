@@ -53,13 +53,28 @@ class PronunciationModel {
         }
     }
 
-    public function addPronunciation(Pronunciation $pronunciation){
-        $sql = "INSERT INTO pronunciation (LemmaID, Region, IPA, Voice) VALUES (?, ?, ?, ?)";
+    // public function addPronunciation(Pronunciation $pronunciation){
+    //     $sql = "INSERT INTO pronunciation (LemmaID, Region, IPA, Voice) VALUES (?, ?, ?, ?)";
+    //     $params = array(
+    //         "LemmaID" => $pronunciation->lemmaID,
+    //         "Region" => $pronunciation->region,
+    //         "IPA" => $pronunciation->IPA,
+    //         "Voice" => $pronunciation->voice
+    //     );
+    //     try{
+    //         $result = Database::executeNonQuery($sql,$params);
+    //         return $result;
+    //     } catch (Exception $e){
+    //         return false;
+    //     }
+    // }
+
+    public function addPronunciation($lemmaID,$region,$IPA){
+        $sql = "INSERT INTO pronunciation (LemmaID, Region, IPA) VALUES (?, ?, ?)";
         $params = array(
-            "LemmaID" => $pronunciation->lemmaID,
-            "Region" => $pronunciation->region,
-            "IPA" => $pronunciation->IPA,
-            "Voice" => $pronunciation->voice
+            "LemmaID" => $lemmaID,
+            "Region" => $region,
+            "IPA" => $IPA,
         );
         try{
             $result = Database::executeNonQuery($sql,$params);
@@ -69,13 +84,12 @@ class PronunciationModel {
         }
     }
 
-    public function updatePronunciation(Pronunciation $pronunciation){
-        $sql = "UPDATE pronunciation SET Region = ?, IPA = ?, Voice = ? WHERE LemmaID like ?";
+    public function updatePronunciation($lemmaID,$region,$IPA){
+        $sql = "UPDATE pronunciation SET Region = ?, IPA = ? WHERE LemmaID like ?";
         $params = array(
-            "Region" => $pronunciation->region,
-            "IPA" => $pronunciation->IPA,
-            "Voice" => $pronunciation->voice,
-            "LemmaID" => $pronunciation->lemmaID,
+            "Region" => $region,
+            "IPA" => $IPA,
+            "LemmaID" => $lemmaID,
         );
         try{
             $result = Database::executeNonQuery($sql,$params);
