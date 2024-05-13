@@ -76,6 +76,7 @@ const Permission_CommentDelete = 72;
 const AccountStates_None = 0;
 const AccountStates_Linked = 1;
 const AccountStates_Disabled = 2;
+const AccountStates_Deleted = 4;
 
 interface IPermissionHolderKey
 {
@@ -283,6 +284,14 @@ final class Account implements IPermissionHolder
     function setLinked(bool $value)
     {
         $this->setAccountStateFlags(AccountStates_Linked, $value);
+    }
+    function isDeleted()
+    {
+        return $this->hasAccountStateFlags(AccountStates_Deleted);
+    }
+    function setDeleted(bool $value)
+    {
+        $this->setAccountStateFlags(AccountStates_Deleted, $value);
     }
     function getUid()
     {

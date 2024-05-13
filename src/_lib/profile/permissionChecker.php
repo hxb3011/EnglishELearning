@@ -1,6 +1,6 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
-requirm("dao/profile.php");
+requirm("dao/profile/profile.php");
 
 function getPermissionHolder(): ?IPermissionHolder {
     if (!session_id())

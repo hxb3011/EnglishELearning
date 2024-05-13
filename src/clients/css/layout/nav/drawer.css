@@ -7,6 +7,7 @@ body {
 
 nav.drawer {
     background-color: var(--mdc-surface-container);
+    border-left: 2rem solid var(--mdc-surface-container-highest);
     display: flex;
     flex-flow: column nowrap;
     height: 100%;

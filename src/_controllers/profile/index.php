@@ -2,6 +2,7 @@
 require_once "/var/www/html/_lib/utils/requir.php";
 requirv("profile/ProfileMainPage.php");
 requirl("profile/permissionChecker.php");
+requirm("dao/profile/verification.php");
 
 function getMode()
 {
@@ -25,6 +26,12 @@ function getMode()
 
 global $page;
 $mode = getMode();
-$page = new ProfileMainPage(getPermissionHolder(), $mode);
+$verifications = null;
+$holder = getPermissionHolder();
+if ($holder instanceof Profile) {
+    $verifications = VerificationDAO::getAllVerificationsByProfileID($holder->getId());
+}
+$deleteValue = &$_REQUEST["v"];
+$page = new ProfileMainPage($holder, $verifications, $mode, (isset($deleteValue) && $mode === ProfilePageMode_DeletePhone || $mode === ProfilePageMode_DeleteEmail) ? $deleteValue : "");
 requira("_layout.php");
 ?>

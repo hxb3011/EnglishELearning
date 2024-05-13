@@ -28,6 +28,6 @@ final class Validator {
 
     public static function isValidPassword($input) {
         if (!is_string($input)) return false;
-        return (preg_match("@^(?:([[:lower:]])|([[:upper:]])|([[:digit:]])|([[:punct:]])){8,127}$@", $input, $groups) === 1 && count($groups) === 5);
+        return (preg_match("@^(?:([[:lower:]])|([[:upper:]])|([[:digit:]])|([[:punct:]])){8,255}$@", $input, $groups) === 1 && count($groups) === 5);
     }
 }

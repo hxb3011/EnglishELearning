@@ -10,7 +10,7 @@ final class RoleDAO
         $sql = "SELECT * FROM `role`";
         $result = Database::executeQuery($sql);
         $roles = array();
-        if ($result === null)
+        if ($result === null || count($result) === 0)
             return $roles;
 
         foreach ($result as $key => $value) {
@@ -24,7 +24,7 @@ final class RoleDAO
     {
         $sql = "SELECT * FROM `role` WHERE ID = ?";
         $result = Database::executeQuery($sql, array($id));
-        if ($result === null || count($result) !== 0)
+        if ($result === null || count($result) === 0)
             return null;
 
         $value = $result[0];
@@ -32,21 +32,44 @@ final class RoleDAO
         PermissionHolderKey::loadPermissions($role, $value["Permissions"]);
         return $role;
     }
+    public function findUnallocatedID()
+    {
+        $sql = "SELECT COUNT(*) AS RoleCount FROM `role`";
+        $result = Database::executeQuery($sql);
+        if (!isset($result) || count($result) === 0)
+            return "0";
+        else
+            return strval($result[0]["RoleCount"]);
+    }
     public static function lookupRoles(string $keywords)
     {
         # code...
     }
-    public static function createRole()
+    public static function createRole(Role $role)
     {
-        # code...
+        if (!isset($role))
+            return false;
+        $sql = "INSERT INTO `role`(`ID`, `Name`) VALUES (?, ?)";
+        $uid = $role->getId();
+        $userName = $role->name;
+        return Database::executeNonQuery($sql, array($uid, $userName));
     }
     public static function updateRole(Role $role)
     {
-        # code...
+        if (!isset($role))
+            return false;
+        $sql = "UPDATE `role` SET `Name` = ? WHERE `ID` = ?";
+        $id = $role->getId();
+        $name = $role->name;
+        return Database::executeNonQuery($sql, array($name, $id));
     }
-    public static function deleteRole(Role $keywords)
-    {
-        # code...
-    }
+    // public static function deleteRole(Role $role)
+    // {
+    //     if (!isset($role))
+    //         return false;
+    //     $sql = "DELETE FROM `role` WHERE `ID` = ?";
+    //     $roleId = $role->getId();
+    //     return Database::executeNonQuery($sql, array($roleId));
+    // }
 }
 ?>
