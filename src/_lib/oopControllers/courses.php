@@ -117,7 +117,10 @@ class Courses
         requira("_layout.php");
     }
 
+    public function checkout()
+    {
 
+    }
     /* Ajax call function */
     public function update_tracking()
     {

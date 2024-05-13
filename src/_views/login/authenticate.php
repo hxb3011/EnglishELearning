@@ -95,9 +95,9 @@ final class AuthenticatePage extends BaseHTMLDocumentPage
                         <div class="input-field-group">
                             <i class="fas fa-user"></i>
                             <div>
-                                <input type="radio" name="gender" id="gender-male-register">
+                                <input type="radio" name="gender" value="male" id="gender-male-register">
                                 <label for="gender-male-register">Male</label>
-                                <input type="radio" name="gender" id="gender-female-register">
+                                <input type="radio" name="gender" value="female" id="gender-female-register">
                                 <label for="gender-female-register">Female</label>
                             </div>
                         </div>

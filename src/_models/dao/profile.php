@@ -65,7 +65,7 @@ final class ProfileDAO
         $param = array($type);
         $result = Database::executeQuery($sql, $param);
         if ($result === null || count($result) === 0)
-            return null;
+            return array();
         $profiles  = array();
         foreach($result as $key => $profileRow)
         {

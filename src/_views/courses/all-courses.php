@@ -54,7 +54,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                             <select class="form-select" name="giangvien " id="giangvien">
                                 <option value="">Lựa chọn giảng viên</option>
                                 <? foreach ($this->tutors as $index => $tutor) : ?>
-                                    <option value="<? echo $tutor->getId() ?>"><? echo ($tutor->lastName . ' ' . $tutor->firstName) ?></option>
+                                    <option value="<? echo $tutor->getId() ?>"><? echo ($tutor->firstName. ' ' . $tutor->lastName  ) ?></option>
                                 <? endforeach ?>
                             </select>
                         </div>
