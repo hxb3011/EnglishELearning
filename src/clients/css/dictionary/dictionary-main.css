@@ -95,17 +95,17 @@ input::placeholder{
 .word_title{
     width: fit-content;
     font-size: 35rem;
-    line-height: 1.8;
+    line-height: 1.2;
     text-transform: capitalize;
     font-family: Exo, 'Source Sans Pro';
     white-space: nowrap;
 }
 .word_pronunciation{
-    font-size: 20rem;
+    font-size: 18rem;
+    line-height: 1;
     min-width: 45%;
-    max-width: fit-content;
     display:  flex;
-    justify-content: space-between;
+    justify-content: start;
 }
 .word_pronunciation p{
     width: fit-content;

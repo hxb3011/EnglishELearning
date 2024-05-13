@@ -48,6 +48,9 @@
 .mdi-b.-user::before{
     content: var(--mdi-account);
 }
+.mdi-b.-dictionary::before{
+    content: var(--mdi-book-open-outline);
+}
 a {
     text-decoration: none;
 }

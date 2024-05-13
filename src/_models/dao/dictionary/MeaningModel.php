@@ -2,8 +2,24 @@
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/database.php');
 requirm('/access/dictionary/Meaning.php');
+requirm('/dao/dictionary/ExampleModel.php');
 class MeaningModel {
-
+    
+    public function generateValidMeaningID(){
+        $max = $this->getNumberOfTotalLesson();
+        $max = $max + 1;
+        return 'MEANING' . $max;
+    }
+    public function getNumberOfTotalLesson()
+    {
+        $sqlQuery = "SELECT COUNT(*) AS total_meaning FROM meaning";
+        try {
+            $result = Database::executeQuery($sqlQuery);
+            return intval($result[0]['total_meaning']);
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
     public function getMeaningByID($ID){
         $sqlQuery = "SELECT * FROM Meaning WHERE ID like ?";
         $params = array(
@@ -14,9 +30,11 @@ class MeaningModel {
             if ($result != null) {
                     $Meaning = new Meaning();
                 foreach ($result as $index => $value) {
-                    $Meaning->constructFromArray($value);
+                    $exampleModel = new ExampleModel();
+                    $example = $exampleModel->getExampleByMeaningID($value['ID']);
+                    $Meaning->constructFromArray($value,$example);
+                    return $Meaning;
                 }
-                return $Meaning;
             } else {
                 return null;
             }
@@ -36,8 +54,10 @@ class MeaningModel {
             if ($result != null) {
                 $meanings = [];
                 foreach ($result as $index => $value) {
+                    $exampleModel = new ExampleModel();
+                    $example = $exampleModel->getExampleByMeaningID($value['ID']);
                     $Meaning = new Meaning();
-                    $Meaning->constructFromArray($value);
+                    $Meaning->constructFromArray($value,$example);
                     $meanings[] = $Meaning;
                 }
                 return $meanings;

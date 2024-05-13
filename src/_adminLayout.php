@@ -97,6 +97,20 @@ $page->beforeDocument();
                         <span class="sidebar-item__text">Role</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#dictionary" aria-expanded="false" aria-controls="dictionary" >
+                        <span class="mdi-b -dictionary"></span>
+                        <span class="sidebar-item__text">Dictionary</span>
+                    </a>
+                    <ul id="dictionary" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/administration/dictionary/dictionary.php" class="sidebar-link">Quản lý từ điển</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/administration/dictionary/add.php" class="sidebar-link">Thêm từ vựng</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
             <div class="sidebar-footer">
                 <a href="/" class="sidebar-link">
