@@ -38,7 +38,7 @@ class SubscriptionModel{
             return -1;
         }
     }
-    public function generateValidDocumentID()
+    public function generateValidID()
     {
         $max = $this->getNumberOfTotalSub();
         $max = $max + 1;
@@ -47,7 +47,7 @@ class SubscriptionModel{
 
     public function addSubscription(Subscription $sub)
     {
-        $sqlQuery = "INSERT INTO subscription(ID,AtDateTime,ProfileID,CourseID)";
+        $sqlQuery = "INSERT INTO subscription(ID,AtDateTime,ProfileID,CourseID) VALUES(?,STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),?,?)";
         $params= array(
             $sub->ID,
             $sub->AtDateTime->format('d-m-Y H:i:s'),

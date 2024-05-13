@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     selectPaymentMethod();
     handlePayment();
 });
@@ -7,17 +7,17 @@ var isPaidSuccess = false
 var countdownInterval
 
 function selectPaymentMethod() {
-    $(document).on('click', '.select-payment-method', async function(e) {
+    $(document).on('click', '.select-payment-method', async function (e) {
         e.preventDefault();
         $('.select-payment-method').removeClass('select');
         $(this).addClass('select');
-        
+
         const maKH = "KH001"
         const pay_id = $(this).attr("data-id");
-        
+
         let payMethodData = sessionStorage.getItem('pttt') ? JSON.parse(sessionStorage.getItem('pttt')) : {};
         if (payMethodData[maKH]) delete payMethodData[maKH];
-        
+
         payMethodData[maKH] = pay_id;
         sessionStorage.setItem('pttt', JSON.stringify(payMethodData));
     });
@@ -28,7 +28,7 @@ async function loadCartToCheckout() {
     $.ajax({
         url: 'server/src/controller/GioHangController.php',
         method: 'POST',
-        data: { action: 'get-all' , maKH },
+        data: { action: 'get-all', maKH },
         dataType: 'JSON',
         success: carts => {
             if (carts && carts.length > 0) {
@@ -53,44 +53,39 @@ async function loadCartToCheckout() {
 }
 
 function handlePayment() {
-    $(document).on('click', '#btn-payment', async function(e) {
+    $(document).on('click', '#btn-payment', async function (e) {
         e.preventDefault();
 
-        const maKH = "KH0001"
+        const profileID = $('#profileID').val();
+        const courseID = $('#courseID').val();
         // const ptttData = sessionStorage.getItem('pttt') ? JSON.parse(sessionStorage.getItem('pttt')) : {};
         const today = new Date().toISOString().slice(0, 10);
-        const finishTotal = "2000"
+        const finishTotal = $('#price').val();
         const ptttData = "QR"
-        //20240510QRCodeKH0001
-        
-        // const pttt_id = await payment(ptttData[maKH])
-        if(ptttData === 'QR') {
+        // const pttt_id = await payment(ptttData[profileID])
+        if (ptttData === 'QR') {
             soTien = finishTotal
-            // date = today.replace(/-/g, "");
-            date = "20240510"
-            noiDungCK = date + "QRCode" + maKH
-            console.log(noiDungCK)
+            date = today.replace(/-/g, '')
+            noiDungCK = courseID + profileID
             $('.checkout-qrcode-price').text(soTien)
             $('.checkout-qrcode-content').text(noiDungCK)
             handleMethodQRCode(soTien, noiDungCK)
             startCountDown()
         } else {
-            console.log(ptttData[maKH] + " KHÔNG tồn tại")
+            console.log(ptttData[profileID] + " KHÔNG tồn tại")
         }
     });
 }
 
 let MY_BANK = {
     BANK_ID: "MB",
-    ACCOUNT_NO: "0778715603",
-    NAME: 'DO MINH QUAN'
+    ACCOUNT_NO: "0923326749",
+    NAME: 'LE TAN MINH TOAN'
 }
 
 function handleMethodQRCode(soTien, noiDungCK) {
     let QR = `https://vietqr.me/api/generate/${MY_BANK.BANK_ID}/${MY_BANK.ACCOUNT_NO}/${MY_BANK.NAME}?amount=${soTien}&memo=${noiDungCK}&is_mask=0&bg=7`;
     $('#img-qrcode img').attr('src', QR)
-    console.log(QR)
-
     setTimeout(() => {
         setInterval(() => {
             checkPaid(soTien, noiDungCK)
@@ -101,27 +96,26 @@ function handleMethodQRCode(soTien, noiDungCK) {
 }
 
 async function checkPaid(soTien, noiDungCK) {
-    if(isPaidSuccess) {
+    if (isPaidSuccess) {
         return;
     }
     else {
         try {
-            const response = await fetch('https://script.google.com/macros/s/AKfycbziTf9e_uKRRLrklRBkQ_08OQOAiJmtwJM2G5nS2sAfpIHPgfphpdN810fVbflrLSE/exec')
+            const response = await fetch('https://script.google.com/macros/s/AKfycbwbM1K5C-qT12eQ98l_mMHaaCuAoVapdboho9rqS9acaBCPZf3Kq0e5GA62wyCo001L/exec')
             const data = await response.json()
             const lastPaid = data.data[data.data.length - 1]
-    
-            lastPrice = lastPaid["Giá trị"]
+            lastPrice = +lastPaid["Giá trị"]
             lastContent = lastPaid["Mô tả"]
-            
+            console.log(lastPaid);
             const splitArray = lastContent.split(" ");
-    
-            if(lastPrice >= soTien && splitArray[2].includes(noiDungCK)) {
+            //
+            if (lastPrice >= +soTien && lastContent.includes('COURSE106640c9a32f39a')) {
                 clearInterval(countdownInterval);
                 isPaidSuccess = true
                 $('.modal-cart.qr-code').removeClass('open')
                 $('.modal-cart.qr-code-success').addClass('open')
                 startCountDown2()
-                setInterval(() => {
+                let payTimeOUT = setTimeout(() => {
                     sendPayment()
                 }, 6000)
             }
@@ -151,6 +145,7 @@ function startCountDown() {
 
         // Kiểm tra khi thời gian đạt 0
         if (countdownSeconds < 0) {
+            console.log('hello');
             clearInterval(countdownInterval);
             isPaidSuccess = true
             $('.modal-cart.qr-code').removeClass('open')
@@ -177,42 +172,20 @@ function startCountDown2() {
     }, 1000);
 }
 
-async function sendPayment() {
-    // const maKH = await getMaKH()
-    // const ptttData = sessionStorage.getItem('pttt') ? JSON.parse(sessionStorage.getItem('pttt')) : {};
-    // const ttnhData = sessionStorage.getItem('ttnh') ? JSON.parse(sessionStorage.getItem('ttnh')) : {};
-    // const today = new Date().toISOString().slice(0, 10);
-    // const tmpTotal = $('.checkout-confirm__tmp-total').text().replace(/[₫.]/g, '');
-    // const promotion = $('.checkout-confirm__promo').text().replace(/[^0-9]/g, '');
-    // const finishTotal = $('.checkout-confirm__money-total').text().replace(/[₫.]/g, '');
-    // const note = $('.checkout-note-input').val();
-    // const status = 'Chưa xác nhận'
-
-    // const bill = {
-    //     'maKH': maKH,
-    //     'maTTNH': ttnhData[maKH],
-    //     'date': today,
-    //     'tmpTotal': tmpTotal,
-    //     'promotion': promotion,
-    //     'finishTotal': finishTotal,
-    //     'payMethod': ptttData[maKH],
-    //     'note': note,
-    //     'status': status
-    // }
-
-    // const resAddBill = await addBill(bill)
-
-    // if (resAddBill.startsWith('HD')) {
-    //     if (handleRandomCTSP(resAddBill)) {
-    //         alert('Đơn hàng đã được gửi đi, vui lòng chờ nhân viên xác nhận')
-    //         clearCart(maKH)
-    //         window.location.href = 'index.php?thong-tin-tai-khoan&don-hang';
-    //     } 
-    //     else {
-    //         alert('Đã xảy ra lỗi khi thanh toán, vui lòng thử lại')
-    //     }
-    // } else {
-    //     console.log(resAddBill)
-    //     alert('Đã xảy ra lỗi, vui lòng thử lại')
-    // }
+function sendPayment() {
+    const profileID = $('#profileID').val();
+    const courseID = $('#courseID').val();
+    const price = +$('#price').val();
+    $.ajax({
+        url: 'http://localhost:62280/courses/confirm.php',
+        type: 'post',
+        data: JSON.stringify({ profileID: profileID, courseID: courseID, price: price }),
+        success: function (data) {
+            let response = JSON.parse(data);
+            if (response.status == 200) {
+                toastr.success('Đăng ký thành công', 'Thông báo');
+                window.location.href = `/courses/learn.php?courseId=${courseID}`;
+            }
+        }
+    })
 }
