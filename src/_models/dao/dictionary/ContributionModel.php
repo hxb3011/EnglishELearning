@@ -28,22 +28,20 @@ class ContributionModel {
         }
     }
 
-    public function getContributionBy_MeaningID($MeaningID)
+    public function getContributionBy_LemmaID($LemmaID)
     {
-        $sqlQuery = "SELECT * FROM Contribution WHERE MeaningID = ?";
+        $sqlQuery = "SELECT * FROM Contribution WHERE LemmaID like ?";
         $params = array(
-            'MeaningID' => $MeaningID
+            'LemmaID' => $LemmaID
         );
         try {
             $result = Database::executeQuery($sqlQuery, $params);
             if ($result != null) {
-                $contributions = [];
+                $contribution = new Contribution();
                 foreach ($result as $index => $value) {
-                    $contribution = new Contribution();
                     $contribution->constructFromArray($value);
-                    $contributions[] = $contribution;
                 }
-                return $contributions;
+                return $contribution;
             } else {
                 return null;
             }
@@ -53,10 +51,10 @@ class ContributionModel {
     }
 
     public function addContribution(Contribution $Contribution){
-        $sql = "INSERT INTO Contribution (ProfileID, MeaningID, Accepted) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO Contribution (ProfileID, LemmaID, Accepted) VALUES (?, ?, ?)";
         $params = array(
             "ProfileID" => $Contribution->profileID,
-            "MeaningID" => $Contribution->meaningID,
+            "LemmaID" => $Contribution->lemmaID,
             "Accepted" => $Contribution->accepted,
         );
         try{    
@@ -68,11 +66,11 @@ class ContributionModel {
     }
 
     public function updateContribution(Contribution $Contribution){
-        $sql = "UPDATE Contribution SET Accepted = ? WHERE ProfileID = ? AND MeaningID = ?";
+        $sql = "UPDATE Contribution SET Accepted = ? WHERE ProfileID = ? AND LemmaID = ?";
         $params = array(
             "Accepted" => $Contribution->accepted,
             "ProfileID" => $Contribution->profileID,
-            "MeaningID" => $Contribution->meaningID,
+            "LemmaID" => $Contribution->lemmaID,
         );
         try{
             $result = Database::executeNonQuery($sql,$params);
@@ -83,10 +81,10 @@ class ContributionModel {
     }
 
     public function deleteContribution(Contribution $Contribution){
-        $sql = "DELETE FROM Contribution WHERE ProfileID = ? AND MeaningID = ?";
+        $sql = "DELETE FROM Contribution WHERE ProfileID = ? AND LemmaID = ?";
         $params = array(
             "ProfileID" => $Contribution->profileID,
-            "MeaningID" => $Contribution->meaningID,
+            "LemmaID" => $Contribution->lemmaID,
         );
         try{
             $result = Database::executeNonQuery($sql,$params);

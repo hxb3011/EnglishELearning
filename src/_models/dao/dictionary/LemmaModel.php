@@ -2,6 +2,11 @@
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/database.php');
 requirm('/access/dictionary/Lemma.php');
+requirm('/dao/dictionary/MeaningModel.php');
+requirm('/dao/dictionary/ConjugationModel.php');
+requirm('/dao/dictionary/PronunciationModel.php');
+requirm('/dao/dictionary/ContributionModel.php');
+
 class LemmaModel {
 
     public function liveSearch($key)
@@ -15,14 +20,31 @@ class LemmaModel {
             if ($result != null) {
                 $lemmas = [];
                 foreach ($result as $index => $value) {
-                    $Lemma = new Lemma();
-                    $Lemma->constructFromArray($value);
-                    $lemmas[] = $Lemma;
+                    $item = [];
+                    $item['key'] = $value['KeyL'];
+                    $item['ID'] = $value['ID'];
+                    $lemmas[] = $item;
                 }
                 return $lemmas;
             } else {
                 return null;
             }
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+    public function checkKeyExist($key){
+        $sqlQuery = "SELECT * FROM Lemma WHERE KeyL like ?" ;
+        $params = array(
+            'KeyL' => $key
+        );
+        try {
+            $result = Database::executeQuery($sqlQuery, $params);
+            if($result != null){
+                return true;
+            } else
+                return false;
+
         } catch (Exception $e) {
             return null;
         }
@@ -35,15 +57,23 @@ class LemmaModel {
         );
         try {
             $result = Database::executeQuery($sqlQuery, $params);
-            if ($result != null) {
-                $Lemma = new Lemma();
-                foreach ($result as $index => $value) {
-                    $Lemma->constructFromArray($value);
-                }
-                return $Lemma;
-            } else {
-                return null;
-            }
+            return $this->get_full_data_lemma($result,true);
+
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+
+    public function getLemmaByPage($page)
+    {
+        $offset = ($page-1) * 2;
+        $sqlQuery = "SELECT * FROM Lemma  Limit 5 offset ?" ;
+        $params = array(
+            'offset' => $offset
+        );
+        try {
+            $result = Database::executeQuery($sqlQuery, $params);
+            return $this->get_full_data_lemma($result,false);
         } catch (Exception $e) {
             return null;
         }
@@ -57,26 +87,32 @@ class LemmaModel {
         );
         try {
             $result = Database::executeQuery($sqlQuery, $params);
-            if ($result != null) {
-                $Lemma = new Lemma();
-                foreach ($result as $index => $value) {
-                    $Lemma->constructFromArray($value);
-                }
-                return $Lemma;
-            } else {
-                return null;
-            }
+            return $this->get_full_data_lemma($result,true);
         } catch (Exception $e) {
             return null;
         }
     }
 
-    public function addLemma(Lemma $Lemma){
-        $sql = "INSERT INTO Lemma (ID, KeyL, PartOfSpeech) VALUES (?, ?, ?)";
+    public function getLemmaID($key){
+        $sql = "SELECT ID FROM Lemma WHERE KeyL LIKE ?";
         $params = array(
-            "ID" => $Lemma->ID,
-            "KeyL" => $Lemma->keyL,
-            "PartOfSpeech" => $Lemma->partOfSpeech,
+            'key' => $key
+        );
+        try {
+            $result = Database::executeQuery($sql, $params);
+            foreach ($result as $index => $value) {
+                return $value['ID'];
+            }
+            return $lemmas;
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+    public function addLemma($lemmaKey,$partOfSpeech){
+        $sql = "INSERT INTO Lemma (KeyL, PartOfSpeech) VALUES (?, ?)";
+        $params = array(
+            "KeyL" => $lemmaKey,
+            "PartOfSpeech" => $partOfSpeech,
         );
         try{
             $result = Database::executeNonQuery($sql,$params);
@@ -86,12 +122,12 @@ class LemmaModel {
         }
     }
 
-    public function updateLemma(Lemma $Lemma){
-        $sql = "UPDATE Lemma SET KeyL = ?, PartOfSpeech = ? WHERE ID like ?";
+    public function updateLemma($lemmaId, $key, $partOfSpeech){
+        $sql = "UPDATE Lemma SET KeyL = ?, PartOfSpeech = ? WHERE ID = ?";
         $params = array(
-            "Lemma" => $Lemma->Lemma,
-            "Explanation" => $Lemma->explanation,
-            "ID" => $Lemma->ID
+            "KeyL" => $key,
+            "partOfSpeech" => $partOfSpeech,
+            "ID" => $lemmaId
         );
         try{
             $result = Database::executeNonQuery($sql,$params);
@@ -111,6 +147,39 @@ class LemmaModel {
             return $result;
         } catch (Exception $e){
             return false;
+        }
+    }
+    public function get_full_data_lemma($result,$single){
+        $meaningModel = new MeaningModel();
+        $conjugationModel = new ConjugationModel();
+        $pronunciationModel = new PronunciationModel();
+        $contributionModel = new ContributionModel();
+        
+        if ($result != null) {
+            if($single == true)
+            {
+                foreach ($result as $index => $value) {
+                    $meaning_arr = $meaningModel->getMeaningByLemmaID($value['ID']);
+                    $pronunciation = $pronunciationModel->getPronunciationByLemmaID($value['ID']);
+                    $conjugation = $conjugationModel->getConjugationBy_InfinitiveID($value['ID']);
+                    $Lemma = new Lemma();
+                    $Lemma->constructFromArray($value,$meaning_arr,$pronunciation,$conjugation);
+                    return $Lemma;
+                }
+            } else {
+                $lemmas = [];
+                foreach ($result as $index => $value) {
+                    $meaning_arr = $meaningModel->getMeaningByLemmaID($value['ID']);
+                    $pronunciation = $pronunciationModel->getPronunciationByLemmaID($value['ID']);
+                    $conjugation = $conjugationModel->getConjugationBy_InfinitiveID($value['ID']);
+                    $Lemma = new Lemma();
+                    $Lemma->constructFromArray($value,$meaning_arr,$pronunciation,$conjugation);
+                    $lemmas[] = $Lemma;
+                }
+            }
+            return $lemmas;
+        } else {
+            return null;
         }
     }
 }
