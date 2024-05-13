@@ -2,7 +2,7 @@
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
 
-final class ProfileMainPage extends BaseHTMLDocumentPage
+final class BlogDetailPage extends BaseHTMLDocumentPage
 {
     public function __construct()
     {
