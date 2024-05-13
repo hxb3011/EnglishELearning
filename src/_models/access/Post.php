@@ -4,7 +4,8 @@ Class Post{
     public ?string $SubId;
     public string $title;
     public string $content;
-    public string $tags;
+    public DateTime $date;
+    public string $tags = [];
     public int $status;
     public int $updated;
 
@@ -16,6 +17,7 @@ Class Post{
         $this->SubId = $arrayValue['SubID'];
         $this->title = $arrayValue['Title'];
         $this->content = $arrayValue['Content'];
+        $this->date = $arrayValue['Date'];
         $this->tags = $arrayValue['Tags'];    ;
         $this->status = $arrayValue['Status'];
         $this->updated = $arrayValue['Updated']; 
