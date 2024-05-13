@@ -14,12 +14,11 @@ if (isSignedIn()) {
             // chuyển hướng sang mua khóa học
             $_SESSION['profileID'] = $profileID;
             $_SESSION['courseID'] = $_REQUEST['courseId'];
-            header('Location: /courses/checkoutController.php');
+            header('Location: /courses/checkout.php');
         }
     } else {
-        header('Location: /error');
+        //header('Location: /error');
     }
 } else {
-    //chuyen huong sang trang dang nhap
     header('Location: /authentication/authenticate.php');
 }
