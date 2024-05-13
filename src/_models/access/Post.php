@@ -5,7 +5,7 @@ Class Post{
     public string $title;
     public string $content;
     public DateTime $date;
-    public string $tags = [];
+    public string $tags;
     public int $status;
     public int $updated;
 

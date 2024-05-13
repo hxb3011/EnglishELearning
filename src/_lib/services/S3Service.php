@@ -1,7 +1,5 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
-requirl("vendor/aws/aws-autoloader.php");
-
 use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
 class S3Service
@@ -106,5 +104,17 @@ class S3Service
     {
         $s3 = $this->createClient();
         return $s3->encodeKey($key);
+    }
+    public function presignUrl($filePath,$expires)
+    {
+        $s3 = $this->createClient();
+        $cmd = $s3->getCommand('GetObject',[
+            'Bucket' => $this->s3Config['bucket'],
+            'Key'=> $filePath
+        ]);
+        $request = $s3->createPresignedRequest($cmd, '+1 hour');
+        $presignedUrl = (string)$request->getUri();
+
+        return $presignedUrl;
     }
 }
