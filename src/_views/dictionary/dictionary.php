@@ -50,7 +50,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
 
     public function favIcon(string $ico = null, string $svg = null)
     {
-        parent::favIcon($ico, $svg);
+        parent::favIcon("/assets/images/logo-icon.png", $svg);
     }
     public function head()
     {

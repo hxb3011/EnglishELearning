@@ -57,6 +57,9 @@
 .mdi-b.comment::before{
     content: var(--mdi-comment);
 }
+.mdi-b.history::before{
+    content: var(--mdi-history);
+}
 a {
     text-decoration: none;
 }
