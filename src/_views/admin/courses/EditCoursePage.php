@@ -18,17 +18,17 @@ class EditCoursePage extends BaseHTMLDocumentPage
 
     public function documentInfo(string $author, string $description, string $title)
     {
-        parent::documentInfo($author, $description, "Khóa học- " . $title);
+        parent::documentInfo($author, $description, "Khóa học - " . $title);
     }
 
     public function openGraphInfo(string $image, string $description, string $title)
     {
-        parent::openGraphInfo($image, $description, "Hồ sơ - " . $title);
+        parent::openGraphInfo($image, $description, "Khóa học - " . $title);
     }
 
     public function favIcon(string $ico = null, string $svg = null)
     {
-        parent::favIcon($ico, $svg);
+        parent::favIcon("/assets/images/logo-icon.png", $svg);
     }
 
     public function head()

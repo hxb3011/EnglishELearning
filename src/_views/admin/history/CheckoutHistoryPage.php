@@ -1,0 +1,156 @@
+<?
+require_once "/var/www/html/_lib/utils/requir.php";
+requirl("utils/htmlDocument.php");
+
+class CheckoutHistoryPage extends BaseHTMLDocumentPage
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    public function documentInfo(string $author, string $description, string $title)
+    {
+        parent::documentInfo($author, $description, "Quản lý - " . $title);
+    }
+
+    public function openGraphInfo(string $image, string $description, string $title)
+    {
+        parent::openGraphInfo($image, $description, "Quản lý - " . $title);
+    }
+
+    public function favIcon(string $ico = null, string $svg = null)
+    {
+        parent::favIcon("/assets/images/logo-icon.png", $svg);
+    }
+    public function head()
+    {
+        $this->styles(
+            "/node_modules/bootstrap/dist/css/bootstrap.min.css",
+            "/node_modules/datatables/media/css/jquery.dataTables.min.css",
+            "/clients/css/admin/main.css",
+            "/clients/css/admin/history.css"
+        );
+    }
+    public function body()
+    {
+?>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="admin-header">
+                        <i class="mdi-b apple-keyboard-command admin-header__icon"></i>
+                        Lịch sử đăng ký khóa học
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top:10px; margin-bottom:10px"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                </div>
+                            </div>
+                            <div style="margin-top:24px; margin-bottom:24px;"></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table id="history">
+                                        <thead>
+                                            <tr>
+                                                <th>Mã</th>
+                                                <th>Họ học viên</th>
+                                                <th>Tên học viên</th>
+                                                <th>Khóa học</th>
+                                                <th>Ngày đăng kí</th>
+                                                <th>Giá</th>
+                                            </tr>
+                                        </thead>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?
+        $this->scripts(
+            "/node_modules/jquery/dist/jquery.min.js",
+            "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+            "/node_modules/toastr/build/toastr.min.js",
+            "/node_modules/datatables/media/js/jquery.dataTables.min.js",
+            "/clients/admin/main.js",
+        );
+        ?>
+        <?
+        ?>
+        <script>
+            var dataT;
+            $(document).ready(function() {
+                dataT = $('#history').DataTable({
+                    "ajax": {
+                        url: "/administration/history/ajax_call_action.php?action=get_all"
+                    },
+                    "language": {
+                        "sProcessing": "Đang xử lý...",
+                        "sLengthMenu": "Hiển thị _MENU_ dòng",
+                        "sZeroRecords": "Không tìm thấy dữ liệu",
+                        "sInfo": "Hiển thị từ _START_ đến _END_ của _TOTAL_ dòng",
+                        "sInfoEmpty": "Hiển thị từ 0 đến 0 của 0 dòng",
+                        "sInfoFiltered": "(được lọc từ _MAX_ dòng)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Tìm kiếm:",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "Đầu",
+                            "sPrevious": "Trước",
+                            "sNext": "Tiếp",
+                            "sLast": "Cuối"
+                        }
+                    },
+                    "columns": [
+                        {
+                            data: 'ID',
+                            width: "10%"
+                        },
+                        {
+                            data: 'FirstName',
+                            with:"15%"
+                        },
+                        {
+                            data: 'LastName',
+                            with:"15%"
+                        },
+
+                        {
+                            data: 'Name',
+                            width: "30%"
+                        },
+                        {
+                            data: 'AtDateTime',
+                            width: "20%"
+                        },
+                        {
+                            data: 'Price',
+                            width: "10%"
+                        },
+
+                    ],
+                });
+                $.ajax({
+                    url: '/administration/history/ajax_call_action.php?action=get_all',
+                    type: 'get',
+                    success: function(data) {
+                        let re = JSON.parse(data)
+                        console.log(re);
+                    }
+                })
+            })
+        </script>
+
+<?
+    }
+}
