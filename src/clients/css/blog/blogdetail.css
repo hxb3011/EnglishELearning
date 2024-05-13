@@ -27,7 +27,9 @@ body {
 
 /* Row */
 .row{
-    justify-content: center;
+    position: relative;
+    width: 100%;
+    margin: 0;
 }
 .row img{
     align-self: center;
@@ -46,10 +48,15 @@ body {
 .pagination_all_blogs{
     background-color: #e9efeb;
     position: absolute;
-    display: flex;
-    width: 40px;
+    width: fit-content;
     top:0;
     left: 0;
+    border-left: 1px solid black;
+}
+.pagination{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .pagination .page-item{
@@ -271,9 +278,6 @@ body {
     margin-top: 10px;
 }
 
-.blog_detail_data .image{
-    align-self: center;
-}
 @media screen and (max-width:890px){
     
     .tags-relative .icon-prev .page-link{

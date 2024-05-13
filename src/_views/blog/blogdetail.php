@@ -91,7 +91,7 @@ final class BlogDetailPage extends BaseHTMLDocumentPage
 
                                 <!-- Begin Blog Detail Data -->
                                 <div class="blog_detail_data col-lg-12 mb-5">
-                                    <img class="image img-fluid img-blog mb-3 mb-md-0" style="max-width: 70%; border-radius: 4rem;" src="/assets/images/blog.png" alt="">
+                                    <img class="image img-fluid img-blog mb-3 mb-md-0" style="max-width: 50%; border-radius: 4rem;" src="/assets/images/blog.png" alt="">
                                     <p class="text-muted mt-5">
                                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
                                     </p>
