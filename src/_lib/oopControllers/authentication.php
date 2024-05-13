@@ -3,7 +3,7 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirm("/dao/accounts.php");
 class Authentication
 {
-    public function __construct($formdata)
+    public function __construct($formdata) 
     {
         $this->auth($formdata);
     }
@@ -37,20 +37,22 @@ class Authentication
     {
         try {
             if (strlen($subject) == 0 || strlen($password) == 0) {
-                echo "Username or password is empty";
+                echo "Username hoặc mật khẩu bỏ trống";
                 return;
             }
             $user = new UserRepo();
             $auth = $user->Login($subject, $password);
             if ($auth != null) {
-                if (!isset($_SESSION)) {
-                    session_start();
+                // if (session_status() == PHP_SESSION_NONE) {
+                //     session_start();
+                // }
+                //session_regenerate_id();
+                if (empty($_SESSION['AUTH_UID'])) {
+                    $_SESSION['AUTH_UID'] = $auth['UID'];
+                    echo "success";
                 }
-                $_SESSION["username"] = $auth['UserName'];
-                $_SESSION["Permissions"] = $auth['Permissions'];
-                echo "success";
             } else {
-                echo "Account was not exists or password was incorrect";
+                echo "Username hoặc mật khẩu không đúng";
             }
         } catch (Exception $e) {
             throw new Exception($e->getMessage());

@@ -86,13 +86,13 @@ $page->beforeDocument();
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="/administration/dashboard.php" class="sidebar-link" >
+                    <a href="" class="sidebar-link" >
                         <span class="mdi-b -user"></span>
                         <span class="sidebar-item__text">User</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="/administration/dashboard.php" class="sidebar-link" >
+                    <a href="" class="sidebar-link" >
                         <span class="mdi-b -role"></span>
                         <span class="sidebar-item__text">Role</span>
                     </a>
@@ -110,6 +110,24 @@ $page->beforeDocument();
                             <a href="/administration/dictionary/add.php" class="sidebar-link">Thêm từ vựng</a>
                         </li>
                     </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="" class="sidebar-link" >
+                        <span class="mdi-b -blog"></span>
+                        <span class="sidebar-item__text">Blog</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="" class="sidebar-link" >
+                        <span class="mdi-b -blog"></span>
+                        <span class="sidebar-item__text">Bình luận</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/administration/history/index.php" class="sidebar-link" >
+                        <span class="mdi-b history"></span>
+                        <span class="sidebar-item__text">Lịch sử thanh toán</span>
+                    </a>
                 </li>
             </ul>
             <div class="sidebar-footer">

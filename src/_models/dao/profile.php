@@ -1,4 +1,7 @@
 <?
+
+use Google\Service\AIPlatformNotebooks\Status;
+
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/database.php');
 requirm('/profile/profile.php');
@@ -56,6 +59,29 @@ final class ProfileDAO
 
         return $prof;
     }
+    public static function getProfileByType($type)
+    {
+        $sql = "SELECT * FROM `profile` WHERE Type = ? AND Status = 1";
+        $param = array($type);
+        $result = Database::executeQuery($sql, $param);
+        if ($result === null || count($result) === 0)
+            return array();
+        $profiles  = array();
+        foreach($result as $key => $profileRow)
+        {
+            $profile = new Profile(
+                $profileRow["ID"],
+                $profileRow["FirstName"],
+                $profileRow["LastName"],
+                $profileRow["Gender"],
+                $profileRow["BirthDay"],
+                $profileRow["Type"],
+                $profileRow["Status"],
+            );
+            $profiles[]= $profile;
+        }
+        return $profiles;
+    }
     public static function lookupProfiles(string $keywords)
     {
         # code...
@@ -73,4 +99,3 @@ final class ProfileDAO
         # code...
     }
 }
-?>

@@ -77,24 +77,23 @@ class CourseModel
             return 0;
         }
     }
-    public function getAllCourse($courseName="",$profileId = "")
+    public function getAllCourse($courseName = "", $profileId = "")
     {
         //$sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID";
-        if($profileId != "")
-        {
+        if ($profileId != "") {
             $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID= ? ";
             $params = array(
                 $courseName,
                 $profileId
             );
-        }else{
+        } else {
             $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') ";
             $params = array(
                 $courseName,
             );
         }
         try {
-            $result = Database::executeQuery($sqlQuery,$params);
+            $result = Database::executeQuery($sqlQuery, $params);
             if ($result != null) {
                 $courses = [];
                 foreach ($result as $index => $value) {
@@ -105,30 +104,29 @@ class CourseModel
                 }
                 return $courses;
             } else {
-                return null;
+                return array();
             }
         } catch (Exception $e) {
-            return null;
+            return array();
         }
     }
-    public function getCourseFromPage($page=1, $perPage=5,$courseName="",$profileId = "")
+    public function getCourseFromPage($page = 1, $perPage = 5, $courseName = "", $profileId = "")
     {
         $offSet = ($page - 1) * $perPage;
-        if($profileId != "")
-        {
-            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID= ? LIMIT $offSet, $perPage";
+        if ($profileId != "") {
+            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID= ?  LIMIT $offSet, $perPage";
             $params = array(
                 $courseName,
                 $profileId
             );
-        }else{
+        } else {
             $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') LIMIT $offSet, $perPage";
             $params = array(
                 $courseName,
             );
         }
         try {
-            $result = Database::executeQuery($sqlQuery,$params);
+            $result = Database::executeQuery($sqlQuery, $params);
             if ($result != null) {
                 $courses = [];
                 foreach ($result as $index => $value) {
@@ -140,14 +138,13 @@ class CourseModel
             } else {
                 return null;
             }
-        } 
-        catch (Exception $e) {
+        } catch (Exception $e) {
         }
     }
     /* SHARE */
     public function getCourseById($id)
     {
-        $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID AND course.ID =?";
+        $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID AND course.ID =? AND Status=1";
         $params = array(
             'id' => $id
         );
@@ -167,15 +164,26 @@ class CourseModel
         }
     }
     /* CLIENT */
-    public function getAllCourseBySearch($courseName="",$profileId = "")
+    public function getAllCourseBySearch($courseName = "", $profileId = "", $startPrice = null, $endPrice = null)
     {
-        $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID LIKE CONCAT('%', ?, '%') ";
-        $params = array(
-            $courseName,
-            $profileId
-        );
+        if ($startPrice != null && $endPrice != null) {
+            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.Name LIKE CONCAT('%', ?, '%') AND profile.ID LIKE CONCAT('%', ?, '%') AND course.Price >= ? AND course.Price <= ? AND State= 1";
+            $params = array(
+                $courseName,
+                $profileId,
+                $startPrice,
+                $endPrice
+            );
+        } else {
+            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.Name LIKE CONCAT('%', ?, '%') AND profile.ID LIKE CONCAT('%', ?, '%') AND State= 1";
+            $params = array(
+                $courseName,
+                $profileId
+            );
+        }
+
         try {
-            $result = Database::executeQuery($sqlQuery,$params);
+            $result = Database::executeQuery($sqlQuery, $params);
             if ($result != null) {
                 $courses = [];
                 foreach ($result as $index => $value) {
@@ -186,11 +194,45 @@ class CourseModel
                 }
                 return $courses;
             } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            return array();
+        }
+    }
+    public function getCourseFromPage2($page = 1, $perPage = 5, $courseName = "", $profileId = "", $startPrice = null, $endPrice = null)
+    {
+        $offSet = ($page - 1) * $perPage;
+        if($startPrice != null && $endPrice != null)
+        {
+            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID LIKE CONCAT('%', ?, '%')  AND State=1 AND course.Price >= ? AND course.Price <= ? LIMIT $offSet, $perPage";
+            $params = array(
+                $courseName,
+                $profileId,
+                $startPrice,
+                $endPrice
+            );
+        }else{
+            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID LIKE CONCAT('%', ?, '%')  AND State=1 LIMIT $offSet, $perPage";
+            $params = array(
+                $courseName,
+                $profileId
+            );
+        }
+        try {
+            $result = Database::executeQuery($sqlQuery, $params);
+            if ($result != null) {
+                $courses = [];
+                foreach ($result as $index => $value) {
+                    $course = new Course();
+                    $course->constructFromArray($value);
+                    $courses[] = $course;
+                }
+                return $courses;
+            } else {
                 return null;
             }
         } catch (Exception $e) {
-            return null;
         }
-    } 
-
+    }
 }

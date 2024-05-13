@@ -41,7 +41,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES ('0','root99','Hello|11',0,'////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('1','letoan2505','M123456m',1,'////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('2','hieuthuan99','M123456m',1,'////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('ACCOUNT1','LETOAN','M123456m',1,'////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('ACCOUNT2','HOANGSON','M12345',1,'////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('ACCOUNT3','LE HOAN','M12345',1,'////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+INSERT INTO `account` VALUES ('0','root99','Hello|11',0,'////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('1','letoan2505','M123456m',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('2','hieuthuan99','M123456m',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640c9a311c8f','letoan','$2y$10$TiQ2bUUg9DiV0oJ/eoFPw.iGsUrosL3KkVqkUBo0f2P1pDWLV0dNu',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640ca00af54c','huynhxbach','$2y$10$3nQ.AKmPn0G9evGiIjMjMuNBx.JG1GBpuoXfEa.ccLbtW1vTMHSh.',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640ca69c470f','nhatkhai','$2y$10$eM9BR2.1f.8fPsjCYxAgNerhP6hHlztiW9uGEp0rTPyHcn6QVRYZO',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640cb1f4be66','khanhnam','$2y$10$JK9zV9MBGCt2Mo9iUrJprOMfacuBQ95M3752wL4EcDCDLqzU2Bh1y',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640cbe30bfa7','thanhsang','$2y$10$7Ir/dNPZI8f6DZ3ixlxMKOSWGpzW9bPH4ksgAihuNp1vq55sWMN6C',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640cc428abf2','maiphuong','$2y$10$/Fzv9xgm985xyI6l6Hr8iuY.HlQk7hPFrfOUVwtTi30Xwu0E3jfJK',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640ccfe50011','Ngô Văn Huy','$2y$10$7ndSUaG5fYVaFTOVUJ3UweIYoPQ.2.lAWbmZaKCr1Oyt86i2ayfMa',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640cd630d2f8','maithiloan','$2y$10$kdb0LFixcUkdOTS6BX12jeehLGgaPqZTTHWYaapAIOoo/DE./r2L.',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640ce125abbd','vanlong','$2y$10$iE03zg9Q1SBjEJ/rBEVWlOyOtHv70fjvcMv7llY0aqU4pJd6AKIri',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640ce5ce2c2e','hathilan','$2y$10$mD/AgN5qZ8qciL.J9fsDd.PH4SuHPlTX1TgQFHRJsQoIKBUjdzX2S',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640cebc5a08c','dinhvanphuc','$2y$10$4kuPuCDOsGZozf2tk74AqO3HdbGy8bJb0T8nGcc86XtndFvrejQ8S',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640cee6100d4','tranthihang','$2y$10$.KIz2OPWmqA./.PPdC8AOuDdCZVrxXQdZAw7Qln1mpLr9jMlEfiLO',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640cf47703ec','nguyenvankhanh','$2y$10$6U8ZWjGfqqS9kfoge1Mj/uNB0wWJWhooWnRHRYTJsdzxawZpEa8DK',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640cf731c7af','lethihuong','$2y$10$9Cl4Yo/LM8uiqi3RobpC1ukRvMC2.AdQjzosHYMpS6iuz/rNxjlZu',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640cfb382a0b','phamvanthuan','$2y$10$Odc5ijjO/TM9xZ7K3gVNp.BfAXFa29jZ5ma3.kWSNFX5.Uv2VxQaS',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d031e869a','tranthithu','$2y$10$e7DL0sggSU.9tWLCVTtv/uFS4AbV6BDWnXAWWhcRg64NnyxWvJBr2',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d17e04e18','nguyenvantuan','$2y$10$utCp82OoQNCdhNQoEjAIYeAtEL2bQ8me47nOTIDVZNnjU3iiPcnA.',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d1b41c1ac','hoangthithom','$2y$10$v96QfNqUb5rS9ldBmk8ixeAbrr8dZWIAIrkawVvumgxH.bILc/P4e',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d1df61fa1','vuvanhung','$2y$10$j74..PjkW1sq.Kfp3SI6nO3fc./iK3jRL1yhgjJXkrkfnvRYGd7.y',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d21500756','tranthithuha','$2y$10$YtkZ.xprzKtNXNxEsS7xLeZzMACCpcrVr2ouUa8HSXaFuDFKfcXHS',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d246dbbcd','dovantai','$2y$10$P/09SI6xjF6HZfafnNRFg.VNIaV8Rx8D6jI6GBdFOIEo.KZqN2Wue',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d2cd94491','nguyenthianh','$2y$10$5/tkoSifC335pTo6dGRbX./UDmX2yhmPw7qF/SkW8jaI8SsxvMgPq',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d3267b96c','levantamm','$2y$10$H2.N0ZTNL1G5r7CK3t3sJOBsm0/ddrnVWGf4PIXRKJXjvWQrgbADS',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d34f83333','phamquy','$2y$10$FhmHDSK5FDD6mfrMasnlM.pIa52TEOpzKXvQzNd5HaKsTzjDJpvyK',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d3d4cc50e','hoangvanson','$2y$10$vn9jnOVvus75HpmaxVLrxuTA4PmdL902nc1q.XY0/cpOzMSdcnLZi',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d44986aa3','tranthihong','$2y$10$rIdSCuErWx635ctG4v7AsOPvuWWHkDfrCy4v2wzV.J5oNvQQb4opi',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d48e8d637','nguyevanquan','$2y$10$NheJbzmEH.byV9MdpurD4uUDN6mUUS4wmpQI2apJComBSBr8ABqvy',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d4dd5c4fc','lethithao','$2y$10$Rd7etVfVcDnAKdruNXSw3uPfnfwAcWIVe0oVu2NaaaRWdTMEmWdV.',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d545d964c','dangvanthanh','$2y$10$ri/tvgJfWLQ1aHMgpAeV5uworvu0JXoldNB5BeYbNs0snBV4jFfpW',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d5c094514','phamthikim','$2y$10$qvMrPfhQB3GUiIApnyLCkOtiQvtFOwef0D5Ih.8X4kmHLE2ZmA4zW',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d62c4ccf2','vuvanhoa','$2y$10$4lmwKTQ8ipMcL6o53J/OZ.GOwbmeAq7mphsbTN0yv1JTZJSAIFOPC',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),('6640d746e77cb','nguyenthidieu','$2y$10$pKYfIIY59.NXVbdQYlBHSeFr60Nu4k.HZinqy2nSzSpE0oPLIqoPG',1,'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,9 +60,9 @@ CREATE TABLE `acompmask` (
   PRIMARY KEY (`ID`),
   KEY `FK_AnswerID_acompmask_answer` (`AnswerID`),
   KEY `FK_QCoMaskID_acompmask_qcompmask` (`QCoMaskID`),
-  CONSTRAINT `FK_AnswerID_acompmask_answer` FOREIGN KEY (`AnswerID`) REFERENCES `answer` (`ID`),
-  CONSTRAINT `FK_QCoMaskID_acompmask_qcompmask` FOREIGN KEY (`QCoMaskID`) REFERENCES `qcompmask` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `FK_AnswerID_acompmask_answer` FOREIGN KEY (`AnswerID`) REFERENCES `answer` (`ID`) ON DELETE CASCADE,
+  CONSTRAINT `FK_QCoMaskID_acompmask_qcompmask` FOREIGN KEY (`QCoMaskID`) REFERENCES `qcompmask` (`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,6 +71,7 @@ CREATE TABLE `acompmask` (
 
 LOCK TABLES `acompmask` WRITE;
 /*!40000 ALTER TABLE `acompmask` DISABLE KEYS */;
+INSERT INTO `acompmask` VALUES (2,8,14,'haha');
 /*!40000 ALTER TABLE `acompmask` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,9 +89,9 @@ CREATE TABLE `amatching` (
   PRIMARY KEY (`AnsID`,`QMat`,`QMatKey`),
   KEY `FK_QMat_amatching_qmatching` (`QMat`),
   KEY `FK_QMatKey_amatching_qmatchingkey` (`QMatKey`),
-  CONSTRAINT `FK_AnsID_amatching_answer` FOREIGN KEY (`AnsID`) REFERENCES `answer` (`ID`),
-  CONSTRAINT `FK_QMat_amatching_qmatching` FOREIGN KEY (`QMat`) REFERENCES `qmatching` (`ID`),
-  CONSTRAINT `FK_QMatKey_amatching_qmatchingkey` FOREIGN KEY (`QMatKey`) REFERENCES `qmatchingkey` (`ID`)
+  CONSTRAINT `FK_AnsID_amatching_answer` FOREIGN KEY (`AnsID`) REFERENCES `answer` (`ID`) ON DELETE CASCADE,
+  CONSTRAINT `FK_QMat_amatching_qmatching` FOREIGN KEY (`QMat`) REFERENCES `qmatching` (`ID`) ON DELETE CASCADE,
+  CONSTRAINT `FK_QMatKey_amatching_qmatchingkey` FOREIGN KEY (`QMatKey`) REFERENCES `qmatchingkey` (`ID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -100,6 +101,7 @@ CREATE TABLE `amatching` (
 
 LOCK TABLES `amatching` WRITE;
 /*!40000 ALTER TABLE `amatching` DISABLE KEYS */;
+INSERT INTO `amatching` VALUES (7,14,17),(7,15,14),(7,16,15),(7,17,17);
 /*!40000 ALTER TABLE `amatching` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,8 +117,8 @@ CREATE TABLE `amulchoption` (
   `AnsID` int NOT NULL,
   PRIMARY KEY (`QOptID`,`AnsID`),
   KEY `FK_AnsID_amulchoption_answer` (`AnsID`),
-  CONSTRAINT `FK_AnsID_amulchoption_answer` FOREIGN KEY (`AnsID`) REFERENCES `answer` (`ID`),
-  CONSTRAINT `FK_QOptID_amulchoption_qmulchoption` FOREIGN KEY (`QOptID`) REFERENCES `qmulchoption` (`ID`)
+  CONSTRAINT `FK_AnsID_amulchoption_answer` FOREIGN KEY (`AnsID`) REFERENCES `answer` (`ID`) ON DELETE CASCADE,
+  CONSTRAINT `FK_QOptID_amulchoption_qmulchoption` FOREIGN KEY (`QOptID`) REFERENCES `qmulchoption` (`ID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -126,6 +128,7 @@ CREATE TABLE `amulchoption` (
 
 LOCK TABLES `amulchoption` WRITE;
 /*!40000 ALTER TABLE `amulchoption` DISABLE KEYS */;
+INSERT INTO `amulchoption` VALUES (85,5),(91,6);
 /*!40000 ALTER TABLE `amulchoption` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,9 +147,9 @@ CREATE TABLE `answer` (
   PRIMARY KEY (`ID`),
   KEY `FK_QuestionID_answer_question` (`QuestionID`),
   KEY `FK_ExcsRespID_answer_execsresponse` (`ExcsRespID`),
-  CONSTRAINT `FK_ExcsRespID_answer_execsresponse` FOREIGN KEY (`ExcsRespID`) REFERENCES `execsresponse` (`ID`),
-  CONSTRAINT `FK_QuestionID_answer_question` FOREIGN KEY (`QuestionID`) REFERENCES `question` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `FK_ExcsRespID_answer_execsresponse` FOREIGN KEY (`ExcsRespID`) REFERENCES `execsresponse` (`ID`) ON DELETE CASCADE,
+  CONSTRAINT `FK_QuestionID_answer_question` FOREIGN KEY (`QuestionID`) REFERENCES `question` (`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,6 +158,7 @@ CREATE TABLE `answer` (
 
 LOCK TABLES `answer` WRITE;
 /*!40000 ALTER TABLE `answer` DISABLE KEYS */;
+INSERT INTO `answer` VALUES (5,'',39,'ExcersR1'),(6,'',40,'ExcersR1'),(7,'',41,'ExcersR1'),(8,'',42,'ExcersR1');
 /*!40000 ALTER TABLE `answer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,7 +278,7 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES ('COURSE','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Không có gì',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',50000,'TOEIC'),('COURSE1','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','fsdfsdf',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE10','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','fsdfsdf',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE11','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','sdfsdf',1,'PRO2','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE16','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO3','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE17','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO3','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE18','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO3','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE19','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO3','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE2','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE20','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE22','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE23','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE3','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE4','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO2','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE5','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO2','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE6','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE7','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE8','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name'),('COURSE9','public/poster/COURSE1/hoc-toeic-hay-ielts-2.jpg','Description',1,'PRO1','2024-05-05 00:00:00','2024-05-06 00:00:00',5000,'Name');
+INSERT INTO `course` VALUES ('COURSE1','public/poster/COURSE1/banner-mobile-02-02.jpg','<p><span style=\"color: rgb(13, 13, 13); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; white-space-collapse: preserve;\">Khóa học cơ bản là nền tảng quan trọng để bắt đầu hành trình học tiếng Anh của bạn. Trong khóa học này, bạn sẽ khám phá các khái niệm ngữ pháp cơ bản, tích lũy từ vựng hàng ngày và phát triển kỹ năng nghe và nói căn bản. Từ việc giới thiệu bản thân đến gặp gỡ và giao tiếp trong các tình huống hàng ngày, khóa học này sẽ giúp bạn xây dựng một cơ sở vững chắc để tiếp tục học tiếng Anh một cách hiệu quả và tự tin hơn.</span><br></p>',1,'6640c9a32f39a','2024-05-11 15:29:00','2024-05-31 15:29:00',2000,'Khóa học cơ bản'),('COURSE10','public/poster/COURSE10/tu-vung-tieng-anh-du-lich-1.jpg','<p><span style=\"color: rgb(13, 13, 13); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; white-space-collapse: preserve;\">Trong khóa học này, bạn sẽ học cách sử dụng tiếng Anh một cách tự tin khi đi du lịch. Từ giao tiếp cơ bản đến việc đặt phòng khách sạn và đặt vé máy bay, bạn sẽ được trang bị những kỹ năng cần thiết để thảo luận và làm việc trong môi trường du lịch quốc tế.</span><br></p>',1,'6640ca00cfde3','2024-05-11 15:49:00','2024-08-31 15:49:00',3000,'Khóa học tiếng Anh thông dụng trong du lịch'),('COURSE11','public/poster/COURSE11/hoc-tieng-anh-qua-phim-cho-nguoi-moi-bat-dau-1.jpg','Khóa học tiếng Anh thông dụng trong du lịchTrong khóa học này, bạn sẽ khám phá tiếng Anh qua thế giới của điện ảnh. Từ việc luyện nghe thông qua các đoạn phim đến việc phân tích và thảo luận về nội dung của chúng, bạn sẽ nâng cao kỹ năng ngôn ngữ của mình một cách thú vị và hiệu quả',1,'6640ca00cfde3','2024-05-11 15:51:00','2024-07-31 15:51:00',3000,'Khóa học tiếng Anh qua phim ảnh'),('COURSE12','public/poster/COURSE12/hoc-tieng-anh-bang-am-nhac3.jpg','<p><span style=\"color: rgb(13, 13, 13); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; white-space-collapse: preserve;\">\"Khóa học này sẽ dẫn bạn đi qua thế giới âm nhạc để học tiếng Anh. Từ việc học từ vựng và ngữ pháp qua lời bài hát đến việc hiểu và thấu hiểu ý nghĩa sâu sắc của các bài hát, bạn sẽ trải nghiệm một phương pháp học tiếng Anh độc đáo và thú vị.</span><br></p>',1,'6640ca00cfde3','2024-05-11 15:53:00','2024-07-31 15:53:00',3000,'Khóa học tiếng Anh qua nhạc'),('COURSE13','public/poster/COURSE13/khoahoctienganhgiaotiepchuyennghiepdanhriengchonguoidilam.png','<p><span style=\"color: rgb(13, 13, 13); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; white-space-collapse: preserve;\">Trong khóa học này, bạn sẽ học cách giao tiếp hiệu quả trong môi trường làm việc bằng tiếng Anh. Từ việc viết thư từ chuyên nghiệp đến báo cáo công việc, bạn sẽ được trang bị những kỹ năng cần thiết để thành công và thăng tiến trong sự nghiệp của mình.</span><br></p>',1,'6640c9a32f39a','2024-05-11 15:56:00','2024-07-31 15:56:00',3000,'Khóa học tiếng Anh cho người đi làm'),('COURSE14','public/poster/COURSE14/businessenglishvuong.jpg','<p><span style=\"color: rgb(13, 13, 13); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; white-space-collapse: preserve;\">Khóa học này sẽ chuẩn bị bạn cho các buổi phỏng vấn tiếng Anh. Từ việc chuẩn bị trước đến cách trả lời các câu hỏi phỏng vấn một cách tự tin và hiệu quả, bạn sẽ được trang bị những kỹ năng cần thiết để thành công trong các cuộc phỏng vấn xin việc hoặc học bổng.</span><br></p>',1,'6640ca00cfde3','2024-05-11 15:58:00','2024-06-30 15:58:00',3000,'Khóa học luyện phỏng vấn tiếng Anh'),('COURSE16','public/poster/COURSE16/tieng-anh-hoc-thuat-la-gi.jpg','<p><span style=\"color: rgb(13, 13, 13); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; white-space-collapse: preserve;\">Trong khóa học này, bạn sẽ học cách sử dụng tiếng Anh trong môi trường học thuật. Từ việc viết bài luận và báo cáo học thuật đến hiểu và sử dụng các thuật ngữ chuyên ngành, bạn sẽ được trang bị những kỹ năng cần thiết để thành công trong các khóa học đại học, nghiên cứu và công việc liên quan đến môi trường học thuật.</span><br></p>',1,'6640ca69e0b3b','2024-05-11 16:02:00','2024-08-31 16:02:00',2000,'Khóa học tiếng Anh học thuật'),('COURSE2','public/poster/COURSE2/hinh-anh-tieng-anh-giao-tiep-la-gi-so-1.jpg','<p><span style=\"color: rgb(13, 13, 13); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; white-space-collapse: preserve;\">Trong khóa học này, bạn sẽ nắm vững các kỹ năng giao tiếp hàng ngày để tự tin trò chuyện và tương tác trong các tình huống đời thường. Từ cách giới thiệu bản thân đến kỹ năng thảo luận về các chủ đề phổ biến, bạn sẽ học cách sử dụng ngôn ngữ một cách tự tin và linh hoạt. Khóa học cũng tập trung vào việc giao tiếp qua điện thoại và email, giúp bạn xây dựng kỹ năng liên lạc hiệu quả trong môi trường công việc và xã hội ngày nay.</span><br></p>',1,'6640c9a32f39a','2024-05-11 15:36:00','2024-06-30 15:36:00',2000,'Khóa học tiếng Anh giao tiếp hàng ngày'),('COURSE3','public/poster/COURSE3/ec7c516c4c-phat-am-tieng-anh.png','<p><span style=\"color: rgb(13, 13, 13); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; white-space-collapse: preserve;\">Khóa học phát âm sẽ giúp bạn rèn luyện và cải thiện kỹ năng phát âm tiếng Anh của mình. Qua các bài học, bạn sẽ học cách phát âm các âm tiếng Anh đúng cách và luyện tập qua các từ và câu phổ biến. Với sự hướng dẫn cụ thể và các bài tập thực hành, khóa học này sẽ giúp bạn phát triển một giọng phát âm rõ ràng và dễ hiểu.</span><br></p>',1,'6640ca69e0b3b','2024-05-11 15:39:00','2024-08-31 15:39:00',2000,'Khóa học phát âm'),('COURSE4','public/poster/COURSE4/z5410594829335_d3ffe463eed8c5054319eb9faaeb5a47.jpg','<p><span style=\"color: rgb(13, 13, 13); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; white-space-collapse: preserve;\">Trong khóa học này, bạn sẽ học các kỹ năng đọc tiếng Anh hiệu quả. Từ phương pháp đọc đến hiểu và phân tích các loại văn bản khác nhau, bạn sẽ được trang bị những công cụ cần thiết để nâng cao khả năng đọc của mình. Khóa học cũng tập trung vào việc phát triển từ vựng và kỹ năng nhận biết cấu trúc câu, giúp bạn trở thành một độc giả linh hoạt và tự tin.</span><br></p>',1,'6640c9a32f39a','2024-05-11 15:41:00','2024-08-31 15:41:00',3000,'Khóa học kỹ năng đọc'),('COURSE5','public/poster/COURSE5/Tổng-hợp-các-từ-viết-tắt-trong-tiếng-Anh-thông-dụng-nhất-1024x536.png','<p><span style=\"color: rgb(13, 13, 13); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; white-space-collapse: preserve;\">Khóa học kỹ năng viết sẽ giúp bạn phát triển khả năng viết tiếng Anh một cách rõ ràng và hiệu quả. Từ việc viết email chuyên nghiệp đến viết bài luận và tóm tắt, bạn sẽ học cách tổ chức ý tưởng và trình bày ý kiến một cách logic và hấp dẫn. Qua các bài tập và phản hồi, bạn sẽ cải thiện khả năng viết của mình và trở thành một người viết thành công.</span><br></p>',1,'6640cb1f587e7','2024-05-11 15:41:00','2024-09-01 15:41:00',3000,'Khóa học kỹ năng viết'),('COURSE6','public/poster/COURSE6/ngu-phap-2.jpg','<p><span style=\"color: rgb(13, 13, 13); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; white-space-collapse: preserve;\">Khóa học này sẽ đưa bạn vào thế giới của ngữ pháp tiếng Anh. Từ các quy tắc cơ bản đến những điểm ngữ pháp phức tạp hơn, bạn sẽ hiểu và áp dụng ngữ pháp một cách tự tin. Qua các bài tập và ví dụ thực tế, khóa học sẽ giúp bạn củng cố kiến thức và nâng cao khả năng sử dụng ngôn ngữ một cách chính xác và linh hoạt.</span><br></p>',1,'6640c9a32f39a','2024-05-11 15:43:00','2024-08-31 15:43:00',2000,'Khóa học ngữ pháp tiếng Anh'),('COURSE7','public/poster/COURSE7/Photo.png','<p><span style=\"color: rgb(13, 13, 13); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; white-space-collapse: preserve;\">Trong khóa học này, bạn sẽ học cách sử dụng tiếng Anh trong môi trường kinh doanh. Từ từ vựng và cụm từ chuyên ngành đến các kỹ năng giao tiếp chuyên nghiệp, bạn sẽ được trang bị những công cụ cần thiết để thành công trong thế giới kinh doanh quốc tế ngày nay.</span><br></p>',1,'6640c9a32f39a','2024-05-11 15:44:00','2024-09-30 15:45:00',2000,'Khóa học tiếng Anh kinh doanh'),('COURSE8','public/poster/COURSE8/khoa-luyen-thi-ielts-75-advanced-20230926114724578.jpg','<p><span style=\"color: rgb(13, 13, 13); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; white-space-collapse: preserve;\">Khóa học này sẽ chuẩn bị bạn cho kỳ thi IELTS một cách toàn diện. Từ các chiến lược luyện thi đến luyện tập các kỹ năng cần thiết (nghe, nói, đọc, viết), bạn sẽ có mọi thứ cần thiết để đạt được điểm số mong muốn trong kỳ thi quan trọng này</span><br></p>',1,'6640cb1f587e7','2024-05-11 15:46:00','2024-09-30 15:46:00',2000,'Khóa học luyện thi IELTS'),('COURSE9','public/poster/COURSE9/download.png','<p><span style=\"color: rgb(13, 13, 13); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; white-space-collapse: preserve;\">Trong khóa học này, bạn sẽ được chuẩn bị cho kỳ thi TOEFL thông qua việc luyện tập các kỹ năng cần thiết và học các chiến lược làm bài hiệu quả. Với sự hỗ trợ từ giáo viên có kinh nghiệm và các tài liệu luyện thi chất lượng, bạn sẽ tự tin bước vào kỳ thi với khả năng tối ưu.</span><br></p>',1,'6640cbe318bea','2024-05-11 15:48:00','2024-07-01 15:48:00',2000,'Khóa học luyện thi TOEFL');
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -295,7 +299,7 @@ CREATE TABLE `document` (
   `OrderN` int DEFAULT '0',
   PRIMARY KEY (`ID`),
   KEY `FK_LessonID_document_lesson` (`LessonID`),
-  CONSTRAINT `FK_LessonID_document_lesson` FOREIGN KEY (`LessonID`) REFERENCES `lesson` (`ID`)
+  CONSTRAINT `FK_LessonID_document_lesson` FOREIGN KEY (`LessonID`) REFERENCES `lesson` (`ID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -305,7 +309,7 @@ CREATE TABLE `document` (
 
 LOCK TABLES `document` WRITE;
 /*!40000 ALTER TABLE `document` DISABLE KEYS */;
-INSERT INTO `document` VALUES ('DOCUMENT1','Giới thiệu khóa học','private/text/COURSE/LESSON1/DOCUMENT1/3121560092_Lê Tấn Minh Toàn.pdf',1,'LESSON1','text',1),('DOCUMENT2','Làm quen với đề thi','private/video/COURSE/LESSON1/DOCUMENT2/002 What Is NgRx.mp4',1,'LESSON1','video',2),('DOCUMENT3','Thực tập nghe','private/video/COURSE/LESSON1/DOCUMENT3/Abc.mp4',1,'LESSON1','video',3),('DOCUMENT4','Bi quyet luyen thi','private/text/COURSE/LESSON1/DOCUMENT4/Báo_Cáo_OSSD.pdf',1,'LESSON1','text',4);
+INSERT INTO `document` VALUES ('DOCUMENT1','Ngữ pháp cơ bản','private/text/COURSE1/LESSON1/DOCUMENT1/Ngữ pháp tiếng Anh cơ bản - IELTS Fighter.pdf',1,'LESSON1','text',1),('DOCUMENT10','Các mẫu câu du lịch','private/video/COURSE10/LESSON6/DOCUMENT10/80 mẫu câu giao tiếp tiếng Anh để bạn DU LỊCH CẤP TỐC.mp4',1,'LESSON6','video',1),('DOCUMENT100','Kỹ năng đọc','private/video/COURSE9/LESSON89/DOCUMENT100/Cách tự học IELTS Reading hiệu quả tại nhà _ Sai lầm, tài liệu, cách học.mp4',1,'LESSON89','video',1),('DOCUMENT101','Kỹ năng nghe','private/video/COURSE9/LESSON90/DOCUMENT101/Cải thiện kỹ năng nghe tiếng Anh qua 10 chiến thuật _ Improve English Listening .mp4',1,'LESSON90','video',1),('DOCUMENT102','Kỹ năng viết','private/video/COURSE9/LESSON91/DOCUMENT102/Lộ trình học IELTS Writing hiệu quả tại nhà PDF tài liệu.mp4',1,'LESSON91','video',1),('DOCUMENT103','Kỹ năng nói','private/video/COURSE9/LESSON92/DOCUMENT103/7 cách diễn đạt Band 8 cho IELTS Speaking Part 2.mp4',1,'LESSON92','video',1),('DOCUMENT104','Ngữ pháp CB','private/video/COURSE9/LESSON88/DOCUMENT104/My Daily Routine with MJ _ How to Express in English.mp4',1,'LESSON88','video',1),('DOCUMENT11','Giao tiếp cơ bản','private/text/COURSE10/LESSON7/DOCUMENT11/4716_Giao tiep trong hoat dong du lich Viet Nam tu su ke thua di san ung xu truyen thong.pdf',1,'LESSON7','text',1),('DOCUMENT12','Giao tiếp du lịch','private/text/COURSE10/LESSON8/DOCUMENT12/Giao tiep du lich.pdf',1,'LESSON8','text',1),('DOCUMENT13','Giao tiếp tại nha ga','private/text/COURSE10/LESSON9/DOCUMENT13/Giao tiep tai nhà ga.pdf',1,'LESSON9','text',1),('DOCUMENT14','Giao tiếp tại nhà ga','private/text/COURSE10/LESSON10/DOCUMENT14/Giao tiep tai nhà ga.pdf',1,'LESSON10','text',1),('DOCUMENT15','Giao tiếp tại quán','private/text/COURSE10/LESSON11/DOCUMENT15/Giao tiep di mua sắm.pdf',1,'LESSON11','text',1),('DOCUMENT16','Giao tiếp cb','private/text/COURSE10/LESSON12/DOCUMENT16/english_for_office_0425.pdf',1,'LESSON12','text',1),('DOCUMENT17',' TRUNG TÂM THƯƠNG MẠI','private/video/COURSE10/LESSON13/DOCUMENT17/[English Town] Từ vựng tiếng Anh chủ đề TRUNG TÂM THƯƠNG MẠI.mp4',1,'LESSON13','video',1),('DOCUMENT18','Giới thiệu','private/video/COURSE11/LESSON14/DOCUMENT18/HỌC TIẾNG ANH QUA PHIM HIỆU QUẢ _ DANG HNN.mp4',1,'LESSON14','video',1),('DOCUMENT19','Phương pháp','private/video/COURSE11/LESSON15/DOCUMENT19/[English Town] Từ vựng tiếng Anh chủ đề TRUNG TÂM THƯƠNG MẠI.mp4',1,'LESSON15','video',1),('DOCUMENT2','Các thì trong tiếng Anh','private/video/COURSE1/LESSON1/DOCUMENT2/TỔNG HỢP 13 THÌ TRONG TIẾNG ANH _ 13 Tenses _ Ngữ pháp Tiếng Anh cơ bản _ T-English Class.mp4',1,'LESSON1','video',2),('DOCUMENT20','Hướng dẫn luyện tập','private/video/COURSE11/LESSON16/DOCUMENT20/HỌC TIẾNG ANH QUA PHIM HIỆU QUẢ _ DANG HNN.mp4',1,'LESSON16','video',1),('DOCUMENT21','Tranh luận','private/video/COURSE11/LESSON17/DOCUMENT21/Phần tranh biện tiếng Anh cực _chất_ của cựu thí sinh Trường Teen - Hoàng Mai Anh _ The Debaters.mp4',1,'LESSON17','video',1),('DOCUMENT22','Luyện tập 1','private/video/COURSE11/LESSON17/DOCUMENT22/[English Town] Từ vựng tiếng Anh chủ đề TRUNG TÂM THƯƠNG MẠI.mp4',1,'LESSON17','video',2),('DOCUMENT23','Học qua bài hát','private/video/COURSE11/LESSON18/DOCUMENT23/videoplayback.mp4',1,'LESSON18','video',1),('DOCUMENT24','Tài liệu đọc','private/text/COURSE11/LESSON18/DOCUMENT24/Giới thiệu về Khóa học cấp Toeic.docx',1,'LESSON18','text',2),('DOCUMENT25','Bài hát TA 1','private/video/COURSE12/LESSON19/DOCUMENT25/[Lyrics+Vietsub] I DO - 911 _ Học tiếng Anh qua bài hát _ Scots English.mp4',1,'LESSON19','video',1),('DOCUMENT26','Bài hát TA2','private/video/COURSE12/LESSON20/DOCUMENT26/Học tiếng Anh qua bài hát - I WANT IT THAT WAY - (Lyrics+Kara+Vietsub) - Thaki English.mp4',1,'LESSON20','video',1),('DOCUMENT27','Bài hát TA3','private/video/COURSE12/LESSON21/DOCUMENT27/videoplayback (1).mp4',1,'LESSON21','video',1),('DOCUMENT28','Bài hát TA4','private/video/COURSE12/LESSON22/DOCUMENT28/Central Cee - Doja (Official Music Video).mp4',1,'LESSON22','video',1),('DOCUMENT29','Bài học TA5','private/video/COURSE12/LESSON23/DOCUMENT29/Central Cee - Doja (Official Music Video).mp4',1,'LESSON23','video',1),('DOCUMENT3','Câu bị động','private/video/COURSE1/LESSON1/DOCUMENT3/CÂU BỊ ĐỘNG (PHẦN 1_2) _ PASSIVE VOICE (PART 1_2) _ T-ENGLISH CLASS.mp4',1,'LESSON1','video',3),('DOCUMENT30','Bài học TA6','private/video/COURSE12/LESSON23/DOCUMENT30/[Lyrics+Vietsub] I DO - 911 _ Học tiếng Anh qua bài hát _ Scots English.mp4',1,'LESSON23','video',2),('DOCUMENT31','Bài học TA7','private/video/COURSE12/LESSON23/DOCUMENT31/Học tiếng Anh qua bài hát - I WANT IT THAT WAY - (Lyrics+Kara+Vietsub) - Thaki English.mp4',1,'LESSON23','video',3),('DOCUMENT32','Tài liệu cơ bản','private/text/COURSE13/LESSON25/DOCUMENT32/Hỏi thăm bạn bè.pdf',1,'LESSON25','text',1),('DOCUMENT33','Tài liệu cần thiết','private/text/COURSE13/LESSON25/DOCUMENT33/Vui mừng hạnh phúc.pdf',1,'LESSON25','text',2),('DOCUMENT34','Ngữ pháp CB','private/text/COURSE13/LESSON26/DOCUMENT34/17 - De nghi xin phép.pdf',1,'LESSON26','text',1),('DOCUMENT35','Bài nghe 1','private/video/COURSE13/LESSON27/DOCUMENT35/[Lyrics+Vietsub] I DO - 911 _ Học tiếng Anh qua bài hát _ Scots English.mp4',1,'LESSON27','video',1),('DOCUMENT36','Phân tích y nghĩa','private/video/COURSE13/LESSON28/DOCUMENT36/HỌC TIẾNG ANH QUA PHIM HIỆU QUẢ _ DANG HNN.mp4',1,'LESSON28','video',1),('DOCUMENT37','Câu hỏi ôn tập','private/text/COURSE13/LESSON29/DOCUMENT37/Giao tiep tại ngan hàng.pdf',1,'LESSON29','text',1),('DOCUMENT38','Tài liệu 12','private/text/COURSE13/LESSON30/DOCUMENT38/Giao tiep tai rap chieu phim.pdf',1,'LESSON30','text',1),('DOCUMENT39','Giới thiệu','private/video/COURSE13/LESSON24/DOCUMENT39/GIỚI THIỆU KHÓA HỌC IELTS ONLINE TỪ A - Z #1 _ WISE ENGLISH OFFICIAL.mp4',1,'LESSON24','video',1),('DOCUMENT4','Câu hỏi đuôi','private/video/COURSE1/LESSON1/DOCUMENT4/Câu Hỏi Đuôi _ TAG QUESTIONS _ T-ENGLISH CLASS.mp4',1,'LESSON1','video',4),('DOCUMENT40','Mục tiêu khóa học','private/text/COURSE14/LESSON31/DOCUMENT40/Giới thiệu về Khóa học cấp Toeic.docx',1,'LESSON31','text',1),('DOCUMENT41','Hướng dẫn chuẩn bị','private/video/COURSE14/LESSON32/DOCUMENT41/TIẾNG ANH PHỎNG VẤN XIN VIỆC_ 30 CÂU TRẢ LỜI HAY NHẤT - Khóa học tiếng Anh cho người đi làm.mp4',1,'LESSON32','video',1),('DOCUMENT42','Giao tiếp hiệu quả','private/text/COURSE14/LESSON33/DOCUMENT42/Giới thiệu về Khóa học cấp Toeic.docx',1,'LESSON33','text',1),('DOCUMENT43','Video hướng','private/video/COURSE14/LESSON34/DOCUMENT43/002 What Is NgRx.mp4',1,'LESSON34','video',1),('DOCUMENT44','Tài liệu 10 ','private/text/COURSE14/LESSON35/DOCUMENT44/phieudiemrenluyen.pdf',1,'LESSON35','text',1),('DOCUMENT45','Video hướng dẫn','private/video/COURSE14/LESSON36/DOCUMENT45/TIẾNG ANH PHỎNG VẤN XIN VIỆC_ 30 CÂU TRẢ LỜI HAY NHẤT - Khóa học tiếng Anh cho người đi làm.mp4',1,'LESSON36','video',1),('DOCUMENT46','Sau phỏng vấn','private/video/COURSE14/LESSON37/DOCUMENT46/Tiếng Anh Phỏng Vấn Xin Việc.mp4',1,'LESSON37','video',1),('DOCUMENT47','Tiếng anh học thuật là gì','private/text/COURSE16/LESSON38/DOCUMENT47/OK.docx',1,'LESSON38','text',1),('DOCUMENT48','Cấu trúc Câu','private/video/COURSE16/LESSON39/DOCUMENT48/Cấu trúc câu trong tiếng Anh _ Ngữ Pháp Tiếng Anh Cơ Bản.mp4',1,'LESSON39','video',1),('DOCUMENT49','Chuyên ngành','private/text/COURSE16/LESSON40/DOCUMENT49/OK.docx',1,'LESSON40','text',1),('DOCUMENT5','1000 từ vựng','private/text/COURSE1/LESSON2/DOCUMENT5/1000 từ vựng tiếng Anh thông dụng - prepedu.com.pdf',1,'LESSON2','text',1),('DOCUMENT50','Từ vựng chuyên ngành','private/video/COURSE16/LESSON41/DOCUMENT50/40 TỪ VỰNG TIẾNG ANH CHUYÊN NGÀNH CÔNG NGHỆ THÔNG TIN PHỔ BIẾN NHẤT - Học Tiếng Anh Online.mp4',1,'LESSON41','video',1),('DOCUMENT51','Giới thiệu','private/text/COURSE16/LESSON42/DOCUMENT51/Bản lĩnh và trí tuệ của dân tộc Việt Nam.docx',1,'LESSON42','text',1),('DOCUMENT52','Kỹ năng nghe','private/video/COURSE16/LESSON43/DOCUMENT52/TIẾNG ANH PHỎNG VẤN XIN VIỆC_ 30 CÂU TRẢ LỜI HAY NHẤT - Khóa học tiếng Anh cho người đi làm.mp4',1,'LESSON43','video',1),('DOCUMENT53','Video bài giảng','private/text/COURSE16/LESSON44/DOCUMENT53/bao-cao-do-an-tmdt_compress.pdf',1,'LESSON44','text',1),('DOCUMENT54','Video bài giảng','private/video/COURSE2/LESSON45/DOCUMENT54/Cấu trúc câu trong tiếng Anh _ Ngữ Pháp Tiếng Anh Cơ Bản.mp4',1,'LESSON45','video',1),('DOCUMENT55','Video bài giảng','private/video/COURSE2/LESSON46/DOCUMENT55/Cấu trúc câu trong tiếng Anh _ Ngữ Pháp Tiếng Anh Cơ Bản.mp4',1,'LESSON46','video',1),('DOCUMENT56','Video bài giảng','private/video/COURSE2/LESSON47/DOCUMENT56/Tiếng Anh Phỏng Vấn Xin Việc.mp4',1,'LESSON47','video',1),('DOCUMENT57','Video bài giảng','private/video/COURSE2/LESSON48/DOCUMENT57/TIẾNG ANH PHỎNG VẤN XIN VIỆC_ 30 CÂU TRẢ LỜI HAY NHẤT - Khóa học tiếng Anh cho người đi làm.mp4',1,'LESSON48','video',1),('DOCUMENT58','Giới thiệu','private/text/COURSE2/LESSON49/DOCUMENT58/Giới thiệu về Khóa học cấp Toeic.docx',1,'LESSON49','text',1),('DOCUMENT59','Giới thiệu','private/text/COURSE2/LESSON50/DOCUMENT59/Giới thiệu về Khóa học cấp Toeic.docx',1,'LESSON50','text',1),('DOCUMENT6','Mỗi ngày học từ vựng','private/video/COURSE1/LESSON2/DOCUMENT6/Mỗi ngày 20 TỪ VỰNG MỚI tiếng Anh - Theo chủ đề _ NGÀY 1.mp4',1,'LESSON2','video',2),('DOCUMENT60','Giới thiệu','private/text/COURSE2/LESSON51/DOCUMENT60/Kiểm thử hộp đen - Kiểm thử phần mềm (1).pdf',1,'LESSON51','text',1),('DOCUMENT61','Video bài giảng','private/video/COURSE3/LESSON52/DOCUMENT61/40 TỪ VỰNG TIẾNG ANH CHUYÊN NGÀNH CÔNG NGHỆ THÔNG TIN PHỔ BIẾN NHẤT - Học Tiếng Anh Online.mp4',1,'LESSON52','video',1),('DOCUMENT62','Video bài giảng','private/video/COURSE3/LESSON53/DOCUMENT62/Tiếng Anh Phỏng Vấn Xin Việc.mp4',1,'LESSON53','video',1),('DOCUMENT63','Video bài giảng','private/video/COURSE3/LESSON54/DOCUMENT63/Lập Trình Hướng Đối Tượng (OOP Java) trong 8 PHÚT _ Code Thu.mp4',1,'LESSON54','video',1),('DOCUMENT64','Video bài giảng','private/video/COURSE3/LESSON55/DOCUMENT64/Lập Trình Hướng Đối Tượng (OOP Java) trong 8 PHÚT _ Code Thu.mp4',1,'LESSON55','video',1),('DOCUMENT65','Giới thiệu','private/text/COURSE3/LESSON56/DOCUMENT65/NUnit.pdf',1,'LESSON56','text',1),('DOCUMENT66','Giới thiệu','private/text/COURSE3/LESSON57/DOCUMENT66/OK.docx',1,'LESSON57','text',1),('DOCUMENT67','Giới thiệu','private/text/COURSE3/LESSON58/DOCUMENT67/OK.docx',1,'LESSON58','text',1),('DOCUMENT68','Giới thiệu','private/text/COURSE3/LESSON59/DOCUMENT68/OK.docx',1,'LESSON59','text',1),('DOCUMENT69','Video bài giảng','private/video/COURSE4/LESSON60/DOCUMENT69/Lập Trình Hướng Đối Tượng (OOP Java) trong 8 PHÚT _ Code Thu.mp4',1,'LESSON60','video',1),('DOCUMENT7','Luyện nghe','private/video/COURSE1/LESSON3/DOCUMENT7/Luyện kỹ năng nghe tiếng Anh  - Trình độ A1 _ Common English Lessons.mp4',1,'LESSON3','video',1),('DOCUMENT70','Video bài giảng','private/video/COURSE4/LESSON61/DOCUMENT70/Cấu trúc câu trong tiếng Anh _ Ngữ Pháp Tiếng Anh Cơ Bản.mp4',1,'LESSON61','video',1),('DOCUMENT71','Giới thiệu','private/video/COURSE4/LESSON62/DOCUMENT71/Lập Trình Hướng Đối Tượng (OOP Java) trong 8 PHÚT _ Code Thu.mp4',1,'LESSON62','video',1),('DOCUMENT72','Video bài giảng','private/video/COURSE4/LESSON63/DOCUMENT72/Lập Trình Hướng Đối Tượng (OOP Java) trong 8 PHÚT _ Code Thu.mp4',1,'LESSON63','video',1),('DOCUMENT73','Video bài giảng','private/video/COURSE4/LESSON64/DOCUMENT73/Lập Trình Hướng Đối Tượng (OOP Java) trong 8 PHÚT _ Code Thu.mp4',1,'LESSON64','video',1),('DOCUMENT74','Giới thiệu','private/video/COURSE4/LESSON65/DOCUMENT74/Lập Trình Hướng Đối Tượng (OOP Java) trong 8 PHÚT _ Code Thu.mp4',1,'LESSON65','video',1),('DOCUMENT75','Giới thiệu','private/text/COURSE5/LESSON66/DOCUMENT75/OK.docx',1,'LESSON66','text',1),('DOCUMENT76','Tài liêu mô tả','private/text/COURSE5/LESSON67/DOCUMENT76/OK.docx',1,'LESSON67','text',1),('DOCUMENT77','Tài liêu mô tả','private/text/COURSE5/LESSON68/DOCUMENT77/OK.docx',1,'LESSON68','text',1),('DOCUMENT78','Bí quyết luyện thi','private/text/COURSE5/LESSON69/DOCUMENT78/OK.docx',1,'LESSON69','text',1),('DOCUMENT79','Tài liêu mô tả','private/text/COURSE5/LESSON70/DOCUMENT79/OK.docx',1,'LESSON70','text',1),('DOCUMENT8','Học qua bài đọc','private/video/COURSE1/LESSON4/DOCUMENT8/[Share English] - Học tiếng anh qua bài đọc 1 - Learn English through reading 1.mp4',1,'LESSON4','video',1),('DOCUMENT80','Video bài giảng','private/video/COURSE5/LESSON71/DOCUMENT80/Lập Trình Hướng Đối Tượng (OOP Java) trong 8 PHÚT _ Code Thu.mp4',1,'LESSON71','video',1),('DOCUMENT81','Video bài giảng','private/video/COURSE6/LESSON72/DOCUMENT81/Lập Trình Hướng Đối Tượng (OOP Java) trong 8 PHÚT _ Code Thu.mp4',1,'LESSON72','video',1),('DOCUMENT82','Bi quyet luyen thi','private/video/COURSE6/LESSON73/DOCUMENT82/Tiếng Anh Phỏng Vấn Xin Việc.mp4',1,'LESSON73','video',1),('DOCUMENT83','Video bài giảng','private/video/COURSE6/LESSON74/DOCUMENT83/Lập Trình Hướng Đối Tượng (OOP Java) trong 8 PHÚT _ Code Thu.mp4',1,'LESSON74','video',1),('DOCUMENT84','Video bài giảng','private/video/COURSE6/LESSON75/DOCUMENT84/videoplayback.mp4',1,'LESSON75','video',1),('DOCUMENT85','Video bài giảng','private/video/COURSE6/LESSON76/DOCUMENT85/[Elight] #5 Tính từ trong tiếng anh_ định nghĩa, chức năng, trật tự - Ngữ pháp t.mp4',1,'LESSON76','video',1),('DOCUMENT86','Tài liêu mô tả','private/video/COURSE6/LESSON77/DOCUMENT86/[Elight] Học tiếng Anh_ Giới từ In On At [Learning English from Zer0].mp4',1,'LESSON77','video',1),('DOCUMENT87','Video bài giảng','private/video/COURSE6/LESSON78/DOCUMENT87/Làm chủ câu bị động (Passive Voice) trong 5 phút [Ngữ pháp tiếng Anh cơ bản - Cá.mp4',1,'LESSON78','video',1),('DOCUMENT88','Video bài giảng','private/video/COURSE7/LESSON79/DOCUMENT88/002 What Is NgRx.mp4',1,'LESSON79','video',1),('DOCUMENT89','Video bài giảng','private/video/COURSE7/LESSON80/DOCUMENT89/002 What Is NgRx.mp4',1,'LESSON80','video',1),('DOCUMENT9','Cải thiện kỹ năng viết','private/video/COURSE1/LESSON5/DOCUMENT9/Cách Cải Thiện Kỹ Năng Viết (Song Ngữ Anh - Việt).mp4',1,'LESSON5','video',1),('DOCUMENT90','Tài liêu mô tả','private/text/COURSE7/LESSON80/DOCUMENT90/Báo_Cáo_OSSD.pdf',1,'LESSON80','text',2),('DOCUMENT91','Tài liêu mô tả','private/video/COURSE7/LESSON81/DOCUMENT91/My Daily Routine with MJ _ How to Express in English.mp4',1,'LESSON81','video',1),('DOCUMENT92','Giới thiệu','private/text/COURSE8/LESSON82/DOCUMENT92/OK.docx',1,'LESSON82','text',1),('DOCUMENT93','Giới thiệu chung','private/video/COURSE8/LESSON82/DOCUMENT93/Video 1 Giới thiệu chung và các bước làm bài IELTS Online Co (1).mp4',1,'LESSON82','video',2),('DOCUMENT94','Video nghe','private/video/COURSE8/LESSON83/DOCUMENT94/Cải thiện kỹ năng nghe tiếng Anh qua 10 chiến thuật _ Improve English Listening .mp4',1,'LESSON83','video',1),('DOCUMENT95','Video Đọc 1','private/video/COURSE8/LESSON84/DOCUMENT95/Cách tự học IELTS Reading hiệu quả tại nhà _ Sai lầm, tài liệu, cách học.mp4',1,'LESSON84','video',1),('DOCUMENT96','Video về viết','private/video/COURSE8/LESSON85/DOCUMENT96/Lộ trình học IELTS Writing hiệu quả tại nhà PDF tài liệu.mp4',1,'LESSON85','video',1),('DOCUMENT97','Video về nói','private/video/COURSE8/LESSON86/DOCUMENT97/7 cách diễn đạt Band 8 cho IELTS Speaking Part 2.mp4',1,'LESSON86','video',1),('DOCUMENT98','Giới thiệu khóa học','private/text/COURSE9/LESSON87/DOCUMENT98/OK.docx',1,'LESSON87','text',1),('DOCUMENT99','Giới thiệu khóa học','private/video/COURSE9/LESSON87/DOCUMENT99/My Daily Routine with MJ _ How to Express in English.mp4',1,'LESSON87','video',2);
 /*!40000 ALTER TABLE `document` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,7 +357,7 @@ CREATE TABLE `excercise` (
   PRIMARY KEY (`ID`),
   KEY `FK_CourseID_excercise_course` (`CourseID`),
   CONSTRAINT `FK_CourseID_excercise_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -362,7 +366,7 @@ CREATE TABLE `excercise` (
 
 LOCK TABLES `excercise` WRITE;
 /*!40000 ALTER TABLE `excercise` DISABLE KEYS */;
-INSERT INTO `excercise` VALUES (3,'Bài tập 1','2024-05-31 13:27:00',1,'COURSE',4);
+INSERT INTO `excercise` VALUES (4,'Đề 10 câu','2024-05-13 19:52:00',1,'COURSE1',6);
 /*!40000 ALTER TABLE `excercise` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -381,8 +385,8 @@ CREATE TABLE `execsresponse` (
   PRIMARY KEY (`ID`),
   KEY `FK_ExcerciseID_execsresponse_excercise` (`ExcerciseID`),
   KEY `FK_ProfileID_execsresponse_profile` (`ProfileID`),
-  CONSTRAINT `FK_ExcerciseID_execsresponse_excercise` FOREIGN KEY (`ExcerciseID`) REFERENCES `excercise` (`ID`),
-  CONSTRAINT `FK_ProfileID_execsresponse_profile` FOREIGN KEY (`ProfileID`) REFERENCES `profile` (`ID`)
+  CONSTRAINT `FK_ExcerciseID_execsresponse_excercise` FOREIGN KEY (`ExcerciseID`) REFERENCES `excercise` (`ID`) ON DELETE CASCADE,
+  CONSTRAINT `FK_ProfileID_execsresponse_profile` FOREIGN KEY (`ProfileID`) REFERENCES `profile` (`ID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -392,6 +396,7 @@ CREATE TABLE `execsresponse` (
 
 LOCK TABLES `execsresponse` WRITE;
 /*!40000 ALTER TABLE `execsresponse` DISABLE KEYS */;
+INSERT INTO `execsresponse` VALUES ('ExcersR1','2024-05-11 16:10:03',4,'1');
 /*!40000 ALTER TABLE `execsresponse` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -471,7 +476,7 @@ CREATE TABLE `lesson` (
 
 LOCK TABLES `lesson` WRITE;
 /*!40000 ALTER TABLE `lesson` DISABLE KEYS */;
-INSERT INTO `lesson` VALUES ('LESSON1','Bài 1',1,'COURSE',1),('LESSON2','Ko',1,'COURSE',3),('LESSON3','Bài 2',1,'COURSE',2);
+INSERT INTO `lesson` VALUES ('LESSON1','Ngữ pháp cơ bản',0,'COURSE1',1),('LESSON10','Giao Tiếp Tại Sân Bay và Ga Tàu',1,'COURSE10',5),('LESSON11','Giao Tiếp Trong Nhà Hàng và Quán Cà Phê',1,'COURSE10',6),('LESSON12','Hỏi Đường và Sử Dụng Phương Tiện Giao Thông Công Cộng',1,'COURSE10',7),('LESSON13','Mua Sắm và Thương Mại Trong Du Lịch',1,'COURSE10',8),('LESSON14','Giới thiệu về Tiếng Anh qua Phim Ảnh',1,'COURSE11',1),('LESSON15','Học từ Vựng và Ngữ Pháp qua Phim Ảnh',1,'COURSE11',2),('LESSON16','Luyện Nghe và Hiểu Nội Dung Phim Ảnh',1,'COURSE11',3),('LESSON17','Phân Tích và Thảo Luận về Phim Ảnh',1,'COURSE11',4),('LESSON18','Học Tiếng Anh thông qua Lời Bài Hát trong Phim',1,'COURSE11',5),('LESSON19','Giới thiệu về Tiếng Anh qua Nhạc',1,'COURSE12',1),('LESSON2','Từ vựng căn bản',1,'COURSE1',2),('LESSON20','Học Từ Vựng và Ngữ Pháp qua Lời Bài Hát',1,'COURSE12',2),('LESSON21','Luyện Nghe và Hiểu Nội Dung Lời Bài Hát',1,'COURSE12',3),('LESSON22','Phân Tích và Thảo Luận về Lời Bài Hát',1,'COURSE12',4),('LESSON23','Học Tiếng Anh thông qua Thể Loại Nhạc',1,'COURSE12',5),('LESSON24','Giới thiệu về Khóa học',1,'COURSE13',1),('LESSON25','Xây dựng Từ Vựng ',1,'COURSE13',2),('LESSON26','Ngữ Pháp Cần Thiết',1,'COURSE13',3),('LESSON27','Luyện Nghe và Hiểu Nội Dung của Lời Bài Hát',1,'COURSE13',4),('LESSON28',' Phân Tích và Thảo Luận về Ý Nghĩa của Bài Hát',1,'COURSE13',5),('LESSON29','Sử dụng Tiếng Anh ',1,'COURSE13',6),('LESSON3','Kỹ năng nghe',1,'COURSE1',3),('LESSON30','Giao Tiếp và Thương Lượng',1,'COURSE13',7),('LESSON31','Giới thiệu và Mục tiêu của Khóa học',1,'COURSE14',1),('LESSON32','Chuẩn bị cho Phỏng Vấn',1,'COURSE14',2),('LESSON33','Kỹ năng Giao Tiếp và Giao Tiếp Hiệu Quả',1,'COURSE14',3),('LESSON34','Cách Trả lời câu hỏi Phỏng Vấn',1,'COURSE14',4),('LESSON35',' Phản ứng và Thái độ trong Phỏng Vấn',1,'COURSE14',5),('LESSON36',' Luyện tập Phỏng Vấn và Phản Biện',1,'COURSE14',6),('LESSON37','Đánh giá và Phát triển bản thân sau Phỏng Vấn',1,'COURSE14',7),('LESSON38','Tiếng Anh Học Thuật',1,'COURSE16',1),('LESSON39','Cấu trúc Câu và Ngữ Pháp Tiếng Anh Học Thuật',1,'COURSE16',2),('LESSON4','Kỹ năng đọc',1,'COURSE1',4),('LESSON40',' Từ vựng và Thuật ngữ Chuyên ngành',1,'COURSE16',3),('LESSON41','Kỹ năng Đọc hiểu và Phân tích Văn bản',1,'COURSE16',4),('LESSON42','Kỹ năng Viết và Soạn thảo',1,'COURSE16',5),('LESSON43','Kỹ năng Nghe và Ghi chú',1,'COURSE16',6),('LESSON44','Luyện tập và Đánh giá',1,'COURSE16',7),('LESSON45','Giới thiệu và Mục tiêu của Khóa học',1,'COURSE2',1),('LESSON46','Giao Tiếp Cơ bản',1,'COURSE2',2),('LESSON47',' Gặp gỡ và Chào hỏi',1,'COURSE2',3),('LESSON48','Hỏi và Trả lời thông tin cá nhân',1,'COURSE2',4),('LESSON49','Giao Tiếp Trong Gia Đình và Bạn Bè',1,'COURSE2',5),('LESSON5','Kỹ năng viết',1,'COURSE1',5),('LESSON50','Giao Tiếp Tại Nơi làm việc',1,'COURSE2',6),('LESSON51','Kỹ năng Nghe và Phản ứng nhanh',1,'COURSE2',7),('LESSON52','Giới thiệu và Mục tiêu của Khóa học',1,'COURSE3',1),('LESSON53','Nguyên âm và Phụ âm cơ bản',1,'COURSE3',2),('LESSON54',' Ngữ điệu và Trọng âm',1,'COURSE3',3),('LESSON55','Phát âm âm tiết và Từ đúng',1,'COURSE3',4),('LESSON56','Phát âm Tiếng Anh trong Cụm từ và Câu',1,'COURSE3',5),('LESSON57',' Phát âm Tiếng Anh trong Giao Tiếp',1,'COURSE3',6),('LESSON58','Luyện tập và Thực hành',1,'COURSE3',7),('LESSON59','Đánh giá và Phát triển kỹ năng',1,'COURSE3',8),('LESSON6','Giới thiệu về Du lịch và Lịch trình',1,'COURSE10',1),('LESSON60','Giới thiệu và Mục tiêu của Khóa học',1,'COURSE4',1),('LESSON61','Phân loại văn bản và Chiến lược đọc',1,'COURSE4',2),('LESSON62','Kỹ thuật đọc nhanh và Hiểu biết ',1,'COURSE4',3),('LESSON63','Kỹ thuật đọc nhanh và Hiểu biết ',1,'COURSE4',4),('LESSON64','Nhận diện ý chính và Chi tiết quan trọng',1,'COURSE4',5),('LESSON65','Tìm hiểu từ vựng mới và Cách hiểu ngữ pháp',1,'COURSE4',6),('LESSON66','Giới thiệu và Mục tiêu của Khóa học',1,'COURSE5',1),('LESSON67','Cấu trúc văn bản và Ý tưởng chính',1,'COURSE5',2),('LESSON68','Phân loại loại văn bản và Mục đích viết',1,'COURSE5',3),('LESSON69','Phát triển Ý tưởng và Lập kế hoạch viết',1,'COURSE5',4),('LESSON7','Giao tiếp Cơ bản trong Du lịch',1,'COURSE10',2),('LESSON70','Sử dụng Ngôn từ và Ngữ pháp đúng',1,'COURSE5',5),('LESSON71','Phát triển Bố cục và Luồng ý',1,'COURSE5',6),('LESSON72','Giới thiệu về Ngữ Pháp Tiếng Anh',1,'COURSE6',1),('LESSON73','Câu đơn và Câu phức',1,'COURSE6',2),('LESSON74','Thì trong Tiếng Anh',1,'COURSE6',3),('LESSON75','Danh từ và Đại từ',1,'COURSE6',4),('LESSON76','Tính từ và Trạng từ',1,'COURSE6',5),('LESSON77',' Giới từ và Liên từ',1,'COURSE6',6),('LESSON78','Câu điều kiện và Câu bị động',1,'COURSE6',7),('LESSON79','Giới thiệu về Tiếng Anh Kinh doanh',1,'COURSE7',1),('LESSON8','Đặt Phòng Khách sạn và Căn hộ',1,'COURSE10',3),('LESSON80','Từ vựng về Kinh doanh',1,'COURSE7',2),('LESSON81','Giao tiếp trong Kinh doanh',1,'COURSE7',3),('LESSON82','Giới thiệu IELTS',1,'COURSE8',1),('LESSON83','Kỹ năng Nghe',1,'COURSE8',2),('LESSON84',' Kỹ năng Đọc',1,'COURSE8',3),('LESSON85','Kỹ năng Viết',1,'COURSE8',4),('LESSON86','Kỹ năng Nói ',1,'COURSE8',5),('LESSON87','Giới thiệu TOEFL',1,'COURSE9',1),('LESSON88','Ngữ pháp cơ bản và Sử dụng từ vựng',1,'COURSE9',2),('LESSON89','Kỹ năng Đọc hiểu',1,'COURSE9',3),('LESSON9','Đặt Vé Máy Bay và Tàu Hỏa',1,'COURSE10',4),('LESSON90','Kỹ năng Nghe hiểu',1,'COURSE9',4),('LESSON91','Kỹ năng Viết',1,'COURSE9',5),('LESSON92','Kỹ năng Nói',1,'COURSE9',6);
 /*!40000 ALTER TABLE `lesson` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -590,7 +595,7 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
-INSERT INTO `profile` VALUES ('0','Nguyễn','Thanh Hồng',1,'1985-03-22','0',0,'1','0'),('1','Vũ','Hiếu Thuận',0,'2000-08-13','1',0,'2','1'),('PRO1','Lê ','Hoàng Lâm',0,'2003-05-05','0',1,'ACCOUNT1','0'),('PRO2','Long','Lân',0,'2003-05-07','0',1,'ACCOUNT2','0'),('PRO3','Liêm','Văn Rô',0,'2003-05-07','0',1,'ACCOUNT3','0');
+INSERT INTO `profile` VALUES ('0','Nguyễn','Thanh Hồng',1,'1985-03-22','0',0,'1','0'),('1','Vũ','Hiếu Thuận',0,'2000-08-13','1',0,'2','1'),('6640c9a32f39a','Minh Toàn','Lê Tấn',0,'2003-05-25','0',1,'6640c9a311c8f','0'),('6640ca00cfde3','Bách','Huỳnh Xuân',1,'2003-01-01','0',1,'6640ca00af54c','0'),('6640ca69e0b3b','Khải','Nguyễn Nhật',1,'2003-01-01','0',1,'6640ca69c470f','0'),('6640cb1f587e7','Nam','Nguyễn Khánh',1,'2001-01-12','0',1,'6640cb1f4be66','0'),('6640cbe318bea','Sang','Nguyễn Thanh',1,'2001-01-01','0',1,'6640cbe30bfa7','0'),('6640cc4297fe3','Phương','Mai',0,'2024-05-01','0',1,'6640cc428abf2','0'),('6640ccfe5cdda','Huy','Ngô Văn ',1,'1980-01-01','1',1,'6640ccfe50011','1'),('6640cd631ac65','Loan','Mai Thị',0,'2000-01-20','1',1,'6640cd630d2f8','1'),('6640ce1267696','Long','Hồ Văn',1,'2024-05-12','1',1,'6640ce125abbd','1'),('6640ce5cf0395','Lan','Hạ Thị',0,'2000-07-12','1',1,'6640ce5ce2c2e','1'),('6640cebc67073','Phúc','Đinh Văn',1,'2000-06-12','1',1,'6640cebc5a08c','1'),('6640cee61d14b','Hằng','Trần Thị',0,'1995-12-14','1',1,'6640cee6100d4','1'),('6640cf477d6af','Khánh','Nguyễn Văn',1,'1990-09-12','1',1,'6640cf47703ec','1'),('6640cf7329958','Hương','Lê Thị',0,'2000-06-12','1',1,'6640cf731c7af','1'),('6640cfb38f96d','Thuận','Phạm Văn ',1,'2003-12-17','1',1,'6640cfb382a0b','1'),('6640d03201c3a','Thu','Trần Thị',0,'1995-06-12','1',1,'6640d031e869a','1'),('6640d17e121d9','Tuân','Nguyễn Văn ',1,'1992-06-12','1',1,'6640d17e04e18','1'),('6640d1b429508','Thơm','Hoàng Thị',0,'2005-02-12','1',1,'6640d1b41c1ac','1'),('6640d1df6f548','Hùng','Vũ Văn',1,'2024-05-11','1',1,'6640d1df61fa1','1'),('6640d2150d347','Thu Hà','Trần Thị',0,'2001-10-12','1',1,'6640d21500756','1'),('6640d246e88fd','Tài','Đỗ Văn',1,'2000-08-12','1',1,'6640d246dbbcd','1'),('6640d2cda1577','Ánh','Nguyễn Thị',0,'2024-05-01','1',1,'6640d2cd94491','1'),('6640d32688881','Tâm','Lê Văn',0,'1996-01-12','1',1,'6640d3267b96c','1'),('6640d34f92cca','Qúy','Nguyễn Thị ',0,'2024-05-08','1',1,'6640d34f83333','1'),('6640d3d4d9ee5','Sơn','Hoàng Văn',1,'1996-05-12','1',1,'6640d3d4cc50e','1'),('6640d44993c0d','Hồng','Trần Thị',0,'2001-06-09','1',1,'6640d44986aa3','1'),('6640d48e9a67d','Quân','Nguyễn Văn',1,'2024-05-08','1',1,'6640d48e8d637','1'),('6640d4dd694f6','Thảo','Lê Thị',0,'2000-06-12','1',1,'6640d4dd5c4fc','1'),('6640d545e6e4a','Thành','Đặng Văn ',1,'2001-06-12','1',1,'6640d545d964c','1'),('6640d5c0a2ab9','Kim','Phạm Thị',0,'2002-08-12','1',1,'6640d5c094514','1'),('6640d62c5a035','Hoa','Vũ Văn',0,'1999-07-12','1',1,'6640d62c4ccf2','1'),('6640d74700f9e','Diệu','Nguyễn Thị',0,'2005-01-12','1',1,'6640d746e77cb','1');
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -665,6 +670,7 @@ CREATE TABLE `qcompletion` (
 
 LOCK TABLES `qcompletion` WRITE;
 /*!40000 ALTER TABLE `qcompletion` DISABLE KEYS */;
+INSERT INTO `qcompletion` VALUES (42,'My brother plays football every Saturday.',1);
 /*!40000 ALTER TABLE `qcompletion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -683,7 +689,7 @@ CREATE TABLE `qcompmask` (
   PRIMARY KEY (`ID`),
   KEY `FK_ QCompID_qcommask_qcompletion` (`QCompID`),
   CONSTRAINT `FK_ QCompID_qcommask_qcompletion` FOREIGN KEY (`QCompID`) REFERENCES `qcompletion` (`ID`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -692,6 +698,7 @@ CREATE TABLE `qcompmask` (
 
 LOCK TABLES `qcompmask` WRITE;
 /*!40000 ALTER TABLE `qcompmask` DISABLE KEYS */;
+INSERT INTO `qcompmask` VALUES (14,11,5,42);
 /*!40000 ALTER TABLE `qcompmask` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -712,7 +719,7 @@ CREATE TABLE `qmatching` (
   KEY `FK_KeyQ_qmatching_qmatchingkey` (`KeyQ`),
   CONSTRAINT `FK_KeyQ_qmatching_qmatchingkey` FOREIGN KEY (`KeyQ`) REFERENCES `qmatchingkey` (`ID`) ON DELETE CASCADE,
   CONSTRAINT `FK_QuestionID_qmatching_question` FOREIGN KEY (`QuestionID`) REFERENCES `question` (`ID`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -721,6 +728,7 @@ CREATE TABLE `qmatching` (
 
 LOCK TABLES `qmatching` WRITE;
 /*!40000 ALTER TABLE `qmatching` DISABLE KEYS */;
+INSERT INTO `qmatching` VALUES (14,'France',41,14),(15,'Japan',41,15),(16,'Brazil',41,16),(17,'Australia',41,17);
 /*!40000 ALTER TABLE `qmatching` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -735,7 +743,7 @@ CREATE TABLE `qmatchingkey` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `Content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -744,7 +752,7 @@ CREATE TABLE `qmatchingkey` (
 
 LOCK TABLES `qmatchingkey` WRITE;
 /*!40000 ALTER TABLE `qmatchingkey` DISABLE KEYS */;
-INSERT INTO `qmatchingkey` VALUES (13,'AAAa');
+INSERT INTO `qmatchingkey` VALUES (13,'AAAa'),(14,'Paris'),(15,'Tokyo'),(16,'Brasília'),(17,'Canberra');
 /*!40000 ALTER TABLE `qmatchingkey` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -763,7 +771,7 @@ CREATE TABLE `qmulchoption` (
   PRIMARY KEY (`ID`),
   KEY `FK_QuestionID_qmulchoption_question` (`QuestionID`),
   CONSTRAINT `FK_QuestionID_qmulchoption_question` FOREIGN KEY (`QuestionID`) REFERENCES `question` (`ID`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -772,7 +780,7 @@ CREATE TABLE `qmulchoption` (
 
 LOCK TABLES `qmulchoption` WRITE;
 /*!40000 ALTER TABLE `qmulchoption` DISABLE KEYS */;
-INSERT INTO `qmulchoption` VALUES (81,'Không',0,36),(82,'Không',1,36),(83,'Có',0,36),(84,'MOT',0,36);
+INSERT INTO `qmulchoption` VALUES (85,'Berlin',0,39),(86,'London',0,39),(87,'Paris',1,39),(88,'Rome',0,39),(89,'Childs',0,40),(90,'Childrens',0,40),(91,'Childs\'',0,40),(92,'Children',1,40);
 /*!40000 ALTER TABLE `qmulchoption` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -792,7 +800,7 @@ CREATE TABLE `question` (
   PRIMARY KEY (`ID`),
   KEY `FK_ExcerciseID_question_excercise` (`ExcerciseID`),
   CONSTRAINT `FK_ExcerciseID_question_excercise` FOREIGN KEY (`ExcerciseID`) REFERENCES `excercise` (`ID`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -801,7 +809,7 @@ CREATE TABLE `question` (
 
 LOCK TABLES `question` WRITE;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
-INSERT INTO `question` VALUES (36,'Câu hỏi lựa chọn1a',1,3,2),(37,'MOT HAI BA BON NAM SAU BAY',1,3,1);
+INSERT INTO `question` VALUES (38,'Which of the following is a synonym for \"beautiful\"?',1,4,1),(39,'What is the capital city of France?',1,4,2),(40,'What is the plural form of \"child\"?',1,4,3),(41,'Match the following countries with their capitals',1,4,4),(42,'Điền vào chỗ trống',1,4,5);
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -842,11 +850,8 @@ CREATE TABLE `subscription` (
   `AtDateTime` datetime DEFAULT NULL,
   `ProfileID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `CourseID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `FK_CourseID_subcription_course` (`CourseID`),
-  KEY `FK_ProfileID_subcription_profile` (`ProfileID`),
-  CONSTRAINT `FK_CourseID_subcription_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`),
-  CONSTRAINT `FK_ProfileID_subcription_profile` FOREIGN KEY (`ProfileID`) REFERENCES `profile` (`ID`)
+  `Price` decimal(10,0) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -856,7 +861,7 @@ CREATE TABLE `subscription` (
 
 LOCK TABLES `subscription` WRITE;
 /*!40000 ALTER TABLE `subscription` DISABLE KEYS */;
-INSERT INTO `subscription` VALUES ('1','2024-08-13 00:00:00','1','COURSE');
+INSERT INTO `subscription` VALUES ('SUB1','2024-05-13 08:01:34','6640c9a32f39a','COURSE10',300),('SUB2','2024-05-13 08:22:19','6640cd631ac65','COURSE10',3000);
 /*!40000 ALTER TABLE `subscription` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -871,14 +876,14 @@ CREATE TABLE `tracking` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `ProfileID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `CourseID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `LearnedDocumentID` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `LearnedDocumentID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `AtDateTime` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_ProfileID_tracking_profile` (`ProfileID`),
   KEY `FK_CourseID_tracking_course` (`CourseID`),
-  CONSTRAINT `FK_CourseID_tracking_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`),
-  CONSTRAINT `FK_ProfileID_tracking_profile` FOREIGN KEY (`ProfileID`) REFERENCES `profile` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `FK_CourseID_tracking_course` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`) ON DELETE CASCADE,
+  CONSTRAINT `FK_ProfileID_tracking_profile` FOREIGN KEY (`ProfileID`) REFERENCES `profile` (`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -887,7 +892,7 @@ CREATE TABLE `tracking` (
 
 LOCK TABLES `tracking` WRITE;
 /*!40000 ALTER TABLE `tracking` DISABLE KEYS */;
-INSERT INTO `tracking` VALUES (6,'1','COURSE','DOCUMENT1','2024-05-10 07:54:12');
+INSERT INTO `tracking` VALUES (8,'6640cd631ac65','COURSE10','DOCUMENT10','2024-05-13 08:22:25');
 /*!40000 ALTER TABLE `tracking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -916,6 +921,7 @@ CREATE TABLE `verification` (
 
 LOCK TABLES `verification` WRITE;
 /*!40000 ALTER TABLE `verification` DISABLE KEYS */;
+INSERT INTO `verification` VALUES ('6640c9a32f39a','zletanminhtoan2505@gmail.com','letanminhtoan2505@gmail.com','03c079f9415dd60779825636208b4953b789b8a43130765e374c9bec24ccd5e5','2024-05-12 15:56:05'),('6640ca00cfde3','zhuynhxbach@gmail.com','huynhxbach@gmail.com',NULL,NULL),('6640ca69e0b3b','znguyennhatkhai@gmail.com','nguyennhatkhai@gmail.com',NULL,NULL),('6640cb1f587e7','znguyenkhanhnam@gmail.com','nguyenkhanhnam@gmail.com',NULL,NULL),('6640cbe318bea','znguyenthanhsang@gmail.com','nguyenthanhsang@gmail.com',NULL,NULL),('6640cc4297fe3','zmaiphuong@gmail.com','maiphuong@gmail.com',NULL,NULL),('6640ccfe5cdda','zngovanhuy@gmail.com','ngovanhuy@gmail.com',NULL,NULL),('6640cd631ac65','zmaithiloan@gmail.com','maithiloan@gmail.com',NULL,NULL),('6640ce1267696','zhovanlong@gmail.com','hovanlong@gmail.com',NULL,NULL),('6640ce5cf0395','zhathilan@gmail.com','hathilan@gmail.com',NULL,NULL),('6640cebc67073','zdinhvanphuc@gmail.com','dinhvanphuc@gmail.com',NULL,NULL),('6640cee61d14b','ztranthihang@gmail.com','tranthihang@gmail.com',NULL,NULL),('6640cf477d6af','znguyenvankhanh@gmail.com','nguyenvankhanh@gmail.com',NULL,NULL),('6640cf7329958','zlethihuong@gmail.com','lethihuong@gmail.com',NULL,NULL),('6640cfb38f96d','zphamvanthuan@gmail.com','phamvanthuan@gmail.com',NULL,NULL),('6640d03201c3a','ztranthithu@gmail.com','tranthithu@gmail.com',NULL,NULL),('6640d17e121d9','znguyenvantuan@gmail.com','nguyenvantuan@gmail.com',NULL,NULL),('6640d1b429508','zhoangthithom@gmail.com','hoangthithom@gmail.com',NULL,NULL),('6640d1df6f548','zvuvanhung@gmail.com','vuvanhung@gmail.com',NULL,NULL),('6640d2150d347','ztranthithuha@gmail.com','tranthithuha@gmail.com',NULL,NULL),('6640d246e88fd','zdovantai@gmail.com','dovantai@gmail.com',NULL,NULL),('6640d2cda1577','znguyenthianh@gmail.com','nguyenthianh@gmail.com',NULL,NULL),('6640d32688881','zlevantamm@gmail.com','levantamm@gmail.com',NULL,NULL),('6640d34f92cca','zphamthiquy@gmail.com','phamthiquy@gmail.com',NULL,NULL),('6640d3d4d9ee5','zhoangvanson@gmail.com','hoangvanson@gmail.com',NULL,NULL),('6640d44993c0d','ztranthihong@gmail.com','tranthihong@gmail.com',NULL,NULL),('6640d48e9a67d','znguyenvanquan@gmail.com','nguyenvanquan@gmail.com',NULL,NULL),('6640d4dd694f6','zlethithao@gmail.com','lethithao@gmail.com',NULL,NULL),('6640d545e6e4a','zdangvanthanh@gmail.com','dangvanthanh@gmail.com',NULL,NULL),('6640d5c0a2ab9','zphamthikim@gmail.com','phamthikim@gmail.com',NULL,NULL),('6640d62c5a035','zvuvanhoa@gmail.com','vuvanhoa@gmail.com',NULL,NULL),('6640d74700f9e','znguyenthidieu@gmail.com','nguyenthidieu@gmail.com',NULL,NULL);
 /*!40000 ALTER TABLE `verification` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -928,6 +934,6 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-10 20:17:33
+-- Dump completed on 2024-05-13 15:24:57
   
 SET FOREIGN_KEY_CHECKS = 1;

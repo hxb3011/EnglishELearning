@@ -35,10 +35,12 @@ function authenticate() {
             data: JSON.stringify(formdata),
             contentType: "application/json",
             success: function (data) {
+                console.log(data)
                 if (data == "success") {
-                    sessionStorage.setItem("username", username);
+                    console.log("Login success");
                     window.location.href = "/introduction/index.php";
                 } else {
+                    console.log("Login failed");
                     checkUIformLogin();
                     document.getElementById("result").classList.add("alert-danger");
                     $("#result").text(data);
@@ -51,13 +53,17 @@ function authenticate() {
     }
 }
 
+
+
+
+
 function register() {
     let username = sessionStorage.getItem("profiles") ? JSON.parse(sessionStorage.getItem("profiles")).username : $("#username-register").val();
     let password = sessionStorage.getItem("profiles") ? JSON.parse(sessionStorage.getItem("profiles")).password : $("#password-register").val();
     let email = sessionStorage.getItem("profiles") ? JSON.parse(sessionStorage.getItem("profiles")).email : $("#email-register").val();
     let firstname = $("#firstName-register").val();
     let lastname = $("#lastName-register").val();
-    let gender = $("#gender-male-register").is(':checked') ? "Male" : "Female";
+    let gender = $("#gender-male-register").is(':checked') ? "male" : "female";
     let birthday = new Date($("#date-register").val().toString()).toISOString().slice(0, 10);
     let formdata = { action: "register", username, password, email, firstname, lastname, gender, birthday};
     if (checkValidateFormRegisterTwo(firstname, lastname,gender,birthday)) {

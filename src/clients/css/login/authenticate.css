@@ -212,6 +212,38 @@ input#date-register:focus-visible {
   width: 25%;
 }
 
+.google-login-btn {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #d6523e;
+  cursor: pointer;
+}
+.google-login-btn .icon {
+  display: inline-flex;
+  height: 100%;
+  padding: 15px 20px;
+  align-items: center;
+  justify-content: center;
+  background-color: #cf412c;
+  margin-right: 15px;
+}
+.google-login-btn .icon svg {
+  fill: #fff;
+}
+.google-login-btn:hover {
+  background-color: #d44a36;
+}
+.google-login-btn:hover .icon {
+  background-color: #c63f2a;
+}
+
 .social-icon {
   height: 46px;
   width: 46px;

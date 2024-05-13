@@ -1,4 +1,7 @@
 <?
+
+use Google\Service\Analytics\Resource\Data;
+
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/database.php');
 requirm('/learn/Subscription.php');
@@ -22,6 +25,53 @@ class SubscriptionModel{
             }
         }catch(Exception $e){
             echo $e->getMessage();
+        }
+    }
+    public function getNumberOfTotalSub()
+    {
+        $sqlQuery = "SELECT COUNT(*) as total_sub FROM subscription";
+        try{
+            $result = Database::executeQuery($sqlQuery);
+            return intval($result[0]['total_sub']);
+        }catch(Exception $e)
+        {
+            return -1;
+        }
+    }
+    public function generateValidID()
+    {
+        $max = $this->getNumberOfTotalSub();
+        $max = $max + 1;
+        return 'SUB' . $max;
+    }
+
+    public function addSubscription(Subscription $sub)
+    {
+        $sqlQuery = "INSERT INTO subscription(ID,AtDateTime,ProfileID,CourseID,Price) VALUES(?,STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),?,?,?)";
+        $params= array(
+            $sub->ID,
+            $sub->AtDateTime->format('d-m-Y H:i:s'),
+            $sub->ProfileID,
+            $sub->CourseID,
+            $sub->Price
+        );
+        try{
+            $result = Database::executeNonQuery($sqlQuery,$params);
+            return $result;
+        }catch(Exception $e)
+        {
+            return false;
+        }
+    }
+    public function get_all(){
+        //$sqlQuery = "SELECT * FROM subscription,profile,course WHERE subscription.ProfileID = profile.ID AND subscription.CourseID = course.ID";
+        $sqlQuery = "SELECT subscription.ID,subscription.AtDateTime,subscription.Price,course.Name,profile.LastName,profile.FirstName FROM subscription,profile,course WHERE subscription.ProfileID =profile.ID AND subscription.CourseID = course.ID";
+        try{
+            $result = Database::executeQuery($sqlQuery);
+            return $result;
+        }catch(Exception $e)
+        {
+            return false;
         }
     }
 }

@@ -34,10 +34,11 @@ final class AuthenticateRegisterPage extends BaseHTMLDocumentPage
         $this->styles(
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
             "/clients/css/login/authenticate.css",
-            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"   
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         );
         $this->scripts(
             "https://code.jquery.com/jquery-3.5.1.min.js",
+            "/clients/js/authenticate/google-authen.js",
             "/clients/js/authenticate/authenticate.js",
             "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         );
@@ -45,7 +46,7 @@ final class AuthenticateRegisterPage extends BaseHTMLDocumentPage
 
     public function body()
     {
-        ?>
+?>
         <div class="container-authen">
             <div class="forms-container">
                 <div class="signin-signup">
@@ -68,21 +69,13 @@ final class AuthenticateRegisterPage extends BaseHTMLDocumentPage
                         <p class="text-lg">Or Sign in with social platforms</p>
                         <div class="line-seperate"></div>
                         <div class="social-media">
-                            <a href="#" class="social-icon">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="
-                            <?php
-                                $client = require "/var/www/html/_lib/configs/oauthGoogleConfig.php";
-                                $authUrl =  $client->createAuthUrl();
-                                error_log($authUrl);
-                                echo $authUrl;
-                            ?>
-                            " id="google-login" class="social-icon">
-                                <i class="fab fa-google"></i>
-                            </a>
-                            <a href="#" class="social-icon">
-                                <i class="fab fa-github"></i>
+                            <a href="#" class="google-login-btn">
+                                <span class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 488 512">
+                                        <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
+                                    </svg>
+                                </span>
+                                Login with Google
                             </a>
                         </div>
                     </form>
@@ -153,21 +146,21 @@ final class AuthenticateRegisterPage extends BaseHTMLDocumentPage
             let inputs = document.querySelectorAll(".input");
             let eyeIcons = document.querySelectorAll(".fa-solid.fa-eye");
 
-            eyeIcons.forEach((eyeIcon, index)=> {
-                eyeIcon.addEventListener('click',()=>{
-                    if (inputs[index].type === "password"){
-                        inputs[index].setAttribute('type','text')
+            eyeIcons.forEach((eyeIcon, index) => {
+                eyeIcon.addEventListener('click', () => {
+                    if (inputs[index].type === "password") {
+                        inputs[index].setAttribute('type', 'text')
                         eyeIcon.classList.remove("fa-eye");
                         eyeIcon.classList.add("fa-eye-slash");
                     } else {
-                        inputs[index].setAttribute('type','password');
+                        inputs[index].setAttribute('type', 'password');
                         eyeIcon.classList.remove("fa-eye-slash");
                         eyeIcon.classList.add("fa-eye");
                     }
                 })
-            }) 
+            })
         </script>
-        <?
+<?
     }
 
     // public function afterDocument()

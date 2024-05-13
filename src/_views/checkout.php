@@ -4,6 +4,8 @@ requirl("utils/htmlDocument.php");
 
 final class CheckoutPage extends BaseHTMLDocumentPage
 {
+    public Course $course;
+    public Profile $profile;
     public function __construct()
     {
         parent::__construct();
@@ -35,7 +37,10 @@ final class CheckoutPage extends BaseHTMLDocumentPage
             "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
         );
         $this->style(
-            "/clients/css/checkout/checkout.css"
+            "/clients/css/checkout/checkout.css",
+        );
+        $this->styles(
+            "/node_modules/toastr/build/toastr.css"
         );
         $this->script(
             "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
@@ -43,18 +48,30 @@ final class CheckoutPage extends BaseHTMLDocumentPage
         $this->scripts(
             "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
             "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
-            "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js",
         );
         $this->script(
-            "https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"
+            "https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js",
+
         );
         $this->scripts(
-            "/clients/js/checkout.js"
+            "/clients/js/checkout.js",
+            "/node_modules/toastr/build/toastr.min.js",
+
         );
     }
     public function body()
     {
-        ?>
+?>
+        <style>
+            .toast-title {
+                font-size: 20rem;
+            }
+
+            .toast-message {
+                font-size: 18rem;
+            }
+        </style>
         <div class="checkout-main">
             <div class="container">
                 <div class="justify-content-between row">
@@ -85,25 +102,29 @@ final class CheckoutPage extends BaseHTMLDocumentPage
                                 <a href="/introduction/index.php" class="edit-order align-self-center">Quay lại</a>
                             </h5>
                             <ul class="checkout__right-cart">
-                                
+
                             </ul>
                         </div>
                         <div class="checkout-confirm row bg-white mb-4 p-4 rounded-3">
+                            <input type="hidden" name="profileID" id="profileID" value="<? echo ($this->profile->getId()) ?>">
+                            <input type="hidden" name="courseID" id="courseID" value="<? echo ($this->course->id) ?>">
+                            <div class="d-flex justify-content-between">
+                                <div>Tên khóa học</div>
+                                <span><? echo ($this->course->name) ?></span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>Người đặt</div>
+                                <span class="checkout-confirm__tmp-total"><? echo ($this->profile->firstName . ' ' . $this->profile->lastName) ?></span>
+                            </div>
                             <div class="d-flex justify-content-between">
                                 <div>Tổng tạm tính</div>
-                                <span class="checkout-confirm__tmp-total">5.593.000₫</span>
+                                <span class="checkout-confirm__tmp-total"><? echo ($this->course->price) ?> VNĐ</span>
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <div>Phí vận chuyển</div>
-                                <span>Miễn phí</span>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div>Khuyến mãi</div>
-                                <span class="checkout-confirm__promo">-₫0</span>
-                            </div>
+
                             <div class="d-flex justify-content-between">
                                 <div>Thành tiền</div>
-                                <span class="checkout-confirm__money-total" style="font-size: 20px; color: red;">5.593.000₫</span>
+                                <input type="hidden" name="price" id="price" value="<? echo ($this->course->price) ?>">
+                                <span class="checkout-confirm__money-total" style="font-size: 20px; color: red;"><? echo ($this->course->name) ?></span>
                             </div>
                             <button class="btn btn-payment mt-4 mx-2" id="btn-payment">THANH TOÁN</button>
                         </div>
@@ -112,75 +133,10 @@ final class CheckoutPage extends BaseHTMLDocumentPage
             </div>
 
             <!-- Modal -->
-            <div class="modal-cart checkout">
-                <div class="modal-cart-dialog">
-                    <div class="modal-cart-header">
-                        <h2>Thông tin người nhận hàng</h2>
-                        <i class="fa-solid fa-xmark closemodal"></i>
-                    </div>
-
-                    <div class="modal-cart-body" style="min-height: 450px;">
-                        <form>
-                            <div class="form-group">
-                                <label for="inputName"><span>*</span> Họ tên</label>
-                                <input type="text" class="form-control" id="inputName" placeholder="Vui lòng nhập tên người nhận">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPhone"><span>*</span> Số điện thoại</label>
-                                <input type="tel" class="form-control" id="inputPhone" placeholder="Nhập số điện thoại">
-                            </div>
-
-                            <h3 class="" style="margin: 0;">Địa chỉ nhận hàng</h3>
-                            <div class="form-row row">
-                                <div class="col-6 my-1 d-flex flex-column">
-                                    <label class="mr-sm-2" for="province"><span>*</span> Tỉnh/Thành phố</label>
-                                    <select class="custom-select mr-sm-2" id="province" name="province">
-                                        <option value="">Chọn một tỉnh</option>
-
-                                    </select>
-                                </div>
-                                <div class="col-6 my-1 d-flex flex-column">
-                                    <label class="mr-sm-2" for="district"><span>*</span> Quận/Huyện</label>
-                                    <select class="custom-select mr-sm-2" id="district" name="district">
-                                        <option value="">Chọn một quận/huyện</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row row">
-                                <div class="col-6 my-1 d-flex flex-column">
-                                    <label class="mr-sm-2" for="wards"><span>*</span> Phường/Xã</label>
-                                    <select class="custom-select mr-sm-2" id="wards" name="wards">
-                                        <option value="">Chọn một xã</option>
-                                    </select>
-                                </div>
-                                <div class="col-6 my-1 d-flex flex-column">
-                                    <label for="inputStreet"><span>*</span> Địa chỉ cụ thể</label>
-                                    <input type="text" class="form-control" id="inputStreet" placeholder="Số nhà, ngõ, tên đường ...">
-                                </div>
-                            </div>
-
-                            <div class="form-group d-flex justify-content-end">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="checkDefault" style="margin-top: 6px;">
-                                    <label class="form-check-label" for="checkDefault" style="line-height: normal;">
-                                        Đặt làm mặc định
-                                    </label>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary" id="saveAddress" name="saveAddress">Lưu địa chỉ</button>
-                        </form>
-                    </div>
-
-                    <div class="modal-cart-footer">
-                        <button class="btn btn-danger btn-cancel closemodal">Hủy bỏ</button>
-                    </div>
-                </div>
-            </div>
-
             <div class="modal-cart qr-code">
                 <div class="modal-cart-dialog" style="min-width: 410px;">
                     <div class="modal-cart-body" style="min-height: 450px;">
-                        <div id="img-qrcode mt-2" style="text-align: center; margin-top: 20px;">
+                        <div id="img-qrcode" style="text-align: center; margin-top: 20px;">
                             <img style="width: 270px; " src="../assets/images/qrcode.jpg">
                         </div>
                         <div class="d-flex justify-content-center mt-3">
@@ -191,7 +147,7 @@ final class CheckoutPage extends BaseHTMLDocumentPage
                         </div>
                         <div class="d-flex justify-content-start">
                             <label>Số tiền: </label>
-                            <span class="checkout-qrcode-price mx-2">5.593.000₫</span>
+                            <span class="checkout-qrcode-price mx-2">VNĐ</span>
                         </div>
                         <div class="d-flex justify-content-start">
                             <label>Nội dung: </label>
@@ -199,7 +155,7 @@ final class CheckoutPage extends BaseHTMLDocumentPage
                         </div>
                         <div class="d-flex justify-content-start">
                             <label>Người thụ hưởng: </label>
-                            <span class="checkout-qrcode-receiver mx-2">Do Minh Quan</span>
+                            <span class="checkout-qrcode-receiver mx-2">LE TAN MINH TOAN</span>
                         </div>
                         <hr style="color: white;">
                         <div class="d-flex justify-content-between mb-3">
@@ -217,18 +173,18 @@ final class CheckoutPage extends BaseHTMLDocumentPage
                 <div class="modal-cart-dialog" style="min-width: 410px; min-height: 40px;">
                     <div class="modal-cart-body">
                         <div class="d-flex justify-content-center mt-3">
-                            <h5 class="text">THANH TOÁN THÀNH CÔNG</h5>
+                            <h5 class="text" style="font-size: 18rem;">THANH TOÁN THÀNH CÔNG</h5>
                         </div>
                         <hr style="color: white;">
                         <div class="d-flex justify-content-between mb-3">
                             <label>Bắt đầu sau</label>
-                            <span id="checkout-qrcode-countdown2" class="mx-2">4s</span>
+                            <span id="checkout-qrcode-countdown2" class="mx-2"></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    <?
+<?
     }
 }
 ?>

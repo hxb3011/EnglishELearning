@@ -31,7 +31,7 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
 
     public function favIcon(string $ico = null, string $svg = null)
     {
-        parent::favIcon($ico, $svg);
+        parent::favIcon("/assets/images/logo-icon.png", $svg);
     }
 
     public function head()
@@ -88,7 +88,7 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
                         </div>
                         <div class="col-md-3 col-lg-3 position-relative">
                             <div class="card position-absolute course__wrapper">
-                                <img src="/assets/images/blog4.png" alt="" class="card-img-top course__img">
+                                <img src="<?echo($this->basePath.$this->course->posterURI)?>" alt="" class="card-img-top course__img">
                                 <div class="card-body d-flex justify-content-between align-items-center course__wrapper-inner">
                                     <div class="card-text course_price">
                                         <? echo ($this->course->price) ?> VNĐ

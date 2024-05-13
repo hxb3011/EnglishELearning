@@ -5,6 +5,7 @@ class ExcersResponse{
     public int $ExcerciseID;
     public string $ProfileID;
 
+    public array $answers;
     public function constructFromArray($arrayValue)
     {
       $this->ID = $arrayValue['ID'];
@@ -15,10 +16,12 @@ class ExcersResponse{
 }
 class Answer{
   public int  $ID;
-  public string $Content;
+  public string $Content = '';
   public int $QuestionID;
   public string $ExcsRespID;
 
+  public string $Type;
+  public $main;
   public function constructFromArray($arrayValue)
   {
     $this->ID = $arrayValue['ID'];
@@ -43,6 +46,7 @@ class AMatching{
   public int $QMat;
   public int $QMatKey;
 
+  public string $QMatKeyText;
   public function constructFromArray($arrayValue)
   {
       $this->AnsID = $arrayValue['AnsID'];

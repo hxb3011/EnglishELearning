@@ -5,17 +5,11 @@ class EditCoursePage extends BaseHTMLDocumentPage
 {
     public Course $course;
     public array $programs;
-    public array $tutors;
+    public array $tutors = array();
     public string $basePath;
     public function __construct()
     {
         parent::__construct();
-        $this->tutors = array(
-            array('ID' => 'PRO01', "Name" => "Lê Tấn Minh Toàn"),
-            array('ID' => 'PRO02', "Name" => "Nguyễn Thanh Sang"),
-            array('ID' => 'PRO03', "Name" => "Huỳnh Xuân Bách"),
-            array('ID' => 'PRO04', "Name" => "Lâm Hùy"),
-        );
     }
     // public function beforeDocument()
     // {
@@ -24,17 +18,17 @@ class EditCoursePage extends BaseHTMLDocumentPage
 
     public function documentInfo(string $author, string $description, string $title)
     {
-        parent::documentInfo($author, $description, "Khóa học- " . $title);
+        parent::documentInfo($author, $description, "Khóa học - " . $title);
     }
 
     public function openGraphInfo(string $image, string $description, string $title)
     {
-        parent::openGraphInfo($image, $description, "Hồ sơ - " . $title);
+        parent::openGraphInfo($image, $description, "Khóa học - " . $title);
     }
 
     public function favIcon(string $ico = null, string $svg = null)
     {
-        parent::favIcon($ico, $svg);
+        parent::favIcon("/assets/images/logo-icon.png", $svg);
     }
 
     public function head()
@@ -165,7 +159,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                                                 </span>
                                                                                             </h5>
                                                                                             <div class="card-widget">
-                                                                                                <a class="" onclick="showAjaxModal('http://localhost:62280/administration/courses/show_modal.php?action=document_modal&editmode=1&lessonId=<?echo($document->LessonID)?>&documentId=<? echo ($document->ID) ?>','Sửa tài liệu tài liệu')">
+                                                                                                <a class="" onclick="showAjaxModal('http://localhost:62280/administration/courses/show_modal.php?action=document_modal&editmode=1&lessonId=<? echo ($document->LessonID) ?>&documentId=<? echo ($document->ID) ?>','Sửa tài liệu tài liệu')">
                                                                                                     <i class="mdi-b pen"></i>
                                                                                                 </a>
                                                                                                 <a onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_document&documentId=<? echo ($document->ID) ?>','Xóa tài liệu','Bạn có chắc muốn xóa tài liệu này')">
@@ -243,8 +237,8 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                 <div class="col-md-10">
                                                                     <select class="form-select form-select-md mb-3" name="tutor" id="tutor">
                                                                         <option>Lựa chọn giảng viên</option>
-                                                                        <? foreach ($this->tutors as $tutor) : ?>
-                                                                            <option value="<? echo $tutor['ID']; ?>" <? if ($tutor['ID'] == $this->course->profileID) echo ('selected')  ?>><? echo $tutor['Name'] ?></option>
+                                                                        <? foreach ($this->tutors as $index => $tutor) : ?>
+                                                                            <option value="<? echo $tutor->getId() ?>" <?if($tutor->getId()==$this->course->profileID) echo('selected')?>  ><? echo ($tutor->lastName . ' ' . $tutor->firstName) ?></option>
                                                                         <? endforeach ?>
                                                                     </select>
                                                                 </div>

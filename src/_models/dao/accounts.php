@@ -9,7 +9,7 @@ class UserRepo
         $sqlQuery = "SELECT COUNT(*) AS total_account FROM account";
         try {
             $result = Database::executeQuery($sqlQuery);
-            return $result;
+            return $result[0]['total_account'];
         } catch (Exception $e) {
             return null;
         }
@@ -22,6 +22,29 @@ class UserRepo
         $total = intval($total_string) + 1;
         // echo "<script>console.log('total: $total')</script>";
         return 'UID' . $total;
+    }
+
+    public function checkExistsUsername($username)
+    {
+        $sqlQuery = "SELECT COUNT(*) FROM account WHERE username = ?";
+        $result = Database::executeQuery($sqlQuery, [$username]);
+        if ($result !== null && $result[0]['COUNT(*)'] > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getLoginInfo($username)
+    {
+        $sqlQuery = "SELECT * FROM account ac 
+                     join profile pf on ac.UID = pf.UID
+                     join verification vr on pf.id = vr.ProfileID
+                     WHERE username = ? or email = ?";
+        $result = Database::executeQuery($sqlQuery, [$username]);
+        if ($result !== null && count($result) > 0) {
+            return $result[0];
+        }
+        return null;
     }
 
     public function Login($subject, $password)
@@ -52,7 +75,7 @@ class UserRepo
                      join verification vr on pf.id = vr.ProfileID
                      WHERE email = ?";
             $result = Database::executeQuery($sqlQuery, [$email]);
-            if ($result !== null && $result[0]['COUNT(*)'] > 0){
+            if ($result !== null && $result[0]['COUNT(*)'] > 0) {
                 return true;
             }
             return false;
@@ -147,7 +170,7 @@ class UserRepo
                 $resultAccount = $this->insertAccount($paramsAccount);
                 if ($resultAccount) {
                     $idProfile = uniqid();
-                    $type = "user";
+                    $type = 1;
                     $status = 1;
                     $roleID = "1";
                     $newGender = $gender == "male" ? 1 : 0;
