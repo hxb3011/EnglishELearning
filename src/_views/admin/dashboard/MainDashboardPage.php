@@ -25,8 +25,10 @@ final class MainDashboardPage extends BaseHTMLDocumentPage
     public function head()
     {
         $this->styles(
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
             "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
-            "/clients/css/admin/main.css"
+            "/clients/css/admin/main.css",
+            "/clients/css/admin/dashboard.css"
         );
         $this->scripts(
             "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
@@ -35,52 +37,177 @@ final class MainDashboardPage extends BaseHTMLDocumentPage
 
     public function body()
     {
-?>
-        <div class="container-fluid">
-            <div class="mb-3">
-                <h3 class="fw-bold fs-4 mb-3">Admin Dashboard</h3>
-                </h3>
-                <div class="row">
-                    <div class="col-12">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr class="highlight">
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td colspan="2">Larry the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                            </tbody>
-                        </table>
+        ?>
+        <!-- Bắt đầu cục tổng quan -->
+        <div class="row">
+            <h4 class="card-title mb-3 text-dark">Tổng quan</h4>
+            <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient bg-danger card-img-holder text-white">
+                    <div class="card-body">
+                        <img src="../../../assets/images/circle.svg" class="card-img-absolute" alt="circle-image">
+                        <h4 class="font-weight-normal mb-3">Tổng thu nhập <i class="fa-solid fa-chart-line"></i>
+                        </h4>
+                        <h2 class="mb-5">
+                            1,051,751,223 đ
+                        </h2>
+                        <h6 class="card-text">Giảm khoảng 60%</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-info bg-gradient card-img-holder text-white">
+                    <div class="card-body">
+                        <img src="../../../assets/images/circle.svg" class="card-img-top" alt="circle-image">
+                        <h4 class="font-weight-normal mb-3">Khóa học đã bán <i class="fa-solid fa-cart-shopping"></i>
+                        </h4>
+                        <h2 class="mb-5">
+                            1024 Khóa
+                        </h2>
+                        <h6 class="card-text">Tăng khoảng 30%</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient bg-success card-img-holder text-white">
+                    <div class="card-body">
+                        <img src="../../../assets/images/circle.svg" class="card-img-top" alt="circle-image">
+                        <h4 class="font-weight-normal mb-3">Người dùng <i class="fa-solid fa-user-plus"></i>
+                        </h4>
+                        <h2 class="mb-5">
+                           1024 Tài khoản
+                        </h2>
+                        <h6 class="card-text">Tăng khoảng 5%</h6>
                     </div>
                 </div>
             </div>
         </div>
-<?
+        <!-- Kết thúc cục tổng quan -->
+
+        <!-- Bắt đầu biểu đồ thu nhập -->
+        <div class="card" style="margin-bottom: 40px">
+            <div class="card-body">
+                <div class="chartjs-size-monitor">
+                    <div class="chartjs-size-monitor-expand">
+                        <div class=""></div>
+                    </div>
+                    <div class="chartjs-size-monitor-shrink">
+                        <div class=""></div>
+                    </div>
+                </div>
+                <h4 class="card-title">Thu nhập chung</h4>
+                <canvas id="line-chart" style="height: 407px; display: block; width: 815px;" width="815" height="407" class="chartjs-render-monitor"></canvas>
+            </div>
+        </div>
+        <!-- Kết thúc biểu đồ thu nhập -->
+
+        <!-- Bắt đầu bảng giảng viên -->
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Top 10 giảng viên thu nhập cao nhất</h4>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr style="text-align: center">
+                                <th> Ảnh </th>
+                                <th> Họ Tên </th>
+                                <th style="text-align: center"> Đã bán </th>
+                                <th> Thu nhập </th>
+                                <th> Đánh giá trung bình </th>
+                                <th> Ngày tham gia </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- @foreach ($top_admin as $admin) -->
+                            <tr style="text-align: center">
+                                <td class="py-1">
+                                    <img src="" alt="image">
+                                </td>
+                                <td style="text-align: left">
+                                    <a href="" style="text-decoration: none; color:black">
+                                        <!-- {{ $admin->name }} -->
+                                        admin name
+                                    </a>
+                                </td>
+                                <td>
+                                    <!-- {{ $admin->number_order }}  -->
+                                    khóa
+                                </td>
+                                <td>
+                                    <!-- {{ number_format($admin->total_price, 0, '', ',') }} đ -->
+                                    Đồng
+                                </td>
+                                <td>
+                                    <!-- {{ round($admin->number_rate,2) }} -->
+                                    rating
+                                </td>
+                                <td>
+                                    <!-- {{ date('d-m-Y', strtotime($admin->created_at)) }} -->
+                                    create_at
+                                </td>
+                            </tr>
+                            <!-- @endforeach -->
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- kết thúc bảng giảng viên -->
+
+        <!-- Bắt đầu bảng khóa học -->
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Top 10 khóa học bán chạy nhất</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr style="text-align: center">
+                            <th> Tên khóa </th>
+                            <th> Giảng viên </th>
+                            <th> Giá </th>
+                            <th> Số lượng đã bán </th>
+                            <th> Đánh giá trung bình </th>
+                            <th> Cập nhập lần cuối </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- @foreach ($top_course as $course) -->
+                        <tr style="text-align: center">
+                            <td style="text-align: left">
+                                <a href="" style="text-decoration: none; color:black">
+                                    {{ $course->name }}
+                                </a>
+                            </td>
+                            <td style="text-align: left">
+                                <a href="" style="text-decoration: none; color:black">
+                                    {{ $course->name_admin }}
+                                </a>
+                            </td>
+                            <td>
+                                {{ number_format($course->price, 0, '', ',') }} đ
+                            </td>
+                            <td>
+                                {{ $course->number_order }} khóa
+                            </td>
+                            <td>
+                                {{ round($course->number_rate, 2) }}
+                            </td>
+                            <td>
+                                {{ date('d-m-Y', strtotime($course->updated_at)) }}
+                            </td>
+                        </tr>
+                        <!-- @endforeach -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Kết thúc bảng khóa học -->
+        <?
         $this->scripts(
             "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
             "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
             "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js",
-            "/clients/js/admin/main.js"
+            "https://cdn.jsdelivr.net/npm/chart.js",
+            "/clients/js/admin/dashboard.js"
         );
     }
 }
