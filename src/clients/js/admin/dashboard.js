@@ -1,73 +1,314 @@
 $(document).ready(function () {
-
-    renderChart();
+    $('#view-teacher-quantity').on('keypress', function (e) {
+        e.preventDefault();
+    });
+    $('#view-top-course-quantity').on('keypress', function (e) {
+        e.preventDefault();
+    });
+    $(document).on('change', '#start-date, #end-date', () => {
+        let startDate = $('#start-date').val();
+        let endDate = $('#end-date').val();
+        let viewTeacherQuantity = $('#view-teacher-quantity').val();
+        let viewCourseQuantity = $('#view-top-course-quantity').val();
+        if (startDate !== '' && endDate !== '') {
+            getTotalRevenue(startDate, endDate);
+            getTotalBuyedCourses(startDate, endDate);
+            getTotalAccount(startDate, endDate);
+            renderChart(startDate, endDate);
+            $('#quantity-number').text(viewTeacherQuantity);
+            $('#quantity-course-number').text(viewCourseQuantity);
+            renderTopRevenueByTeacher(startDate, endDate, viewTeacherQuantity);
+            renderTopSellerCourse(startDate, endDate, viewCourseQuantity);
+        }
+        // else {
+        //     toastr.error("Vui lòng chọn ngày bắt đầu và ngày kết thúc");
+        // }
+    });
+    $('#view-teacher-quantity').on('change', function () {
+        let startDate = $('#start-date').val();
+        let endDate = $('#end-date').val();
+        let viewTeacherQuantity = $('#view-teacher-quantity').val();
+        if (startDate !== '' && endDate !== '' && viewTeacherQuantity !== '') {
+            $('#quantity-number').text(viewTeacherQuantity);
+            renderTopRevenueByTeacher(startDate, endDate, viewTeacherQuantity);
+        }
+        // else {
+        //     toastr.error("Vui lòng chọn ngày bắt đầu và ngày kết thúc");
+        // }
+    });
+    $('#view-top-course-quantity').on('change', function () {
+        let startDate = $('#start-date').val();
+        let endDate = $('#end-date').val();
+        let viewCourseQuantity = $('#view-top-course-quantity').val();
+        if (startDate !== '' && endDate !== '' && viewCourseQuantity !== '') {
+            $('#quantity-course-number').text(viewCourseQuantity);
+            renderTopSellerCourse(startDate, endDate, viewCourseQuantity);
+        }
+        // else {
+        //     toastr.error("Vui lòng chọn ngày bắt đầu và ngày kết thúc");
+        // }
+    });
 });
 
-function renderChart(){
-    new Chart(document.getElementById("line-chart"), {
+function renderTopSellerCourse(startDate, endDate, viewCourseQuantity) {
+    getTopSellerCourse(startDate, endDate, viewCourseQuantity).then((data) => {
+        let html = '';
+        for (let i = 0; i < data.length; i++) {
+            html += `
+                <tr style="text-align: center">
+                    <td>${data[i]['course_name']}</td>
+                    <td>${data[i]['first_name']} ${data[i]['last_name']}</td>
+                    <td>${data[i]['price']} $</td>
+                    <td>${data[i]['total_order']}</td>
+                    <td>${data[i]['last_update']}</td>
+                </tr>
+            `;
+        }
+        $('#table-top-course').html(html);
+    });
+}
+
+function renderTopRevenueByTeacher(startDate, endDate , viewTeacherQuantity) {
+    getTopRevenueByTeacher(startDate, endDate, viewTeacherQuantity).then(async (data) => {
+        let html = '';
+        for (let i = 0; i < data.length; i++) {
+            let totalStudent = await getTotalStudentTeachers(startDate, endDate, data[i]['profile_id']);
+            html += `
+                <tr style="text-align: center">
+                    <td>${data[i]['first_name']}  ${data[i]['last_name']}</td>
+                    <td>${data[i]['total_course_selled']}</td>
+                    <td>${data[i]['total_revenue']} $</td>
+                    <td>${totalStudent}</td>
+                </tr>
+            `;
+        }
+        $('#table-teacher').html(html);
+    });
+}
+
+let chart;
+async function renderChart(startDate, endDate) {
+    if (chart)
+        chart.destroy();
+
+    let labels = [];
+    let dataPrice = [];
+    totalPrices = await getDetailsRevenue(startDate, endDate);
+    // console.log(totalPrices);
+    let dateRevenue = {};
+    for (let i = 0; i < totalPrices.length; i++) {
+        let date = new Date(totalPrices[i]['AtDateTime']).toISOString().split('T')[0];
+        dateRevenue[date] = totalPrices[i]['total_revenue'];
+    }
+    for (let i = new Date(startDate); i <= new Date(endDate); i.setDate(i.getDate() + 1)) {
+        labels.push(i.toISOString().split('T')[0]);
+        dataPrice.push(dateRevenue[i.toISOString().split('T')[0]] || 0);
+    }
+    // console.log(dataPrice);
+    chart = new Chart(document.getElementById("line-chart"), {
         type: "line",
         data: {
-            labels: [
-                "6/2020",
-                "7/2020",
-                "8/2020",
-                "9/2020",
-                "10/2020",
-                "11/2020",
-                "12/2020",
-                "1/2021",
-                "2/2021",
-                "3/2021",
-                "4/2021",
-                "5/2021",
-                "6/2021",
-                "7/2021",
-                "8/2021",
-                "9/2021",
-                "10/2021",
-                "11/2021",
-                "12/2021",
-                "1/2022",
-                "2/2022",
-                "3/2022",
-                "4/2022",
-            ],
-            //   23 lable
+            labels: labels,
             datasets: [
                 {
-                    data: [
-                        100113, 5652126, 11722060, 15167497, 20825409, 28289457,
-                        35561043, 41781285, 46135050, 53344731, 55473726,
-                        61313076, 66602219, 67605048, 81311794, 81677258,
-                        88848522, 86550104, 93015636, 96789927, 107444337,
-                        109032842, 114324537,
-                    ],
-                    label: "Thu Nhập chung",
+                    data: dataPrice,
+                    label: "Hóa đơn",
                     borderColor: "#3e95cd",
-                    fill: false,
-                },
-                {
-                    data: [
-                        19794, 1411272, 1661854, 2873983, 5723073, 2895034,
-                        4191425, 17370639, 8450674, 4470312, 3572130, 12053125,
-                        26884533, 16051707, 15962471, 25183283, 7764093,
-                        17871851, 23191740, 6667461, 35292257, 45401098,
-                        54161493, 54681708,
-                    ],
-                    label: "Thu nhập hệ thống",
-                    borderColor: "#8e5ea2",
                     fill: false,
                 },
             ],
         },
         options: {
             responsive: true,
-            title: {
-                display: true,
-                text: "Tổng quan thu nhập",
-            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         },
     });
 }
 
+function getTotalRevenue(startDate, endDate) {
+    $.ajax({
+        url: "/administration/dashboard/call_ajax.php",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+            action: "get_revenue_total",
+            start_date: startDate,
+            end_date: endDate
+        }),
+        success: function (response) {
+            // console.log(JSON.parse(response).data);
+            $("#total-revenue").text(JSON.parse(response).data + " $");
+        },
+        error: function (error) {
+            console.log(error);
+        },
+    });
+}
 
+function getTotalBuyedCourses(startDate, endDate) {
+    $.ajax({
+        url: "/administration/dashboard/call_ajax.php",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+            action: "get_buyed_course_total",
+            start_date: startDate,
+            end_date: endDate
+        }),
+        success: function (response) {
+            // console.log(JSON.parse(response).data);
+            $("#total_buyed_course").text(JSON.parse(response).data + " Khóa học");
+        },
+        error: function (error) {
+            console.log(error);
+        },
+    });
+}
+
+function getTotalAccount(start_date, end_date) {
+    $.ajax({
+        url: "/administration/dashboard/call_ajax.php",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+            action: "get_total_account",
+            start_date: start_date,
+            end_date: end_date
+        }),
+        success: function (response) {
+            // console.log(JSON.parse(response).data);
+            $("#total_account").text(JSON.parse(response).data + " Tài khoản");
+        },
+        error: function (error) {
+            console.log(error);
+        },
+    });
+}
+
+function getDetailsRevenue(start_date, end_date) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/administration/dashboard/call_ajax.php",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                action: "get_details_revenue_by_date",
+                start_date: start_date,
+                end_date: end_date
+            }),
+            success: function (response) {
+                resolve(JSON.parse(response).data);
+            },
+            error: function (error) {
+                reject(error);
+            },
+        });
+    });
+}
+
+function getTopRevenueByTeacher(start_date, end_date, viewTeacherQuantity) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/administration/dashboard/call_ajax.php",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                action: "get_top_revenue_by_teacher",
+                start_date: start_date,
+                end_date: end_date,
+                view_teacher_quantity: viewTeacherQuantity
+            }),
+            success: function (response) {
+                // console.log(response);
+                resolve(JSON.parse(response).data);
+            },
+            error: function (error) {
+                reject(error);
+            },
+        });
+    });
+}
+
+function getTotalStudentTeachers(start_date, end_date, teacher_id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/administration/dashboard/call_ajax.php",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                action: "get_total_student_by_teacher",
+                start_date: start_date,
+                end_date: end_date,
+                teacher_id: teacher_id
+            }),
+            success: function (response) {
+                // console.log(response);
+                resolve(JSON.parse(response).data);
+            },
+            error: function (error) {
+                reject(error);
+            },
+        });
+    });
+}
+
+function getTopSellerCourse(start_date, end_date, view_top_course_quantity) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/administration/dashboard/call_ajax.php",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                action: "get_top_seller_by_course",
+                start_date: start_date,
+                end_date: end_date,
+                view_top_course_quantity: view_top_course_quantity
+            }),
+            success: function (response) {
+                // console.log(response);
+                resolve(JSON.parse(response).data);
+            },
+            error: function (error) {
+                reject(error);
+            },
+        });
+    });
+}
+
+// async function CalculatePercentageOfTotalRevenue(start_date, end_date) {
+//     let oldRevenue = $('#total-revenue').text().split(" ")[0];
+//     let newRevenue = await getLastDayHaveRevenue(start_date, end_date)[0]['total_revenue'];
+//     console.log(newRevenue);
+//     let percentage = ((newRevenue - oldRevenue) / oldRevenue) * 100;
+//     if (percentage < 0) {
+//         $('#percentage_revenue').text("Giảm khoảng " + percentage + " %");
+//     }else {
+//         $('#percentage_revenue').text("Tăng khoảng " + percentage + " %");
+//     };
+// }
+
+// function getLastDayHaveRevenue(start_date, end_date) {
+//     return new Promise((resolve, reject) => {
+//         $.ajax({
+//             url: "/administration/dashboard/call_ajax.php",
+//             type: "POST",
+//             contentType: "application/json",
+//             data: JSON.stringify({
+//                 action: "get_last_day_have_revenue",
+//                 start_date: start_date,
+//                 end_date: end_date
+//             }),
+//             success: function (response) {
+//                 // console.log(response);
+//                 resolve(JSON.parse(response).data);
+//             },
+//             error: function (error) {
+//                 reject(error);
+//             },
+//         });
+//     });
+// }
