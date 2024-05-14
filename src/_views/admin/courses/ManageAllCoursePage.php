@@ -64,9 +64,9 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                                     </span>
                                     <select class="form-select" name="giangvien" id="giangvien">
                                         <option value="">Lựa chọn giảng viên</option>
-                                        <?foreach($this->tutors as $index=>$tutor):?>
-                                            <option value="<?echo $tutor->getId()?>"><?echo($tutor->lastName.' '.$tutor->firstName)?></option>
-                                        <?endforeach?>
+                                        <? foreach ($this->tutors as $index => $tutor) : ?>
+                                            <option value="<? echo $tutor->getId() ?>"><? echo ($tutor->lastName . ' ' . $tutor->firstName) ?></option>
+                                        <? endforeach ?>
                                     </select>
                                 </div>
                                 <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12   ">
@@ -155,7 +155,8 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
             "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
             "/node_modules/toastr/build/toastr.min.js",
             "/node_modules/sweetalert2/dist/sweetalert2.min.js",
-            "/clients/admin/main.js"
+            "/clients/admin/main.js",
+            "/clients/js/pagination.js"
         );
         ?>
         <script>
@@ -166,7 +167,6 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                 initPagination();
 
             })
-
             function setUpEvents() {
                 $('.pagination-item').click(function() {
                     let targetPage = $(this).data('page');
@@ -210,9 +210,7 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
 
                 })
             }
-
             function initPagination() {
-                search = 0;
                 $.ajax({
                     url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=get_total_page',
                     method: 'POST',
@@ -221,7 +219,7 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                         name: name
                     }),
                     headers: {
-                        'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
+                        'Access-Control-Allow-Origin': '*' 
                     },
                     success: function(response) {
                         html = `
@@ -253,12 +251,10 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                     }
                 })
             }
-
             function onSearchData() {
                 tutor = $('#giangvien').val();
                 name = $('#search_name').val();
                 initPagination()
-                search = 1;
                 $.ajax({
                     url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=get_course_by_page',
                     method: 'POST',
@@ -268,7 +264,7 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                         name: name
                     }),
                     headers: {
-                        'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
+                        'Access-Control-Allow-Origin': '*' 
                     },
                     success: function(response) {
                         let data = JSON.parse(response);
@@ -276,7 +272,6 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                     }
                 })
             }
-
             function showData(data) {
                 $('#table_body').empty()
                 html = ``;
@@ -319,16 +314,13 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                 }
                 $('#table_body').html(html)
             }
-            // dd-MM-yyyy
             function reuturnFormatDateString(dateString) {
                 var date = new Date(dateString);
 
-                // Lấy ngày, tháng và năm từ đối tượng Date
-                var day = ("0" + date.getDate()).slice(-2); // Lấy ngày, thêm "0" và cắt 2 kí tự cuối cùng
-                var month = ("0" + (date.getMonth() + 1)).slice(-2); // Lấy tháng, thêm "0" và cắt 2 kí tự cuối cùng
-                var year = date.getFullYear(); // Lấy năm
+                var day = ("0" + date.getDate()).slice(-2); 
+                var month = ("0" + (date.getMonth() + 1)).slice(-2); 
+                var year = date.getFullYear();
 
-                // Định dạng lại chuỗi ngày tháng năm
                 var formattedDate = day + "-" + month + "-" + year;
                 return formattedDate;
             }
