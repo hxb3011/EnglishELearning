@@ -185,7 +185,7 @@ class CourseModel
     /* CLIENT */
     public function getAllCourseBySearch($courseName = "", $profileId = "", $startPrice = null, $endPrice = null)
     {
-        if ($startPrice != null && $endPrice != null) {
+        if ($startPrice !== null && $endPrice !== null) {
             $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.Name LIKE CONCAT('%', ?, '%') AND profile.ID LIKE CONCAT('%', ?, '%') AND course.Price >= ? AND course.Price <= ? AND State= 1";
             $params = array(
                 $courseName,
@@ -222,9 +222,9 @@ class CourseModel
     public function getCourseFromPage2($page = 1, $perPage = 5, $courseName = "", $profileId = "", $startPrice = null, $endPrice = null)
     {
         $offSet = ($page - 1) * $perPage;
-        if($startPrice != null && $endPrice != null)
+        if($startPrice !== null && $endPrice !== null)
         {
-            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID LIKE CONCAT('%', ?, '%')  AND State=1 AND course.Price >= ? AND course.Price <= ? LIMIT $offSet, $perPage";
+            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID LIKE CONCAT('%', ?, '%') AND course.Price >= ? AND course.Price <= ? AND State = 1  LIMIT $offSet, $perPage";
             $params = array(
                 $courseName,
                 $profileId,
@@ -232,6 +232,7 @@ class CourseModel
                 $endPrice
             );
         }else{
+
             $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID LIKE CONCAT('%', ?, '%')  AND State=1 LIMIT $offSet, $perPage";
             $params = array(
                 $courseName,
