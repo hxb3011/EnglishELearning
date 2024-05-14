@@ -19,7 +19,7 @@ foreach ($fragment_accounts as $key => $value) {
                         <?
                         if ($fragment_account_update) {
                             ?>
-                            <li><a class="dropdown-item" href="/administration/access/editAccount.php?add=1&uid=<?= $value->getUid() ?>">Sửa tài khoản</a></li>
+                            <li><a class="dropdown-item" href="/administration/access/editAccount.php?add=0&uid=<?= $value->getUid() ?>">Sửa tài khoản</a></li>
                             <?
                         }
                         ?>

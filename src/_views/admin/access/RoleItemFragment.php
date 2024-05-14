@@ -19,7 +19,7 @@ foreach ($fragment_roles as $key => $value) {
                         <?
                         if ($fragment_role_update) {
                             ?>
-                            <li><a class="dropdown-item" href="/administration/access/editRole.php?add=1&roleid=<?= $value->getId() ?>">Sửa vai trò</a></li>
+                            <li><a class="dropdown-item" href="/administration/access/editRole.php?add=0&roleid=<?= $value->getId() ?>">Sửa vai trò</a></li>
                             <?
                         }
                         ?>
