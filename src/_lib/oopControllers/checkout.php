@@ -1,6 +1,6 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
-requirm('/dao/profile.php');
+requirm('/dao/profile/profile.php');
 requirm('/dao/CourseModel.php');
 requirm('/dao/SubscriptionModel.php');
 

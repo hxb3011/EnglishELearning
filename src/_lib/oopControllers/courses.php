@@ -17,7 +17,7 @@ requirm('/learn/Excercise.php');
 requirm('/learn/Subscription.php');
 requirm('/learn/Tracking.php');
 requirm('/learn/Question.php');
-requirm('/dao/profile.php');
+requirm('/dao/profile/profile.php');
 
 
 requirm('/excerciseresponse/ExcersResponse.php');

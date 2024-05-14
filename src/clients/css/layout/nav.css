@@ -1,7 +1,9 @@
 nav {
     bottom: 0;
-    box-sizing: border-box;
     background-color: var(--mdc-surface-container);
+    box-sizing: border-box;
+    border-left: 2rem solid var(--mdc-surface-container-highest);
+    border-top: none;
     display: flex;
     flex-flow: column nowrap;
     height: 100%;
@@ -131,6 +133,8 @@ main {
 @media only screen and (max-width: 479px) {
     nav {
         align-items: center;
+        border-left: none;
+        border-top: 2rem solid var(--mdc-surface-container-highest);
         flex-flow: row nowrap;
         justify-content: center;
         height: 72rem;
