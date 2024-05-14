@@ -76,13 +76,13 @@ main>card.header.signed {
 main>card.header.signed>:is(.prof-pic, .alt-prof-pic) {
     border-radius: 80rem;
     height: 160rem;
-    margin: 24rem;
+    margin: 40rem 24rem;
     object-fit: cover;
     object-position: center;
     width: 160rem;
 }
 
-main>card.header.signed>:is(.prof-pic, .prof-pic[src=""]+.alt-prof-pic) {
+main>card.header.signed>:is(.prof-pic:not([src=""]), .prof-pic[src=""]+.alt-prof-pic) {
     display: block;
 }
 
@@ -158,6 +158,10 @@ main>card:is(.profile, .related) {
     padding: 8rem 0;
     margin: 4rem;
     width: calc(50% - 8rem);
+}
+
+main>card.profile:not(:has(+.related)) {
+    width: calc(100% - 8rem);
 }
 
 main>card.section>hr {
@@ -390,15 +394,15 @@ main>card.settings>.list-item>.icon.mdi-b::before {
     main>card.header>input.outlined[type="button"] {
         padding: 6rem 38rem;
     }
-    
+
     main>card.header>input.outlined[type="button"]:is(:focus, :hover) {
         padding: 7rem 39rem;
     }
-    
+
     main>card.header>input.outlined[type="button"]:active {
         padding: 6rem 38rem;
     }
-    
+
     main>card.header.signed {
         align-items: center;
         height: 640rem;

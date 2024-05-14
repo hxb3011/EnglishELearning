@@ -1,7 +1,51 @@
 // @ts-check
 
+const ScrimBack = ((_) => {
+    const disposes = /** @type {(() => void)[]} */ ([]);
+    const handler = /** @type {((this: HTMLElement, e: MouseEvent) => any)[]} */([]);
+    /** @this {Window} @param {Event} e */
+    function onLoadLayout(e) {
+        const scrim = /** @type {NodeListOf<HTMLElement>} */
+            (document.querySelectorAll("scrim"));
+
+        /** @this {HTMLElement} @param {MouseEvent} e */
+        function onBack(e) {
+            if (!handler.length) e.preventDefault();
+            for (const back of handler) {
+                back && Object.getPrototypeOf(back) === Function.prototype && back.call(this, e);
+            }
+        }
+
+        function disposeScrim() {
+            for (const value of scrim)
+                value.removeEventListener("click", onBack);
+        }
+
+        for (const value of scrim)
+            value.addEventListener("click", onBack);
+        disposes.push(disposeScrim);
+    }
+
+    /** @this {Window} @param {Event} e */
+    function onDispose(e) {
+        disposes.forEach(dispose => dispose());
+        window.removeEventListener("load", onLoadLayout);
+        window.removeEventListener("unload", onDispose);
+    }
+
+    window.addEventListener("load", onLoadLayout);
+    window.addEventListener("unload", onDispose);
+
+    return {
+        handler,
+        get [Symbol.toStringTag]() { return _.tagName; }
+    }
+})({
+    tagName: "clients.layout.main.js:ScrimBack"
+})
+
 const MainLayout = ((_) => {
-    const disposes = /** @type {(() => void)[]} */ ([])
+    const disposes = /** @type {(() => void)[]} */ ([]);
 
     /** @this {Window} @param {Event} e */
     function onLoadLayout(e) {
@@ -114,12 +158,10 @@ const MainLayout = ((_) => {
             }
         })());
         disposes.push((function () {
-            const drawers = /** @type {NodeListOf<HTMLUnknownElement>} */
+            const drawers = /** @type {NodeListOf<HTMLElement>} */
                 (document.querySelectorAll("nav.drawer"));
-            const scrim = /** @type {NodeListOf<HTMLAnchorElement>} */
-                (document.querySelectorAll("scrim"));
 
-            /** @this {HTMLAnchorElement} @param {MouseEvent} e */
+            /** @this {HTMLElement} @param {MouseEvent} e */
             function onCloseDrawers(e) {
                 e.preventDefault();
                 for (const value of drawers) {
@@ -131,12 +173,11 @@ const MainLayout = ((_) => {
                 }
             }
 
-            for (const value of scrim)
-                value.addEventListener("click", onCloseDrawers);
+            ScrimBack.handler.push(onCloseDrawers);
 
             return function () {
-                for (const value of scrim)
-                    value.removeEventListener("click", onCloseDrawers);
+                let handler = ScrimBack.handler;
+                handler.splice(handler.indexOf(onCloseDrawers), 1);
             }
         })());
     }
@@ -153,7 +194,7 @@ const MainLayout = ((_) => {
 
     return {
         onSearch: /** @type {((this: HTMLAnchorElement, e: MouseEvent) => any)[]} */ ([]),
-        [Symbol.toStringTag]() { return _.tagName; }
+        get [Symbol.toStringTag]() { return _.tagName; }
     };
 })({
     tagName: "clients.layout.main.js:MainLayout"

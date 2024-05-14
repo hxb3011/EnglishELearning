@@ -264,4 +264,9 @@ function getDemoLearnerProfile()
         $key->set(new Account("2", "vht008", "Hello|11", AccountStates_None), getLearnerRoleFull());
     return $profile;
 }
+
+const DEBUG_ACCOUNT = 1;
+const DEBUG_PROFILE = 2;
+global $debug;
+$debug = 0;
 ?>
