@@ -51,7 +51,25 @@ class DocumentModel{
     {
         $max = $this->getNumberOfTotalDocument();
         $max = $max + 1;
+        while($this->checkIDExists('DOCUMENT'.$max))
+        {
+            $max = $max+1;
+        }
         return 'DOCUMENT' . $max;
+    }
+    public function checkIDExists($id)   {
+        $sqlQuery ="SELECT * FROM document WHERE ID = ?";
+        $params = array($id);
+        try {
+            $result = Database::executeQuery($sqlQuery, $params);
+            if ($result != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            return false;;
+        }
     }
     public function getNumberOfTotalDocument()
     {
