@@ -1,7 +1,7 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
-requirm("access/role.php");
+requirm("access/permission.php");
 class EditRolePage extends BaseHTMLDocumentPage
 {
     private IPermissionHolder $holder;

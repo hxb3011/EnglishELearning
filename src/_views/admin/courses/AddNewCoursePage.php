@@ -218,6 +218,11 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                     var beginDatetime = new Date(beginDateTimeValue);
                     return selectedDate > beginDatetime;
                 }, "Ngày kết thúc phải lớn hơn ngày bắt đầu");
+
+                $.validator.addMethod("notEmpty",function(value,element){
+                    return value.trim().length > 0;
+                })
+                
                 //thêm các validate rule cho form
                 $("#form_add_course").validate({
                     ignore: [],
@@ -232,10 +237,12 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                     rules: {
                         title: {
                             required: true,
-                            minlength: 5
+                            minlength: 5,
+                            notEmpty : true
                         },
                         description: {
                             required: true,
+                            notEmpty : true
                         },
                         start_date: {
                             required: true,
@@ -260,10 +267,12 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                     messages: {
                         title: {
                             required: "Vui lòng nhập tên khóa học",
-                            minlength: "Độ dài của tên khóa học tối thiểu là 5"
+                            minlength: "Độ dài của tên khóa học tối thiểu là 5",
+                            notEmpty : "Độ dài của tên khóa học tối thiểu là 5"
                         },
                         description: {
                             required: "Vui lòng nhập mô tả khóa học",
+                            notEmpty : "Độ dài của tên khóa học tối thiểu là 5"
                         },
                         start_date: {
                             required: "Vui lòng chọn ngày bắt đầu",

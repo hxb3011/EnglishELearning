@@ -14,6 +14,8 @@ class EditProfilePage extends BaseHTMLDocumentPage
         parent::__construct();
         $this->holder = $holder;
         $this->profile = $profile;
+        $this->accounts = $accounts;
+        $this->roles = $roles;
         $this->add = $add;
     }
 
@@ -84,7 +86,7 @@ class EditProfilePage extends BaseHTMLDocumentPage
                             <div style="margin-top:24px; margin-bottom:24px;"></div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="/administration/profile/edit.php?add=<?= $this->add ? 1 : 0 ?>&profileid=<?= $this->profile->getId() ?>" method="post">
+                                    <form action="/administration/profile/edit.php?add=<?= $this->add ? 1 : 0 ?>&profileid=<?= $this->profile->getId() ?><?= !$this->add ? "&profiletype=" . $this->profile->type : "" ?>" method="post">
                                         <div class="form-group">
                                             <label for="lastName">Họ</label>
                                             <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Họ" value="<?= $this->profile->lastName ?>">
@@ -95,29 +97,31 @@ class EditProfilePage extends BaseHTMLDocumentPage
                                         </div>
                                         <div class="form-group">
                                             <label for="birthday">Ngày sinh</label>
+                                            <input type="date" class="form-control" id="birthday" name="birthday" placeholder="Ngày sinh" value="<?= $this->profile->birthday ?>">
+                                        </div>
+                                        <?
+                                        if ($this->add) {
+                                           ?>
+                                            <div class="form-group">
+                                                <label for="profiletype">Loại hồ sơ</label>
+                                                <select class="form-control" id="profiletype" name="profiletype"<?= ($this->add) ? "" : " readonly" ?>>
+                                                    <?
+                                                    $selected = " selected";
+                                                    $instructor = "";
+                                                    $learner = "";
+                                                    if ($this->profile->type === ProfileType_Learner) {
+                                                        $learner = $selected;
+                                                    } elseif ($this->profile->type === ProfileType_Instructor) {
+                                                        $instructor = $selected;
+                                                    }
+                                                    ?>
+                                                    <option value="<?= ProfileType_Instructor ?>"<?= $instructor ?>>Giảng viên</option>
+                                                    <option value="<?= ProfileType_Learner ?>"<?= $learner ?>>Học viên</option>
+                                                </select>
+                                            </div>
                                             <?
-                                            $birthday = DateTimeImmutable::createFromFormat("Y-m-d", $this->profile->birthday);
-                                            $birthday = $birthday !== false ? $birthday->format("d/m/Y") : "01/01/2000";
-                                            ?>
-                                            <input type="date" class="form-control" id="birthday" name="birthday" placeholder="Ngày sinh" >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="profiletype">Loại hồ sơ</label>
-                                            <select class="form-control" id="profiletype" name="profiletype"<?= ($this->add) ? "" : " readonly" ?>>
-                                                <?
-                                                $selected = " selected";
-                                                $instructor = "";
-                                                $learner = "";
-                                                if ($this->profile->type === ProfileType_Learner) {
-                                                    $instructor = $selected;
-                                                } elseif ($this->profile->type === ProfileType_Instructor) {
-                                                    $learner = $selected;
-                                                }
-                                                ?>
-                                                <option value="<?= ProfileType_Instructor ?>"<?= $instructor ?>>Giảng viên</option>
-                                                <option value="<?= ProfileType_Learner ?>"<?= $learner ?>>Học viên</option>
-                                            </select>
-                                        </div>
+                                        }
+                                        ?>
                                         <div class="form-group">
                                             <label for="account">Tài khoản</label>
                                             <select class="form-control" id="account" name="account">
@@ -129,7 +133,7 @@ class EditProfilePage extends BaseHTMLDocumentPage
                                                     $noneSelected = "";
                                                 }
                                                 ?>
-                                                <option value="none"<?= $noneSelected ?>>(Không xác định)</option>
+                                                <option value=""<?= $noneSelected ?>>(Không xác định)</option>
                                                 <?
                                                 foreach ($this->accounts as $key => $value) {
                                                     if ($value instanceof Account) {

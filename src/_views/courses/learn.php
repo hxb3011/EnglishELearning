@@ -67,25 +67,25 @@ final class LearnPage extends BaseHTMLDocumentPage
 
         return $result;
     }
-    function processCompletionViewer($answer,$text,$masks)
+    function processCompletionViewer($answer, $text, $masks)
     {
-       
+
         $result = '';
         $last_offset = 0;
         foreach ($masks as $mask) {
             $offset = +$mask->Offset;
             $length = +$mask->Length;
             $maskID = $mask->ID;
-            $aMasks = array_filter($answer,function($element) use($maskID){
+            $aMasks = array_filter($answer, function ($element) use ($maskID) {
                 return $element->QCoMaskID == $maskID;
             });
-            $aMask= reset($aMasks);
-            $maskText= mb_substr($text,$offset,$length);
+            $aMask = reset($aMasks);
+            $maskText = mb_substr($text, $offset, $length);
 
-            $isCorrect = ($aMask->Content == $maskText) ? 'correct' :'uncorrect';
-            $title='';
-            if($isCorrect == 'uncorrect'){
-                $title ='Đáp án đúng :'.$maskText.';';
+            $isCorrect = ($aMask->Content == $maskText) ? 'correct' : 'uncorrect';
+            $title = '';
+            if ($isCorrect == 'uncorrect') {
+                $title = 'Đáp án đúng :' . $maskText . ';';
             }
             $result .= mb_substr($text, $last_offset, $offset - $last_offset, 'UTF-8');
             $result .= "<input type='text' class='{$isCorrect}' title='{$title}' value='{$aMask->Content}' name='' placeholder=''  disabled/>";
@@ -139,6 +139,9 @@ final class LearnPage extends BaseHTMLDocumentPage
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <div>
+                                            <iframe src="<?php echo htmlspecialchars($this->currentProgram->DocUri); ?>" width="100%" height="600px"></iframe>
+                                        </div>
                                     </div>
                                 <? elseif ($this->currentProgram instanceof Excercise) : ?>
                                     <form method="post" action="/courses/ajax_call_action.php?action=submit_test" class="card" style="padding: 12rem;" id="excerciseSMForm">

@@ -1,16 +1,20 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
-requirm("access/role.php");
+requirm("access/permission.php");
 class RoleMainPage extends BaseHTMLDocumentPage
 {
     private IPermissionHolder $holder;
     private array $roles;
-    public function __construct(IPermissionHolder $holder, array $roles)
+    private Role $instructorRole;
+    private Role $learnerRole;
+    public function __construct(IPermissionHolder $holder, array $roles, Role $instructorRole, Role $learnerRole)
     {
         parent::__construct();
         $this->holder = $holder;
         $this->roles = $roles;
+        $this->instructorRole = $instructorRole;
+        $this->learnerRole = $learnerRole;
     }
     // public function beforeDocument()
     // {
@@ -74,9 +78,9 @@ class RoleMainPage extends BaseHTMLDocumentPage
                     <div class="card">
                         <div class="card-body">
                             <div class="filter-section row">
-                                <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12   ">
+                                <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12">
                                     <div class="form-outline" data-mdb-input-init>
-                                        <input type="search" id="search_name" class="form-control" placeholder="Tìm theo tên " />
+                                        <input type="search" id="search_name" class="form-control" placeholder="Tìm theo tên" />
                                     </div>
                                 </div>
                                 <div class="filter-part d-flex align-items-center justify-content-center col-md-3 col-sm-12" id="btn_search">
@@ -88,6 +92,36 @@ class RoleMainPage extends BaseHTMLDocumentPage
                                     <a type="button" href="/administration/access/editRole.php?add=1" class="btn btn-outline-primary btn-rounded btn-icon">
                                         <i class="mdi-b back"></i> Thêm
                                     </a>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputDefaultInstructorRole">Vai trò giảng viên mặc định</label>
+                                    <select id="inputDefaultInstructorRole" class="form-control">
+                                        <?
+                                        foreach ($this->roles as $key => $value) {
+                                            if ($value instanceof Role) {
+                                                ?>
+                                                <option value="<?= $value->getId() ?>"<?= $value->getId() === $this->instructorRole->getId() ? " selected" : "" ?>><?= $value->name ?></option>
+                                                <?
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputDefaultLearnerRole">Vai trò học viên mặc định</label>
+                                    <select id="inputDefaultLearnerRole" class="form-control">
+                                        <?
+                                        foreach ($this->roles as $key => $value) {
+                                            if ($value instanceof Role) {
+                                                ?>
+                                                <option value="<?= $value->getId() ?>"<?= $value->getId() === $this->learnerRole->getId() ? " selected" : "" ?>><?= $value->name ?></option>
+                                                <?
+                                            }
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">
