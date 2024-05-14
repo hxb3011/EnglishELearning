@@ -25,6 +25,33 @@ final class AccountDAO
         }
         return $accounts;
     }
+    public static function getUnlinkedAccounts(?string $currentAccount)
+    {
+        // 000 001 010 011 100 101 110 111
+        if (isset($currentAccount)) {
+            $sql = "SELECT * FROM `account` WHERE (`Status` >= 0 AND `Status` <= 1) OR (`Status` >= 4 AND `Status` <= 5) OR `UID` = ?";
+            $params = array($currentAccount);
+        } else {
+            $sql = "SELECT * FROM `account` WHERE (`Status` >= 0 AND `Status` <= 1) OR (`Status` >= 4 AND `Status` <= 5)";
+            $params = array();
+        }
+        $result = Database::executeQuery($sql, $params);
+        $accounts = array();
+        if ($result === null || count($result) === 0)
+            return $accounts;
+
+        foreach ($result as $key => $value) {
+            $account = new Account(
+                $value["UID"],
+                $value["UserName"],
+                $value["Password"],
+                intval($value["Status"])
+            );
+            PermissionHolderKey::loadPermissions($account, $value["Permissions"]);
+            array_push($accounts, $account);
+        }
+        return $accounts;
+    }
     public static function getAccountByUid(string $uid)
     {
         $sql = "SELECT * FROM `account` WHERE `Status` < 4 AND `uid` = ?";

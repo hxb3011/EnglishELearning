@@ -19,6 +19,7 @@ final class VerificationDAO
                 $value["KeyVerify"]
             ));
         }
+        return $vs;
     }
     public static function createVerification(Verification $verification)
     {

@@ -26,7 +26,7 @@ function getMode()
 
 global $page;
 $mode = getMode();
-$verifications = null;
+$verifications = array();
 $holder = getPermissionHolder();
 if ($holder instanceof Profile) {
     $verifications = VerificationDAO::getAllVerificationsByProfileID($holder->getId());
