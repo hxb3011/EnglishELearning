@@ -6,6 +6,7 @@ requirm('/access/dictionary/Example.php');
 requirm('/access/dictionary/Conjugation.php');
 requirm('/access/dictionary/Pronunciation.php');
 requirm('/access/dictionary/Contribution.php');
+requirm('/dao/profile.php');
 
 requirm('/dao/dictionary/MeaningModel.php');
 requirm('/dao/dictionary/LemmaModel.php');
@@ -43,6 +44,7 @@ class AdminDictionary
         global $page;
         $page = new ManageDictionaryPage();
         $page->words = $this->get_all_words();
+        $page->tutors = ProfileDAO::getProfileByType(0);
         requira("_adminLayout.php");
     }
     public function edit($lemmaID){
@@ -177,7 +179,7 @@ class AdminDictionary
                 $lemmaID = $this->lemmaModel->getLemmaID($lemmaKey);
                 $result = $this->pronunciationModel->addPronunciation($lemmaID,$region,$IPA);
                 if($result >= 1 && !empty($infinitiveID)){
-                    $result = $this->conjugationModel->addConjugation($infinitiveID,$alternativeID,$description);
+                    $result = $this->conjugationModel->addConjugation($infinitiveID,$lemmaID,$description);
                     if($result >= 1){
                         $redirect = "Location: /administration/dictionary/dictionary.php";
                         header($redirect);
@@ -359,45 +361,5 @@ class AdminDictionary
         $jsonData = json_encode($response);
         echo $jsonData;
     }
-    
-    public function update_lesson()
-    {
-        try {
-            $lesson = new Lesson();
-            $lesson->ID = $_POST['lesson_id'];
-            $lesson->Description = $_POST['lesson_desc'];
-            $lesson->State = $_POST['lesson_state'];
-            $lesson->CourseID = $_POST['course_id'];
-            $result = $this->lessonModel->updateLesson($lesson);
-            if ($result >= 1) {
-                $redirect = "Location: /administration/courses/edit.php?courseId=" . $lesson->CourseID;
-                header($redirect);
-                exit;
-            }
-        } catch (Exception $ex) {
-        }
-    }
-    public function delete_lesson()
-    {
-        //
-        $response = array();
-        $jsonData = "";
-        if (isset($_REQUEST['lessonId'])) {
-            $lesson = $this->lessonModel->getLessonById($_REQUEST['lessonId']);
-            $deleteLessonTextFolder = $this->s3Service->deleteFileInFolder('private/text/' . $lesson->CourseID . '/' . $lesson->ID . '/');
-            $deleteLessonVideoFolder = $this->s3Service->deleteFileInFolder('private/video/' . $lesson->CourseID . '/' . $lesson->ID . '/');
 
-            $result = $this->lessonModel->deleteLesson($lesson->ID);
-        }
-        if (isset($result) && $result > 0) {
-            $response['status'] = '204';
-            $response['message'] = 'Xóa thành công';
-        } else {
-            $response['status'] = '404';
-            $response['message'] = 'Không xóa được';
-        }
-
-        $jsonData = json_encode($response);
-        echo $jsonData;
-    }
 }

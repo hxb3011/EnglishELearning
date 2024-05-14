@@ -16,12 +16,31 @@ class CourseModel
             return 0;
         }
     }
+    public function checkIDExists($id)   {
+        $sqlQuery ="SELECT * FROM course WHERE ID = ?";
+        $params = array($id);
+        try {
+            $result = Database::executeQuery($sqlQuery, $params);
+            if ($result != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            return false;;
+        }
+    }
     public function generateValidCourseID()
     {
         $max = $this->getNumberOfTotalCourse();
         $max = $max + 1;
+        while($this->checkIDExists('COURSE'.$max))
+        {
+            $max = $max+1;
+        }
         return 'COURSE' . $max;
     }
+
     public function addCourse(Course $course)
     {
         $sqlQuery = "INSERT INTO course(ID,Name,PosterUri,Description,State,ProfileID,BeginDate,EndDate,Price) VALUES (?,?,?,?,?,?,STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),STR_TO_DATE(?,'%d-%m-%Y %H:%i:%s'),?)";

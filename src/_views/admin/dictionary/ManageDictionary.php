@@ -9,6 +9,7 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
     public $pronunciation_arr = array();
     public $conjugation_arr = array();
     public $words;
+    public $tutors = array();
     public function __construct()
     {
         parent::__construct();
@@ -69,9 +70,9 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
                                     </span>
                                     <select class="form-select" name="giangvien" id="giangvien">
                                         <option value="">Lựa chọn giảng viên</option>
-                                        <option value="PRO1">Saab</option>
-                                        <option value="PRO2">Mercedes</option>
-                                        <option value="PRO3">Audi</option>
+                                        <? foreach ($this->tutors as $index => $tutor) : ?>
+                                            <option value="<? echo $tutor->getId() ?>"><? echo ($tutor->lastName . ' ' . $tutor->firstName) ?></option>
+                                        <? endforeach ?>
                                     </select>
                                 </div>
                                 <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12   ">
@@ -196,7 +197,7 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
                             }
                         })
                         $.ajax({
-                            url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=get_course_by_page',
+                            url: '',
                             method: 'POST',
                             data: JSON.stringify({
                                 page: targetPage,
@@ -219,7 +220,7 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
             function initPagination() {
                 search = 0;
                 $.ajax({
-                    url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=get_total_page',
+                    url: '',
                     method: 'POST',
                     data: JSON.stringify({
                         tutor: tutor,
