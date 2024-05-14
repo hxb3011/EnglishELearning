@@ -8,6 +8,8 @@ Class Post{
     public string $tags;
     public int $status;
     public int $updated;
+    public string $author;
+    public string $image;
 
     public function __construct(){}
 
@@ -21,6 +23,8 @@ Class Post{
         $this->tags = $arrayValue['Tags'];    ;
         $this->status = $arrayValue['Status'];
         $this->updated = $arrayValue['Updated']; 
+        $this->author = $arrayValue['FirstName'] . ' '.$arrayValue['LastName'];
+        $this->image = $arrayValue['Image']; 
     }
 }
 ?>

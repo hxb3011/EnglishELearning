@@ -3,31 +3,45 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/database.php');
 requirm('/access/Post.php');
 Class PostModel{
-
+    public function checkSubIDExist($id){
+        $sqlQuery = "SELECT * FROM course WHERE ID=?";
+        $param = array($id);
+        try{
+            $result = Database::executeNonQuery($sqlQuery, $param);
+            if($result != null) return true;
+            else    return false;
+        } catch(Exception $e){
+            return false;
+        }
+    }
     public function generateValidPostID()
     {
         $max = $this->getNumberOfTotalPost();
         $max = $max + 1;
+        while($this->checkSubIDExist('POST'.$max)){
+            $max = $max + 1;
+        }
         return 'POST' . $max;
     }
     public function getNumberOfTotalPost()
     {
         $sqlQuery = "SELECT COUNT(*) AS total_posts FROM post";
         try {
-            $result = Database::executeQuery($sqlQuery);
+            $result = Database::executeQuery($sqlQuery, null);
             return intval($result[0]['total_posts']);
         } catch (Exception $e) {
             return 0;
         }
     }
 // Lấy toàn bộ dữ liệu post
-    public function getAllPosts()
+    public function getAllPosts($profileId = "")
     {
-        $sqlQuery = "SELECT post.* , profile.LastName,profile.FirstName FROM post,profile WHERE post.ProfileID = profile.ID";
+        $sqlQuery = "SELECT post.* , profile.LastName,profile.FirstName FROM post,profile";
+        $param=array($profileId);
         try {
-            $result = Database::executeQuery($sqlQuery);
+            $result = Database::executeQuery($sqlQuery, $param);
             if ($result != null) {
-                $courses = [];
+                $posts = [];
                 foreach ($result as $index => $value) {
                     $post = new Post();
                     $post->constructFromArray($value);
@@ -45,7 +59,7 @@ Class PostModel{
 // Lọc post theo người đăng
     public function getPostsByAuthorID(string $profileId){
         $sqlQuery = "SELECT * FROM post WHERE ProfileID=?";
-        $param = $profileId;
+        $param = array($profileId);
         try{
             $result = Database::executeNonQuery($sqlQuery, $param);
             return $result;
@@ -58,7 +72,7 @@ Class PostModel{
     // Lọc chính xác bài post
     public function getPostByID(string $subId){
         $sqlQuery = "SELECT post.*, profile.LastName,profile.FirstName FROM post,profile WHERE  post.ProfileID = profile.ID AND post.SubID =?";
-        $params = $subId;
+        $params = array($subId);
         try {
             $result = Database::executeQuery($sqlQuery, $params);
             if ($result != null) {
@@ -132,6 +146,22 @@ Class PostModel{
         );
         try {
             $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            echo "ERROR! . $e";
+            return 0;
+        }
+    }
+
+    public function AmountOfCommentsOfAPost(string $profileId, int $subId){
+        $sqlQuery = "SELECT COUNT(comment.SubId) FROM comment, post
+                    WHERE comment.PProfileID=?, comment.PSubId=?";
+        $param = array(
+            $profileId,
+            $subId
+        );
+        try{
+            $result = Database::executeNonQuery($sqlQuery, $param);
             return $result;
         } catch (Exception $e) {
             echo "ERROR! . $e";

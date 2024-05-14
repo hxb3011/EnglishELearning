@@ -2,6 +2,7 @@
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/PostModel.php');
 requirm('/dao/CommentModel.php');
+requirm('/dao/profile.php');
 
 requirm('/access/Post.php');
 requirm('/access/Comment.php');
@@ -11,6 +12,7 @@ requirl('/services/s3Service.php');
 Class AdminBlog{
     public PostModel $postModel;
     public CommentModel $commentModel;
+
 
     public s3Service $s3Service;
 
@@ -24,18 +26,19 @@ Class AdminBlog{
         requirv("admin/blog/ManageAllPosts.php");
         global $page;
         $page = new ManageAllPosts();
-        $page->posts = $this->postModel->getAllPosts();
-
+        $page->authors = ProfileDAO::getProfileByType(0);
+        $page->posts = array($this->postModel->getAllPosts());
+        requira("_adminLayout.php");
     }
     public function add(){
-        requirv("admin/courses/AddNewCoursePage.php");
+        requirv("admin/blog/AddNewPost.php");
         global $page;
         $page = new AddNewPost();
         requira("_adminLayout.php");
     }
     public function edit($profileId)
     {
-        requirv("admin/courses/EditCoursePage.php");
+        requirv("admin/blog/EditPost.php");
         global $page;
         $page = new EditPost();
         $page->post = $this->postModel->getPostsByAuthorID($profileId);
@@ -46,19 +49,19 @@ Class AdminBlog{
     }
     public function add_post()
     {
-
         try {
             $post = new Post();
             $post->ProfileId = $_POST['author'];
             $post->SubId = $this->postModel->generateValidPostID();
             $post->title = $_POST['title'];
             $post->content = $_POST['content'];
-            $post->date  = DateTime::createFromFormat('d-m-Y\TH:i', $_POST['date']);
+            $post->date  = date("d-m-Y");
             $post->tags = $_POST['tags'];
             $post->status = $_POST['status'];
             $post->updated = $_POST['updated'];
 
             // lưu file vào folder upload của dự án 
+            $post->image = $this->saveImageToFolder($post->SubId);
             $result = $this->postModel->addPost($post);
             if ($result >= 1) {
                 header('Location: /administration/blog/index.php');
@@ -71,8 +74,8 @@ Class AdminBlog{
     {
         try {
             $post = $this->postModel->getPostByID($_REQUEST['SubID']);
-            $post->ProfileId = $_POST['author'];
-            $post->SubId = $this->postModel->generateValidPostID();
+            $post->ProfileId = $_POST['ProfileId'];
+            $post->SubId = $_POST['SubId'];
             $post->title = $_POST['title'];
             $post->content = $_POST['content'];
             $post->date  = DateTime::createFromFormat('d-m-Y\TH:i', $_POST['date']);
@@ -107,4 +110,26 @@ Class AdminBlog{
         $jsonData = json_encode($response);
         echo $jsonData;
     }
+
+
+    /* Khác */
+    private function saveImageToFolder($courseID)
+    {
+        $relativeDir = 'public/' . 'poster/' . $courseID . '/';
+
+        $relativeFilePath = $relativeDir . basename($_FILES['blog_img']["name"]);
+        $fileSource = $_FILES['blog_img']["tmp_name"];
+        $result = $this->s3Service->uploadFileToBucket($fileSource, $relativeFilePath);
+        return $relativeFilePath;
+    }
+    private function uploadFile($fileSource, $filePath, $isPublic = true)
+    {
+        $result = $this->s3Service->uploadFileToBucket($fileSource, $filePath, $isPublic);
+        return str_replace($this->s3Service->getBasePath(), '', $result['ObjectURL']);
+    }
+    private function removeFile($filePath)
+    {
+        $this->s3Service->deleteFileInBucket($filePath);
+    }
+
 }

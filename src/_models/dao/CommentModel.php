@@ -3,14 +3,27 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/database.php');
 requirm('/access/Comment.php');
 Class CommentModel{
-
+    public function checkIDExist($id){
+        $sqlQuery = "SELECT * FROM course WHERE ID=?";
+        $param = array($id);
+        try{
+            $result = Database::executeNonQuery($sqlQuery, $param);
+            if($result != null) return true;
+            else    return false;
+        } catch(Exception $e){
+            return false;
+        }
+    }
     public function generateValidCommentID()
     {
-        $max = $this->getNumberOfTotalComment();
+        $max = $this->getNumberOfTotalComments();
         $max = $max + 1;
+        while($this->checkIDExist('COMMENT'.$max)){
+            $max = $max + 1;
+        }
         return 'COMMENT' . $max;
     }
-    public function getNumberOfTotalComment()
+    public function getNumberOfTotalComments()
     {
         $sqlQuery = "SELECT COUNT(*) AS total_comments FROM comment";
         try {
@@ -21,9 +34,9 @@ Class CommentModel{
         }
     }
 // Lọc comment theo bài post
-    public function getCommentsByPostID(string $postId){
-        $sqlQuery = "SELECT * FROM post WHERE PSubID=?";
-        $param = $postId;
+    public function getCommentsByPostID(string $profileId, string $postId){
+        $sqlQuery = "SELECT * FROM comment WHERE PProfileId=? AND PSubID=?";
+        $param = array($postId);
         try{
             $result = Database::executeNonQuery($sqlQuery, $param);
             return $result;
@@ -34,9 +47,9 @@ Class CommentModel{
         }
     }
 // Lọc comment theo người đăng comment
-    public function getCommentsB(string $profieId){
-        $sqlQuery = "SELECT * FROM post WHERE PProfileId=?";
-        $param = $profieId;
+    public function getCommentsByAuthorId(string $profieId){
+        $sqlQuery = "SELECT * FROM comment WHERE PProfileId=?";
+        $param = array($profieId);
         try{
             $result = Database::executeNonQuery($sqlQuery, $param);
             return $result;

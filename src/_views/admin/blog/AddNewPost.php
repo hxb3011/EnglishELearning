@@ -45,7 +45,7 @@ class AddNewPost extends BaseHTMLDocumentPage
                 <div class="col-md-12">
                     <div class="admin-header">
                         <i class="mdi-b apple-keyboard-command admin-header__icon"></i>
-                        Thêm khóa học
+                        Thêm bài post
                     </div>
                 </div>
             </div>

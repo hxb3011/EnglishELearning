@@ -104,7 +104,7 @@ $page->beforeDocument();
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="/administration/dashboard.php" class="sidebar-link" >
+                    <a href="/administration/blog/index.php" class="sidebar-link" >
                         <span class="mdi-b -blog"></span>
                         <span class="sidebar-item__text">Blog</span>
                     </a>

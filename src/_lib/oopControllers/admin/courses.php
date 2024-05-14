@@ -76,7 +76,6 @@ class AdminCourses
     /* xử lí thêm,sửa,xóa từ các form , lời gọi từ ajax*/
     public function add_course()
     {
-
         try {
             $course = new Course();
             $course->id = $this->courseModel->generateValidCourseID();
@@ -100,7 +99,6 @@ class AdminCourses
     }
     public function edit_course()
     {
-
         try {
 
             $course = $this->courseModel->getCourseById($_POST['courseID']);

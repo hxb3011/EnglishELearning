@@ -47,10 +47,10 @@ body {
 /* Customize Pagination side (Left)*/
 .pagination_all_blogs{
     background-color: #e9efeb;
-    position: absolute;
+    position: fixed;
     width: fit-content;
     top:0;
-    left: 0;
+    left: 80rem;
     border-left: 1px solid black;
 }
 .pagination{
@@ -86,10 +86,6 @@ body {
 .other_content{
     width: 100%;
 }
-.other_content h3{
-    margin-top: 2.5rem;
-    font-size: 17rem;
-}
 
 /* Customize Recent Post*/
 .recent-post{
@@ -104,11 +100,6 @@ body {
 .category-list a{
     font-size: 15rem;
  }
- 
-.recent-post h3 {
-    font-weight: 600;
-    color: #000;
-}
 
 .recent-post img{
     width: 100%;
@@ -199,7 +190,12 @@ body {
 .tags-relative .title-next span{
     font-weight: bold;
 }
-
+/* Banner */
+.banner_img{
+    max-width: 100%;
+    height: auto;
+    transform: rotate(90deg);
+}
 /* Media */
 .media .media-body .author{
     font-size: 10rem;

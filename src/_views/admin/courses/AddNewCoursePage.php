@@ -206,11 +206,12 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                 // thêm summer note
                 initSummerNote('#description');
 
-                $.validator.addMethod("greaterThanToday", function(value, element) {
+                /*$.validator.addMethod("greaterThanToday", function(value, element) {
                     var selectedDate = new Date(value);
                     var today = new Date();
+                    console.log(today);
                     return selectedDate >= today;
-                }, "Ngày bắt đầu phải từ ngày giờ hiện tại");
+                }, "Ngày bắt đầu phải từ ngày giờ hiện tại");*/
 
                 $.validator.addMethod("greaterThanBegin", function(value, element,param) {
                     var beginDateTimeValue = $(param).val();

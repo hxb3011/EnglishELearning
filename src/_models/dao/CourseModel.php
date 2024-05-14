@@ -16,10 +16,24 @@ class CourseModel
             return 0;
         }
     }
+    public function checkIDExist($id){
+        $sqlQuery = "SELECT * FROM course WHERE ID=?";
+        $param = array($id);
+        try{
+            $result = Database::executeNonQuery($sqlQuery, $param);
+            if($result != null) return true;
+            else    return false;
+        } catch(Exception $e){
+            return false;
+        }
+    }
     public function generateValidCourseID()
     {
         $max = $this->getNumberOfTotalCourse();
         $max = $max + 1;
+        while($this->checkIDExist('COURSE'.$max)){
+            $max = $max + 1;
+        }
         return 'COURSE' . $max;
     }
     public function addCourse(Course $course)
