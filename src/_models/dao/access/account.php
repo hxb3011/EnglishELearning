@@ -5,6 +5,49 @@ requirm('/access/permission.php');
 
 final class AccountDAO
 {
+    public static function getTotalAccounts(?string $name = null)
+    {
+        if (isset($name)) {
+            $sqlQuery = "SELECT COUNT(*) AS total_accounts FROM `account` WHERE CONCAT(`LastName`, `FirstName`) LIKE CONCAT('%', ?, '%') OR CONCAT(`FirstName`, `LastName`) LIKE CONCAT('%', ?, '%')";
+            $params = array($name, $name);
+        } else {
+            $sqlQuery = "SELECT COUNT(*) AS total_accounts FROM `account`";
+            $params = null;
+        }
+        $result = Database::executeQuery($sqlQuery, $params);
+        if (!isset($result) || count($result) === 0)
+            return 0;
+        return intval($result[0]['total_accounts']);
+    }
+    public static function getAccountFromPage(int $page = 1, int $perPage = 5, ?string $name = null)
+    {
+        $offSet = ($page - 1) * $perPage;
+        if (isset($name)) {
+            $sqlQuery = "SELECT * FROM `account` WHERE `UserName` LIKE CONCAT('%', ?, '%') LIMIT $offSet, $perPage";
+            $params = array($name, $name);
+        } else {
+            $sqlQuery = "SELECT * FROM `account` LIMIT $offSet, $perPage";
+            $params = null;
+        }
+        $result = Database::executeQuery($sqlQuery, $params);
+
+        $accounts = array();
+        if ($result === null || count($result) === 0)
+            return $accounts;
+
+        foreach ($result as $key => $value) {
+            $account = new Account(
+                $value["UID"],
+                $value["UserName"],
+                $value["Password"],
+                intval($value["Status"])
+            );
+            PermissionHolderKey::loadPermissions($account, $value["Permissions"]);
+            array_push($accounts, $account);
+        }
+        return $accounts;
+    }
+
     public static function getAllAccounts()
     {
         $sql = "SELECT * FROM `account` WHERE `Status` < 4";
@@ -75,7 +118,7 @@ final class AccountDAO
         $result = Database::executeQuery($sql, array($testUserName));
         return $result !== null && count($result) !== 0 && intval($result[0]["AccountCount"]) !== 0;
     }
-    public function findUnallocatedUID()
+    public static function findUnallocatedUID()
     {
         $sql = "SELECT `UID`, `Status` FROM `account` WHERE `Status` > 3";
         $result = Database::executeQuery($sql);

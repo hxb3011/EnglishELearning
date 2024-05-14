@@ -25,10 +25,10 @@ final class ProfileDAO
     {
         $offSet = ($page - 1) * $perPage;
         if (isset($name)) {
-            $sqlQuery = "SELECT COUNT(*) AS total_profiles FROM `profile` WHERE CONCAT(`LastName`, `FirstName`) LIKE CONCAT('%', ?, '%') OR CONCAT(`FirstName`, `LastName`) LIKE CONCAT('%', ?, '%') LIMIT $offSet, $perPage";
+            $sqlQuery = "SELECT * FROM `profile` WHERE CONCAT(`LastName`, `FirstName`) LIKE CONCAT('%', ?, '%') OR CONCAT(`FirstName`, `LastName`) LIKE CONCAT('%', ?, '%') LIMIT $offSet, $perPage";
             $params = array($name, $name);
         } else {
-            $sqlQuery = "SELECT COUNT(*) AS total_profiles FROM `profile` LIMIT $offSet, $perPage";
+            $sqlQuery = "SELECT * FROM `profile` LIMIT $offSet, $perPage";
             $params = null;
         }
         $result = Database::executeQuery($sqlQuery, $params);
@@ -55,6 +55,7 @@ final class ProfileDAO
                 );
             array_push($profiles, $prof);
         }
+        return $profiles;
     }
 
     public static function getAllProfiles()

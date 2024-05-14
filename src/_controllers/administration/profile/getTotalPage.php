@@ -13,9 +13,9 @@ if (!isset($reqm) || strtolower($reqm) !== "post") {
     $granted = false;
     if (isset($holder)) {
         $key = $holder->getKey();
-        global $fragment_total_profiles;
+        global $fragment_total_accounts;
         global $fragment_current_page;
-        if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_AccountManage)) {
+        if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_ProfileManage)) {
             if ($key->isPermissionGranted(Permission_ProfileRead)) {
                 $data = json_decode(file_get_contents("php://input"), true);
                 $name = &$data['name'];

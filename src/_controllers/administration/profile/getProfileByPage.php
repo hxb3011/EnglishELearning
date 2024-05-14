@@ -17,7 +17,7 @@ if (!isset($reqm) || strtolower($reqm) !== "post") {
         global $fragment_profile_read;
         global $fragment_profile_update;
         global $fragment_profile_delete;
-        if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_AccountManage)) {
+        if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_ProfileManage)) {
             $fragment_profile_read = $key->isPermissionGranted(Permission_ProfileRead);
             if ($fragment_profile_read) {
                 $fragment_profile_update = $key->isPermissionGranted(Permission_ProfileUpdate);

@@ -13,12 +13,12 @@ if (!isset($reqm) || strtolower($reqm) !== "get") {
     $granted = false;
     if (isset($holder)) {
         $key = $holder->getKey();
-        if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_AccountManage)) {
+        if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_ProfileManage)) {
             if ($key->isPermissionGranted(Permission_ProfileRead)) {
                 requirv("admin/profile/ProfileMainPage.php");
                 global $page;
-                $profiles = ProfileDAO::getAllProfiles();
-                $page = new ProfileMainPage($holder, $profiles);
+                $accounts = ProfileDAO::getAllProfiles();
+                $page = new ProfileMainPage($holder, $accounts);
                 requira("_adminLayout.php");
                 $granted = true;
             }

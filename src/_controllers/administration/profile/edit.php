@@ -15,7 +15,7 @@ if (!isset($reqm)) {
         $granted = false;
         if (isset($holder)) {
             $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_AccountManage)) {
+            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_ProfileManage)) {
                 $add = &$_REQUEST["add"];
                 if (isset($add)) {
                     if ($add === "0") {
@@ -24,20 +24,24 @@ if (!isset($reqm)) {
                             if (isset($profileid)) {
                                 requirv("admin/profile/EditProfilePage.php");
                                 global $page;
-                                $profile = ProfileDAO::getProfileById($profileid);
-                                if (isset($profile)) {
-                                    $account = $profile->getAccount();
-                                    if (isset($account)) {
-                                        $account = $account->getUid();
-                                    } else {
-                                        $account = null;
-                                    }
-                                    $accounts = AccountDAO::getUnlinkedAccounts($account);
-                                    $roles = RoleDAO::getAllRoles();
-                                    $page = new EditProfilePage($holder, $profile, $accounts, $roles, false);
-                                    requira("_adminLayout.php");
-                                    $granted = true;
+                                $profile = null;
+                                if ($key->isPermissionGranted(Permission_ProfileRead)) {
+                                    $profile = ProfileDAO::getProfileById($profileid);
                                 }
+                                if (!isset($profile)) {
+                                    $profile = new Profile($profileid);
+                                }
+                                $account = $profile->getAccount();
+                                if (isset($account)) {
+                                    $account = $account->getUid();
+                                } else {
+                                    $account = null;
+                                }
+                                $accounts = AccountDAO::getUnlinkedAccounts($account);
+                                $roles = RoleDAO::getAllRoles();
+                                $page = new EditProfilePage($holder, $profile, $accounts, $roles, false);
+                                requira("_adminLayout.php");
+                                $granted = true;
                             }
                         }
                     } elseif ($add === "1") {
@@ -67,7 +71,7 @@ if (!isset($reqm)) {
         $granted = false;
         if (isset($holder)) {
             $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_AccountManage)) {
+            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_ProfileManage)) {
                 $add = &$_REQUEST["add"];
                 if (isset($add)) {
                     if ($add === "0") {
@@ -120,7 +124,7 @@ if (!isset($reqm)) {
                                 if ($key instanceof PermissionHolderKey) {
                                     $key->set(AccountDAO::getAccountByUid($account), RoleDAO::getRoleById($role));
                                 }
-                                if (ProfileDAO::updateProfile($profile)) {
+                                if (ProfileDAO::createProfile($profile)) {
                                     header('Location: /administration/profile/index.php');
                                 } else {
                                     header('Location: /administration/profile/edit.php?add=' . $add . '&profileid=' . $id);
