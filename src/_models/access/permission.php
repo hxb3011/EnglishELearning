@@ -72,7 +72,6 @@ const Permission_CommentCreate = 69;
 const Permission_CommentRead = 70;
 const Permission_CommentUpdate = 71;
 const Permission_CommentDelete = 72;
-const Permission_CommentDelete = 72;
 const PermissionMinValue = Permission_SystemPrivilege;
 const PermissionMaxValue = Permission_CommentDelete;
 

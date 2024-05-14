@@ -147,10 +147,6 @@ final class ProfileDAO
         else
             return strval($result[0]["ProfileCount"]);
     }
-    public static function lookupProfiles(string $keywords)
-    {
-        # code...
-    }
     public static function createProfile(Profile $profile)
     {
         if (!isset($account))

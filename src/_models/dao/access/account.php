@@ -132,10 +132,6 @@ final class AccountDAO
         }
         return strval(count($result));
     }
-    public static function lookupAccounts(string $keywords)
-    {
-        # code...
-    }
     public static function createAccount(Account $account)
     {
         if (!isset($account))
