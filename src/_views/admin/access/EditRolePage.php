@@ -87,6 +87,23 @@ class EditRolePage extends BaseHTMLDocumentPage
                                             <label for="name">Tên</label>
                                             <input type="text" class="form-control" id="name" name="name" placeholder="Tên" value="<?= $this->role->name ?>">
                                         </div>
+                                        <div class="form-group">
+                                            <label>Danh sách quyền</label>
+                                        </div>
+                                        <?
+                                        $key = $this->role->getKey();
+                                        for ($value = PermissionMinValue; $value <= PermissionMaxValue; ++$value) {
+                                            $permkey = getPermissionKey($value);
+                                            $permname = getPermissionName($value);
+                                            $permchecked = $key->isPermissionGranted($value) ? " checked" : "";
+                                            ?>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="i<?= $permkey ?>" name="<?= $permkey ?>" value="<?= $value ?>"<?= $permchecked ?>>
+                                                <label class="form-check-label" for="i<?= $permkey ?>"><?= $permname ?></label>
+                                            </div>
+                                            <?
+                                        }
+                                        ?>
                                         <button type="submit" class="btn btn-primary"><?= ($this->add) ? "Thêm" : "Sửa" ?></button>
                                     </form>
                                 </div>

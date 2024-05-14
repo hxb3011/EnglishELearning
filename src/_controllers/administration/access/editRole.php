@@ -2,6 +2,16 @@
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("profile/permissionChecker.php");
 
+function loadPermissionsFromRequest(Role $role) {
+    $key = $role->getKey();
+    for ($value = PermissionMinValue; $value <= PermissionMaxValue; ++$value) {
+        $permkey = getPermissionKey($value);
+        $permvalue = &$_REQUEST[$permkey];
+        $permvalue = isset($permvalue) && intval($permvalue) === $value;
+        $key->setPermissionGranted($value, $permvalue);
+    }
+}
+
 $holder = getPermissionHolder();
 $_REQUEST["uri"] = $_SERVER['REQUEST_URI'];
 $reqm = &$_SERVER['REQUEST_METHOD'];
@@ -70,11 +80,7 @@ if (!isset($reqm)) {
                             $name = $_REQUEST["name"];
                             if (isset($id) && isset($name)) {
                                 $role = new Role($id, $name);
-                                // TODO: 
-                                // $key = $role->getKey();
-                                // if ($key instanceof PermissionHolderKey) {
-                                //     $key->set(AccountDAO::getAccountByUid($account), RoleDAO::getRoleById($role));
-                                // }
+                                loadPermissionsFromRequest($role);
                                 if (RoleDAO::updateRole($role)) {
                                     header('Location: /administration/access/role.php');
                                 } else {
@@ -89,11 +95,7 @@ if (!isset($reqm)) {
                             $name = $_REQUEST["name"];
                             if (isset($id) && isset($name)) {
                                 $role = new Role($id, $name);
-                                // TODO: 
-                                // $key = $role->getKey();
-                                // if ($key instanceof PermissionHolderKey) {
-                                //     $key->set(AccountDAO::getAccountByUid($account), RoleDAO::getRoleById($role));
-                                // }
+                                loadPermissionsFromRequest($role);
                                 if (RoleDAO::createRole($role)) {
                                     header('Location: /administration/access/role.php');
                                 } else {
