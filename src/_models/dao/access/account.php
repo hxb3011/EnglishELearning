@@ -16,15 +16,15 @@ final class AccountDAO
         }
         $result = Database::executeQuery($sqlQuery, $params);
         if (!isset($result) || count($result) === 0)
-            return 0;
-        return intval($result[0]['total_accounts']);
+            return floatval(0);
+        return floatval($result[0]['total_accounts']);
     }
     public static function getAccountFromPage(int $page = 1, int $perPage = 5, ?string $name = null)
     {
         $offSet = ($page - 1) * $perPage;
         if (isset($name)) {
             $sqlQuery = "SELECT * FROM `account` WHERE `UserName` LIKE CONCAT('%', ?, '%') LIMIT $offSet, $perPage";
-            $params = array($name, $name);
+            $params = array($name);
         } else {
             $sqlQuery = "SELECT * FROM `account` LIMIT $offSet, $perPage";
             $params = null;
@@ -72,10 +72,10 @@ final class AccountDAO
     {
         // 000 001 010 011 100 101 110 111
         if (isset($currentAccount)) {
-            $sql = "SELECT * FROM `account` WHERE (`Status` >= 0 AND `Status` <= 1) OR (`Status` >= 4 AND `Status` <= 5) OR `UID` = ?";
+            $sql = "SELECT * FROM `account` WHERE (`UID` <> 0 AND MOD(`Status`, 2) = 0) OR `UID` = ?";
             $params = array($currentAccount);
         } else {
-            $sql = "SELECT * FROM `account` WHERE (`Status` >= 0 AND `Status` <= 1) OR (`Status` >= 4 AND `Status` <= 5)";
+            $sql = "SELECT * FROM `account` WHERE MOD(`Status`, 2) = 0";
             $params = array();
         }
         $result = Database::executeQuery($sql, $params);

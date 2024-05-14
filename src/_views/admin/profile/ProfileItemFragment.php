@@ -34,7 +34,7 @@ foreach ($fragment_profiles as $key => $value) {
                         <?
                         if ($fragment_profile_update) {
                             ?>
-                            <li><a class="dropdown-item" href="/administration/profile/edit.php?add=1&profileid=<?= $value->getId() ?>">Sửa hồ sơ</a></li>
+                            <li><a class="dropdown-item" href="/administration/profile/edit.php?add=0&profileid=<?= $value->getId() ?>">Sửa hồ sơ</a></li>
                             <?
                         }
                         ?>

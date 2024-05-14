@@ -18,15 +18,15 @@ final class RoleDAO
         }
         $result = Database::executeQuery($sqlQuery, $params);
         if (!isset($result) || count($result) === 0)
-            return 0;
-        return intval($result[0]['total_roles']);
+            return floatval(0);
+        return floatval($result[0]['total_roles']);
     }
     public static function getRoleFromPage(int $page = 1, int $perPage = 5, ?string $name = null)
     {
         $offSet = ($page - 1) * $perPage;
         if (isset($name)) {
             $sqlQuery = "SELECT * FROM `role` WHERE `Name` LIKE CONCAT('%', ?, '%') LIMIT $offSet, $perPage";
-            $params = array($name, $name);
+            $params = array($name);
         } else {
             $sqlQuery = "SELECT * FROM `role` LIMIT $offSet, $perPage";
             $params = null;
@@ -40,7 +40,7 @@ final class RoleDAO
         foreach ($result as $key => $value) {
             $role = new Role($value["ID"], $value["Name"]);
             PermissionHolderKey::loadPermissions($role, $value["Permissions"]);
-            array_push($profiles, $role);
+            array_push($roles, $role);
         }
         return $roles;
     }

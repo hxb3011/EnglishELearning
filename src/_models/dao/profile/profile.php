@@ -18,8 +18,8 @@ final class ProfileDAO
         }
         $result = Database::executeQuery($sqlQuery, $params);
         if (!isset($result) || count($result) === 0)
-            return 0;
-        return intval($result[0]['total_profiles']);
+            return floatval(0);
+        return floatval($result[0]['total_profiles']);
     }
     public static function getProfileFromPage(int $page = 1, int $perPage = 5, ?string $name = null)
     {
