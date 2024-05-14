@@ -6,7 +6,7 @@ requirm('/access/dictionary/Example.php');
 requirm('/access/dictionary/Conjugation.php');
 requirm('/access/dictionary/Pronunciation.php');
 requirm('/access/dictionary/Contribution.php');
-requirm('/dao/profile.php');
+requirm('/dao/profile/profile.php');
 
 requirm('/dao/dictionary/MeaningModel.php');
 requirm('/dao/dictionary/LemmaModel.php');

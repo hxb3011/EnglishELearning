@@ -5,7 +5,7 @@ requirm('/dao/LessonModel.php');
 requirm('/dao/ExcerciseModel.php');
 requirm('/dao/DocumentModel.php');
 requirm('/dao/QuestionModel.php');
-requirm('/dao/profile.php');
+requirm('/dao/profile/profile.php');
 
 requirm('/learn/Course.php');
 requirm('/learn/Lesson.php');
