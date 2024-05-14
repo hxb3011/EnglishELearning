@@ -27,7 +27,7 @@ final class MainDashboardPage extends BaseHTMLDocumentPage
         $this->styles(
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
             "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
-            // "/node_modules/toastr/build/toastr.css",
+            "/node_modules/toastr/build/toastr.css",
             "/clients/css/admin/main.css",
             "/clients/css/admin/dashboard.css"
         );
@@ -126,13 +126,13 @@ final class MainDashboardPage extends BaseHTMLDocumentPage
                             Giảng viên
                         </span>
                     </div>
-                    <table class="table table-striped">
+                    <table id="table-top-teacher" class="table table-striped">
                         <thead>
                             <tr style="text-align: center">
-                                <th> Họ Tên </th>
-                                <th style="text-align: center"> Đã bán </th>
-                                <th> Thu nhập </th>
-                                <th> Số học viên tham gia </th>
+                                <th onclick='sortTable("#table-top-teacher", 0)'> Họ Tên </th>
+                                <th onclick='sortTable("#table-top-teacher", 1)' style="text-align: center"> Đã bán </th>
+                                <th onclick='sortTable("#table-top-teacher", 2)' > Thu nhập </th>
+                                <th onclick='sortTable("#table-top-teacher", 3)' > Số học viên tham gia </th>
                             </tr>
                         </thead>
                         <tbody id="table-teacher">
@@ -157,14 +157,14 @@ final class MainDashboardPage extends BaseHTMLDocumentPage
                         Khóa Học
                     </span>
                 </div>
-                <table class="table table-bordered">
+                <table id="table-top-seller-course" class="table table-bordered">
                     <thead>
                         <tr style="text-align: center">
-                            <th> Tên khóa học</th>
-                            <th> Giảng viên </th>
-                            <th> Giá </th>
-                            <th> Số lượng đã bán </th>
-                            <th> Cập nhập lần cuối </th>
+                            <th onclick='sortTable("#table-top-seller-course", 0)'> Tên khóa học</th>
+                            <th onclick='sortTable("#table-top-seller-course", 1)'> Giảng viên </th>
+                            <th onclick='sortTable("#table-top-seller-course", 2)'> Giá </th>
+                            <th onclick='sortTable("#table-top-seller-course", 3)'> Số lượng đã bán </th>
+                            <th onclick='sortTable("#table-top-seller-course", 4)'> Cập nhập lần cuối </th>
                         </tr>
                     </thead>
                     <tbody id="table-top-course">
@@ -202,7 +202,7 @@ final class MainDashboardPage extends BaseHTMLDocumentPage
             "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
             "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js",
             "https://cdn.jsdelivr.net/npm/chart.js",
-            // "/node_modules/toastr/build/toastr.min.js",
+            "/node_modules/toastr/build/toastr.min.js",
             "/clients/js/admin/dashboard.js"
         );
     }
