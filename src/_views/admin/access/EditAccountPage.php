@@ -1,7 +1,7 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
-requirm("access/account.php");
+requirm("access/permission.php");
 class EditAccountPage extends BaseHTMLDocumentPage
 {
     private IPermissionHolder $holder;

@@ -17,8 +17,10 @@ if (!isset($reqm) || strtolower($reqm) !== "get") {
             if ($key->isPermissionGranted(Permission_RoleRead)) {
                 requirv("admin/access/RoleMainPage.php");
                 global $page;
-                $accounts = RoleDAO::getAllRoles();
-                $page = new RoleMainPage($holder, $accounts);
+                $instructorRole = RoleDAO::getDefaultRoleForInstructor();
+                $learnerRole = RoleDAO::getDefaultRoleForLearner();
+                $roles = RoleDAO::getAllRoles();
+                $page = new RoleMainPage($holder, $roles, $instructorRole, $learnerRole);
                 requira("_adminLayout.php");
                 $granted = true;
             }
