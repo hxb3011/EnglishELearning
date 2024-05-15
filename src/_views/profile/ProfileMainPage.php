@@ -193,7 +193,7 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
                     if ($hasAdministrationAction) {
                         ?>
                         <hr>
-                        <a class="list-item administration" href="#" heading="Hệ thống" title="Quản trị hệ thống">
+                        <a class="list-item administration" href="administration/index.php" heading="Hệ thống" title="Quản trị hệ thống">
                             <p class="icon mdi-b"></p>
                             <p class="action mdi-b"></p>
                         </a>
@@ -284,40 +284,38 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
                     </card>
                     <?
                 }
-                // TODO:
-                ?>
-                <card class="section payments">
-                    <div class="list-heading" title="Phương thức thanh toán">
-                        <p class="icon mdi-b"></p>
-                        <a class="add action mdi-b" href="#">Thêm</a>
-                    </div>
-                    <hr>
-                    <a class="list-item wallet" href="#" heading="Mobile Money" title="0xxxxx1234">
-                        <p class="icon mdi-b"></p>
-                        <p class="action mdi-b"></p>
-                    </a>
-                    <hr>
-                    <a class="list-item wallet" href="#" heading="Zalo Pay" title="0xxxxx1234">
-                        <p class="icon mdi-b"></p>
-                        <p class="action mdi-b"></p>
-                    </a>
-                    <hr>
-                    <a class="list-item card" href="#" heading="Visa" title="1234xxxx9012">
-                        <p class="icon mdi-b"></p>
-                        <p class="action mdi-b"></p>
-                    </a>
-                    <hr>
-                    <a class="list-item card" href="#" heading="Master Card" title="1234xxxx4321">
-                        <p class="icon mdi-b"></p>
-                        <p class="action mdi-b"></p>
-                    </a>
-                    <hr>
-                    <a class="list-item wallet" href="#" heading="VN Pay" title="1234xxxx1234">
-                        <p class="icon mdi-b"></p>
-                        <p class="action mdi-b"></p>
-                    </a>
-                </card>
-                <?
+                // TODO: payments
+                //   <card class="section payments">
+                //     <div class="list-heading" title="Phương thức thanh toán">
+                //         <p class="icon mdi-b"></p>
+                //         <a class="add action mdi-b" href="#">Thêm</a>
+                //     </div>
+                //     <hr>
+                //     <a class="list-item wallet" href="#" heading="Mobile Money" title="0xxxxx1234">
+                //         <p class="icon mdi-b"></p>
+                //         <p class="action mdi-b"></p>
+                //     </a>
+                //     <hr>
+                //     <a class="list-item wallet" href="#" heading="Zalo Pay" title="0xxxxx1234">
+                //         <p class="icon mdi-b"></p>
+                //         <p class="action mdi-b"></p>
+                //     </a>
+                //     <hr>
+                //     <a class="list-item card" href="#" heading="Visa" title="1234xxxx9012">
+                //         <p class="icon mdi-b"></p>
+                //         <p class="action mdi-b"></p>
+                //     </a>
+                //     <hr>
+                //     <a class="list-item card" href="#" heading="Master Card" title="1234xxxx4321">
+                //         <p class="icon mdi-b"></p>
+                //         <p class="action mdi-b"></p>
+                //     </a>
+                //     <hr>
+                //     <a class="list-item wallet" href="#" heading="VN Pay" title="1234xxxx1234">
+                //         <p class="icon mdi-b"></p>
+                //         <p class="action mdi-b"></p>
+                //     </a>
+                // </card>
             }
         }
         ?>
