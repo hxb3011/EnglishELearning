@@ -20,9 +20,6 @@ $(document).ready(function () {
             renderTopRevenueByTeacher(startDate, endDate, viewTeacherQuantity);
             renderTopSellerCourse(startDate, endDate, viewCourseQuantity);
         }
-        // else {
-        //     toastr.error("Vui lòng chọn ngày bắt đầu và ngày kết thúc");
-        // }
     });
     $('#view-teacher-quantity').on('change', function () {
         let startDate = $('#start-date').val();
@@ -31,10 +28,9 @@ $(document).ready(function () {
         if (startDate !== '' && endDate !== '' && viewTeacherQuantity !== '') {
             $('#quantity-number').text(viewTeacherQuantity);
             renderTopRevenueByTeacher(startDate, endDate, viewTeacherQuantity);
+        }else {
+            toastr.error("Vui lòng chọn ngày bắt đầu và ngày kết thúc");
         }
-        // else {
-        //     toastr.error("Vui lòng chọn ngày bắt đầu và ngày kết thúc");
-        // }
     });
     $('#view-top-course-quantity').on('change', function () {
         let startDate = $('#start-date').val();
@@ -43,11 +39,11 @@ $(document).ready(function () {
         if (startDate !== '' && endDate !== '' && viewCourseQuantity !== '') {
             $('#quantity-course-number').text(viewCourseQuantity);
             renderTopSellerCourse(startDate, endDate, viewCourseQuantity);
+        }else {
+            toastr.error("Vui lòng chọn ngày bắt đầu và ngày kết thúc");
         }
-        // else {
-        //     toastr.error("Vui lòng chọn ngày bắt đầu và ngày kết thúc");
-        // }
     });
+
 });
 
 function renderTopSellerCourse(startDate, endDate, viewCourseQuantity) {
@@ -312,3 +308,44 @@ function getTopSellerCourse(start_date, end_date, view_top_course_quantity) {
 //         });
 //     });
 // }
+
+function sortTable(element, n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.querySelector(element);
+    switching = true;
+    dir = "asc";
+
+    while (switching) {
+        switching = false;
+        rows = table.rows;
+      
+        for (i = 1; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+        
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+            
+            if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                shouldSwitch = true;
+                break;
+            }
+            } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                shouldSwitch = true;
+                break;
+            }
+            }
+        }
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount ++;
+        } else {
+            if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+            }
+        }
+    }
+}

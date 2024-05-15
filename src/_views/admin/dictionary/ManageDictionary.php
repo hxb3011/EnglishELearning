@@ -9,6 +9,7 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
     public $pronunciation_arr = array();
     public $conjugation_arr = array();
     public $words;
+    public $tutors = array();
     public function __construct()
     {
         parent::__construct();
@@ -185,7 +186,7 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
                             }
                         })
                         $.ajax({
-                            url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=get_course_by_page',
+                            url: '',
                             method: 'POST',
                             data: JSON.stringify({
                                 page: targetPage,
@@ -208,7 +209,7 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
             function initPagination() {
                 search = 0;
                 $.ajax({
-                    url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=get_total_page',
+                    url: '',
                     method: 'POST',
                     data: JSON.stringify({
                         tutor: tutor,

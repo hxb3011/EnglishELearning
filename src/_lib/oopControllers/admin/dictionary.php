@@ -6,6 +6,7 @@ requirm('/access/dictionary/Example.php');
 requirm('/access/dictionary/Conjugation.php');
 requirm('/access/dictionary/Pronunciation.php');
 requirm('/access/dictionary/Contribution.php');
+requirm('/dao/profile/profile.php');
 
 requirm('/dao/dictionary/MeaningModel.php');
 requirm('/dao/dictionary/LemmaModel.php');
@@ -43,6 +44,7 @@ class AdminDictionary
         global $page;
         $page = new ManageDictionaryPage();
         $page->words = $this->get_all_words();
+        $page->tutors = ProfileDAO::getProfileByType(0);
         requira("_adminLayout.php");
     }
     public function edit($lemmaID){
@@ -178,7 +180,7 @@ class AdminDictionary
                 $lemmaID = $this->lemmaModel->getLemmaID($lemmaKey);
                 $result = $this->pronunciationModel->addPronunciation($lemmaID,$region,$IPA);
                 if($result >= 1 && !empty($infinitiveID)){
-                    $result = $this->conjugationModel->addConjugation($infinitiveID,$alternativeID,$description);
+                    $result = $this->conjugationModel->addConjugation($infinitiveID,$lemmaID,$description);
                     if($result >= 1){
                         $redirect = "Location: /administration/dictionary/dictionary.php";
                         header($redirect);

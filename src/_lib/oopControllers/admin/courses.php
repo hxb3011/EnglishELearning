@@ -5,7 +5,7 @@ requirm('/dao/LessonModel.php');
 requirm('/dao/ExcerciseModel.php');
 requirm('/dao/DocumentModel.php');
 requirm('/dao/QuestionModel.php');
-requirm('/dao/profile.php');
+requirm('/dao/profile/profile.php');
 
 requirm('/learn/Course.php');
 requirm('/learn/Lesson.php');
@@ -562,13 +562,15 @@ class AdminCourses
     }
     public function document_modal()
     {
+        global $basePath;
         global $lesson;
         global $document;
+        $basePath = $this->s3Service->getBasePath();
         $lesson = $this->lessonModel->getLessonById($_REQUEST['lessonId']);
         $editMode = isset($_REQUEST['editmode']);
         if ($editMode) {
             $document = $this->documentModel->getDocumentByID($_REQUEST['documentId']);
-            $document->DocUri = $this->s3Service->encodeKey($document->DocUri);
+            $document->DocUri = $this->s3Service->presignUrl($document->DocUri,"");
         }
         requirv("admin/courses/modal/document.php");
     }

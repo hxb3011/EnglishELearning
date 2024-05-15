@@ -2,9 +2,8 @@
 session_start();
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("oopControllers/courses.php");
-requirl("profile/permissionChecker.php");
-requirm("dao/profile.php");
-if (isSignedIn()) {
+requirm("dao/profile/profile.php");
+if (isset($_SESSION["AUTH_UID"])) {
     $ctrl = new Courses();
     if (isset($_REQUEST['courseId'])) {
         $profileID = ProfileDAO::getProfileByUid($_SESSION["AUTH_UID"])->getId();

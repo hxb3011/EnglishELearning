@@ -2,6 +2,9 @@
 global $lesson;
 global $document;
 ?>
+<style>
+
+</style>
 <div class="alert alert-info" role="alert">
     <? if (isset($document->Description)) echo ("Tên bài: <strong><? echo($document->Description) ?></strong>");
     else echo ("Thêm mới") ?>
@@ -21,8 +24,7 @@ global $document;
             </label>
             <input class="form-check-input" type="radio" value="video" name="type" value="video" <? if (!isset($document->Type)) echo ('onchange="changeAccept(\'video\')" ');
                                                                                                     else echo ('disabled') ?> <? if (isset($document->Type) && $document->Type == "video") {
-                                                                                                                                                                                                            echo ('checked');
-                                                                                                                                                                                                        } ?> id="flexRadioDefault1">
+                                                                                                        echo ('checked') ;    } ?> id="flexRadioDefault1">
         </div>
         <div class="mb-3 form-check">
             <label class="form-check-label" for="flexRadioDefault1">
@@ -30,15 +32,22 @@ global $document;
             </label>
             <input class="form-check-input" type="radio" video="word" name="type" value="text" <? if (!isset($document->Type)) echo ('onchange="changeAccept(\'text\')" ');
                                                                                                 else echo ('disabled') ?> <? if (isset($document->Type) && $document->Type == "text") {
-                                                                                                                                                                                                        echo ('checked');
-                                                                                                                                                                                                    } ?> id="flexRadioDefault2">
+                                                                                                                                echo ('checked');
+                                                                                                                            } ?> id="flexRadioDefault2">
         </div>
+
+        <? if (isset($document->ID)) : ?>
+            <? if ($document->Type == "video") : ?>
+                <div class="learn__video-wrapper" id="video-container" style="width:100%;height:240px;">
+                    <video id="courseVideo" width="100%" height="100%" preload="auto" src="<? echo $document->DocUri ?>" controls controlslist="nodownload" src="" class="learn__video"></video>
+                </div>
+            <? else : ?>
+                <a href="<?echo $document->DocUri?>" target="_blank">Xem tài liệu</a>
+            <? endif ?>
+        <? endif ?>
         <div class="mb-3">
             <label for="document_src" class="form-label">Upload tài liệu</label>
             <input type="file" class="form-control" id="document_src" name="document_src" <? if (!isset($document->Type)) echo ('disabled') ?>>
-            <div class="view__uploaded_document">
-
-            </div>
         </div>
         <div class="mb-3">
             <label for="state" class="form-label">Trạng thái</label>
@@ -138,9 +147,8 @@ global $document;
 <? endif ?>
 <script>
     function changeAccept(type) {
-            if(type)
-            {
-                switch (type) {
+        if (type) {
+            switch (type) {
                 case 'video':
                     $('#document_src').attr('accept', 'video/mp4')
                     break;
