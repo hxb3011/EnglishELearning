@@ -3,8 +3,8 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirm("dao/profile/profile.php");
 
 function getPermissionHolder(): ?IPermissionHolder {
-    // if (!session_id())
-    //     session_start();
+    if (!session_id())
+        session_start();
     $authUID = &$_SESSION["AUTH_UID"];
     if (isset($authUID) && is_string($authUID)) {
         $holder = ProfileDAO::getProfileByUid($authUID);
