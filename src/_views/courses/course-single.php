@@ -9,7 +9,6 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
     public string $basePath;
     public int $totalLesson;
     public int $totalExcercise;
-    public int $totalStudents;
     public bool $isRegistered;
     public bool $isRegisterable;
     public function __construct()
@@ -69,7 +68,7 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
                             <div class="d-flex justify-content-between align-items-center course_info">
                                 <div class="d-flex align-items-center justify-content-center">
                                     <span class="mdi-b student" style="font-size: 18rem;"></span>
-                                    <? echo ($this->totalStudents) ?> Học viên
+                                    <? echo ($this->course->totalStudent) ?> Học viên
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center">
                                     <span class="mdi-b calendar"></span>
@@ -116,7 +115,7 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
                                                 Đăng ký
                                             </a>
                                         <? else : ?>
-                                            <p>Quá hạn đăng ký</p>
+                                            <p style="font-size: 18rem;">Quá hạn đăng ký</p>
                                     <? endif ?>
                                     <? endif ?>
                                 </div>

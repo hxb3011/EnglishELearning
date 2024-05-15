@@ -14,6 +14,7 @@ class Course{
 
     public array $lessons = array();
     public int $totalStudent;
+
     public function __construct()
     {
         

@@ -77,7 +77,7 @@ class Courses
         $page->course = $this->courseModel->getCourseById($courseId);
         $lessons = $this->lessonModel->getLessonsByCourseId($courseId,1);
         $page->totalLesson = count($lessons);
-        $page->totalStudents = $this->subscriptionModel->getTotalStudentOfCourse($page->course->id);
+        $page->course->totalStudent = $this->subscriptionModel->getTotalStudentOfCourse($page->course->id);
         if(isset($_SESSION["AUTH_UID"]))
         {
             $page->isRegistered = ($this->subscriptionModel->getSubscriptionByProAndCourse(ProfileDAO::getProfileByUid($_SESSION["AUTH_UID"])->getId(),$page->course->id)!= null) ? true : false;
