@@ -141,7 +141,28 @@ final class RoleDAO
         }
         return $role;
     }
-
+    public static function setDefaultRoleForInstructor(string $id)
+    {
+        $role = null;
+        if (isset($id)) {
+            $role = self::getRoleById($id);
+        }
+        if (isset($role)) {
+            PropertiesDAO::setProperty("DEFAULT_INSTRUTOR_ROLE", $role->getId());
+        }
+        return $role;
+    }
+    public static function setDefaultRoleForLearner(string $id)
+    {
+        $role = null;
+        if (isset($id)) {
+            $role = self::getRoleById($id);
+        }
+        if (isset($role)) {
+            PropertiesDAO::setProperty("DEFAULT_LEARNER_ROLE", $role->getId());
+        }
+        return $role;
+    }
     // public static function deleteRole(Role $role)
     // {
     //     if (!isset($role))

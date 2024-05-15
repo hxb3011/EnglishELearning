@@ -46,6 +46,9 @@ class RoleMainPage extends BaseHTMLDocumentPage
             "/clients/css/admin/pagination.css",
             "/node_modules/jquery-ui/dist/themes/base/jquery-ui.min.css"
         );
+        $this->scripts(
+            "access/changeDefaultRole.js"
+        );
     }
 
     public function body()
