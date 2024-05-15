@@ -145,6 +145,7 @@ class AdminDictionary
             }
         return $words;
     }
+
     public function editLemma(){
         try{
             $lemmaID = $_POST['lemmaID'];

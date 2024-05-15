@@ -81,7 +81,7 @@ class LemmaModel {
     public function getLemmaByPage($page)
     {
         $offset = ($page-1) * 2;
-        $sqlQuery = "SELECT * FROM Lemma  Limit 5 offset ?" ;
+        $sqlQuery = "SELECT * FROM Lemma Limit 5 offset ?" ;
         $params = array(
             'offset' => $offset
         );
@@ -117,7 +117,7 @@ class LemmaModel {
             foreach ($result as $index => $value) {
                 return $value['ID'];
             }
-            return $lemmas;
+            return $result;
         } catch (Exception $e) {
             return null;
         }

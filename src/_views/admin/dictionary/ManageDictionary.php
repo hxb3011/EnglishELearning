@@ -43,6 +43,8 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
             "/node_modules/sweetalert2/dist/sweetalert2.min.css",
             "/clients/css/admin/main.css",
             "/clients/css/admin/autocomplete.css",
+            "/clients/css/admin/pagination.css",
+            // "/node_modules/jquery-ui/dist/themes/base/jquery-ui.min.css"
         );
     }
 
@@ -165,6 +167,55 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
 
                     ],
                 });
+                initPagination();
+            })
+
+            function setUpEvents() {
+                $('.pagination-item').click(function() {
+                    let targetPage = $(this).data('page');
+                    let currentPage = +$('.pagination-item.active').data('page')
+
+                    if (targetPage == 'prev') {
+                        targetPage = currentPage - 1;
+                        targetPage = (targetPage <= 0) ? targetPage = 1 : targetPage;
+                    } else if (targetPage == 'next') {
+                        targetPage = currentPage + 1;
+                        targetPage = (targetPage > maxPage) ? targetPage = maxPage : targetPage;
+                    }
+
+
+                    targetPage = +targetPage;
+
+                    if (targetPage != currentPage) {
+                        $('.pagination-item.active').removeClass('active');
+                        $('.pagination-item').each(function() {
+                            if (+$(this).data('page') == targetPage) {
+                                $(this).addClass('active')
+                            }
+                        })
+                        $.ajax({
+                            url: '',
+                            method: 'POST',
+                            data: JSON.stringify({
+                                page: targetPage,
+                                tutor: tutor,
+                                name: name
+                            }),
+                            ers: {
+                                'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
+                            },
+                            success: function(response) {
+                                let data = JSON.parse(response);
+                                showData(data);
+                            }
+                        })
+                    }
+
+                })
+            }
+
+            function initPagination() {
+                search = 0;
                 $.ajax({
                     url: 'ajax_call_action.php?action=get_all',
                     type: 'get',
@@ -293,6 +344,6 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
                 return formattedDate;
             }
         </script>
-<?
+        <?
     }
 }
