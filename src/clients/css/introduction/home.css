@@ -9,82 +9,9 @@ main>card.banner>a {
     margin: 1.6em .4em;
 }
 
-main>card.categories {
-    height: 400rem;
-    width: calc(50% - 12rem);
-}
-
-main>card.categories>.content {
-    align-items: center;
-    box-sizing: border-box;
-    display: flex;
-    flex-flow: column wrap;
-    height: 320rem;
-    justify-content: start;
-    overflow-x: scroll;
-    padding: 4rem;
-    margin: 0 -8rem -8rem;
-    width: calc(100% + 16rem);
-}
-
-main>card.categories>.content>.item {
-    align-items: center;
-    background-color: var(--mdc-surface);
-    border: solid 1rem var(--mdc-outline-variant);
-    border-radius: 12rem;
-    box-sizing: border-box;
-    display: flex;
-    flex-flow: column nowrap;
-    height: 148rem;
-    justify-content: center;
-    margin: 4rem;
-    padding: 60rem 4rem 4rem;
-    position: relative;
-    white-space: nowrap;
-    width: 100rem;
-}
-
-main>card.categories>.content>.item[name]::before {
-    color: var(--mdc-on-surface);
-    content: attr(name);
-    font-family: Exo, 'Source Sans Pro';
-    font-size: 15rem;
-    font-weight: 600;
-    line-height: 1.2;
-}
-
-main>card.categories>.content>.item[description]::after {
-    color: var(--mdc-on-surface-variant);
-    content: attr(description);
-    font-family: Jost, 'Source Sans Pro';
-    font-size: 12rem;
-    font-weight: 400;
-    line-height: 1.5;
-}
-
-main>card.categories>.content>.item:is(:focus, :hover) {
-    box-shadow: 1rem 1rem 8rem 2rem var(--mdc-shadow);
-}
-
-main>card.categories>.content>.item:active {
-    box-shadow: 0 0 8rem 2rem var(--mdc-shadow);
-}
-
-main>card.categories>.content>.item>img {
-    align-items: center;
-    display: flex;
-    flex-flow: column nowrap;
-    height: 28rem;
-    justify-content: center;
-    object-fit: contain;
-    position: absolute;
-    top: 32rem;
-    width: 28rem;
-}
-
 main>card.courses {
     height: 400rem;
-    width: calc(50% - 12rem);
+    width: calc(100% - 8rem);
 }
 
 main>card.courses>.content {
@@ -418,7 +345,7 @@ main>card.blog>.content>.item:is(:focus, :hover)>.title {
 } */
 
 @media only screen and (max-width: 719px) {
-    main>card.section:is(.categories, .courses, .feedback, .blog) {
+    main>card.section:is(.feedback, .blog) {
         width: calc(100% - 8rem);
     }
 }
