@@ -18,8 +18,8 @@ final class ProfileDAO
         }
         $result = Database::executeQuery($sqlQuery, $params);
         if (!isset($result) || count($result) === 0)
-            return 0;
-        return intval($result[0]['total_profiles']);
+            return floatval(0);
+        return floatval($result[0]['total_profiles']);
     }
     public static function getProfileFromPage(int $page = 1, int $perPage = 5, ?string $name = null)
     {
@@ -170,10 +170,6 @@ final class ProfileDAO
         else
             return strval($result[0]["ProfileCount"]);
     }
-    public static function lookupProfiles(string $keywords)
-    {
-        # code...
-    }
     public static function createProfile(Profile $profile)
     {
         if (!isset($account))
@@ -198,7 +194,7 @@ final class ProfileDAO
     }
     public static function updateProfile(Profile $profile)
     {
-        if (!isset($account))
+        if (!isset($profile))
             return false;
         $sql = "UPDATE `profile` SET `FirstName` = ?, `LastName` = ?, `Gender` = ?, `BirthDay` = ?, `Type` = ?, `Status` = ?, `UID` = ?, `RoleID` = ? WHERE `ID` = ?";
         $profileId = $profile->getId();
@@ -214,7 +210,7 @@ final class ProfileDAO
             $uid = $account->getUid();
         $roleID = "";
         $role = $profile->getRole();
-        if (isset($account))
+        if (isset($role))
             $roleID = $role->getId();
         return Database::executeNonQuery($sql, array($firstName, $lastName, $gender, $birthDay, $type, $status, $uid, $roleID, $profileId));
     }

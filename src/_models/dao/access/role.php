@@ -1,7 +1,9 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/database.php');
+requirm('/dao/properties.php');
 requirm('/access/permission.php');
+requirl('/profile/preload.php');
 
 final class RoleDAO
 {
@@ -16,15 +18,15 @@ final class RoleDAO
         }
         $result = Database::executeQuery($sqlQuery, $params);
         if (!isset($result) || count($result) === 0)
-            return 0;
-        return intval($result[0]['total_roles']);
+            return floatval(0);
+        return floatval($result[0]['total_roles']);
     }
     public static function getRoleFromPage(int $page = 1, int $perPage = 5, ?string $name = null)
     {
         $offSet = ($page - 1) * $perPage;
         if (isset($name)) {
             $sqlQuery = "SELECT * FROM `role` WHERE `Name` LIKE CONCAT('%', ?, '%') LIMIT $offSet, $perPage";
-            $params = array($name, $name);
+            $params = array($name);
         } else {
             $sqlQuery = "SELECT * FROM `role` LIMIT $offSet, $perPage";
             $params = null;
@@ -38,7 +40,7 @@ final class RoleDAO
         foreach ($result as $key => $value) {
             $role = new Role($value["ID"], $value["Name"]);
             PermissionHolderKey::loadPermissions($role, $value["Permissions"]);
-            array_push($profiles, $role);
+            array_push($roles, $role);
         }
         return $roles;
     }
@@ -79,27 +81,87 @@ final class RoleDAO
         else
             return strval($result[0]["RoleCount"]);
     }
-    public static function lookupRoles(string $keywords)
-    {
-        # code...
-    }
     public static function createRole(Role $role)
     {
         if (!isset($role))
             return false;
-        $sql = "INSERT INTO `role`(`ID`, `Name`) VALUES (?, ?)";
-        $uid = $role->getId();
-        $userName = $role->name;
-        return Database::executeNonQuery($sql, array($uid, $userName));
+        $sql = "INSERT INTO `role`(`ID`, `Name`, `Permissions`) VALUES (?, ?, ?)";
+        $id = $role->getId();
+        $name = $role->name;
+        $permissions = PermissionHolderKey::savePermissions($role);
+        return Database::executeNonQuery($sql, array($id, $name, $permissions));
     }
     public static function updateRole(Role $role)
     {
         if (!isset($role))
             return false;
-        $sql = "UPDATE `role` SET `Name` = ? WHERE `ID` = ?";
+        $sql = "UPDATE `role` SET `Name` = ?, `Permissions` = ? WHERE `ID` = ?";
         $id = $role->getId();
         $name = $role->name;
-        return Database::executeNonQuery($sql, array($name, $id));
+        $permissions = PermissionHolderKey::savePermissions($role);
+        return Database::executeNonQuery($sql, array($name, $permissions, $id));
+    }
+    public static function getDefaultRoleForInstructor()
+    {
+        $value = PropertiesDAO::getProperty("DEFAULT_INSTRUTOR_ROLE");
+        $role = null;
+        if (isset($value)) {
+            $role = self::getRoleById(strval($value));
+        }
+        if (!isset($role)) {
+            $role = new Role(self::findUnallocatedID());
+            $defaultRole = getInstructorRoleFull();
+            $role->name = $defaultRole->name;
+            $result = PermissionHolderKey::savePermissions($defaultRole);
+            if ($result !== false) {
+                $result = PermissionHolderKey::loadPermissions($role, $result);
+            }
+            PropertiesDAO::setProperty("DEFAULT_INSTRUTOR_ROLE", $role->getId());
+            self::createRole($role);
+        }
+        return $role;
+    }
+    public static function getDefaultRoleForLearner()
+    {
+        $value = PropertiesDAO::getProperty("DEFAULT_LEARNER_ROLE");
+        $role = null;
+        if (isset($value)) {
+            $role = self::getRoleById(strval($value));
+        }
+        if (!isset($role)) {
+            $role = new Role(self::findUnallocatedID());
+            $defaultRole = getLearnerRoleFull();
+            $role->name = $defaultRole->name;
+            $result = PermissionHolderKey::savePermissions($defaultRole);
+            if ($result !== false) {
+                $result = PermissionHolderKey::loadPermissions($role, $result);
+            }
+            PropertiesDAO::setProperty("DEFAULT_LEARNER_ROLE", $role->getId());
+            self::createRole($role);
+        }
+        return $role;
+    }
+    public static function setDefaultRoleForInstructor(string $id)
+    {
+        $role = null;
+        if (isset($id)) {
+            $role = self::getRoleById($id);
+        }
+        if (isset($role)) {
+            PropertiesDAO::setProperty("DEFAULT_INSTRUTOR_ROLE", $role->getId());
+        }
+        return $role;
+    }
+    public static function setDefaultRoleForLearner(string $id)
+    {
+        $role = null;
+        if (isset($id)) {
+            $role = self::getRoleById($id);
+        }
+        if (isset($role)) {
+            PropertiesDAO::setProperty("DEFAULT_LEARNER_ROLE", $role->getId());
+        }
+        return $role;
     }
     // public static function deleteRole(Role $role)
     // {

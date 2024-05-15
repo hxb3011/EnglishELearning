@@ -13,7 +13,7 @@ if (!isset($reqm) || strtolower($reqm) !== "post") {
     $granted = false;
     if (isset($holder)) {
         $key = $holder->getKey();
-        global $fragment_total_accounts;
+        global $fragment_total_pages;
         global $fragment_current_page;
         if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_RoleManager)) {
             if ($key->isPermissionGranted(Permission_RoleRead)) {

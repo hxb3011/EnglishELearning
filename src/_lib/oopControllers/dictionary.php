@@ -5,7 +5,9 @@ requirm('/access/dictionary/Lemma.php');
 requirm('/access/dictionary/Example.php');
 requirm('/access/dictionary/Conjugation.php');
 requirm('/access/dictionary/Pronunciation.php');
+requirm('/access/dictionary/LearntRecord.php');
 
+requirm('/dao/dictionary/LearntRecordModel.php');
 requirm('/dao/dictionary/MeaningModel.php');
 requirm('/dao/dictionary/LemmaModel.php');
 requirm('/dao/dictionary/ExampleModel.php');
@@ -71,7 +73,18 @@ class Dictionary{
         }
         
     }
+    public function get_all()
+    {
+        $arr = array();
+        $arr['data'] = $this->subscription->get_all();
+        echo json_encode($arr);
+    }
 
+    public function add_favorite()
+    {
+        // $lemmaID = $_POST[]
+        // $this->LearntRecordModel->add_learntRecord()
+    }
     public function search(){
         $response = array();
         $jsonData = "";

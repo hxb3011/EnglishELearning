@@ -8,5 +8,7 @@ if(isset($action) && method_exists($ctrl,$action))
 {
     if(strcmp($action,'search') == 0)
         call_user_func(array($ctrl,$action),$search_input);
+    else
+        call_user_func(array($ctrl,$action));
 }else{
 }

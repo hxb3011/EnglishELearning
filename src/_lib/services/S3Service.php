@@ -1,7 +1,9 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
+
 use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
+
 class S3Service
 {
     private $s3Config = [
@@ -10,7 +12,7 @@ class S3Service
         'access_key' => 'AKIA6GBMBODTERALG3F5',
         'secret_key' => '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',
         'bucket' => 'english-elearning',
-        'basePath'=>'https://english-elearning.s3.ap-southeast-1.amazonaws.com/'
+        'basePath' => 'https://english-elearning.s3.ap-southeast-1.amazonaws.com/'
     ];
     private function createClient()
     {
@@ -28,18 +30,17 @@ class S3Service
     {
         $s3 = $this->createClient();
         $response = [
-            'error'=>null,
+            'error' => null,
         ];
         try {
-            if ($isPublic)
-            {
+            if ($isPublic) {
                 $result = $s3->putObject([
                     'Bucket' => $this->s3Config['bucket'],
                     'Key'    => $file_name,
                     'SourceFile' => $fileSource,
                     'ACL'        => 'public-read',
                 ]);
-            }else{
+            } else {
                 $result = $s3->putObject([
                     'Bucket' => $this->s3Config['bucket'],
                     'Key'    => $file_name,
@@ -66,11 +67,11 @@ class S3Service
             $result = $s3->deleteObject(
                 [
                     'Bucket' => $this->s3Config['bucket'],
-                    'Key'=> $filePath
-                ]);
+                    'Key' => $filePath
+                ]
+            );
             $result_arr = $result->toArray();
-            return $result_arr; 
-            
+            return $result_arr;
         } catch (S3Exception $e) {
             return [$e->getMessage()];
         }
@@ -80,7 +81,7 @@ class S3Service
         $s3 = $this->createClient();
         try {
             $files = $s3->listObjectsV2([
-                'Bucket' =>$this->s3Config['bucket'] ,
+                'Bucket' => $this->s3Config['bucket'],
                 'Prefix' => $folderPath
             ]);
             if (isset($files['Contents'])) {
@@ -91,7 +92,6 @@ class S3Service
                     ]);
                 }
             }
-            
         } catch (S3Exception $e) {
             return [$e->getMessage()];
         }
@@ -105,13 +105,35 @@ class S3Service
         $s3 = $this->createClient();
         return $s3->encodeKey($key);
     }
-    public function presignUrl($filePath,$expires)
+    public function presignUrl($filePath, $expires)
     {
         $s3 = $this->createClient();
-        $cmd = $s3->getCommand('GetObject',[
-            'Bucket' => $this->s3Config['bucket'],
-            'Key'=> $filePath
-        ]);
+        $pathInfo = pathinfo($filePath);
+        $fileType = $pathInfo['extension'];
+        switch ($fileType) {
+            case  'pdf':
+                $cmd = $s3->getCommand('GetObject', [
+                    'Bucket' => $this->s3Config['bucket'],
+                    'Key' => $filePath,
+                    'ResponseContentType' => 'application/pdf'
+                ]);
+                break;
+            case 'doc':
+            case 'docx':
+                $cmd = $s3->getCommand('GetObject', [
+                    'Bucket' => $this->s3Config['bucket'],
+                    'Key' => $filePath,
+                    'ResponseContentType' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                ]);
+                break;
+            default:
+                $cmd = $s3->getCommand('GetObject', [
+                    'Bucket' => $this->s3Config['bucket'],
+                    'Key' => $filePath,
+                ]);
+                break;
+        }
+
         $request = $s3->createPresignedRequest($cmd, '+1 hour');
         $presignedUrl = (string)$request->getUri();
 

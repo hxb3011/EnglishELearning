@@ -3,12 +3,12 @@ global $lemma;
 global $meaning;
 global $editMode;
 ?>
-<div class="alert alert-info" role="alert">
-    Bổ sung nghĩa cho: <strong><? echo $lemma->keyL ?></strong>
+<div class="alert alert-info text-capitalize" role="alert">
+    Bổ sung nghĩa cho: <strong ><? echo ($lemma->keyL)?></strong>
 </div>
 
 <div class="mt-3">
-    <form method="post" action="<? if(!$editMode) echo('/administration/dictionary/ajax_call_action.php?action=add_meaning'); else echo('/administration/dictionary/ajax_call_action.php?action=update_meaning'); ?>" id="lesson_frm">
+    <form method="post" action="<? if($editMode) echo('/administration/dictionary/ajax_call_action.php?action=update_meaning'); else echo('/administration/dictionary/ajax_call_action.php?action=add_meaning');?>" id="lesson_frm">
         <input id="lemma_ID" type="hidden" value="<? echo($lemma->ID) ?>" name="lemma_ID">
         <input  id="meaning_ID" type="hidden" value="<? if($editMode) echo($meaning->ID) ?>" name="meaning_ID">
         <div class="mb-3">

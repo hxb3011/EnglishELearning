@@ -85,8 +85,6 @@ class CheckoutHistoryPage extends BaseHTMLDocumentPage
             "/clients/admin/main.js",
         );
         ?>
-        <?
-        ?>
         <script>
             var dataT;
             $(document).ready(function() {

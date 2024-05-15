@@ -4,16 +4,16 @@ requirm('/access/dictionary/Example.php');
 class Meaning{
     public string $ID;
     public int $lemmaID;
-    public string $levelV;
+    public  $levelV;
     public string $meaning;
     public string $explanation;
-    public string $note;
+    public  $note;
     public $example_arr = array();
     public function __construct()
     {
 
     }
-    public function construct( string $ID, string $lemmaID,  string $levelV, string $meaning, string $explanation, string $note, array $example_arr){
+    public function construct( string $ID, string $lemmaID, $levelV, string $meaning, string $explanation,  $note, array $example_arr){
         $this->ID = $ID;
         $this->lemmaID = $lemmaID;
         $this->levelV = $levelV;
