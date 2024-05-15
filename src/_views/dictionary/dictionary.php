@@ -90,18 +90,20 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
                 echo 
                 '<div class="word-detail ">
                 <div class="card  padding-5">
-                    <h3 class="part-of-speech ">'. $this->lemma->partOfSpeech.'</h3>
+                    <h3 class="part-of-speech  text-capitalize">'. $this->lemma->partOfSpeech.'</h3>
                     <div class="title_n_heart">
-                        <h3 class="word_title text-reset">'. $this->lemma->keyL.'</h3>
-                        <a class="mdi-b heart-icon -dictionary " hint="Yêu thích" href="#"></a>
+                        <h3 class="word_title text-reset text-capitalize">'. $this->lemma->keyL.'</h3>
+                        <a class="mdi-b heart-icon -dictionary " hint="Yêu thích" id="favorite" value="'.$this->lemma->ID.'" href="#"></a>
                     </div>
                     <span class="word_pronunciation ">';
+                    if(!is_null($this->lemma->pronunciation_arr))
                     foreach(($this->lemma->pronunciation_arr) as $item)
                         echo ' <p class="  text-reset opacity-75 " >  <strong> '. $item->region .'</strong>: '.$item->IPA. '  &nbsp;&nbsp;&nbsp;&nbsp;</p>';
                     echo '</span>';
+                    if(!is_null($this->lemma->meaning_arr))
                     foreach(($this->lemma->meaning_arr) as $item){
-                        echo '<p class="word_definition text-reset" align ="jusitify"> '.$item->meaning .' </p>';
-                        echo '<p class="word_definition text-reset" align ="jusitify"> '.$item->explanation .' </p>';
+                        echo '<p class="word_definition text-reset  text-capitalize" align ="jusitify"> '.$item->meaning .' </p>';
+                        echo '<p class="word_definition text-reset  " align ="jusitify"> '.$item->explanation .' </p>';
 
                         echo '<i class="example " align ="jusitify">Example:</i>';
                         foreach(($item->example_arr) as $example)  {
@@ -111,6 +113,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
 
                     echo '<p class="conjugation " align ="jusitify">';
                     $firstPrint = true;
+                    if(!is_null($this->lemma->conjugation_arr))
                     foreach(($this->conjugation_arr) as  $item)  {
                         if($firstPrint){
                             echo $item['description'].' <a href="http://localhost:62280/dictionary/all.php?dictionary_search='.$item['lemma']->keyL.'">'.$item['lemma']->keyL.'</a>  ';
@@ -127,7 +130,22 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
         
         var currentFocus = -1;
         autocomplete(document.getElementById("inp_search"),"inp_save",'ajax_call_action.php?action=search');
-        
+        document.getElementById("favorite").addEventListener("click",function(e){
+            e.preventDefault();
+            console.log(this);
+            if(!this.classList.contains('_selected')){
+                this.classList.add("_selected");
+            }else
+                this.classList.remove("_selected");
+            
+            $.ajax({
+                url: "ajax_call_action.php?action=add_favorite",
+                data: this.value,
+                success: function(response){
+                    
+                }
+            })
+        });
         // Hết phần autocomplete    
         </script>
     <?}

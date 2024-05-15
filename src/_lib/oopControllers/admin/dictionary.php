@@ -44,7 +44,7 @@ class AdminDictionary
         global $page;
         $page = new ManageDictionaryPage();
         $page->words = $this->get_all_words();
-        $page->tutors = ProfileDAO::getProfileByType(0);
+        // $page->tutors = ProfileDAO::getProfileByType(0);
         requira("_adminLayout.php");
     }
     public function edit($lemmaID){
@@ -54,16 +54,17 @@ class AdminDictionary
         $page->lemma = $this->lemmaModel->getLemmaByID($lemmaID);
         $conjugation = $this->conjugationModel->getConjugationBy_InfinitiveID($page->lemma->ID);
         $alternative = [];
-        foreach($conjugation as $item){
-            $alterLemma = new Lemma();
-            $alterLemma = $this->lemmaModel->getLemmaByID($item->alternativeID);
-            $lemma_conjugation_group = [];
-            $lemma_conjugation_group['lemma'] = $alterLemma;
-            $lemma_conjugation_group['description'] = $item->description;
-            $alternative[] = $lemma_conjugation_group;
-        }
+        // foreach($conjugation as $item){
+        //     $alterLemma = new Lemma();
+        //     $alterLemma = $this->lemmaModel->getLemmaByID($item->alternativeID);
+        //     $lemma_conjugation_group = [];
+        //     $lemma_conjugation_group['lemma'] = $alterLemma;
+        //     $lemma_conjugation_group['description'] = $item->description;
+        //     $alternative[] = $lemma_conjugation_group;
+        // }
         requira("_adminLayout.php");
     }
+    
     public function add(){
         requirv("admin/dictionary/AddWordPage.php");
         global $page;
@@ -109,6 +110,13 @@ class AdminDictionary
             echo $jsonData;
         }
     }
+    public function get_all()
+    {
+        $arr = array();
+        $arr['data'] = $this->lemmaModel->get_all_lemmas();
+        echo json_encode($arr);
+    }
+    
     public function get_all_words(){
         $words = [];
         $lemmas = $this->lemmaModel->getLemmaByPage(1);
@@ -127,12 +135,12 @@ class AdminDictionary
                     }
                 $word['meaning'] = $meanings;
 
-                $contribution = $this->contributionModel->getContributionBy_LemmaID($lemma->ID);
-                // $profile = $this->profileModel->getProfileByID($contribution->profileID);
-                if($contribution){
-                    $word['contributor'] = $contribution->profileID;
-                    $word['state'] = $contribution->accepted;
-                }
+                // $contribution = $this->contributionModel->getContributionBy_LemmaID($lemma->ID);
+                // $profile = $this->profileModel->getProfileByID($contribution->profileID);q
+                // if($contribution){
+                    // $word['contributor'] = $contribution->profileID;
+                    // $word['state'] = $contribution->accepted;
+                // }
                 $words[] = $word;
             }
         return $words;
@@ -247,6 +255,7 @@ class AdminDictionary
             }
         }
     }
+
     public function add_meaning(){
         try {
             $meaning = new Meaning();
@@ -266,6 +275,7 @@ class AdminDictionary
             echo $ex;
         }
     }
+
     public function update_meaning(){
         try {
             $meaning = new Meaning();
@@ -325,6 +335,7 @@ class AdminDictionary
             echo $ex;
         }
     }
+
     public function update_example(){
         try {
             $example = new Example();
@@ -362,5 +373,4 @@ class AdminDictionary
         $jsonData = json_encode($response);
         echo $jsonData;
     }
-
 }
