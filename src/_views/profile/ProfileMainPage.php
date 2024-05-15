@@ -3,26 +3,15 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
 requirm("profile/profile.php");
 
-const ProfilePageMode_Normal = 0;
-const ProfilePageMode_UpdateProfile = 1;
-const ProfilePageMode_ChangePassword = 2;
-const ProfilePageMode_AddVerification = 3;
-const ProfilePageMode_DeletePhone = 4;
-const ProfilePageMode_DeleteEmail = 5;
-
 final class ProfileMainPage extends BaseHTMLDocumentPage
 {
     private ?IPermissionHolder $holder;
-    private int $mode = 0;
     private array $verifications;
-    private string $deleteValue;
-    public function __construct(?IPermissionHolder $holder, array $verifications, int $mode = ProfilePageMode_Normal, string $deleteValue = "")
+    public function __construct(?IPermissionHolder $holder, array $verifications)
     {
         parent::__construct(NAV_PROF);
         $this->holder = $holder;
         $this->verifications = $verifications;
-        $this->mode = $mode;
-        $this->deleteValue = $deleteValue;
     }
 
     // public function beforeDocument()
@@ -51,194 +40,9 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
             "/clients/css/layout/card.css",
             "/clients/css/profile/main.css"
         );
-        if ($this->mode !== ProfilePageMode_Normal) {
-            $this->styles("/clients/css/profile/modal.css");
-        }
         $this->scripts(
             "/clients/profile/main.js"
         );
-        if ($this->mode === ProfilePageMode_UpdateProfile) {
-            $this->scripts("/clients/profile/update.js");
-        } elseif ($this->mode === ProfilePageMode_ChangePassword) {
-            $this->scripts("/clients/profile/updatePassword.js");
-        } elseif ($this->mode === ProfilePageMode_AddVerification) {
-            $this->scripts("/clients/profile/addVerification.js");
-        } elseif ($this->mode === ProfilePageMode_DeletePhone || $this->mode === ProfilePageMode_DeleteEmail) {
-            $this->scripts("/clients/profile/deleteVerification.js");
-        }
-    }
-
-    public function editProfile()
-    {
-        $holder = $this->holder;
-        if (!isset($holder))
-            return;
-        $key = $holder->getKey();
-        $updateProfile = $key->isPermissionGranted(Permission_ProfileUpdate);
-        $updateAccount = $key->isPermissionGranted(Permission_AccountUpdate);
-        if (!$updateProfile && !$updateAccount)
-            return;
-        $readProfile = $key->isPermissionGranted(Permission_ProfileRead);
-        $readAccount = $key->isPermissionGranted(Permission_AccountRead);
-        ?>
-        <form class="modal" action="/profile/update.php" method="post">
-            <card class="section">
-                <p class="title">Sửa thông tin hồ sơ</p>
-                <?
-                $profile = null;
-                $account = null;
-                if ($holder instanceof Account) {
-                    $profile = null;
-                    $account = $holder;
-                } elseif ($holder instanceof Profile) {
-                    $profile = $holder;
-                    $account = $profile->getAccount();
-                }
-                if (isset($profile)) {
-                    ?>
-                    <label for="ilname">Họ</label>
-                    <input id="ilname" invalid invalid-isEmpty="Họ không thể bỏ trống!" invalid-isExceed="Họ không thể vượt quá 255 ký tự!" name="lName" placeholder="Họ" required type="text" value="<?= $readProfile ? $profile->lastName : "" ?>">
-                    <p class="error">Họ không thể bỏ trống!</p>
-                    <label for="ifname">Tên</label>
-                    <input id="ifname" invalid invalid-isEmpty="Tên không thể bỏ trống!" invalid-isExceed="Tên không thể vượt quá 255 ký tự!" name="fName" placeholder="Tên" required type="text" value="<?= $readProfile ? $profile->firstName : "" ?>">
-                    <p class="error">Tên không thể bỏ trống!</p>
-                    <label for="sgender">Giới tính</label>
-                    <select id="sgender" name="gender" required>
-                        <?
-                        $selected = " selected";
-                        $maleSelected = "";
-                        $femaleSelected = "";
-                        if ($readProfile) {
-                            if ($profile->gender === Gender_Male)
-                                $maleSelected = $selected;
-                            else
-                                $femaleSelected = $selected;
-                        }
-                        ?>
-                        <option value="<?= Gender_Male ?>"<?= $maleSelected ?>>Nam</option>
-                        <option value="<?= Gender_Female ?>"<?= $femaleSelected ?>>Nữ</option>
-                    </select>
-                    <label for="ibirthday">Ngày sinh</label>
-                    <input id="ibirthday" invalid name="birthday" required type="date" value="<?= $readProfile ? $profile->birthday : "2000-01-01" ?>">
-                    <p class="error">Ngày sinh không thể bỏ trống!</p>
-                    <?
-                }
-                if (isset($account)) {
-                    ?>
-                    <label for="iuname">Tên người dùng</label>
-                    <input id="iuname" invalid invalid-isEmpty="Tên người dùng không thể bỏ trống!" invalid-isNotReach="Tên người dùng không thể ít hơn 6 ký tự!" invalid-isExceed="Tên người dùng không thể vượt quá 255 ký tự!" invalid-isExisted="Tên người dùng đã tồn tại!" name="uName" placeholder="Tên người dùng" required type="text" value="<?= $readAccount ? $account->userName : "" ?>">
-                    <p class="error">Tên người dùng không thể bỏ trống!</p>
-                    <?
-                }
-                ?>
-                <input id="iexit" type="reset" value="Thoát">
-                <input type="submit" value="Cập nhật">
-            </card>
-        </form>
-        <?
-    }
-
-    public function changePassword()
-    {
-        $holder = $this->holder;
-        if (!isset($holder))
-            return;
-        $key = $holder->getKey();
-        $updateAccount = $key->isPermissionGranted(Permission_AccountUpdate);
-        if (!$updateAccount)
-            return;
-        ?>
-        <form class="modal" action="/profile/updatePassword.php" method="post">
-            <card class="section">
-                <p class="title">Đổi mật khẩu</p>
-                <label for="ipassword">Mật khẩu hiện tại</label>
-                <input id="ipassword" invalid-isempty="Mật khẩu không thể bỏ trống!" invalid-isinvalid="Mật khẩu phải gồm ký tự đặc biệt, chữ hoa, thường & số!" invalid-isnotreach="Mật khẩu không thể ít hơn 8 ký tự!" invalid-isexceed="Mật khẩu không thể vượt quá 255 ký tự!" name="password" placeholder="Mật khẩu hiện tại" type="password">
-                <p class="error"></p>
-                <label for="ixpassword">Mật khẩu mới</label>
-                <input id="ixpassword" invalid-isempty="Mật khẩu không thể bỏ trống!" invalid-isinvalid="Mật khẩu phải gồm ký tự đặc biệt, chữ hoa, thường & số!" invalid-isnotreach="Mật khẩu không thể ít hơn 8 ký tự!" invalid-isexceed="Mật khẩu không thể vượt quá 255 ký tự!" invalid-ismatch="Mật khẩu cũ được nhập!" name="xpassword" placeholder="Mật khẩu mới" type="password">
-                <p class="error"></p>
-                <label for="izpassword">Nhập lại mật khẩu mới</label>
-                <input id="izpassword" invalid-isempty="Mật khẩu không thể bỏ trống!" invalid-isinvalid="Mật khẩu phải gồm ký tự đặc biệt, chữ hoa, thường & số!" invalid-isnotreach="Mật khẩu không thể ít hơn 8 ký tự!" invalid-isexceed="Mật khẩu không thể vượt quá 255 ký tự!" invalid-isnotmatch="Mật khẩu không khớp!" name="zpassword" placeholder="Nhập lại mật khẩu mới" type="password">
-                <p class="error"></p>
-                <input id="iexit" type="reset" value="Thoát">
-                <input type="submit" value="Cập nhật">
-            </card>
-        </form>
-        <?
-    }
-
-    public function addVerification()
-    {
-        $holder = $this->holder;
-        if (!isset($holder))
-            return;
-        $key = $holder->getKey();
-        $addVerification = $key->isPermissionGranted(Permission_VerificationCreate);
-        if (!$addVerification)
-            return;
-        ?>
-        <form class="modal" action="/profile/addVerification.php" method="post">
-            <card class="section">
-                <p class="title">Thêm xác thực</p>
-                <label for="stype">Loại thông tin</label>
-                <select name="verificationtype" id="stype" required>
-                    <option value="phone">Số điện thoại</option>
-                    <option value="email">Email</option>
-                </select>
-                <label for="ivalue">Số điện thoại</label>
-                <input id="ivalue" invalid-phone-isempty="Số điện thoại không thể bỏ trống!" invalid-phone-isnotreach="Số điện thoại không thể ít hơn 10 ký tự!" invalid-phone-isexceed="Số điện thoại không thể vượt quá 11 ký tự!" invalid-phone-isinvalid="Số điện thoại không hợp lệ!" invalid-email-isempty="Email không thể bỏ trống!" invalid-email-isnotreach="Tên Email không thể ít hơn 6 ký tự!" invalid-email-isexceed="Email không thể vượt quá 254 ký tự!" invalid-email-isinvalid="Email không hợp lệ!" name="value" placeholder="Số điện thoại" placeholder-phone="Số điện thoại" placeholder-email="Email" type="text" verification>
-                <p class="error"></p>
-                <input id="iexit" type="reset" value="Thoát">
-                <input type="submit" value="Cập nhật">
-            </card>
-        </form>
-        <?
-    }
-
-    public function deleteEmail()
-    {
-        $holder = $this->holder;
-        if (!isset($holder))
-            return;
-        $key = $holder->getKey();
-        $readVerification = $key->isPermissionGranted(Permission_VerificationRead);
-        $deleteVerification = $key->isPermissionGranted(Permission_VerificationDelete);
-        if (!$readVerification || !$deleteVerification)
-            return;
-        ?>
-        <form class="modal" action="/profile/deleteVerification.php" method="post">
-            <card class="section">
-                <p class="title">Email</p>
-                <label for="iemail">Email được chọn</label>
-                <input id="iemail" name="email" readonly type="text" value="<?= $this->deleteValue ?>">
-                <input id="iexit" type="reset" value="Thoát">
-                <input type="submit" value="Xoá">
-            </card>
-        </form>
-        <?
-    }
-
-    public function deletePhone()
-    {
-        $holder = $this->holder;
-        if (!isset($holder))
-            return;
-        $key = $holder->getKey();
-        $updateAccount = $key->isPermissionGranted(Permission_AccountUpdate);
-        if (!$updateAccount)
-            return;
-
-        ?>
-        <form class="modal" action="/profile/deleteVerification.php" method="post">
-            <card class="section">
-                <p class="title">Điện thoại</p>
-                <label for="iphone">Điện thoại được chọn</label>
-                <input id="iphone" name="phone" readonly type="text" value="<?= $this->deleteValue ?>">
-                <input id="iexit" type="reset" value="Thoát">
-                <input type="submit" value="Xoá">
-            </card>
-        </form>
-        <?
     }
 
     public function body()
@@ -548,30 +352,6 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
             </a>
         </card>
         <?
-        // <card class="section" style="font-size: 32rem;">
-        //     <p class="title">profile(firstName, lastName, gender, birthday, type, status, uid, role)</p>
-        //     <p class="title">account(username, password, perms, status)</p>
-        //     <p class="title">role(name, perms)</p>
-        //     <p class="title">verification(profid, key)</p>
-        //     <p class="title">payment(id, key, profid)</p>
-        // </card>
     }
-    public function modal()
-    {
-        if ($this->mode === ProfilePageMode_UpdateProfile)
-            $this->editProfile();
-        if ($this->mode === ProfilePageMode_ChangePassword)
-            $this->changePassword();
-        if ($this->mode === ProfilePageMode_AddVerification)
-            $this->addVerification();
-        if ($this->mode === ProfilePageMode_DeletePhone)
-            $this->deletePhone();
-        if ($this->mode === ProfilePageMode_DeleteEmail)
-            $this->deleteEmail();
-    }
-    // public function afterDocument()
-    // {
-    //     parent::afterDocument();
-    // }
 }
 ?>
