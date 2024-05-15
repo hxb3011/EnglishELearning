@@ -13,7 +13,7 @@ requirm('/learn/Excercise.php');
 requirm('/learn/Document.php');
 requirm('/learn/Question.php');
 
-
+requirl("profile/permissionChecker.php");
 requirl('/services/S3Service.php');
 
 class AdminCourses
@@ -40,7 +40,7 @@ class AdminCourses
         requirv("admin/courses/ManageAllCoursePage.php");
         global $page;
         $page = new ManageAllCoursePage();
-        $page->courses = array_slice($this->courseModel->getAllCourse(),0,5);
+        $page->courses = array_slice($this->courseModel->getAllCourse(), 0, 5);
         $page->tutors = ProfileDAO::getProfileByType(0);
         requira("_adminLayout.php");
     }
@@ -149,6 +149,20 @@ class AdminCourses
     }
     public function add_lesson()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            $key = $holder->getKey();
+            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_LessonCreate)) {
+                    $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $lesson = new Lesson();
             $lesson->ID = $this->lessonModel->generateValidLessonID();
@@ -169,6 +183,20 @@ class AdminCourses
     }
     public function update_lesson()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            $key = $holder->getKey();
+            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_LessonUpdate)) {
+                    $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $lesson = new Lesson();
             $lesson->ID = $_POST['lesson_id'];
@@ -186,8 +214,20 @@ class AdminCourses
     }
     public function delete_lesson()
     {
-        //
         $response = array();
+        $granted = false;
+        if (isset($holder)) {
+            $key = $holder->getKey();
+            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_LessonUpdate)) {
+                    $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $response['message'] = "Quyền bị từ chối";
+            echo json_encode($response);
+            return;
+        }
         $jsonData = "";
         if (isset($_REQUEST['lessonId'])) {
             $lesson = $this->lessonModel->getLessonById($_REQUEST['lessonId']);
@@ -209,6 +249,20 @@ class AdminCourses
     }
     public function add_excercise()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            $key = $holder->getKey();
+            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_AnswersCreate)) {
+                    $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $excercise = new Excercise();
             $excercise->Description = $_POST['description'];
@@ -229,6 +283,20 @@ class AdminCourses
     }
     public function update_excercise()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            $key = $holder->getKey();
+            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_AnswersUpdate)) {
+                    $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $excercise = $this->excerciseModel->getExcerciseById($_POST['excercise_id']);
             $excercise->Description = $_POST['description'];
@@ -245,6 +313,20 @@ class AdminCourses
     }
     public function delete_excercise()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            $key = $holder->getKey();
+            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_AnswersDelete)) {
+                    $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $response['message'] = "Quyền bị từ chối";
+            echo json_encode($response);
+            return;
+        }
         $response = array();
         $jsonData = "";
         $result = 0;
@@ -263,6 +345,20 @@ class AdminCourses
     }
     public function add_question()
     {
+        $response = array();
+        $granted = false;
+        if (isset($holder)) {
+            $key = $holder->getKey();
+            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_QuestionsCreate)) {
+                    $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $message = "bi tu choi";
+            echo json_encode(array("message" => $message));
+            exit();
+        }
         $question = new Question();
 
         $question->Content = $_POST['content'];
@@ -271,7 +367,6 @@ class AdminCourses
         $question->OrderN  = $this->questionModel->getTotalQuestionInExcercise($question->ExcerciseID) + 1;
 
         $newQuestionId = $this->questionModel->addQuestion($question);
-        $response = array();
         switch ($_POST['type']) {
             case 'multi_choice':
                 $questions = $_POST['mul_options'];
@@ -325,12 +420,26 @@ class AdminCourses
                 break;
         }
         $response["status"] = '204';
-        $response['message'] = 'Xóa thành công';
+        $response['message'] = 'Thêm thành công';
 
         echo json_encode($response);
     }
     public function update_question()
     {
+        $response = array();
+        $granted = false;
+        if (isset($holder)) {
+            $key = $holder->getKey();
+            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_QuestionsUpdate)) {
+                    $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $response['message'] = "Quyền bị từ chối";
+            echo json_encode($response);
+            return;
+        }
         $questionObj = $this->questionModel->getQuestionById($_POST['questionId']);
         $questionObj->Content = $_POST['content'];
         $questionObj->State = intval($_POST['state']);
@@ -352,8 +461,7 @@ class AdminCourses
                 break;
             case 'matching':
                 $oldMatching = $this->questionModel->getQMatchingByQuestion($questionObj->ID);
-                foreach($oldMatching as $index => $value)
-                {
+                foreach ($oldMatching as $index => $value) {
                     $this->questionModel->deleteQMatchingKey($value->KeyQ);
                 }
                 $this->questionModel->deleteQMatchingByQuestion($questionObj->ID);
@@ -395,10 +503,23 @@ class AdminCourses
 
                 break;
         }
-        }
+    }
     public function delete_question()
     {
         $response = array();
+        $granted = false;
+        if (isset($holder)) {
+            $key = $holder->getKey();
+            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_QuestionsDelete)) {
+                    $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $response['message'] = "Quyền bị từ chối";
+            echo json_encode($response);
+            return;
+        }
         if (isset($_REQUEST['questionId'])) {
             $result = $this->questionModel->deleteQuestion($_REQUEST['questionId']);
         }
@@ -427,6 +548,20 @@ class AdminCourses
     }
     public function add_document()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            $key = $holder->getKey();
+            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_DocumentRead) && $key->isPermissionGranted(Permission_DocumentCreate)) {
+                    $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $document = new Document();
             $document->ID = $this->documentModel->generateValidDocumentID();
@@ -458,6 +593,20 @@ class AdminCourses
     }
     public function update_document()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            $key = $holder->getKey();
+            if ($key->isPermissionGranted(Permission_SystemPrivilege)  && $key->isPermissionGranted(Permission_DocumentUpdate)) {
+                    $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $document = $this->documentModel->getDocumentByID($_POST['documentId']);
             $document->Description = $_POST['description'];
@@ -482,6 +631,19 @@ class AdminCourses
     public function delete_document()
     {
         $response = array();
+        $granted = false;
+        if (isset($holder)) {
+            $key = $holder->getKey();
+            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_DocumentDelete)) {
+                    $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $response['message'] = "Quyền bị từ chối";
+            echo json_encode($response);
+            return;
+        }
         $jsonData = "";
         if (isset($_REQUEST['documentId'])) {
             $document = $this->documentModel->getDocumentByID($_REQUEST['documentId']);
@@ -518,9 +680,9 @@ class AdminCourses
     public function get_total_page()
     {
         $data = json_decode(file_get_contents("php://input"), true);
-        $courses = $this->courseModel->getAllCourse($data['name'],$data['tutor']);
+        $courses = $this->courseModel->getAllCourse($data['name'], $data['tutor']);
         $totalCourses = count($courses);
-        $totalPages= $totalCourses / 5;
+        $totalPages = $totalCourses / 5;
 
         echo json_encode(ceil($totalPages));
     }
@@ -530,7 +692,7 @@ class AdminCourses
         $response = array();
 
         $response['page'] = $data['page'];
-        $course = $this->courseModel->getCourseFromPage(intval($data['page']),5,$data['name'],$data['tutor']);
+        $course = $this->courseModel->getCourseFromPage(intval($data['page']), 5, $data['name'], $data['tutor']);
         $response['course'] = $course;
         echo json_encode($response);
     }
@@ -570,7 +732,7 @@ class AdminCourses
         $editMode = isset($_REQUEST['editmode']);
         if ($editMode) {
             $document = $this->documentModel->getDocumentByID($_REQUEST['documentId']);
-            $document->DocUri = $this->s3Service->presignUrl($document->DocUri,"");
+            $document->DocUri = $this->s3Service->presignUrl($document->DocUri, "");
         }
         requirv("admin/courses/modal/document.php");
     }

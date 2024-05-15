@@ -163,7 +163,7 @@ class CourseModel
     /* SHARE */
     public function getCourseById($id)
     {
-        $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID AND course.ID =? AND Status=1";
+        $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID AND course.ID =? AND State=1";
         $params = array(
             'id' => $id
         );
@@ -253,6 +253,29 @@ class CourseModel
                 return null;
             }
         } catch (Exception $e) {
+        }
+    }
+    public function getCourseByProfileID($profileId)
+    {
+        $sqlQuery = "SELECT * FROM course WHERE ProfileID = ?";
+        $params = array($profileId);
+
+        try{
+            $result = Database::executeQuery($sqlQuery,$params);
+            if ($result != null) {
+                $courses = [];
+                foreach ($result as $index => $value) {
+                    $course = new Course();
+                    $course->constructFromArray($value);
+                    $courses[] = $course;
+                }
+                return $courses;
+            } else {
+                return array();
+            }
+        }catch(Exception $e)
+        {
+            return array();
         }
     }
 }
