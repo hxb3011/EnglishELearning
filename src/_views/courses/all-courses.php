@@ -23,7 +23,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
 
     public function favIcon(string $ico = null, string $svg = null)
     {
-        parent::favIcon($ico, $svg);
+        parent::favIcon("/assets/images/logo-icon.png", $svg);
     }
 
     public function head()
@@ -49,17 +49,19 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                             Danh sách khóa học
                         </h3>
                     </div>
+                    <div class="filter-section">
+                        <div class="filter-part d-flex align-items-center justify-content-center col-lg-4 col-md-4 col-sm-12  ">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm theo tên" id="search">
+                        </div>
+                    </div>
                     <div class="filter-section row">
                         <div class="filter-part d-flex align-items-center justify-content-center  col-lg-4 col-md-4 col-sm-12  ">
                             <select class="form-select" name="giangvien " id="giangvien">
                                 <option value="">Lựa chọn giảng viên</option>
                                 <? foreach ($this->tutors as $index => $tutor) : ?>
-                                    <option value="<? echo $tutor->getId() ?>"><? echo ($tutor->firstName. ' ' . $tutor->lastName  ) ?></option>
+                                    <option value="<? echo $tutor->getId() ?>"><? echo ($tutor->firstName . ' ' . $tutor->lastName) ?></option>
                                 <? endforeach ?>
                             </select>
-                        </div>
-                        <div class="filter-part d-flex align-items-center justify-content-center col-lg-4 col-md-4 col-sm-12  ">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm theo tên" id="search">
                         </div>
                         <div class="filter-part d-flex align-items-center justify-content-center col-lg-4 col-md-4 col-sm-12  ">
                             <input type="checkbox" name="is_price" id="is_price" style="margin-right:4rem;">
@@ -188,7 +190,15 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
 
 
                     targetPage = +targetPage;
-
+                    let searchData = {
+                        page: targetPage,
+                        tutor: tutor,
+                        name: name
+                    }
+                    if ($('#is_price').is(':checked')) {
+                        searchData.start_price = start_price;
+                        searchData.end_price = end_price;
+                    }
                     if (targetPage != currentPage) {
                         $('.pagination-item.active').removeClass('active');
                         $('.pagination-item').each(function() {
@@ -199,13 +209,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                         $.ajax({
                             url: 'http://localhost:62280/courses/ajax_call_action.php?action=get_course_by_page',
                             method: 'POST',
-                            data: JSON.stringify({
-                                page: targetPage,
-                                tutor: tutor,
-                                name: name,
-                                start_price: start_price,
-                                end_price: end_price
-                            }),
+                            data: JSON.stringify(searchData),
                             success: function(response) {
                                 let data = JSON.parse(response);
                                 console.log(data)
@@ -233,18 +237,13 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
             }
 
             function initPagination() {
-                search = 0;
-                searchData = {
+                let searchData = {
                     tutor: tutor,
                     name: name,
                 }
                 if ($('#is_price').is(':checked')) {
-                    searchData = {
-                        tutor: tutor,
-                        name: name,
-                        start_price: start_price,
-                        end_price: end_price,
-                    }
+                    searchData.start_price = start_price;
+                    searchData.end_price = end_price;
                 }
                 $.ajax({
                     url: 'http://localhost:62280/courses/ajax_call_action.php?action=get_total_page',
@@ -254,6 +253,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                         'Access-Control-Allow-Origin': '*'
                     },
                     success: function(response) {
+                        console.log(response, ' totalPage');
                         html = `
                        <li class="pagination-item" data-page="prev">
                                 <a href="javascript:void(0)">
@@ -303,24 +303,27 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                 }
                 tutor = $('#giangvien').val();
                 name = $('#search').val();
+                page = 1
+                let searchData = {
+                    page: 1,
+                    tutor: tutor,
+                    name: name,
+                }
+                if ($('#is_price').is(':checked')) {
+                    searchData.start_price = start_price;
+                    searchData.end_price = end_price;
+                }
                 initPagination()
-                search = 1;
                 $.ajax({
                     url: 'http://localhost:62280/courses/ajax_call_action.php?action=get_course_by_page',
                     method: 'POST',
-                    data: JSON.stringify({
-                        page: 1,
-                        tutor: tutor,
-                        name: name,
-                        start_price: start_price,
-                        end_price: end_price,
-                    }),
+                    data: JSON.stringify(searchData),
                     headers: {
                         'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
                     },
                     success: function(response) {
                         let data = JSON.parse(response);
-                        console.log(data);
+                        console.log(data)
                         showData(data);
                     }
                 })

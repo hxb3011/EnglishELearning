@@ -1,4 +1,7 @@
 <?
+
+use function PHPSTORM_META\type;
+
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/CourseModel.php');
 requirm('/dao/LessonModel.php');
@@ -17,7 +20,7 @@ requirm('/learn/Excercise.php');
 requirm('/learn/Subscription.php');
 requirm('/learn/Tracking.php');
 requirm('/learn/Question.php');
-requirm('/dao/profile.php');
+requirm('/dao/profile/profile.php');
 
 
 requirm('/excerciseresponse/ExcersResponse.php');
@@ -144,9 +147,10 @@ class Courses
     public function get_total_page()
     {
         $data = json_decode(file_get_contents("php://input"), true);
+
         if (isset($data['start_price']) &&  isset($data['end_price']))
         {
-            $courses = $this->courseModel->getAllCourseBySearch($data['name'], $data['tutor'],$data['start_price'],$data['end_price']);
+            $courses = $this->courseModel->getAllCourseBySearch($data['name'], $data['tutor'],intval($data['start_price']),intval($data['end_price']));
         }else{
             $courses = $this->courseModel->getAllCourseBySearch($data['name'], $data['tutor']);
         }
@@ -156,13 +160,13 @@ class Courses
     }
     public function get_course_by_page()
     {
-        $data = json_decode(file_get_contents("php://input"), true);
+        $data = json_decode(file_get_contents("php://input"),true);
         $response = array();
-        $response['page'] = $data['page'];
         if (isset($data['start_price']) &&  isset($data['end_price']))
         {
-            $courses = $this->courseModel->getCourseFromPage2(intval($data['page']), 5, $data['name'],$data['tutor'],$data['start_price'],$data['end_price']);
-        }else{
+           $courses = $this->courseModel->getCourseFromPage2(intval($data['page']), 5, $data['name'],$data['tutor'],intval($data['start_price']),intval($data['end_price']));
+        }
+        else{
             $courses = $this->courseModel->getCourseFromPage2(intval($data['page']), 5, $data['name'],$data['tutor']);
         }
         if ($courses != null) {
@@ -172,8 +176,6 @@ class Courses
         }
         $response['course'] = $courses;
         $response['status'] = 'vaoday';
-        $response['start_price'] = $data['start_price'];
-        $response['end_price'] = $data['end_price'];
 
         echo json_encode($response);
     }

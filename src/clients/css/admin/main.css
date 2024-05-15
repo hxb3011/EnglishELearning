@@ -48,7 +48,8 @@
 .mdi-b.-user::before{
     content: var(--mdi-account);
 }
-.mdi-b.dictionary::before{
+
+.mdi-b.-dictionary::before{
     content: var(--mdi-book-alphabet);
 }
 .mdi-b.post::before{
@@ -56,6 +57,10 @@
 }
 .mdi-b.comment::before{
     content: var(--mdi-comment);
+}
+.mdi-b.history::before{
+    content: var(--mdi-history);
+
 }
 a {
     text-decoration: none;
@@ -172,11 +177,6 @@ a.sidebar-link:hover {
 .sidebar-item {
     position: relative;
 }
-
-
-
-
-
 .navbar {
     background-color: #f5f5f5;
     box-shadow: 0 0 2rem 0 rgba(33, 37, 41, .1);

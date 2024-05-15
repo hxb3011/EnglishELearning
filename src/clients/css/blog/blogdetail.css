@@ -7,6 +7,10 @@
 }
 li{
     list-style: none;
+    font-size: 15rem
+}
+li{
+    list-style: none;
 }
 /* Set a base font size and family */
 body {
@@ -110,6 +114,7 @@ body {
 
 .recent-post .pl-3 h4{
     align-self: center;
+    align-self: center;
     max-height: 100%;
     font-weight: 600;
     color: #000;
@@ -120,7 +125,14 @@ body {
     padding: 10px;
     margin-right: 5rem;
 }
+/* Tags */
+.tags .btn{
+    font-size: 15rem;
+    padding: 10px;
+    margin-right: 5rem;
+}
 .tags h3 {
+    font-size: 15rem;
     font-size: 15rem;
     font-weight: 600;
     color: #000;
@@ -199,10 +211,12 @@ body {
 /* Media */
 .media .media-body .author{
     font-size: 10rem;
+    font-size: 10rem;
     font-weight: 600;
 }
 
 .media .media-body .date{
+    font-size: 10rem;
     font-size: 10rem;
 }
 
@@ -264,6 +278,14 @@ body {
 
 .active {
     color: #ff782d;
+}
+
+#btnCmt{
+    font-size: 12rem;
+}
+#inputNameCmt, #inputEmailCmt, #inputComment{
+    font-size: 20rem;
+    margin-top: 10px;
 }
 
 #btnCmt{

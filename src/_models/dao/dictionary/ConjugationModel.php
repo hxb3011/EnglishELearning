@@ -49,12 +49,27 @@ class ConjugationModel {
         }
     }
     
-    public function addConjugation(Conjugation $Conjugation){
+    // public function addConjugation(Conjugation $Conjugation){
+    //     $sql = "INSERT INTO Conjugation (InfinitiveID, AlternativeID, Description) VALUES (?, ?, ?)";
+    //     $params = array(
+    //         "InfinitiveID" => $Conjugation->infinitiveID,
+    //         "AlternativeID" => $Conjugation->alternativeID,
+    //         "Description" => $Conjugation->description
+    //     );
+    //     try{
+    //         $result = Database::executeNonQuery($sql,$params);
+    //         return $result;
+    //     } catch (Exception $e){
+    //         return false;
+    //     }
+    // }
+
+    public function addConjugation($infinitiveID,$alternativeID,$description){
         $sql = "INSERT INTO Conjugation (InfinitiveID, AlternativeID, Description) VALUES (?, ?, ?)";
         $params = array(
-            "InfinitiveID" => $Conjugation->infinitiveID,
-            "AlternativeID" => $Conjugation->alternativeID,
-            "Description" => $Conjugation->description
+            "InfinitiveID" => $infinitiveID,
+            "AlternativeID" => $alternativeID,
+            "Description" => $description
         );
         try{
             $result = Database::executeNonQuery($sql,$params);

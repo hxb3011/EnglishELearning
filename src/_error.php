@@ -10,8 +10,8 @@ final class ErrorPage extends BaseHTMLDocumentPage
     public function __construct(int $activeNav)
     {
         parent::__construct($activeNav);
-        $ersp = &$_GET["ersp"];
-        $uri = &$_GET["uri"];
+        $ersp = &$_REQUEST["ersp"];
+        $uri = &$_REQUEST["uri"];
         if (!isset($uri))
             $uri = "(không rõ đường dẫn)";
         elseif (strpos($uri, "/_controllers/") !== false)

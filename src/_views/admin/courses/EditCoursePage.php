@@ -18,17 +18,17 @@ class EditCoursePage extends BaseHTMLDocumentPage
 
     public function documentInfo(string $author, string $description, string $title)
     {
-        parent::documentInfo($author, $description, "Khóa học- " . $title);
+        parent::documentInfo($author, $description, "Khóa học - " . $title);
     }
 
     public function openGraphInfo(string $image, string $description, string $title)
     {
-        parent::openGraphInfo($image, $description, "Hồ sơ - " . $title);
+        parent::openGraphInfo($image, $description, "Khóa học - " . $title);
     }
 
     public function favIcon(string $ico = null, string $svg = null)
     {
-        parent::favIcon($ico, $svg);
+        parent::favIcon("/assets/images/logo-icon.png", $svg);
     }
 
     public function head()
@@ -340,6 +340,9 @@ class EditCoursePage extends BaseHTMLDocumentPage
             $(document).ready(function() {
                 // thêm summer note
                 initSummerNote('#description');
+                $.validator.addMethod("notEmpty",function(value,element){
+                    return value.trim().length > 0;
+                })
                 //thêm các validate rule cho form
                 $("#form_edit_course").validate({
                     ignore: [],
@@ -354,10 +357,12 @@ class EditCoursePage extends BaseHTMLDocumentPage
                     rules: {
                         title: {
                             required: true,
-                            minlength: 5
+                            minlength: 5,
+                            notEmpty : true,
                         },
                         description: {
                             required: true,
+                            notEmpty : true,
                         },
                         start_date: {
                             required: true,
@@ -377,10 +382,12 @@ class EditCoursePage extends BaseHTMLDocumentPage
                     messages: {
                         title: {
                             required: "Vui lòng nhập tên khóa học",
-                            minlength: "Độ dài của tên khóa học tối thiểu là 5"
+                            minlength: "Độ dài của tên khóa học tối thiểu là 5",
+                            notEmpty : "Độ dài của tên khóa học tối thiểu là 5"
                         },
                         description: {
                             required: "Vui lòng nhập mô tả khóa học",
+                            notEmpty : "Độ dài của tên khóa học tối thiểu là 5"
                         },
                         start_date: {
                             required: "Vui lòng chọn ngày bắt đầu",

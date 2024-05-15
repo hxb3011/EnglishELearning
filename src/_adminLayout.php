@@ -80,28 +80,36 @@ $page->beforeDocument();
                     </ul>
                 </li>
                 <li class="sidebar-item">
-                    <a href="/administration/dashboard.php" class="sidebar-link" >
+                    <a href="/administration/access/account.php" class="sidebar-link" >
                         <span class="mdi-b -account"></span>
                         <span class="sidebar-item__text">Tài khoản</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="/administration/dashboard.php" class="sidebar-link" >
+                    <a href="/administration/profile/index.php" class="sidebar-link" >
                         <span class="mdi-b -user"></span>
-                        <span class="sidebar-item__text">User</span>
+                        <span class="sidebar-item__text">Hồ sơ</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="/administration/dashboard.php" class="sidebar-link" >
+                    <a href="/administration/access/role.php" class="sidebar-link" >
                         <span class="mdi-b -role"></span>
-                        <span class="sidebar-item__text">Role</span>
+                        <span class="sidebar-item__text">Vai trò</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="/administration/dashboard.php" class="sidebar-link" >
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#dictionary" aria-expanded="false" aria-controls="dictionary" >
                         <span class="mdi-b -dictionary"></span>
-                        <span class="sidebar-item__text">Từ vựng</span>
+                        <span class="sidebar-item__text">Dictionary</span>
                     </a>
+                    <ul id="dictionary" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/administration/dictionary/dictionary.php" class="sidebar-link">Quản lý từ điển</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/administration/dictionary/add.php" class="sidebar-link">Thêm từ vựng</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="sidebar-item">
                     <a href="/administration/blog/index.php" class="sidebar-link" >
@@ -110,9 +118,15 @@ $page->beforeDocument();
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="/administration/dashboard.php" class="sidebar-link" >
+                    <a href="" class="sidebar-link" >
                         <span class="mdi-b -blog"></span>
                         <span class="sidebar-item__text">Bình luận</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/administration/history/index.php" class="sidebar-link" >
+                        <span class="mdi-b history"></span>
+                        <span class="sidebar-item__text">Lịch sử thanh toán</span>
                     </a>
                 </li>
             </ul>

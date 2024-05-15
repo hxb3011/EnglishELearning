@@ -5,7 +5,9 @@ requirm('/access/dictionary/Lemma.php');
 requirm('/access/dictionary/Example.php');
 requirm('/access/dictionary/Conjugation.php');
 requirm('/access/dictionary/Pronunciation.php');
+requirm('/access/dictionary/LearntRecord.php');
 
+requirm('/dao/dictionary/LearntRecordModel.php');
 requirm('/dao/dictionary/MeaningModel.php');
 requirm('/dao/dictionary/LemmaModel.php');
 requirm('/dao/dictionary/ExampleModel.php');
@@ -19,7 +21,7 @@ class Dictionary{
     public ExampleModel $exampleModel;
     public ConjugationModel $conjugationModel;
     public PronunciationModel $pronunciationModel;
-
+    
     public function __construct(){
         $this->meaningModel = new MeaningModel();
         $this->lemmaModel = new LemmaModel();
@@ -48,9 +50,6 @@ class Dictionary{
         $lemma = $this->lemmaModel->getLemmaByKeyL($word);
         if($lemma)
         {
-            $meaning = $this->meaningModel->getMeaningByLemmaID($lemma->ID);
-            $example = $this->exampleModel->getExampleByMeaningID($meaning[0]->ID);
-            $pronunciation = $this->pronunciationModel->getPronunciationByLemmaID($lemma->ID);
             $conjugation = $this->conjugationModel->getConjugationBy_InfinitiveID($lemma->ID);
             $alternative = [];
             foreach($conjugation as $item){
@@ -64,40 +63,39 @@ class Dictionary{
 
         global $page;    
         $page = new DictionaryMainPage();
-        $page->detail_contruct($lemma,$meaning,$example,$alternative,$pronunciation);
+        $page->detail_contruct($lemma,$alternative);
         requira("_layout.php");
         } else {
-            $this->word_not_found();
             echo "<script> alert('Word not found')</script>";
-        // global $page;
-        // $page = new DictionaryMainPage($word);
-        // requira("_layout.php");
+            global $page;
+            $page = new DictionaryMainPage($word);
+            requira("_layout.php");
         }
         
     }
-    public function word_not_found(){
-        echo "Not found word";
+    public function get_all()
+    {
+        $arr = array();
+        $arr['data'] = $this->subscription->get_all();
+        echo json_encode($arr);
     }
 
-    public function search($input){
+    public function add_favorite()
+    {
+        // $lemmaID = $_POST[]
+        // $this->LearntRecordModel->add_learntRecord()
+    }
+    public function search(){
         $response = array();
         $jsonData = "";
-        if (isset($_REQUEST['input'])) {
-            $key = $_REQUEST['input'];
-            $lemma_arr = [];
-            $lemma_arr = $this->lemmaModel->liveSearch($key);
+        if (isset($_REQUEST['search_input'])) {
+            $key = $_REQUEST['search_input'];
+            $key_arr = [];
+            $key_arr = $this->lemmaModel->liveSearch($key);
             
-            if($lemma_arr){
-                $items = [];
-                $item = [];
+            if($key_arr){
                 $response['status'] = '204';
-                foreach($lemma_arr as $lemma )
-                {
-                    $item['ID'] = $lemma->ID;
-                    $item['KeyL'] = $lemma->keyL;
-                    $items[] = $item;
-                }
-                $response['items'] = $items;
+                $response['items'] = $key_arr;
                 $jsonData = json_encode($response);
                 echo $jsonData;
             }
@@ -108,7 +106,6 @@ class Dictionary{
                 echo $jsonData;
             }
         }
-        
     }
 }
 ?>

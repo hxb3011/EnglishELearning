@@ -8,7 +8,25 @@ class LessonModel
     {
         $max = $this->getNumberOfTotalLesson();
         $max = $max + 1;
+        while($this->checkIDExists('LESSON'.$max))
+        {
+            $max = $max+1;
+        }
         return 'LESSON' . $max;
+    }
+    public function checkIDExists($id)   {
+        $sqlQuery ="SELECT * FROM lesson WHERE ID = ?";
+        $params = array($id);
+        try {
+            $result = Database::executeQuery($sqlQuery, $params);
+            if ($result != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            return false;;
+        }
     }
     public function getNumberOfTotalLesson()
     {
