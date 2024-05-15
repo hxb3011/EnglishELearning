@@ -47,7 +47,7 @@ class RoleMainPage extends BaseHTMLDocumentPage
             "/node_modules/jquery-ui/dist/themes/base/jquery-ui.min.css"
         );
         $this->scripts(
-            "access/changeDefaultRole.js"
+            "/clients/access/changeDefaultRole.js"
         );
     }
 

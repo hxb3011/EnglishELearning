@@ -76,14 +76,17 @@ if (!isset($reqm)) {
                 if (isset($add)) {
                     if ($add === "0") {
                         if ($key->isPermissionGranted(Permission_ProfileUpdate)) {
-                            $id = $_REQUEST["profileid"];
-                            $firstName = $_REQUEST["firstName"];
-                            $lastName = $_REQUEST["lastName"];
-                            $birthday = $_REQUEST["birthday"];
-                            $type = $_REQUEST["profiletype"];
-                            $account = $_REQUEST["account"];
-                            $role = $_REQUEST["role"];
+                            $breakpoint = 0;
+                            $id = &$_REQUEST["profileid"];
+                            $firstName = &$_REQUEST["firstName"];
+                            $lastName = &$_REQUEST["lastName"];
+                            $gender = &$_REQUEST["gender"];
+                            $birthday = &$_REQUEST["birthday"];
+                            $type = &$_REQUEST["profiletype"];
+                            $account = &$_REQUEST["account"];
+                            $role = &$_REQUEST["role"];
                             if (isset($id) && isset($firstName) && isset($lastName) && isset($gender) && isset($birthday) && isset($type) && isset($account) && isset($role)) {
+                                $breakpoint = 1;
                                 $gender = intval($gender);
                                 if ($gender !== Gender_Female)
                                     $gender = Gender_Male;
@@ -97,21 +100,25 @@ if (!isset($reqm)) {
                                 }
                                 if (ProfileDAO::updateProfile($profile)) {
                                     header('Location: /administration/profile/index.php');
+                                    $breakpoint = 2;
                                 } else {
                                     header('Location: /administration/profile/edit.php?add=' . $add . '&profileid=' . $id);
+                                    $breakpoint = 3;
                                 }
                                 $granted = true;
                             }
+                            // echo $breakpoint;
                         }
                     } elseif ($add === "1") {
                         if ($key->isPermissionGranted(Permission_ProfileCreate)) {
-                            $id = $_REQUEST["profileid"];
-                            $firstName = $_REQUEST["firstName"];
-                            $lastName = $_REQUEST["lastName"];
-                            $birthday = $_REQUEST["birthday"];
-                            $type = $_REQUEST["profiletype"];
-                            $account = $_REQUEST["account"];
-                            $role = $_REQUEST["role"];
+                            $id = &$_REQUEST["profileid"];
+                            $firstName = &$_REQUEST["firstName"];
+                            $lastName = &$_REQUEST["lastName"];
+                            $gender = &$_REQUEST["gender"];
+                            $birthday = &$_REQUEST["birthday"];
+                            $type = &$_REQUEST["profiletype"];
+                            $account = &$_REQUEST["account"];
+                            $role = &$_REQUEST["role"];
                             if (isset($id) && isset($firstName) && isset($lastName) && isset($gender) && isset($birthday) && isset($type) && isset($account) && isset($role)) {
                                 $gender = intval($gender);
                                 if ($gender !== Gender_Female)

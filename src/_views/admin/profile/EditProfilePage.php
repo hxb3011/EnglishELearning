@@ -96,6 +96,23 @@ class EditProfilePage extends BaseHTMLDocumentPage
                                             <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Tên" value="<?= $this->profile->firstName ?>">
                                         </div>
                                         <div class="form-group">
+                                            <label for="profiletype">Loại hồ sơ</label>
+                                            <select class="form-control" id="profiletype" name="gender"<?= ($this->add) ? "" : " readonly" ?>>
+                                                <?
+                                                $selected = " selected";
+                                                $male = "";
+                                                $female = "";
+                                                if ($this->profile->gender === Gender_Male) {
+                                                    $male = $selected;
+                                                } elseif ($this->profile->gender === Gender_Female) {
+                                                    $female = $selected;
+                                                }
+                                                ?>
+                                                <option value="<?= Gender_Male ?>"<?= $male ?>>Nam</option>
+                                                <option value="<?= Gender_Female ?>"<?= $female ?>>Nữ</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="birthday">Ngày sinh</label>
                                             <input type="date" class="form-control" id="birthday" name="birthday" placeholder="Ngày sinh" value="<?= $this->profile->birthday ?>">
                                         </div>
@@ -103,8 +120,8 @@ class EditProfilePage extends BaseHTMLDocumentPage
                                         if ($this->add) {
                                            ?>
                                             <div class="form-group">
-                                                <label for="profiletype">Loại hồ sơ</label>
-                                                <select class="form-control" id="profiletype" name="profiletype"<?= ($this->add) ? "" : " readonly" ?>>
+                                                <label for="gender">Loại hồ sơ</label>
+                                                <select class="form-control" id="gender" name="gender"<?= ($this->add) ? "" : " readonly" ?>>
                                                     <?
                                                     $selected = " selected";
                                                     $instructor = "";

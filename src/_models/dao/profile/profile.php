@@ -194,7 +194,7 @@ final class ProfileDAO
     }
     public static function updateProfile(Profile $profile)
     {
-        if (!isset($account))
+        if (!isset($profile))
             return false;
         $sql = "UPDATE `profile` SET `FirstName` = ?, `LastName` = ?, `Gender` = ?, `BirthDay` = ?, `Type` = ?, `Status` = ?, `UID` = ?, `RoleID` = ? WHERE `ID` = ?";
         $profileId = $profile->getId();
@@ -210,7 +210,7 @@ final class ProfileDAO
             $uid = $account->getUid();
         $roleID = "";
         $role = $profile->getRole();
-        if (isset($account))
+        if (isset($role))
             $roleID = $role->getId();
         return Database::executeNonQuery($sql, array($firstName, $lastName, $gender, $birthDay, $type, $status, $uid, $roleID, $profileId));
     }
