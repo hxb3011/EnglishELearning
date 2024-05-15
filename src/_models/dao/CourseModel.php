@@ -255,4 +255,27 @@ class CourseModel
         } catch (Exception $e) {
         }
     }
+    public function getCourseByProfileID($profileId)
+    {
+        $sqlQuery = "SELECT * FROM course WHERE ProfileID = ?";
+        $params = array($profileId);
+
+        try{
+            $result = Database::executeQuery($sqlQuery,$params);
+            if ($result != null) {
+                $courses = [];
+                foreach ($result as $index => $value) {
+                    $course = new Course();
+                    $course->constructFromArray($value);
+                    $courses[] = $course;
+                }
+                return $courses;
+            } else {
+                return array();
+            }
+        }catch(Exception $e)
+        {
+            return array();
+        }
+    }
 }

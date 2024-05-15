@@ -127,10 +127,37 @@ class Courses
 
         requira("_layout.php");
     }
-
-    public function checkout()
+    
+    public function my_course(?Profile $profile)
     {
+        requirv('courses/my-course.php');
+        global $page;
+        $page = new MyCoursePage();
+        $page->profile = $profile;
+        if($profile != null)
+        {   
+            if($profile->type ===  ProfileType_Learner )
+            {
+                $courseIDs = $this->subscriptionModel->getRegisterCoursesByUser($profile->getId());
+                foreach($courseIDs as $index => $value)
+                {
+                    $course = $this->courseModel->getCourseById($value);
+                    $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id,1);
+                    $course->totalStudent = $this->subscriptionModel->getTotalStudentOfCourse($course->id);
 
+                    $page->courses[]= $course;
+                }
+            }else{
+                $courses = $this->courseModel->getCourseByProfileID($profile->getId());
+                if ($courses != null) {
+                    foreach ($courses as $key => $course) {
+                        $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id,1);
+                        $course->totalStudent = $this->subscriptionModel->getTotalStudentOfCourse($course->id);
+                    }
+                }
+                $page->courses = $courses;
+            }
+        }
     }
     /* Ajax call function */
     public function update_tracking()

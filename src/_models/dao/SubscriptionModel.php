@@ -203,4 +203,26 @@ class SubscriptionModel
             return 0;
         }
     }
+    public function getRegisterCoursesByUser($ProfileID)
+    {
+        $sqlQuery = "SELECT CourseID from subscription WHERE ProfileID = ? ";
+        $params = array($ProfileID);
+        try{
+            $result = Database::executeQuery($sqlQuery,$params);
+            if($result != null)
+            {   
+                $courseIDs = array();
+                foreach($result as $key=>$value)
+                {
+                    $courseIDs[] = $value;
+                }
+                return $courseIDs;
+            }else{
+                return array();
+            }
+        }catch(Exception $e)
+        {
+            return array();
+        }
+    }
 }
