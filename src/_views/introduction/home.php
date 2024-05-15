@@ -58,61 +58,12 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
             <!-- <img src="/assets/images/banner-main.png" alt="Băng rôn"> -->
             <h1>Phát triển hoàn thiện kỹ năng với khóa học online</h1>
             <p>Chúng tôi luôn luôn lắng nghe nhu cầu của bạn và tận tâm phục vụ</p>
-            <a href="#">Tham gia học ngay</a>
+            <a href="/courses/all.php">Tham gia học ngay</a>
         </card>
 
-        <card class="categories section">
-            <div class="heading" title="Các danh mục" sub-title="Khám phá các danh mục khóa học của chúng tôi">
-                <a href="#">Tất cả danh mục</a>
-            </div>
-            <div class="content">
-                <div class="item" description="38 Courses" name="Toeic">
-                    <img src="/assets/images/icon-paint.png" alt="">
-                </div>
-                <div class="item" description="38 Courses" name="Toeic">
-                    <img src="/assets/images/icon-paint.png" alt="">
-                </div>
-                <div class="item" description="38 Courses" name="Toeic">
-                    <img src="/assets/images/icon-paint.png" alt="">
-                </div>
-                <div class="item" description="38 Courses" name="Toeic">
-                    <img src="/assets/images/icon-paint.png" alt="">
-                </div>
-                <div class="item" description="38 Courses" name="Toeic">
-                    <img src="/assets/images/icon-paint.png" alt="">
-                </div>
-                <div class="item" description="38 Courses" name="Toeic">
-                    <img src="/assets/images/icon-paint.png" alt="">
-                </div>
-                <div class="item" description="38 Courses" name="Toeic">
-                    <img src="/assets/images/icon-paint.png" alt="">
-                </div>
-                <div class="item" description="38 Courses" name="Toeic">
-                    <img src="/assets/images/icon-paint.png" alt="">
-                </div>
-                <div class="item" description="38 Courses" name="Toeic">
-                    <img src="/assets/images/icon-paint.png" alt="">
-                </div>
-                <div class="item" description="38 Courses" name="Toeic">
-                    <img src="/assets/images/icon-paint.png" alt="">
-                </div>
-                <div class="item" description="38 Courses" name="Toeic">
-                    <img src="/assets/images/icon-paint.png" alt="">
-                </div>
-                <div class="item" description="38 Courses" name="Toeic">
-                    <img src="/assets/images/icon-paint.png" alt="">
-                </div>
-                <div class="item" description="38 Courses" name="Toeic">
-                    <img src="/assets/images/icon-paint.png" alt="">
-                </div>
-                <div class="item" description="38 Courses" name="Toeic">
-                    <img src="/assets/images/icon-paint.png" alt="">
-                </div>
-            </div>
-        </card>
         <card class="courses section">
             <div class="heading" title="Khóa học nổi bật" sub-title="Khám phá các khóa học nổi bật của chúng tôi">
-                <a href="#">Tất cả khóa học</a>
+                <a href="/courses/all.php">Tất cả khóa học</a>
             </div>
             <div class="content">
                 <a href="#">
@@ -203,7 +154,7 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
         </card>
         <card class="blog section">
             <div class="heading" title="Bài viết mới nhất" sub-title="Các chia sẻ từ học viên, giảng viên ....">
-                <a href="#">Tất cả bài viết</a>
+                <a href="/blog/all.php">Tất cả bài viết</a>
             </div>
             <div class="content">
                 <div class="item">
@@ -252,16 +203,16 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
         </card>
         <card class="footer" copyright="Copyright © 2024 LMS | Powered by TeamDev">
             <div class="greeting">
-                <a href="#">ELearning</a>
+                <a href="/index.php">ELearning</a>
                 Chào mừng đến với trang web học tiếng Anh trực tuyến! Chúng tôi cung cấp một nền tảng học tập linh hoạt và tiện lợi cho mọi người muốn nâng cao kỹ năng tiếng Anh của mình. Với hàng trăm bài học, bài kiểm tra, và tài nguyên học liệu đa dạng, chúng tôi cam kết mang đến trải nghiệm học tập tích cực và hiệu quả nhất cho bạn.
             </div>
             <div class="group" label="Cần trợ giúp ?">
-                <a href="#">Liên hệ</a>
-                <a href="#">Bài viết mới</a>
-                <a href="#">FAQ</a>
+                <a href="/introduction/contact.php">Liên hệ</a>
+                <a href="/blog/all.php">Bài viết mới</a>
+                <a href="/introduction/faqs.php">FAQ</a>
             </div>
             <div class="group" label="Khóa học">
-                <a href="#">Các khóa học</a>
+                <a href="/courses/all.php">Các khóa học</a>
             </div>
             <div class="contact group" label="Liên hệ">
                 <p class="mdi-b addr">Address: 273 Đ. An Dương Vương, Phường 3, Quận 5, Thành phố Hồ Chí Minh</p>
