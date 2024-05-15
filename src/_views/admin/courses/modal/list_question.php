@@ -83,7 +83,6 @@ global $questions;
             var id = $(this).data('id')
             itemArray.push(id)
         })
-        console.log(itemArray);
         $.ajax({
             type: 'POST',
             url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=sort_question',

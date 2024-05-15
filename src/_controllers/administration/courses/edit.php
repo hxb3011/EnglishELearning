@@ -1,7 +1,10 @@
 <?
+if(!session_id())
+    session_start();
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("oopControllers/admin/courses.php");
 requirl("profile/permissionChecker.php");
+if(isset($_SESSION['isTutorOfCourse'])) unset($_SESSION['isTutorOfCourse']);
 $holder = getPermissionHolder();
 $_REQUEST["uri"] = $_SERVER['REQUEST_URI'];
 $reqm = &$_SERVER['REQUEST_METHOD'];
