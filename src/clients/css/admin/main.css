@@ -36,32 +36,40 @@
 .mdi-b.dots-vertical::before {
     content: var(--mdi-dots-vertical);
 }
+
 .mdi-b.back::before {
     content: var(--mdi-arrow-left-circle);
 }
-.mdi-b.-account::before{
+
+.mdi-b.-account::before {
     content: var(--mdi-home-account);
 }
-.mdi-b.-role::before{
+
+.mdi-b.-role::before {
     content: var(--mdi-shield-key-outline);
 }
-.mdi-b.-user::before{
+
+.mdi-b.-user::before {
     content: var(--mdi-account);
 }
 
-.mdi-b.-dictionary::before{
+.mdi-b.-dictionary::before {
     content: var(--mdi-book-alphabet);
 }
-.mdi-b.post::before{
+
+.mdi-b.post::before {
     content: var(--mdi-post);
 }
-.mdi-b.comment::before{
+
+.mdi-b.comment::before {
     content: var(--mdi-comment);
 }
-.mdi-b.history::before{
+
+.mdi-b.history::before {
     content: var(--mdi-history);
 
 }
+
 a {
     text-decoration: none;
 }
@@ -101,6 +109,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     width: 100%;
+    margin-left: 260px;
     overflow: hidden;
     transition: all 0.35s ease-in-out;
     background-color: #eee;
@@ -113,6 +122,8 @@ body {
     background-color: #0e2238;
     display: flex;
     flex-direction: column;
+    position: fixed;
+    height: 100vh;
 }
 
 .toggle-btn {
@@ -177,6 +188,7 @@ a.sidebar-link:hover {
 .sidebar-item {
     position: relative;
 }
+
 .navbar {
     background-color: #f5f5f5;
     box-shadow: 0 0 2rem 0 rgba(33, 37, 41, .1);
@@ -266,6 +278,10 @@ button.close {
         width: 70px !important;
         min-width: 70px;
         transition: all 0.5s ease-in-out;
+    }
+
+    .main {
+        margin-left: 70px;
     }
 
     #sidebar.expand {
@@ -378,4 +394,3 @@ button.close {
     flex-wrap: wrap;
 
 }
-

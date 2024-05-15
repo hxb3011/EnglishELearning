@@ -152,7 +152,7 @@ class AdminCourses
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            if (isAllPermissionsGranted([Permission_LessonCreate])) {
+            if (isAllPermissionsGranted([Permission_LessonCreate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
                 $granted = true;
             }
         }
@@ -185,8 +185,7 @@ class AdminCourses
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if (isAllPermissionsGranted([Permission_LessonUpdate])) {
+            if (isAllPermissionsGranted([Permission_LessonUpdate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
                 $granted = true;
             }
         }
@@ -215,16 +214,16 @@ class AdminCourses
     {
         $response = array();
         $granted = false;
+        $holder = getPermissionHolder();
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_LessonUpdate)) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_LessonDelete],$holder) || isset($_SESSION['isTutorOfCourse'])) {
                 $granted = true;
             }
         }
         if (!$granted) {
             http_response_code(403);
-            $response['message'] = "Quyền bị từ chối";
-            echo json_encode($response);
+            $message = "Quyền xóa bài giảng bị từ chối";
+            echo json_encode(array("message" => $message, "st" => "12"));
             return;
         }
         $jsonData = "";
@@ -251,7 +250,7 @@ class AdminCourses
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            if (isAllPermissionsGranted([Permission_AnswersCreate], $holder)) {
+            if (isAllPermissionsGranted([Permission_AnswersCreate], $holder) || isset($_SESSION['isTutorOfCourse'])) {
                 $granted = true;
             }
         }
@@ -284,7 +283,7 @@ class AdminCourses
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            if (isAllPermissionsGranted([Permission_AnswersUpdate])) {
+            if (isAllPermissionsGranted([Permission_AnswersUpdate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
                 $granted = true;
             }
         }
@@ -313,8 +312,7 @@ class AdminCourses
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_AnswersDelete)) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_AnswersDelete],$holder) || isset($_SESSION['isTutorOfCourse'])) {
                 $granted = true;
             }
         }
@@ -344,8 +342,10 @@ class AdminCourses
     {
         $response = array();
         $granted = false;
+        $holder = getPermissionHolder();
+
         if (isset($holder)) {
-            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_QuestionsCreate])) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_QuestionsCreate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
                 $granted = true;
             }
         }
@@ -424,9 +424,9 @@ class AdminCourses
     {
         $response = array();
         $granted = false;
+        $holder = getPermissionHolder();
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_QuestionsUpdate)) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_QuestionsUpdate],$holder)) {
                 $granted = true;
             }
         }
@@ -504,9 +504,9 @@ class AdminCourses
     {
         $response = array();
         $granted = false;
+        $holder = getPermissionHolder();
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_QuestionsDelete]))
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_QuestionsDelete],$holder) || isset($_SESSION['isTutorOfCourse']))
                 $granted = true;
         }
         if (!$granted) {
@@ -546,8 +546,7 @@ class AdminCourses
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_DocumentRead, Permission_DocumentCreate])) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_DocumentRead, Permission_DocumentCreate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
                 $granted = true;
             }
         }
@@ -591,8 +590,7 @@ class AdminCourses
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege)  && $key->isPermissionGranted(Permission_DocumentUpdate)) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_DocumentUpdate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
                 $granted = true;
             }
         }
@@ -627,15 +625,15 @@ class AdminCourses
     {
         $response = array();
         $granted = false;
+        $holder = getPermissionHolder();
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_DocumentDelete)) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_DocumentDelete],$holder) || isset($_SESSION['isTutorOfCourse'])) {
                 $granted = true;
             }
         }
         if (!$granted) {
             http_response_code(403);
-            $response['message'] = "Quyền bị từ chối";
+            $response['message'] = "Quyền xóa tài liệu bị từ chối";
             echo json_encode($response);
             return;
         }
@@ -861,8 +859,7 @@ class AdminCourses
         $course = $this->courseModel->getCourseById($courseID);
         if ($course != null) {
             $isTutorOfCourse = $course->profileID == $profileID ? true : false;
-            if($isTutorOfCourse)
-            {
+            if ($isTutorOfCourse) {
                 $_SESSION['isTutorOfCourse'] = true;
             }
             return $isTutorOfCourse;
