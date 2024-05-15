@@ -213,21 +213,6 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
 
                 })
             }
-
-            function initPagination() {
-                search = 0;
-                $.ajax({
-                    url: 'ajax_call_action.php?action=get_all',
-                    type: 'get',
-                    success: function(data) {
-                        let re = JSON.parse(data);
-                        console.log(data);
-                        console.log(re);
-                    }
-                })
-            })
-            
-
             // function initPagination() {
             //     search = 0;
             //     $.ajax({
