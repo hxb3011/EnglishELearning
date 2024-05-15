@@ -214,7 +214,7 @@ class SubscriptionModel
                 $courseIDs = array();
                 foreach($result as $key=>$value)
                 {
-                    $courseIDs[] = $value;
+                    $courseIDs[] = $value['CourseID'];
                 }
                 return $courseIDs;
             }else{

@@ -133,9 +133,10 @@ class Courses
         requirv('courses/my-course.php');
         global $page;
         $page = new MyCoursePage();
-        $page->profile = $profile;
+        $page->basePath = $this->s3Service->getBasePath();
         if($profile != null)
         {   
+            $page->profile = $profile;
             if($profile->type ===  ProfileType_Learner )
             {
                 $courseIDs = $this->subscriptionModel->getRegisterCoursesByUser($profile->getId());
@@ -158,6 +159,7 @@ class Courses
                 $page->courses = $courses;
             }
         }
+       requira("_layout.php");
     }
     /* Ajax call function */
     public function update_tracking()
