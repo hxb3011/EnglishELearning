@@ -61,9 +61,11 @@ class Courses
         $page->courses = array_slice($this->courseModel->getAllCourseBySearch(), 0, 5);
         $page->tutors = ProfileDAO::getProfileByType(0);
         $page->basePath = $this->s3Service->getBasePath();
+        
         if ($page->courses != null) {
             foreach ($page->courses as $key => $course) {
                 $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id,1);
+                $course->totalStudent = $this->subscriptionModel->getTotalStudentOfCourse($course->id);
             }
         }
         //$page->tutors
