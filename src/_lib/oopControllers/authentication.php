@@ -49,8 +49,8 @@ class Authentication
                 //session_regenerate_id();
                 if (empty($_SESSION['AUTH_UID'])) {
                     $_SESSION['AUTH_UID'] = $auth['UID'];
-                    echo "success";
                 }
+                echo "success";
             } else {
                 echo "Username hoặc mật khẩu không đúng";
             }

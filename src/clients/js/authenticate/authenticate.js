@@ -37,8 +37,17 @@ function authenticate() {
             success: function (data) {
                 console.log(data)
                 if (data == "success") {
-                    console.log("Login success");
-                    window.location.href = "/introduction/index.php";
+                    // console.log("Login success");
+                    "/authentication/authenticate.php?uri="
+                    let url = new URL(window.location.href);
+                    let redirect = url.searchParams.get("uri");
+                    if (!redirect) {
+                        redirect = "/introduction/index.php";
+                    }else {
+                        redirect = decodeURI(redirect);
+                    }
+                    console.log(redirect);
+                    window.location.href = redirect;
                 } else {
                     console.log("Login failed");
                     checkUIformLogin();
