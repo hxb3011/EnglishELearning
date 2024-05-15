@@ -1,4 +1,6 @@
 <?
+if(!session_id())
+session_start();
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("oopControllers/admin/courses.php");
 requirl("profile/permissionChecker.php");
@@ -13,16 +15,15 @@ if (!isset($reqm) || strtolower($reqm) !== "get") {
     $granted = false;
     if (isset($holder)) {
         $key = $holder->getKey();
-        if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_CourseManage)) {
-            if ($key->isPermissionGranted(Permission_CourseCreate)) {
-                $ctrl = new AdminCourses();
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $ctrl->add_course();
-                } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                    $ctrl->add();
-                }
-                $granted = true;
+        if(isAllPermissionsGranted([Permission_SystemPrivilege,Permission_CourseManage,Permission_CourseCreate]))
+        {
+            $ctrl = new AdminCourses();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $ctrl->add_course();
+            } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $ctrl->add();
             }
+            $granted = true;
         }
     }
     if (!$granted) {

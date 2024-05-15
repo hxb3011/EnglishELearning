@@ -152,9 +152,8 @@ class AdminCourses
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_LessonCreate)) {
-                    $granted = true;
+            if (isAllPermissionsGranted([Permission_LessonCreate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
             }
         }
         if (!$granted) {
@@ -186,9 +185,8 @@ class AdminCourses
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_LessonUpdate)) {
-                    $granted = true;
+            if (isAllPermissionsGranted([Permission_LessonUpdate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
             }
         }
         if (!$granted) {
@@ -216,16 +214,15 @@ class AdminCourses
     {
         $response = array();
         $granted = false;
+        $holder = getPermissionHolder();
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_LessonUpdate)) {
-                    $granted = true;
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_LessonDelete],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
             }
         }
         if (!$granted) {
             http_response_code(403);
-            $response['message'] = "Quyền bị từ chối";
-            echo json_encode($response);
+            echo json_encode('Quyền xóa bài giảng bị từ chối',JSON_UNESCAPED_UNICODE);
             return;
         }
         $jsonData = "";
@@ -252,9 +249,8 @@ class AdminCourses
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_AnswersCreate)) {
-                    $granted = true;
+            if (isAllPermissionsGranted([Permission_AnswersCreate], $holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
             }
         }
         if (!$granted) {
@@ -286,9 +282,8 @@ class AdminCourses
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_AnswersUpdate)) {
-                    $granted = true;
+            if (isAllPermissionsGranted([Permission_AnswersUpdate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
             }
         }
         if (!$granted) {
@@ -316,15 +311,14 @@ class AdminCourses
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_AnswersDelete)) {
-                    $granted = true;
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_AnswersDelete],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
             }
         }
         if (!$granted) {
             http_response_code(403);
-            $response['message'] = "Quyền bị từ chối";
-            echo json_encode($response);
+            $message = "Quyền xóa bài kiểm bị từ chối";
+            echo json_encode($message,JSON_UNESCAPED_UNICODE);
             return;
         }
         $response = array();
@@ -347,16 +341,17 @@ class AdminCourses
     {
         $response = array();
         $granted = false;
+        $holder = getPermissionHolder();
+
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_QuestionsCreate)) {
-                    $granted = true;
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_QuestionsCreate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
             }
         }
         if (!$granted) {
             http_response_code(403);
-            $message = "bi tu choi";
-            echo json_encode(array("message" => $message));
+            $message = "Quyền thêm câu hỏi bị từ chối";
+            echo json_encode($message,JSON_UNESCAPED_UNICODE);
             exit();
         }
         $question = new Question();
@@ -428,16 +423,16 @@ class AdminCourses
     {
         $response = array();
         $granted = false;
+        $holder = getPermissionHolder();
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_QuestionsUpdate)) {
-                    $granted = true;
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_QuestionsUpdate],$holder)) {
+                $granted = true;
             }
         }
         if (!$granted) {
             http_response_code(403);
-            $response['message'] = "Quyền bị từ chối";
-            echo json_encode($response);
+            $message = "Quyền sửa câu hỏi bị từ chối";
+            echo json_encode($message,JSON_UNESCAPED_UNICODE);
             return;
         }
         $questionObj = $this->questionModel->getQuestionById($_POST['questionId']);
@@ -508,16 +503,15 @@ class AdminCourses
     {
         $response = array();
         $granted = false;
+        $holder = getPermissionHolder();
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_QuestionsDelete)) {
-                    $granted = true;
-            }
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_QuestionsDelete],$holder) || isset($_SESSION['isTutorOfCourse']))
+                $granted = true;
         }
         if (!$granted) {
             http_response_code(403);
-            $response['message'] = "Quyền bị từ chối";
-            echo json_encode($response);
+            echo json_encode("Quyền xóa bị từ chối",JSON_UNESCAPED_UNICODE);
+
             return;
         }
         if (isset($_REQUEST['questionId'])) {
@@ -551,9 +545,8 @@ class AdminCourses
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_DocumentRead) && $key->isPermissionGranted(Permission_DocumentCreate)) {
-                    $granted = true;
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_DocumentRead, Permission_DocumentCreate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
             }
         }
         if (!$granted) {
@@ -596,9 +589,8 @@ class AdminCourses
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege)  && $key->isPermissionGranted(Permission_DocumentUpdate)) {
-                    $granted = true;
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_DocumentUpdate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
             }
         }
         if (!$granted) {
@@ -632,16 +624,16 @@ class AdminCourses
     {
         $response = array();
         $granted = false;
+        $holder = getPermissionHolder();
         if (isset($holder)) {
-            $key = $holder->getKey();
-            if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_DocumentDelete)) {
-                    $granted = true;
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_DocumentDelete],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
             }
         }
         if (!$granted) {
             http_response_code(403);
-            $response['message'] = "Quyền bị từ chối";
-            echo json_encode($response);
+            $response['message'] = "Quyền xóa tài liệu bị từ chối";
+            echo json_encode("Quyền xóa tài liệu bị từ chối");
             return;
         }
         $jsonData = "";
@@ -860,5 +852,17 @@ class AdminCourses
     private function removeFile($filePath)
     {
         $this->s3Service->deleteFileInBucket($filePath);
+    }
+    public function isTutor($profileID, $courseID)
+    {
+        $course = $this->courseModel->getCourseById($courseID);
+        if ($course != null) {
+            $isTutorOfCourse = $course->profileID == $profileID ? true : false;
+            if ($isTutorOfCourse) {
+                $_SESSION['isTutorOfCourse'] = true;
+            }
+            return $isTutorOfCourse;
+        }
+        return false;
     }
 }
