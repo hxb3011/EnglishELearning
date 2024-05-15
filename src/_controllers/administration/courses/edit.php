@@ -12,19 +12,16 @@ if (!isset($reqm) || strtolower($reqm) !== "get") {
 } else {
     $granted = false;
     if (isset($holder)) {
-        $key = $holder->getKey();
-        if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_CourseManage)) {
-            if ($key->isPermissionGranted(Permission_CourseUpdate)) {
-                $ctrl = new AdminCourses();
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $ctrl->edit_course();
-                } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                    if (isset($_REQUEST['courseId'])) {
-                        $ctrl->edit($_REQUEST['courseId']);
-                    } 
-                }
-                $granted = true;
+        $ctrl = new AdminCourses();
+        $courseId = (isset($_REQUEST['courseId'])) ? $_REQUEST['courseId'] :  $_POST['courseID'];
+        if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_CourseManage, Permission_CourseUpdate],$holder) 
+        || (($holder instanceof Profile) && $ctrl->isTutor($holder->getId(),$courseId) )) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $ctrl->edit_course();
+            } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $ctrl->edit($_REQUEST['courseId']);
             }
+            $granted = true;
         }
     }
     if (!$granted) {

@@ -861,4 +861,13 @@ class AdminCourses
     {
         $this->s3Service->deleteFileInBucket($filePath);
     }
+    public function isTutor($profileID,$courseID)
+    {
+        $course = $this->courseModel->getCourseById($courseID);   
+        if($course != null)
+        {
+            return $course->profileID == $profileID;
+        }
+        return false;
+    }
 }

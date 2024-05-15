@@ -31,7 +31,7 @@ class Course{
         $this->endDate = new DateTime($arrayValue['EndDate']);
         $this->price =  floatval($arrayValue['Price']);
         $this->name = $arrayValue['Name'];
-        $this->tutorName = $arrayValue['FirstName'] .' '.$arrayValue['LastName'];  
+        $this->tutorName =$arrayValue['LastName'] .' '. $arrayValue['FirstName'] ;  
     }
 
 

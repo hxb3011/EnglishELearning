@@ -160,6 +160,28 @@ class CourseModel
         } catch (Exception $e) {
         }
     }
+    public function getCourse($id)
+    {
+        $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID AND course.ID =?";
+        $params = array(
+            'id' => $id
+        );
+        try {
+            $result = Database::executeQuery($sqlQuery, $params);
+            if ($result != null) {
+                $course = new Course();
+                foreach ($result as $index => $value) {
+                    $course->constructFromArray($value);
+                    break;
+                }
+                return $course;
+            } else {
+                return null;
+            }
+        } catch (Exception $e) {
+            return null;
+        }
+    }
     /* SHARE */
     public function getCourseById($id)
     {

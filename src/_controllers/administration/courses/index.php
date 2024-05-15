@@ -12,13 +12,11 @@ if (!isset($reqm) || strtolower($reqm) !== "get") {
 } else {
     $granted = false;
     if (isset($holder)) {
-        $key = $holder->getKey();
-        if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_CourseManage)) {
-            if ($key->isPermissionGranted(Permission_CourseRead)) {
+        if(isAllPermissionsGranted([Permission_SystemPrivilege,Permission_CourseManage,Permission_CourseRead],$holder))
+        {
                 $ctrl = new AdminCourses();
                 $ctrl->index();
                 $granted = true;
-            }
         }
     }
     if (!$granted) {
