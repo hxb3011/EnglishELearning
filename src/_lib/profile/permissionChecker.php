@@ -17,6 +17,7 @@ function getPermissionHolder(): ?IPermissionHolder {
 
     return null;
 }
+
 function isSignedIn() {
     return getPermissionHolder() !== null;
 }

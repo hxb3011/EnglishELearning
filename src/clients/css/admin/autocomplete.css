@@ -3,6 +3,10 @@
     position:relative;
     display: inline;
 }
+.posAbsolute{
+    position:absolute;
+    z-index: 99;
+}
 #conjugationautocomplete-list{
     margin-top: 0.2rem;
 }

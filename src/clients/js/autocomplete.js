@@ -1,13 +1,12 @@
 
-function autocomplete(inp, inp_save, url) {
+function autocomplete(inp, inp_save, url, positionAbsolute) {
     // cái input tag
     inp.addEventListener("input", function(e) {
-
         closeAllLists(inp);
         var val = this.value;
         if (!this.value)
             {return false;}
-        var currentFocus = -1;
+        currentFocus = -1;
         var data = {
             search_input : val
         };
@@ -20,7 +19,7 @@ function autocomplete(inp, inp_save, url) {
             {
                 if(response.status == '204')
                 {
-                    show_autocomplete(inp,val,response.items);
+                    show_autocomplete(inp,val,response.items,positionAbsolute);
                 }
                 else if(response.status == '404')
                 {
@@ -62,13 +61,16 @@ function autocomplete(inp, inp_save, url) {
         closeAllLists(inp,e.target);
     });
 }
-function show_autocomplete(inp,val,data){   
+function show_autocomplete(inp,val,data,positionAbsolute){   
     
     //Đóng danh sách đang mở nếu có
     var a, b, i;
     a = document.createElement("DIV");
     a.setAttribute("id", inp.id + "autocomplete-list");
     a.setAttribute("class", "autocomplete-items");
+    if(positionAbsolute){
+        a.classList.add("posAbsolute");
+    }
     // Thêm div vào chung container mẹ với tag input    
     inp.parentNode.appendChild(a);
             

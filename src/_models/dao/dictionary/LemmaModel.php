@@ -33,6 +33,20 @@ class LemmaModel {
             return null;
         }
     }
+    public function get_all_lemmas(){
+        // $sqlQuery = "SELECT Lemma.ID, KeyL, partOfSpeech, meaning.meaning, profile.LastName,profile.FirstName FROM lemma, meaning, contribution, profile WHERE lemma.ID = meaning.LemmaID and contribution.MeaningID = meaning.ID and profile.ID = contribution.ProfileID";
+        $sqlQuery = "SELECT Lemma.ID, Lemma.KeyL, Lemma.partOfSpeech, Meaning.meaning FROM Lemma, Meaning WHERE Lemma.ID = meaning.LemmaID ";
+        $params = array(
+            
+        );
+        try {
+            $result = Database::executeQuery($sqlQuery, $params);
+            return $result;
+
+        } catch (Exception $e) {
+            return null;
+        }
+    }
     public function checkKeyExist($key){
         $sqlQuery = "SELECT * FROM Lemma WHERE KeyL like ?" ;
         $params = array(
