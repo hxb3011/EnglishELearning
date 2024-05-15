@@ -4,6 +4,8 @@ requirl("utils/htmlDocument.php");
 
 final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
 {
+    public array $courses = array();
+    public $basePath;
     public function __construct()
     {
         parent::__construct();
@@ -50,10 +52,9 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
         //     "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         // );
     }
-
     public function body()
     {
-        ?>
+?>
         <card class="banner">
             <!-- <img src="/assets/images/banner-main.png" alt="Băng rôn"> -->
             <h1>Phát triển hoàn thiện kỹ năng với khóa học online</h1>
@@ -66,51 +67,22 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
                 <a href="/courses/all.php">Tất cả khóa học</a>
             </div>
             <div class="content">
-                <a href="#">
-                    <img class="banner" src="/assets/images/blog.png" alt="">
-                    <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
-                    <div class="data">
-                        <span class="mdi-b calendar">2 Tuần</span>
-                        <span class="mdi-b graduation">156 Học viên</span>
-                    </div>
-                    <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
-                </a>
-                <a href="#">
-                    <img class="banner" src="/assets/images/blog.png" alt="">
-                    <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
-                    <div class="data">
-                        <span class="mdi-b calendar">2 Tuần</span>
-                        <span class="mdi-b graduation">156 Học viên</span>
-                    </div>
-                    <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
-                </a>
-                <a href="#">
-                    <img class="banner" src="/assets/images/blog.png" alt="">
-                    <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
-                    <div class="data">
-                        <span class="mdi-b calendar">2 Tuần</span>
-                        <span class="mdi-b graduation">156 Học viên</span>
-                    </div>
-                    <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
-                </a>
-                <a href="#">
-                    <img class="banner" src="/assets/images/blog.png" alt="">
-                    <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
-                    <div class="data">
-                        <span class="mdi-b calendar">2 Tuần</span>
-                        <span class="mdi-b graduation">156 Học viên</span>
-                    </div>
-                    <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
-                </a>
-                <a href="#">
-                    <img class="banner" src="/assets/images/blog.png" alt="">
-                    <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
-                    <div class="data">
-                        <span class="mdi-b calendar">2 Tuần</span>
-                        <span class="mdi-b graduation">156 Học viên</span>
-                    </div>
-                    <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
-                </a>
+                <? foreach ($this->courses as $key => $course) : ?>
+                    <a href="/courses/detail.php?courseId=<? echo $course->id ?>">
+                        <img class="banner" src="<?echo($this->basePath.$course->posterURI)?>" alt="">
+                        <p class="name" instructor="by <? echo $course->tutorName; ?>"><? echo $course->name; ?></p>
+                        <div class="data">
+                            <span class="mdi-b calendar">
+                                <?
+                                    $interval = $course->beginDate->diff($course->endDate);
+                                    echo ($interval->days . ' Ngày');
+                                ?>
+                            </span>
+                            <span class="mdi-b graduation"><? echo $course->totalStudent; ?> Học viên</span>
+                        </div>
+                        <p class="footer" href="/courses/detail.php?courseId=<? echo $course->id ?>" price="300.000 VNĐ">Xem chi tiết</p>
+                    </a>
+                <? endforeach ?>
             </div>
             <div class="statistic content">
                 <p name="Học viên" value="120"></p>
@@ -223,7 +195,7 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
         <!-- Back to Top -->
         <button id="back-to-top" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></button>
         <script src="/clients/utils/backToTop.js"></script>
-        <?
+<?
     }
 
     // public function afterDocument()
