@@ -26,7 +26,7 @@ requirm('/dao/profile/profile.php');
 requirm('/excerciseresponse/ExcersResponse.php');
 
 
-
+requirl("profile/permissionChecker.php");
 requirl('/services/S3Service.php');
 class Courses
 {
@@ -80,7 +80,8 @@ class Courses
         $lessons = $this->lessonModel->getLessonsByCourseId($courseId,1);
         $page->totalLesson = count($lessons);
         $page->course->totalStudent = $this->subscriptionModel->getTotalStudentOfCourse($page->course->id);
-        if(isset($_SESSION["AUTH_UID"]))
+        $holder = getPermissionHolder();
+        if(isset($holder) && $holder instanceof Profile)
         {
             $page->isRegistered = ($this->subscriptionModel->getSubscriptionByProAndCourse(ProfileDAO::getProfileByUid($_SESSION["AUTH_UID"])->getId(),$page->course->id)!= null) ? true : false;
         }
