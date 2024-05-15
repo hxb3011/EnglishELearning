@@ -2,6 +2,7 @@
 requirm('/dao/database.php');
 requirm('/access/Account.php');
 requirm('/dao/access/role.php');
+requirm("/profile/profile.php");
 class UserRepo
 {
 
@@ -171,10 +172,10 @@ class UserRepo
                 $resultAccount = $this->insertAccount($paramsAccount);
                 if ($resultAccount) {
                     $idProfile = uniqid();
-                    $type = 1;
+                    $type = ProfileType_Learner;
                     $status = 1;
                     $roleID = RoleDAO::getDefaultRoleForLearner()->getID();
-                    $newGender = $gender == "male" ? 1 : 0;
+                    $newGender = $gender == "male" ? Gender_Male : Gender_Female;
                     $paramsProfile = array($idProfile, $lastName, $firstName, $newGender, $birthday, $type, $status, $uid, $roleID);
                     $resultProfile = $this->insertProfile($paramsProfile);
                     if ($resultProfile) {

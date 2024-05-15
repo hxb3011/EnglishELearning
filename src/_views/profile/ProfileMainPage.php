@@ -193,7 +193,7 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
                     if ($hasAdministrationAction) {
                         ?>
                         <hr>
-                        <a class="list-item administration" href="administration/index.php" heading="Hệ thống" title="Quản trị hệ thống">
+                        <a class="list-item administration" href="/administration/index.php" heading="Hệ thống" title="Quản trị hệ thống">
                             <p class="icon mdi-b"></p>
                             <p class="action mdi-b"></p>
                         </a>
