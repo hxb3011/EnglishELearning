@@ -2,8 +2,8 @@
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
 
-Class ManageAllPosts extends BaseHTMLDocumentPage{
-    public $posts = array();
+Class ManageAllComments extends BaseHTMLDocumentPage{
+    public $comments = array();
     public $authors = array();
     public function __construct()
     {
@@ -42,8 +42,11 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                 <div class="col-md-12">
                     <div class="admin-header">
                         <span class="mdi-b apple-keyboard-command admin-header__icon"></span>
-                        Danh sách  bài post
+                        Danh sách các bình luận
                     </div>
+                </div>
+                <div class="categories">
+                    <div class=""></div>
                 </div>
             </div>
             <div style="margin-top:10px; margin-bottom:10px"></div>
@@ -61,12 +64,11 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                                 <option value="<?echo $author->getId()?>"><?echo($author->lastName.' '.$author->firstName)?></option>
                                             <?endforeach?>
                                         </select>
-                                        <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12   ">
+                                    </div>
+                                <div class="filter-part d-flex align-items-center justify-content-center col-md-3 col-sm-12" id="btn_search">
                                     <div class="form-outline" data-mdb-input-init>
                                         <input type="search" id="search_name" class="form-control" placeholder="Tìm theo tên " />
                                     </div>
-                                </div>
-                                <div class="filter-part d-flex align-items-center justify-content-center col-md-3 col-sm-12" id="btn_search">
                                     <button class="btn  filter-btn" onclick="onSearchData()">
                                         Lọc
                                     </button>
@@ -79,33 +81,29 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">SubID</th>
-                                                <th scope="col">Người đăng</th>
-                                                <th scope="col">Tên bài</th>
+                                                <th scope="col">Người bình luận</th>
                                                 <th scope="col">Nội dụng</th>
                                                 <th scope="col">Thời gian đăng</th>
-                                                <th scope="col">Tags</th>
                                                 <th scope="col">Trạng thái</th>
                                                 <!--<th scope="col">Actions</th>-->
                                             </tr>
                                         </thead>
                                         <tbody id="table_body">
-                                        <? if($this->posts != null): ?>
+                                        <? if($this->comments != null): ?>
                                                 <?php
-                                                foreach ($this->posts as $index => $post) :
+                                                foreach ($this->comments as $index => $comment) :
                                                 ?>
                                                     <tr>
                                                         <th scope="row"><? echo ($index + 1) ?></th>
-                                                        <td><? echo ($post->SubId) ?></td>
-                                                        <td><? echo ($post->author) ?></td>
-                                                        <td><? echo ($post->title) ?></td>
-                                                        <td><? echo ($post->content) ?></td>
-                                                        <td><? echo ($post->date->format('d-m-Y')); ?></td>
-                                                        <td><? echo ($post->tags) ?></td>
+                                                        <td><? echo ($comment->SubId) ?></td>
+                                                        <td><? echo ($comment->AuthID) ?></td>
+                                                        <td><? echo ($comment->content) ?></td>
+                                                        <td><? echo ($comment->date->format('d-m-Y')); ?></td>
                                                         <td>
-                                                            <? if ($post->status == 1) : ?>
-                                                                <span class="badge text-bg-success">Hoạt động</span>
+                                                            <? if ($comment->status == 1) : ?>
+                                                                <span class="badge text-bg-success">Hiện</span>
                                                             <? else : ?>
-                                                                <span class="badge text-bg-danger">Ngưng</span>
+                                                                <span class="badge text-bg-danger">Ẩn</span>
                                                             <? endif ?>
                                                         </td>
                                                         <td>
@@ -114,9 +112,9 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                                                     <span class="mdi-b dots-vertical"></span>
                                                                 </button>
                                                                 <ul class="dropdown-menu">
-                                                                    <li><a class="dropdown-item" href="/blog/detail.php/<?echo $post->SubId?>" target="_blank">Xem khóa học</a></li>
-                                                                    <li><a class="dropdown-item" href="/administration/blog/edit.php?Id=<?echo $post->SubId?>">Sửa khóa học</a></li>
-                                                                    <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=<? echo ($post->id); ?>','Xóa khóa học')">Xóa khóa học</a></li>
+                                                                    <li><a class="dropdown-item" href="/blog/detail.php/<?echo $comment->SubId?>" target="_blank">Xem khóa học</a></li>
+                                                                    <li><a class="dropdown-item" href="/administration/blog/edit.php?Id=<?echo $comment->SubId?>">Sửa khóa học</a></li>
+                                                                    <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=<? echo ($comment->id); ?>','Xóa khóa học')">Xóa khóa học</a></li>
 
                                                                 </ul>
                                                             </div>
@@ -312,9 +310,9 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                     <td>${data.post[i].title}</td>
                                     <td>${data.post[i].content}</td>
                                     <td>${post_date}</td>
-                                    <td><? echo ($post->tags) ?></td>
+                                    <td><? echo ($comment->tags) ?></td>
                                     <td>
-                                        ${ (data.post[i].status==1) ? "<span class=\"badge text-bg-success\">Hoạt động</span>" : "<span class=\"badge text-bg-success\">Hoạt động</span>"}
+                                        ${ (data.comment[i].status==1) ? "<span class=\"badge text-bg-success\">Hoạt động</span>" : "<span class=\"badge text-bg-success\">Hoạt động</span>"}
                                     </td>
                                     <td>
                                         <div class="dropright">
@@ -322,9 +320,9 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                                                         <span class="mdi-b dots-vertical"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="/courses/detail.php/${data.post[i].SubId}" target="_blank">Chi tiết</a></li>
-                                                <li><a class="dropdown-item" href="/administration/courses/edit.php?courseId=${data.post[i].SubId}">Sửa </a></li>
-                                                <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_post&subId=${data.post[i].SubId}','Xóa khóa học')">Xóa</a></li>
+                                                <li><a class="dropdown-item" href="/courses/detail.php/${data.comment[i].SubId}" target="_blank">Chi tiết</a></li>
+                                                <li><a class="dropdown-item" href="/administration/courses/edit.php?courseId=${data.comment[i].SubId}">Sửa </a></li>
+                                                <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_post&subId=${data.comment[i].SubId}','Xóa khóa học')">Xóa</a></li>
                                             </ul>
                                         </div>
                                 </td>
@@ -334,14 +332,12 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                 $('#table_body').html(html)
             }
             <th scope="row"><? echo ($index + 1) ?></th>
-            <td><? echo ($post->SubId) ?></td>
-            <td><? echo ($post->author) ?></td>
-            <td><? echo ($post->title) ?></td>
-            <td><? echo ($post->content) ?></td>
-            <td><? echo ($post->date->format('d-m-Y')); ?></td>
-            <td><? echo ($post->tags) ?></td>
+            <td><? echo ($comment->SubId) ?></td>
+            <td><? echo ($comment->AuthID) ?></td>
+            <td><? echo ($comment->content) ?></td>
+            <td><? echo ($comment->date->format('d-m-Y')); ?></td>
             <td>
-                <? if ($post->status == 1) : ?>
+                <? if ($comment->status == 1) : ?>
                     <span class="badge text-bg-success">Hoạt động</span>
                 <? else : ?>
                     <span class="badge text-bg-danger">Ngưng</span>
@@ -353,9 +349,9 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                         <span class="mdi-b dots-vertical"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/blog/detail.php/<?echo $post->SubId?>" target="_blank">Xem khóa học</a></li>
-                        <li><a class="dropdown-item" href="/administration/blog/edit.php?Id=<?echo $post->SubId?>">Sửa khóa học</a></li>
-                        <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=<? echo ($post->id); ?>','Xóa khóa học')">Xóa khóa học</a></li>
+                        <li><a class="dropdown-item" href="/blog/detail.php/<?echo $comment->SubId?>" target="_blank">Xem khóa học</a></li>
+                        <li><a class="dropdown-item" href="/administration/blog/edit.php?Id=<?echo $comment->SubId?>">Sửa khóa học</a></li>
+                        <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=<? echo ($comment->id); ?>','Xóa khóa học')">Xóa khóa học</a></li>
                     </ul>
                 </div>
             </td>

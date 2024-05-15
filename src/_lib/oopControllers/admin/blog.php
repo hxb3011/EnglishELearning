@@ -23,22 +23,22 @@ Class AdminBlog{
     }
 // Gọi view
     public function index(){
-        requirv("admin/blog/ManageAllPosts.php");
+        requirv("admin/blog/posts/ManageAllPosts.php");
         global $page;
         $page = new ManageAllPosts();
+        $page->posts = array_slice($this->postModel->getAllPosts(),0,5);
         $page->authors = ProfileDAO::getProfileByType(0);
-        $page->posts = array($this->postModel->getAllPosts());
         requira("_adminLayout.php");
     }
     public function add(){
-        requirv("admin/blog/AddNewPost.php");
+        requirv("admin/blog/posts/AddNewPost.php");
         global $page;
         $page = new AddNewPost();
         requira("_adminLayout.php");
     }
     public function edit($profileId)
     {
-        requirv("admin/blog/EditPost.php");
+        requirv("admin/blog/posts/EditPost.php");
         global $page;
         $page = new EditPost();
         $page->post = $this->postModel->getPostsByAuthorID($profileId);
@@ -73,7 +73,7 @@ Class AdminBlog{
     public function edit_post()
     {
         try {
-            $post = $this->postModel->getPostByID($_REQUEST['SubID']);
+            $post = $this->postModel->getPostByID($_REQUEST['ProfileID'], $_REQUEST['SubID']);
             $post->ProfileId = $_POST['ProfileId'];
             $post->SubId = $_POST['SubId'];
             $post->title = $_POST['title'];

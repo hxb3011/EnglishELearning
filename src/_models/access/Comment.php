@@ -1,6 +1,6 @@
 <?
 Class Comment{
-    public ?string $PProfileId;
+    public ?string $PProfId;
     public ?string $PSubId;
     public ?string $SubId;
     public ?string $AuthID;
@@ -13,7 +13,7 @@ Class Comment{
 
     public function constructFromArray($arrayValue)
     {
-        $this->PProfileId = $arrayValue['ProfileID'];
+        $this->PProfId = $arrayValue['PProfId'];
         $this->PSubId = $arrayValue['PSubId'];
         $this->SubId = $arrayValue['SubID'];
         $this->AuthID = $arrayValue['AuthID'];

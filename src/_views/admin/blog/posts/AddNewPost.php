@@ -3,8 +3,7 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
 class AddNewPost extends BaseHTMLDocumentPage
 {
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
     }
     // public function beforeDocument()
@@ -12,23 +11,19 @@ class AddNewPost extends BaseHTMLDocumentPage
     //     parent::beforeDocument();
     // }
 
-    public function documentInfo(string $author, string $description, string $title)
-    {
+    public function documentInfo(string $author, string $description, string $title){
         parent::documentInfo($author, $description, "Hồ sơ - " . $title);
     }
 
-    public function openGraphInfo(string $image, string $description, string $title)
-    {
+    public function openGraphInfo(string $image, string $description, string $title){
         parent::openGraphInfo($image, $description, "Hồ sơ - " . $title);
     }
 
-    public function favIcon(string $ico = null, string $svg = null)
-    {
+    public function favIcon(string $ico = null, string $svg = null){
         parent::favIcon($ico, $svg);
     }
 
-    public function head()
-    {
+    public function head(){
         $this->styles(
             "/node_modules/bootstrap/dist/css/bootstrap.min.css",
             "/node_modules/summernote/dist/summernote-bs5.min.css",
@@ -37,8 +32,7 @@ class AddNewPost extends BaseHTMLDocumentPage
             "/clients/css/admin/addcourse.css"
         );
     }
-    public function body()
-    {
+    public function body(){
 ?>
         <div class="container-fluid">
             <div class="row">

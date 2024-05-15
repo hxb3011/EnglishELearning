@@ -35,20 +35,28 @@ Class CommentModel{
     }
 // Lọc comment theo bài post
     public function getCommentsByPostID(string $profileId, string $postId){
-        $sqlQuery = "SELECT * FROM comment WHERE PProfileId=? AND PSubID=?";
+        $sqlQuery = "SELECT * FROM comment WHERE PProfId=? AND PSubID=?";
         $param = array($postId);
         try{
-            $result = Database::executeNonQuery($sqlQuery, $param);
+            $result = Database::executeQuery($sqlQuery, $param);
+            if($result != null){
+                $comment = new Comment();
+                foreach($result as $index => $value)
+                    $comment->constructFromArray($value);
+                return $comment;
+            }   else    return null;
             return $result;
         }
         catch(Exception $e){ 
             echo "ERROR! . $e";
             return false;
         }
+        
     }
+    
 // Lọc comment theo người đăng comment
     public function getCommentsByAuthorId(string $profieId){
-        $sqlQuery = "SELECT * FROM comment WHERE PProfileId=?";
+        $sqlQuery = "SELECT * FROM comment WHERE PProfId=?";
         $param = array($profieId);
         try{
             $result = Database::executeNonQuery($sqlQuery, $param);
@@ -61,9 +69,9 @@ Class CommentModel{
     }
 // Thêm comment
     public function addComment(Comment $comment ){
-        $sqlQuery = "INSERT INTO comment(PProfileId, PSubId, SubId, AuthID, Content, Date, Status) VALUE(?,?,?,?,?,?,?)";
+        $sqlQuery = "INSERT INTO comment(PProfId, PSubId, SubId, AuthID, Content, Date, Status) VALUE(?,?,?,?,?,?,?)";
         $param = array(
-            "ProfileId" => $comment->PProfileId,
+            "ProfileId" => $comment->PProfId,
             "PSubId" => $comment->PSubId,
             "SubId" => $comment->SubId,
             "AuthID" => $comment->AuthID,
@@ -84,11 +92,11 @@ Class CommentModel{
     /* Không thể sửa lại comment nên không có hàm update*/
 
 // Xóa comment
-    public function deleteComment(string $pprofileId, int $psubId)
+    public function deleteComment(string $PProfId, int $psubId)
     {
-        $sqlQuery = "DELETE FROM comment WHERE PProfileID=?, PSubId=?";
+        $sqlQuery = "DELETE FROM comment WHERE PProfId=?, PSubId=?";
         $params = array(
-            $pprofileId,
+            $PProfId,
             $psubId
         );
         try {

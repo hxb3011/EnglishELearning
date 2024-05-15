@@ -7,9 +7,10 @@ Class Post{
     public DateTime $date;
     public string $tags;
     public int $status;
-    public int $updated;
+    public string $updated;
     public string $author;
     public string $image;
+    public int $amount_of_comments;
 
     public function __construct(){}
 
@@ -17,14 +18,15 @@ Class Post{
     {
         $this->ProfileId = $arrayValue['ProfileID'];
         $this->SubId = $arrayValue['SubID'];
-        $this->title = $arrayValue['Title'];
+        $this->title = $arrayValue['title'];
+        $this->image = $arrayValue['Image']; 
         $this->content = $arrayValue['Content'];
-        $this->date = $arrayValue['Date'];
-        $this->tags = $arrayValue['Tags'];    ;
+        $this->date = new DateTime($arrayValue['Date']);
+        $this->tags = $arrayValue['tags'];    ;
         $this->status = $arrayValue['Status'];
         $this->updated = $arrayValue['Updated']; 
-        $this->author = $arrayValue['FirstName'] . ' '.$arrayValue['LastName'];
-        $this->image = $arrayValue['Image']; 
+        $this->author = $arrayValue['LastName'] . ' '.$arrayValue['FirstName'];
+        $this->amount_of_comments = $arrayValue['amount_of_comments'];
     }
 }
 ?>

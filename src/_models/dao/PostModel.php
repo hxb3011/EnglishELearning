@@ -34,10 +34,14 @@ Class PostModel{
         }
     }
 // Lấy toàn bộ dữ liệu post
-    public function getAllPosts($profileId = "")
+    public function getAllPosts()
     {
-        $sqlQuery = "SELECT post.* , profile.LastName,profile.FirstName FROM post,profile";
-        $param=array($profileId);
+        $sqlQuery = "SELECT post.*, profile.LastName,profile.FirstName, COUNT(comment.PSubID) AS amount_of_comments 
+                     FROM post 
+                     JOIN profile ON post.ProfileID=profile.ID
+                     JOIN comment ON post.ProfileID=comment.PProfID AND post.SubID=comment.PSubID
+                     GROUP BY post.ProfileID, post.SubID, post.title, post.Image, post.Content, post.Date, post.tags, post.Status, post.Updated, profile.LastName, profile.FirstName";
+        $param=array();
         try {
             $result = Database::executeQuery($sqlQuery, $param);
             if ($result != null) {
@@ -70,9 +74,17 @@ Class PostModel{
         }
     }
     // Lọc chính xác bài post
-    public function getPostByID(string $subId){
-        $sqlQuery = "SELECT post.*, profile.LastName,profile.FirstName FROM post,profile WHERE  post.ProfileID = profile.ID AND post.SubID =?";
-        $params = array($subId);
+    public function getPostByID(string $profileId, string $subId){
+        $sqlQuery = "SELECT post.*, profile.LastName,profile.FirstName, COUNT(comment.PSubID) AS amount_of_comments 
+                     FROM post 
+                     JOIN profile ON post.ProfileID=profile.ID
+                     JOIN comment ON post.ProfileID=comment.PProfID AND post.SubID=comment.PSubID
+                     WHERE  post.ProfileID=? AND post.SubID=?
+                     GROUP BY post.ProfileID, post.SubID, post.title, post.Image, post.Content, post.Date, post.tags, post.Status, post.Updated, profile.LastName, profile.FirstName";
+        $params = array(
+                $profileId,
+                $subId
+            );
         try {
             $result = Database::executeQuery($sqlQuery, $params);
             if ($result != null) {
