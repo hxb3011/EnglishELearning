@@ -52,16 +52,17 @@ class AdminDictionary
         $page->lemma = $this->lemmaModel->getLemmaByID($lemmaID);
         $conjugation = $this->conjugationModel->getConjugationBy_InfinitiveID($page->lemma->ID);
         $alternative = [];
-        foreach($conjugation as $item){
-            $alterLemma = new Lemma();
-            $alterLemma = $this->lemmaModel->getLemmaByID($item->alternativeID);
-            $lemma_conjugation_group = [];
-            $lemma_conjugation_group['lemma'] = $alterLemma;
-            $lemma_conjugation_group['description'] = $item->description;
-            $alternative[] = $lemma_conjugation_group;
-        }
+        // foreach($conjugation as $item){
+        //     $alterLemma = new Lemma();
+        //     $alterLemma = $this->lemmaModel->getLemmaByID($item->alternativeID);
+        //     $lemma_conjugation_group = [];
+        //     $lemma_conjugation_group['lemma'] = $alterLemma;
+        //     $lemma_conjugation_group['description'] = $item->description;
+        //     $alternative[] = $lemma_conjugation_group;
+        // }
         requira("_adminLayout.php");
     }
+    
     public function add(){
         requirv("admin/dictionary/AddWordPage.php");
         global $page;
@@ -125,12 +126,12 @@ class AdminDictionary
                     }
                 $word['meaning'] = $meanings;
 
-                $contribution = $this->contributionModel->getContributionBy_LemmaID($lemma->ID);
-                // $profile = $this->profileModel->getProfileByID($contribution->profileID);
-                if($contribution){
-                    $word['contributor'] = $contribution->profileID;
-                    $word['state'] = $contribution->accepted;
-                }
+                // $contribution = $this->contributionModel->getContributionBy_LemmaID($lemma->ID);
+                // $profile = $this->profileModel->getProfileByID($contribution->profileID);q
+                // if($contribution){
+                    // $word['contributor'] = $contribution->profileID;
+                    // $word['state'] = $contribution->accepted;
+                // }
                 $words[] = $word;
             }
         return $words;
@@ -347,47 +348,6 @@ class AdminDictionary
             $example = $this->exampleModel->getExampleByID($_REQUEST['example_ID']);
             if($example)
                 $result = $this->exampleModel->deleteExample($example);
-        }
-        if (isset($result) && $result > 0) {
-            $response['status'] = '204';
-            $response['message'] = 'Xóa thành công';
-        } else {
-            $response['status'] = '404';
-            $response['message'] = 'Không xóa được';
-        }
-
-        $jsonData = json_encode($response);
-        echo $jsonData;
-    }
-    
-    public function update_lesson()
-    {
-        try {
-            $lesson = new Lesson();
-            $lesson->ID = $_POST['lesson_id'];
-            $lesson->Description = $_POST['lesson_desc'];
-            $lesson->State = $_POST['lesson_state'];
-            $lesson->CourseID = $_POST['course_id'];
-            $result = $this->lessonModel->updateLesson($lesson);
-            if ($result >= 1) {
-                $redirect = "Location: /administration/courses/edit.php?courseId=" . $lesson->CourseID;
-                header($redirect);
-                exit;
-            }
-        } catch (Exception $ex) {
-        }
-    }
-    public function delete_lesson()
-    {
-        //
-        $response = array();
-        $jsonData = "";
-        if (isset($_REQUEST['lessonId'])) {
-            $lesson = $this->lessonModel->getLessonById($_REQUEST['lessonId']);
-            $deleteLessonTextFolder = $this->s3Service->deleteFileInFolder('private/text/' . $lesson->CourseID . '/' . $lesson->ID . '/');
-            $deleteLessonVideoFolder = $this->s3Service->deleteFileInFolder('private/video/' . $lesson->CourseID . '/' . $lesson->ID . '/');
-
-            $result = $this->lessonModel->deleteLesson($lesson->ID);
         }
         if (isset($result) && $result > 0) {
             $response['status'] = '204';

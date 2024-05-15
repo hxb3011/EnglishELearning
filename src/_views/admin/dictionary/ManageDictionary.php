@@ -63,24 +63,14 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
                     <div class="card">
                         <div class="card-body">
                             <div class="filter-section row">
-                                <div class="filter-part d-flex align-items-center justify-content-center  col-md-5 col-sm-12  ">
-                                    <span class="filter-text" style="flex-grow:1;">
-                                        Giảng viên
-                                    </span>
-                                    <select class="form-select" name="giangvien" id="giangvien">
-                                        <option value="">Lựa chọn giảng viên</option>
-                                        <option value="PRO1">Saab</option>
-                                        <option value="PRO2">Mercedes</option>
-                                        <option value="PRO3">Audi</option>
-                                    </select>
-                                </div>
+                                
                                 <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12   ">
                                     <div class="form-outline" data-mdb-input-init>
-                                        <input type="search" id="search_name" class="form-control" placeholder="Tìm theo tên " />
+                                        <input type="search" id="search_name" class="form-control" placeholder="Tìm từ " />
                                     </div>
                                 </div>
                                 <div class="filter-part d-flex align-items-center justify-content-center col-md-3 col-sm-12" id="btn_search">
-                                    <button class="btn  filter-btn" onclick="onSearchData()">
+                                    <button class="btn  filter-btn"  onclick="">
                                         Lọc
                                     </button>
                                 </div>
@@ -94,8 +84,7 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
                                                 <th scope="col">Từ</th>
                                                 <th scope="col">Loại từ</th>
                                                 <th scope="col">Nghĩa</th>
-                                                <th scope="col">Trạng thái</th>
-                                                <th scope="col">Người thêm</th>
+                                                <th scope="col">State</th>
                                                 <th scope="col">Actions</th>
                                             </tr>
                                         </thead>
@@ -105,23 +94,23 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
                                                 foreach ($this->words as $word) :
                                                 ?>
                                                     <tr>
-                                                        <th scope="row"><? //echo ($word['lemma']->ID + 1) ?></th>
-                                                        <td><? echo ($word['lemma']['keyL']) ?></td>
-                                                        <td><? echo ($word['lemma']['partOfSpeech']) ?></td>
-                                                        <td>    
+                                                        <th scope="row"><? echo ($word['lemma']['ID'] ) ?></th>
+                                                        <td class="text-capitalize"><? echo ($word['lemma']['keyL']) ?></td>
+                                                        <td class="text-capitalize"><? echo ($word['lemma']['partOfSpeech']) ?></td>
+                                                        <td class="text-capitalize">    
                                                             <? foreach($word['meaning'] as $meaning) echo $meaning; ?>
                                                         </td>
                                                         <td>
-                                                            <? if (isset($word['state']) == 1) : ?>
-                                                                <? if ($word['state'] == 1) :?>
+                                                            <? //if (isset($word['state']) == 1) : ?>
+                                                                <? //if ($word['state'] == 1) :?>
                                                                 <span class="badge text-bg-success">Hoạt động</span>
-                                                            <? else : ?>
-                                                                <span class="badge text-bg-danger">Ngưng</span>
-                                                                <? endif ?>
-                                                            <? endif ?>
+                                                            <?// else : ?>
+                                                                <!-- <span class="badge text-bg-danger">Ngưng</span> -->
+                                                                <?//endif ?>
+                                                            <? // ?>
                                                         </td>
                                                         <td>
-                                                            <span class="badge text-bg-secondary"><? if (isset($word['state']) == 1) echo ($word['contributor']);  ?></span>
+                                                            <span class="badge text-bg-secondary"><? // if (isset($word['state']) == 1) echo ($word['contributor']);  ?></span>
                                                         </td>
                                                         <td>
                                                             <div class="dropright">
@@ -129,7 +118,6 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
                                                                     <span class="mdi-b dots-vertical"></span>
                                                                 </button>
                                                                 <ul class="dropdown-menu">
-                                                                    <li><a class="dropdown-item" href="/dictionary/detail.php/<? echo $word['lemma']['ID']?>" target="_blank">Xem khóa học</a></li>
                                                                     <li><a class="dropdown-item" href="/administration/dictionary/edit.php?lemmaID=<? echo $word['lemma']['ID'] ?>">Chỉnh sửa</a></li>
                                                                     <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=<? echo ($word['lemma']['ID']); ?>','Xóa khóa học')">Xóa khóa học</a></li>
 
@@ -160,7 +148,8 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
             "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
             "/node_modules/toastr/build/toastr.min.js",
             "/node_modules/sweetalert2/dist/sweetalert2.min.js",
-            "/clients/admin/main.js"
+            "/clients/admin/main.js",
+            "/clients/admin/autocomplete.js"
         );
         ?>
         <script>

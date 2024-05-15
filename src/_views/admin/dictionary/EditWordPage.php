@@ -91,27 +91,8 @@ class EditWordPage extends BaseHTMLDocumentPage
                                                         <span class="d-none d-sm-inline">Nghĩa</span>
                                                     </a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link rounded-0 pt-2 pb-2" data-bs-toggle="tab" href="#example">
-                                                        <i class="mdi-b camera-control"></i>
-                                                        <span class="d-none d-sm-inline">Ví dụ</span>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link rounded-0 pt-2 pb-2" data-bs-toggle="tab" href="#conjugation">
-                                                        <i class="mdi-b currency-cny"></i>
-                                                        <span class="d-none d-sm-inline">Chia động từ</span>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link rounded-0 pt-2 pb-2" data-bs-toggle="tab" href="#pronunciation">
-                                                        <i class="mdi-b poster"></i>
-                                                        <span class="d-none d-sm-inline">Phát âm</span>
-                                                    </a>
-                                                </li>
                                             </ul>
                                             <div class="tab-content b-0 mb-0 mt-4">
-                                                <!-- <div class="tab-pane active" id="program" role="tabpanel" aria-labelledby="nav_program"> -->
                                                 <div class="tab-pane active" role="tabpanel" aria-labelledby="nav_basic" id="basic">
                                                     <div class="row justify-content-center">
                                                         <div class="col-xl-8">
@@ -119,10 +100,10 @@ class EditWordPage extends BaseHTMLDocumentPage
                                                             <h5 class="fw-bold">Word:</h5> 
                                                             <div class="form-group row mb-3 ">
                                                                 <label class="col-md-3 col-form-label  w-25" for="lemmaKey">Key<span class="required">*</span> </label>
-                                                                <input type="text" class="form-control  w-25" id="lemmaKey" value="<? echo $this->lemma->keyL ?>" name="lemmaKey">
+                                                                <input type="text" class="form-control text-capitalize w-25" id="lemmaKey" value="<? echo $this->lemma->keyL ?>" name="lemmaKey">
 
                                                                 <label class="col-md-2 col-form-label w-25" for="partOfSpeech">Loại từ<span class="required">*</span> </label>
-                                                                <input type="text" class="form-control w-25" id="partOfSpeech" name="partOfSpeech" value="<? echo $this->lemma->partOfSpeech ?>"  placeholder="Nhập từ loại" >
+                                                                <input type="text" class="form-control text-capitalize w-25" id="partOfSpeech" name="partOfSpeech" value="<? echo $this->lemma->partOfSpeech ?>"  placeholder="Nhập từ loại" >
                                                             </div>
 
                                                             <h5 class="fw-bold">Pronunciation:</h5> 
@@ -156,32 +137,32 @@ class EditWordPage extends BaseHTMLDocumentPage
                                                 <div class="tab-pane " id="meaning" role="tabpanel" aria-labelledby="meaning">
                                                     <div class="row ">
                                                         <div class="col-md-12 mt-4 mb-4 d-flex justify-content-center">
-                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1 me-4" onclick="showAjaxModal('http://localhost:62280/administration/dictionary/show_modal.php?action=lesson_modal&courseId=<? echo $this->lemma->ID ?>','Thêm bài học')"><i class="mdi-b plus"></i> Thêm nghĩa</a>
+                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1 me-4" onclick="showAjaxModal('http://localhost:62280/administration/dictionary/show_modal.php?action=meaning_modal','Thêm nghĩa')"><i class="mdi-b plus"></i> Thêm nghĩa</a>
                                                         </div>
                                                     </div>
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="d-flex align-items-center justify-content-end mb-2">
                                                                 </div>
-                                                            </div>  
+                                                            </div>
                                                             <hr>
                                                             <? foreach (($this->lemma->meaning_arr) as $meaning) : ?>
                                                                 <? if ($meaning instanceof Meaning) : ?>
                                                                     <div class="col-12 mt-4">
-                                                                        <div class="card bg-light text-seconday ps-4 pe-4n " id="<? echo ($meaning->ID) ?>">
+                                                                        <div class="card bg-light  ps-4 pe-4n " id="<? echo ($meaning->ID) ?>">
                                                                             <div class="card-body">
                                                                                 <div class="d-flex justify-content-start align-items-center">
-                                                                                    <div class="card-title w-25">
+                                                                                    <div class="card-title fw-200 text-capitalize w-25">
                                                                                         <? echo '<strong>'.($meaning->meaning) .'</strong>'; ?>
                                                                                     </div>
                                                                                     <div class="card-title ">
                                                                                         <? echo ($meaning->explanation); ?>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="card-widget" id="<? echo ("widget-of-" . $meaning->ID) ?>" >
-                                                                                    <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showAjaxModal('http://localhost:62280/administration/dictionary/ajax_call_action.php?action=meaning_modal&editmode=1&meaningID=<? echo ($meaning->ID); ?>', 'Sửa nghĩa')"><i class="mdi-b pen"></i> Sửa nghĩa</a>
+                                                                                <div class="card-widget d-flex justify-content-between" id="<? echo ("widget-of-" . $meaning->ID) ?>" >
+                                                                                    <span><a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showAjaxModal('http://localhost:62280/administration/dictionary/ajax_call_action.php?action=meaning_modal&editmode=1&meaningID=<? echo ($meaning->ID); ?>', 'Sửa nghĩa')"><i class="mdi-b pen"></i> Sửa nghĩa</a>
                                                                                     <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="confirm_delete_modal('http://localhost:62280/administration/dictionary/ajax_call_action.php?action=delete_meaning&meaningID=<? echo ($meaning->ID); ?>','Xóa nghĩa','Bạn có chắc muốn xóa nghĩa này')"><i class="mdi-b delete"></i> Xóa nghĩa</a>
-                                                                                    <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showAjaxModal('http://localhost:62280/administration/dictionary/ajax_call_action.php?action=example_modal&meaningID=<? echo ($meaning->ID); ?>','Thêm ví dụ')"><i class="mdi-b plus"></i> Thêm ví dụ</a>
+                                                                                    </span><a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1" onclick="showAjaxModal('http://localhost:62280/administration/dictionary/ajax_call_action.php?action=example_modal&meaningID=<? echo ($meaning->ID); ?>','Thêm ví dụ')"><i class="mdi-b plus"></i> Thêm ví dụ</a>
                                                                                 </div>
                                                                                 <? foreach (($meaning->example_arr) as $example) : ?>
                                                                                     <div class="program__lesson bg-white ps-3 pe-3 pt-3 pb-3 mt-3 rounded-1 d-flex justify-content-between align-items-center" style="box-shadow: 0 0 35px 0 rgba(154, 161, 171, .15);">
@@ -206,13 +187,7 @@ class EditWordPage extends BaseHTMLDocumentPage
                                                                     </div>
                                                                 <? endif?>
                                                             <? endforeach ?>
-
                                                         </div>
-                                                </div>
-                                                
-
-                                                
-                                                
                                             </div>
                                         </div>
                                     </form>
@@ -263,10 +238,12 @@ class EditWordPage extends BaseHTMLDocumentPage
             "/node_modules/toastr/build/toastr.min.js",
             "/node_modules/sweetalert2/dist/sweetalert2.min.js",
             "/clients/admin/main.js",
-
+            "/clients/js/autocomplete.js",
         );
         ?>
         <script>
+            var currentFocus = -1;
+                autocomplete(document.getElementById("conjugation"),document.getElementById("infinitiveID"),"dictionary.php")
             $(document).ready(function() {
                 // thêm summer note
                 //thêm các validate rule cho form
@@ -338,7 +315,7 @@ class EditWordPage extends BaseHTMLDocumentPage
                     $('#widget-of-' + id).hide()
                 })
             })
-            initImageUpload(document.getElementsByClassName('image-box')[0])
+            // initImageUpload(document.getElementsByClassName('image-box')[0])
         </script>
 <?
     }

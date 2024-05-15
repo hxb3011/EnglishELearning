@@ -1,3 +1,4 @@
+
 function autocomplete(inp, inp_save, url) {
     // cái input tag
     inp.addEventListener("input", function(e) {
@@ -6,7 +7,7 @@ function autocomplete(inp, inp_save, url) {
         var val = this.value;
         if (!this.value)
             {return false;}
-        currentFocus = -1;
+        var currentFocus = -1;
         var data = {
             search_input : val
         };
