@@ -22,6 +22,12 @@
 .mdi-b.quiz::before{
     content: var(--mdi-help-circle-outline);
 }
+.mdi-b.start-date::before{
+    content: var(--mdi-clock-start);
+}
+.mdi-b.end-date::before{
+    content: var(--mdi-clock-end);
+}
 .wrapper{
     width: 100%;
 }

@@ -77,11 +77,17 @@ class Courses
         $page->course = $this->courseModel->getCourseById($courseId);
         $lessons = $this->lessonModel->getLessonsByCourseId($courseId,1);
         $page->totalLesson = count($lessons);
+        $page->totalStudents = $this->subscriptionModel->getTotalStudentOfCourse($page->course->id);
+        if(isset($_SESSION["AUTH_UID"]))
+        {
+            $page->isRegistered = ($this->subscriptionModel->getSubscriptionByProAndCourse(ProfileDAO::getProfileByUid($_SESSION["AUTH_UID"])->getId(),$page->course->id)!= null) ? true : false;
+        }
         foreach ($lessons as $lesson) {
             $lesson->Documents = $this->documentModel->getDocumentsByLessonID($lesson->ID);
             usort($lesson->Documents, array('Courses', 'compareOrderN'));
         }
-
+        $current = new DateTime();
+        $page->isRegisterable = ($current >= $page->course->beginDate && $current <= $page->course->endDate) ?  true  : false;
         $excercises = $this->excerciseModel->getExcercisesByCourseId($courseId);
         $page->totalExcercise = count($excercises);
         $page->programs = array_merge($lessons, $excercises);

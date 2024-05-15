@@ -25,7 +25,7 @@ class SubscriptionModel
                 return null;
             }
         } catch (Exception $e) {
-            echo $e->getMessage();
+            return null;
         }
     }
     public function getNumberOfTotalSub()
@@ -183,6 +183,24 @@ class SubscriptionModel
             return $result[0]['last_day_have_revenue'];
         } catch (Exception $e) {
             return false;
+        }
+    }
+
+    public function getTotalStudentOfCourse($CourseID)
+    {
+        $sqlQuery = "SELECT COUNT(*) as total_student FROM  subscription WHERE CourseID = ?";
+        $params = array($CourseID);
+
+        try{
+            $result = Database::executeQuery($sqlQuery,$params);
+            if($result != null)
+            {
+                return intval($result[0]['total_student']);
+            }
+            return 0;
+        }catch(Exception $e)
+        {
+            return 0;
         }
     }
 }

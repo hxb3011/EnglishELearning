@@ -14,12 +14,14 @@ const MainProfile = ((_) => {
         console.log(inputRegister, inputSignIn, inputSignOut);
         /** @this {HTMLInputElement} @param {Event} e */
         function onRegister(e) {
-
+            console.log("onRegister", this, e);
+            location.assign("/authentication/authenticate.php");
         }
 
         /** @this {HTMLInputElement} @param {Event} e */
         function onSignIn(e) {
-
+            console.log("onSignIn", this, e);
+            location.assign("/authentication/authenticate.php");
         }
 
         /** @this {HTMLInputElement} @param {Event} e */
