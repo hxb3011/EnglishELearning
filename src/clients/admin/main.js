@@ -125,7 +125,7 @@ function confirm_delete_modal(url, title, text) {
                     }
                 },
                 error:function(data){
-                    console.log(data)
+                    toastr.error(data.responseText)
                 }
             })
         }

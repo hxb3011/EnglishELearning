@@ -222,8 +222,7 @@ class AdminCourses
         }
         if (!$granted) {
             http_response_code(403);
-            $message = "Quyền xóa bài giảng bị từ chối";
-            echo json_encode(array("message" => $message, "st" => "12"));
+            echo json_encode('Quyền xóa bài giảng bị từ chối',JSON_UNESCAPED_UNICODE);
             return;
         }
         $jsonData = "";
@@ -319,7 +318,7 @@ class AdminCourses
         if (!$granted) {
             http_response_code(403);
             $message = "Quyền xóa bài kiểm bị từ chối";
-            echo json_encode(array("message" => $message));
+            echo json_encode($message,JSON_UNESCAPED_UNICODE);
             return;
         }
         $response = array();
@@ -352,7 +351,7 @@ class AdminCourses
         if (!$granted) {
             http_response_code(403);
             $message = "Quyền thêm câu hỏi bị từ chối";
-            echo json_encode(array("message" => $message));
+            echo json_encode($message,JSON_UNESCAPED_UNICODE);
             exit();
         }
         $question = new Question();
@@ -433,7 +432,7 @@ class AdminCourses
         if (!$granted) {
             http_response_code(403);
             $message = "Quyền sửa câu hỏi bị từ chối";
-            echo json_encode(array("message" => $message));
+            echo json_encode($message,JSON_UNESCAPED_UNICODE);
             return;
         }
         $questionObj = $this->questionModel->getQuestionById($_POST['questionId']);
@@ -511,8 +510,8 @@ class AdminCourses
         }
         if (!$granted) {
             http_response_code(403);
-            $response['message'] = "Quyền xóa bị từ chối";
-            echo json_encode($response);
+            echo json_encode("Quyền xóa bị từ chối",JSON_UNESCAPED_UNICODE);
+
             return;
         }
         if (isset($_REQUEST['questionId'])) {
@@ -634,7 +633,7 @@ class AdminCourses
         if (!$granted) {
             http_response_code(403);
             $response['message'] = "Quyền xóa tài liệu bị từ chối";
-            echo json_encode($response);
+            echo json_encode("Quyền xóa tài liệu bị từ chối");
             return;
         }
         $jsonData = "";
