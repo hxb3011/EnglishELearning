@@ -17,7 +17,7 @@ if (!isset($reqm) || strtolower($reqm) !== "get") {
             if ($key->isPermissionGranted(Permission_ProfileRead)) {
                 requirv("admin/profile/ProfileMainPage.php");
                 global $page;
-                $accounts = ProfileDAO::getAllProfiles();
+                $accounts = ProfileDAO::getProfileFromPage(1);
                 $page = new ProfileMainPage($holder, $accounts);
                 requira("_adminLayout.php");
                 $granted = true;

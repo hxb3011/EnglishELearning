@@ -19,7 +19,7 @@ if (!isset($reqm) || strtolower($reqm) !== "get") {
                 global $page;
                 $instructorRole = RoleDAO::getDefaultRoleForInstructor();
                 $learnerRole = RoleDAO::getDefaultRoleForLearner();
-                $roles = RoleDAO::getAllRoles();
+                $roles = RoleDAO::getRoleFromPage(1);
                 $page = new RoleMainPage($holder, $roles, $instructorRole, $learnerRole);
                 requira("_adminLayout.php");
                 $granted = true;
