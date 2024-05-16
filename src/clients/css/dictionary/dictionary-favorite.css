@@ -1,4 +1,7 @@
 /*----  Main Style  ----*/
+p::first-letter{
+    text-transform: capitalize;
+}
 .container{
     display: flex;
     flex-wrap: wrap;
@@ -94,6 +97,9 @@ input::placeholder{
     margin:0;
     padding:0;
     line-height: 2;
+}
+.part-of-speech::first-letter{
+    text-transform: capitalize;
 }
 .word_title{
     width: fit-content;

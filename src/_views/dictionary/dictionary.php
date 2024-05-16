@@ -9,7 +9,7 @@ requirm('/access/dictionary/Pronunciation.php');
 
 final class DictionaryMainPage extends BaseHTMLDocumentPage
 {
-    public $lemma_arr = array();
+    public Lemma $lemma;
     public $conjugation_arr = array();
     public $example_arr = array();
     public function __construct()
@@ -75,7 +75,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
         <div class="container my-5 mx-0" >
             <div class="section-heading xx-large mtop-5">find a word</div>
             <div class="margin-5 w-100">
-                <form class="form-inline d-flex form-search  mx-auto" method= "get" action="all.php" name="dictionary_search" autocomplete="off">
+                <form class="form-inline d-flex form-search mx-auto" method= "get" action="all.php" name="dictionary_search" autocomplete="off">
                 <div class="autocomplete w-100">
                     <input class="form-control border border-dark mr-sm-2 search_bar" id="inp_search" type="search" name="dictionary_search" placeholder=" Search..." aria-label="Search">
                     <input type="hidden" id="inp_save">
@@ -93,7 +93,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
                     <h3 class="part-of-speech  ">'. $this->lemma->partOfSpeech.'</h3>
                     <div class="title_n_heart">
                         <h3 class="word_title text-reset ">'. $this->lemma->keyL.'</h3>
-                        <a class="mdi-b heart-icon -dictionary " hint="Yêu thích" id="favorite" value="'.$this->lemma->ID.'" href="#"></a>
+                        <a class="mdi-b heart-icon -dictionary '; if($this->lemma->favorite) echo "_selected"; echo'" hint="Yêu thích" id="favorite" value="'.$this->lemma->ID.'" href="#"></a>
                     </div>
                     <span class="word_pronunciation ">';
                     if(!is_null($this->lemma->pronunciation_arr))
@@ -130,19 +130,29 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
         
         var currentFocus = -1;
         autocomplete(document.getElementById("inp_search"),"inp_save",'ajax_call_action.php?action=search');
+        //add favorite
         document.getElementById("favorite").addEventListener("click",function(e){
             e.preventDefault();
-            console.log(this);
+            let lemmaID = this.getAttribute("value");
             if(!this.classList.contains('_selected')){
                 this.classList.add("_selected");
-            }else
+                data = {
+                    type: "add",
+                    lemmaID: lemmaID,
+                };
+            }else{
                 this.classList.remove("_selected");
-            
+                data = {
+                    type: "remove",
+                    lemmaID: lemmaID,
+                };
+            }
             $.ajax({
-                url: "ajax_call_action.php?action=add_favorite",
-                data: this.value,
+                url: "ajax_call_action.php?action=update_favorite",
+                data: data,
+                dataType: 'json',
                 success: function(response){
-                    
+                        alert(response.message);
                 }
             })
         });
