@@ -47,6 +47,7 @@ Class AdminBlog{
         usort($page->programs, array('AdminCourses', 'compareOrderN'));
         requira("_adminLayout.php");
     }
+    /* Thao tác bài đăng */
     public function add_post()
     {
         try {
@@ -97,6 +98,7 @@ Class AdminBlog{
         $response = array();
         $jsonData = "";
         if (isset($_REQUEST['ProfileID' . 'SubID'])) {
+            $result = $this->commentModel->deleteCommentsOfAPost($_REQUEST['ProfileID'], $_REQUEST['SubID']);
             $result = $this->postModel->deletePost($_REQUEST['ProfileID'], $_REQUEST['SubID']);
         }
         if (isset($result) && $result > 0) {
@@ -111,6 +113,62 @@ Class AdminBlog{
         echo $jsonData;
     }
 
+    /* Thao tác bình luận */
+    public function add_comment(){
+        try {
+            $comment = new Comment();
+            $comment->PProfId = $_POST['pAuthor'];
+            $comment->PSubId = $_POST['psubId'];
+            $comment->SubId = $this->commentModel->generateValidCommentID();
+            $comment->AuthID = $_POST['author'];
+            $comment->content = $_POST['content'];
+            $comment->date  = date("d-m-Y");
+            $comment->status = $_POST['status'];
+
+            // lưu file vào folder upload của dự án 
+            $result = $this->commentModel->addComment($comment);
+            if ($result >= 1) {
+                header('Location: /administration/blog/index.php');
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+    public function delete_comment(){
+        $response = array();
+        $jsonData = "";
+        if (isset($_REQUEST['PProfileID' . 'PSubID' . 'SubId'])) {
+            $result = $this->commentModel->deleteComment($_REQUEST['ProfileID'], $_REQUEST['PSubID'], $_REQUEST['SubID']);
+        }
+        if (isset($result) && $result > 0) {
+            $response['status'] = '204';
+            $response['message'] = 'Xóa thành công';
+        } else {
+            $response['status'] = '404';
+            $response['message'] = 'Không xóa được';
+        }
+
+        $jsonData = json_encode($response);
+        echo $jsonData;
+    }
+        /* Xóa toàn bộ comment */
+    public function delete_all_comments(){
+        $response = array();
+        $jsonData = "";
+        if (isset($_REQUEST['PProfileID' . 'PSubID'])) {
+            $result = $this->commentModel->deleteCommentsOfAPost($_REQUEST['ProfileID'], $_REQUEST['PSubID']);
+        }
+        if (isset($result) && $result > 0) {
+            $response['status'] = '204';
+            $response['message'] = 'Xóa thành công';
+        } else {
+            $response['status'] = '404';
+            $response['message'] = 'Không xóa được';
+        }
+
+        $jsonData = json_encode($response);
+        echo $jsonData;
+    }
 
     /* Khác */
     private function saveImageToFolder($courseID)

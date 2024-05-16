@@ -76,7 +76,7 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table class="table table-striped" id="dataTable">
+                                    <table class="table posts table-striped" id="dataTable">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -120,7 +120,7 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                                                 <ul class="dropdown-menu">
                                                                     <li><a class="dropdown-item" href="/blog/detail.php/<?echo $post->SubId?>" target="_blank">Xem bài post</a></li>
                                                                     <li><a class="dropdown-item" href="/administration/blog/edit.php?Id=<?echo $post->SubId?>">Sửa post</a></li>
-                                                                    <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=<? echo ($post->id); ?>','Xóa khóa học')">Xóa</a></li>
+                                                                    <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/blog/api/ajax_call_action.php?action=delete_post&SubId=<? echo ($post->id); ?>','Xóa khóa học')">Xóa</a></li>
 
                                                                 </ul>
                                                             </div>
@@ -186,7 +186,7 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                             }
                         })
                         $.ajax({
-                            url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=get_post_by_page',
+                            url: 'http://localhost:62280/administration/blog/api/ajax_call_action.php?action=get_post_by_page',
                             method: 'POST',
                             data: JSON.stringify({
                                 page: targetPage,
@@ -255,7 +255,7 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                 initPagination()
                 search = 1;
                 $.ajax({
-                    url: 'http://localhost:62280/administration/post/api/ajax_call_action.php?action=get_posts_by_page',
+                    url: 'http://localhost:62280/administration/blog/api/ajax_call_action.php?action=get_posts_by_page',
                     method: 'POST',
                     data: JSON.stringify({
                         page: 1,

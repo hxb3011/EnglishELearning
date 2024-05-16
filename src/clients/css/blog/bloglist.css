@@ -60,6 +60,12 @@ body {
     border-radius: 5rem;
     box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.1);
 }
+.blog-item .title{
+    font-size: 17rem
+}
+.blog-item .content{
+    font-size: 13rem
+}
 
 .blog-item p {
     font-size: 14rem;

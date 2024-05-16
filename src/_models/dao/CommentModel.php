@@ -92,12 +92,14 @@ Class CommentModel{
     /* Không thể sửa lại comment nên không có hàm update*/
 
 // Xóa comment
-    public function deleteComment(string $PProfId, int $psubId)
+    /* Xóa 1 comment */
+    public function deleteComment(string $PProfId, int $PSubId, string $subId)
     {
-        $sqlQuery = "DELETE FROM comment WHERE PProfId=?, PSubId=?";
+        $sqlQuery = "DELETE FROM comment WHERE PProfId=? AND PSubId=? AND SubId=?";
         $params = array(
             $PProfId,
-            $psubId
+            $PSubId,
+            $subId
         );
         try {
             $result = Database::executeNonQuery($sqlQuery, $params);
@@ -107,4 +109,33 @@ Class CommentModel{
             return 0;
         }
     }
+    /* Xóa comment của 1 bài đăng bất kì */
+    public function deleteCommentsOfAPost(string $PProfId, int $PSubId){
+        $sqlQuery = "DELETE FROM comment WHERE PProfId=? AND PSubId=?";
+        $params = array(
+            $PProfId,
+            $PSubId
+        );
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            echo "ERROR! . $e";
+            return 0;
+        }
+    }
+    /* Xóa toàn bộ comment đã viết */
+    public function deleteAllComments(string $AuthId)
+    {
+        $sqlQuery = "DELETE FROM comment WHERE AuthID=?";
+        $params = array($AuthId);
+        try {
+            $result = Database::executeNonQuery($sqlQuery, $params);
+            return $result;
+        } catch (Exception $e) {
+            echo "ERROR! . $e";
+            return 0;
+        }
+    }
+    
 }

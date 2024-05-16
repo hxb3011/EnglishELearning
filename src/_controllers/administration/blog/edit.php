@@ -1,13 +1,32 @@
 <?
+if(!session_id())
+session_start();
+
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("oopControllers/admin/blog.php");
-$ctrl = new AdminBlog();
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $ctrl->edit_post();
-} elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_REQUEST['courseId'])) {
-        $ctrl->edit($_REQUEST['courseId']);
-    } else {
-        header('Location: /error');
+requirl("profile/permissionChecker.php");
+
+$holder = getPermissionHolder();
+$_REQUEST["uri"] = $_SERVER['REQUEST_URI'];
+$reqm = &$_SERVER['REQUEST_METHOD'];
+
+if (!isset($reqm) || strtolower($reqm) !== "get") {
+    http_response_code(404);
+    $_REQUEST["ersp"] = "404";
+    requira("_error.php");
+} else{
+    $granted = false;
+    if (isset($holder)) {
+        if(isAllPermissionsGranted([Permission_SystemPrivilege,Permission_DictionaryManage,Permission_LemmaRead,Permission_MeaningRead],$holder))
+        {
+            $ctrl = new AdminBlog();
+            $ctrl->edit();
+                $granted = true;
+        }
+    }
+    if(!$granted){
+        http_response_code(403);
+        $_REQUEST["ersp"] = "403";
+        requira("_error.php");
     }
 }

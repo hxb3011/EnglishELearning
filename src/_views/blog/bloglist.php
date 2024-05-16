@@ -4,8 +4,9 @@ requirl("utils/htmlDocument.php");
 
 final class BlogListPage extends BaseHTMLDocumentPage
 {
-    public $posts;
-    public $authors;
+    public $posts = array();
+    public $authors = array();
+    public $basePath;
     public function __construct()
     {
         parent::__construct();
@@ -106,21 +107,25 @@ final class BlogListPage extends BaseHTMLDocumentPage
                         <div class="col pb-3 margin-y-3">
                             <div class="row-md-6 mb-4">
                                 <div class="row g-0">
-                                    <div class="col-md-6">
-                                        <img class="img-fluid img-blog mb-3 mb-md-0"  src="/assets/images/blog.png" alt="">
-                                    </div>
-                                    <div class="col-md-6">
+                                    <? foreach ($this->posts as $key => $post) : ?>
+                                        <div class="col-md-6">
+                                            <img class="img-fluid img-blog mb-3 mb-md-0"  src="<?echo($this->basePath.$post->image)?>" alt="">
+                                        </div>
+                                        <div class="col-md-6">
                                         <div class="blog-item position-relative overflow-hidden rounded mb-2" style="min-height: 100%;">
-                                            <a class="blog-overlay text-decoration-none" href="/blog/detail.php">
-                                                <h4 class="text-border mb-2">Best LearnPress WordPress Theme Collection For 2024</h4>
-                                                <div class="date-group">
+                                            <a class="blog-overlay text-decoration-none" href="/blog/detail.php?SubId=<? echo $post->SubId ?>">
+                                                <h4 class="title text-border mb-2"><?echo $post->title ?></h4>
+                                                <div class="created_date date-group">
                                                     <i class="fas fa-calendar-days"></i>
-                                                    <p class="">Jan 01, 2024</p>
+                                                    <p class=""><?echo ($post->date->format('d-m-Y')) ?></p>
                                                 </div>
-                                                <span class="text-muted">Looking for a amazing & well-functional LearnPress WordPress Theme? Online education...</span>
+                                                <span class="content text-muted"><?echo $post->content ?></span>
                                             </a>
                                         </div>
                                     </div>
+                                    <? endforeach ?>
+                                    
+                                    
                                 </div>
                             </div>
                         </div>

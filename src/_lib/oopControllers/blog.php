@@ -6,13 +6,16 @@ requirm('/dao/profile/profile.php');
 
 requirm('/access/Post.php');
 requirm('/access/Comment.php');
+requirl('/services/S3Service.php');
 
 class Blog {
     public PostModel $postModel;
     public CommentModel $commentModel;
+    public S3Service $s3Service;
     public function __construct() {
         $this->postModel = new PostModel();
         $this->commentModel = new CommentModel();
+        $this->s3Service = new S3Service();
     }
     public function all()
     {
@@ -21,6 +24,7 @@ class Blog {
         $page = new BlogListPage();
         $page->posts = $this->postModel->getAllPosts();
         $page->authors = ProfileDAO::getAllProfiles();
+        $page->basePath = $this->s3Service->getBasePath();
         requira("_layout.php");
     }
     public function detail(){

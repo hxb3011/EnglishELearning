@@ -31,8 +31,7 @@ body {
 
 /* Row */
 .row{
-    position: relative;
-    width: 100%;
+    justify-content: center;
     margin: 0;
 }
 .row img{
