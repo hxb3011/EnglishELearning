@@ -3,6 +3,7 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
 class AddNewPost extends BaseHTMLDocumentPage
 {
+    public $author;
     public function __construct(){
         parent::__construct();
     }
@@ -96,27 +97,27 @@ class AddNewPost extends BaseHTMLDocumentPage
                                                     <div class="col-xl-8">
                                                         <input type="hidden" name="course_type" value="general">
                                                         <div class="form-group row mb-3">
-                                                            <label class="col-md-2 col-form-label" for="course_title">Tên khóa học <span class="required">*</span> </label>
+                                                            <label class="col-md-2 col-form-label" for="course_title">Tác giả<span class="required">*</span> </label>
                                                             <div class="col-md-10">
-                                                                <input type="text" class="form-control" id="course_title" name="title" placeholder="Nhập tên khóa học">
+                                                                <input type="text" class="form-control" id="post_author" name="author" value="<?//echo $author->getId()?><?//echo($author->FirstName.' '.$author->LastNAme)?>">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-3">
-                                                            <label class="col-md-2 col-form-label" for="description">Mô tả <span class="required">*</span></label>
+                                                            <label class="col-md-2 col-form-label" for="course_title">Tiêu đề<span class="required">*</span> </label>
                                                             <div class="col-md-10">
-                                                                <textarea name="description" id="description" class="form-control" style="display: none;"></textarea>
+                                                                <input type="text" class="form-control" id="post_title" name="title" placeholder="Nhập tiêu đề">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-3">
-                                                            <label class="col-md-2 col-form-label" for="start_date">Ngày bắt đầu <span class="required">*</span> </label>
+                                                            <label class="col-md-2 col-form-label" for="content">Nội dung<span class="required">*</span></label>
                                                             <div class="col-md-10">
-                                                                <input type="datetime-local" class="form-control" id="start_date" name="start_date" placeholder="Chọn ngày bắt đầu">
+                                                                <textarea name="content" id="content" class="form-control" style="display: none;"></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-3">
-                                                            <label class="col-md-2 col-form-label" for="end_date">Ngày kết thúc <span class="required">*</span> </label>
+                                                            <label class="col-md-2 col-form-label" for="start_date">Ngày đăng<span class="required">*</span> </label>
                                                             <div class="col-md-10">
-                                                                <input type="datetime-local" class="form-control" id="end_date" name="end_date" placeholder="Chọn kết thúc">
+                                                                <input type="datetime-local" class="form-control" id="date" name="date">
                                                             </div>
                                                         </div>
                                                     </div>

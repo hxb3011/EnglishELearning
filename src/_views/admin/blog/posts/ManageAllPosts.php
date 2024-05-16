@@ -62,9 +62,9 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                     <select class="form-select" name="nguoi_dang" id="tac_gia">
                                         <?foreach($this->authors as $index=>$author):?>
                                                 <option value="<?echo $author->getId()?>"><?echo($author->firstName.' '.$author->lastName)?></option>
-                                            <?endforeach?>
-                                        </select>
-                                    </div>
+                                        <?endforeach?>
+                                    </select>
+                                </div>
                                 <div class="filter-part d-flex align-items-center justify-content-center col-md-3 col-sm-12" id="btn_search">
                                     <div class="form-outline" data-mdb-input-init>
                                         <input type="search" id="search_name" class="form-control" placeholder="Tìm theo tên " />
@@ -150,7 +150,7 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
             "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
             "/node_modules/toastr/build/toastr.min.js",
             "/node_modules/sweetalert2/dist/sweetalert2.min.js",
-            "/clients/admin/main.js"
+            "/clients/admin/main.js",
         );
         ?>
         <script>
@@ -300,7 +300,7 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item" href="/courses/detail.php/${data.post[i].SubId}" target="_blank">Xem bài post</a></li>
                                                 <li><a class="dropdown-item" href="/administration/courses/edit.php?courseId=${data.post[i].SubId}">Sửa post</a></li>
-                                                <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/blog/api/ajax_call_action.php?action=delete_post&ProfileId${data.post[i].ProfileId}&SubId=${data.post[i].SubId}','Xóa')">Xóa</a></li>
+                                                <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/blog/api/ajax_call_action.php?action=delete_post&ProfileId=${data.post[i].ProfileId}&SubId=${data.post[i].SubId}','Xóa')">Xóa</a></li>
                                             </ul>
                                         </div>
                                 </td>
@@ -332,7 +332,7 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/blog/detail.php/<?echo $post->SubId?>" target="_blank">Xem bài post</a></li>
                         <li><a class="dropdown-item" href="/administration/blog/edit.php?Id=<?echo $post->SubId?>">Sửa post</a></li>
-                        <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/blog/api/ajax_call_action.php?action=delete_post&ProfileId${data.post[i].ProfileId}&SubId=${data.post[i].SubId}','Xóa khóa học')">Xóa</a></li>
+                        <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/blog/api/ajax_call_action.php?action=delete_post&ProfileId=${data.post[i].ProfileId}&SubId=${data.post[i].SubId}','Xóa khóa học')">Xóa</a></li>
                     </ul>
                 </div>
             </td>

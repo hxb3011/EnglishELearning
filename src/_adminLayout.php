@@ -121,6 +121,9 @@ $page->beforeDocument();
                             <a href="/administration/blog/index.php" class="sidebar-link">Quản lý bài đăng</a>
                         </li>
                         <li class="sidebar-item">
+                            <a href="/administration/blog/add.php" class="sidebar-link">Thêm bài đăng</a>
+                        </li>
+                        <li class="sidebar-item">
                             <a href="#" class="sidebar-link">Quản lý bình luận</a>
                         </li>
                     </ul>

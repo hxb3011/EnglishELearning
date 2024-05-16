@@ -17,11 +17,10 @@ if (!isset($reqm) || strtolower($reqm) !== "get") {
 } else{
     $granted = false;
     if (isset($holder)) {
-        if(isAllPermissionsGranted([Permission_SystemPrivilege,Permission_PostRead,Permission_PostCreate,Permission_PostDelete,Permission_PostUpdate],$holder))
-        {
+        if(isAllPermissionsGranted([Permission_PostRead],$holder)){
             $ctrl = new AdminBlog();
             $ctrl->index();
-                $granted = true;
+            $granted = true;
         }
     }
     if(!$granted){

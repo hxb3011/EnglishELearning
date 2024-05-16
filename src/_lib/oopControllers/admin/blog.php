@@ -34,6 +34,7 @@ Class AdminBlog{
         requirv("admin/blog/posts/AddNewPost.php");
         global $page;
         $page = new AddNewPost();
+        $page->author = ProfileDAO::getProfileByType(0);
         requira("_adminLayout.php");
     }
     public function edit($profileId)
@@ -48,18 +49,21 @@ Class AdminBlog{
         requira("_adminLayout.php");
     }
     /* Thao tác bài đăng */
-    public function add_post()
+    public function add_post($author_profile)
     {
         try {
             $post = new Post();
-            $post->ProfileId = $_POST['author'];
+            $post->ProfileId = $author_profile->getID();
             $post->SubId = $this->postModel->generateValidPostID();
             $post->title = $_POST['title'];
             $post->content = $_POST['content'];
-            $post->date  = date("d-m-Y");
+            $post->image = $_POST['image'];
+            $post->date  = DateTime::createFromFormat("d-m-Y", $_POST['date']);
             $post->tags = $_POST['tags'];
             $post->status = $_POST['status'];
             $post->updated = $_POST['updated'];
+            $post->author = $author_profile->LastName . $author_profile->FirstName;
+            $post->amount_of_comments = '0';
 
             // lưu file vào folder upload của dự án 
             $post->image = $this->saveImageToFolder($post->SubId);
