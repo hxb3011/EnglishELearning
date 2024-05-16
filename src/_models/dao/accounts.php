@@ -1,39 +1,9 @@
 <?php
 requirm('/dao/database.php');
 requirm('/access/Account.php');
+requirm('dao/access/account.php');
 class UserRepo
 {
-
-    public function getNumberOfTotalAccount()
-    {
-        $sqlQuery = "SELECT COUNT(*) AS total_account FROM account";
-        try {
-            $result = Database::executeQuery($sqlQuery);
-            return $result[0]['total_account'];
-        } catch (Exception $e) {
-            return null;
-        }
-    }
-
-    public function generateValidAccountID()
-    {
-        $total_string = $this->getNumberOfTotalAccount();
-        // echo "<script>console.log('total_string: $total_string')</script>";
-        $total = intval($total_string) + 1;
-        // echo "<script>console.log('total: $total')</script>";
-        return 'UID' . $total;
-    }
-
-    public function checkExistsUsername($username)
-    {
-        $sqlQuery = "SELECT COUNT(*) FROM account WHERE username = ?";
-        $result = Database::executeQuery($sqlQuery, [$username]);
-        if ($result !== null && $result[0]['COUNT(*)'] > 0) {
-            return true;
-        }
-        return false;
-    }
-
     public function getLoginInfo($username)
     {
         $sqlQuery = "SELECT * FROM account ac 
@@ -45,26 +15,6 @@ class UserRepo
             return $result[0];
         }
         return null;
-    }
-
-    public function Login($subject, $password)
-    {
-        try {
-            $sqlQuery = "SELECT * FROM account ac 
-                         join profile pf on ac.UID = pf.UID
-                         join verification vr on pf.id = vr.ProfileID
-                         WHERE username = ? OR email = ?";
-            $result = Database::executeQuery($sqlQuery, [$subject, $subject]);
-            if ($result !== null && count($result) > 0) {
-                $user = $result[0];
-                if (isset($user['Password']) && password_verify($password, $user['Password'])) {
-                    return $user;
-                }
-            }
-            return null;
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
     }
 
     public function checkEmail($email)

@@ -145,9 +145,8 @@ final class ProfileDAO
         $result = Database::executeQuery($sql, $param);
         if ($result === null || count($result) === 0)
             return array();
-        $profiles  = array();
-        foreach($result as $key => $profileRow)
-        {
+        $profiles = array();
+        foreach ($result as $key => $profileRow) {
             $profile = new Profile(
                 $profileRow["ID"],
                 $profileRow["FirstName"],
@@ -157,18 +156,21 @@ final class ProfileDAO
                 $profileRow["Type"],
                 $profileRow["Status"],
             );
-            $profiles[]= $profile;
+            $profiles[] = $profile;
         }
         return $profiles;
     }
     public static function findUnallocatedID(): string
     {
-        $sql = "SELECT COUNT(*) AS ProfileCount FROM `profile`";
-        $result = Database::executeQuery($sql);
-        if (!isset($result) || count($result) === 0)
-            return "0";
-        else
-            return strval($result[0]["ProfileCount"]);
+        $sql = "SELECT COUNT(*) AS ProfileCount FROM `profile` WHERE `profile`.`ID` = ?";
+        for ($i = 0; $i < 100; ++$i) {
+            $id = uniqid(strval(0));
+            $result = Database::executeQuery($sql, array($id));
+            if (isset($result) && count($result) !== 0 && intval($result[0]["ProfileCount"]) === 0) {
+                return $id;
+            }
+        }
+        return uniqid();
     }
     public static function createProfile(Profile $profile)
     {
@@ -184,8 +186,10 @@ final class ProfileDAO
         $status = $profile->status;
         $uid = "";
         $account = $profile->getAccount();
-        if (isset($account))
+        if (isset($account)) {
             $uid = $account->getUid();
+            AccountDAO::updateAccount($account);
+        }
         $roleID = "";
         $role = $profile->getRole();
         if (isset($account))
