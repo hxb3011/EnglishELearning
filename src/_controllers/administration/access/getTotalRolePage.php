@@ -21,7 +21,7 @@ if (!isset($reqm) || strtolower($reqm) !== "post") {
                 $name = &$data['name'];
                 $page = &$data['page'];
                 $fragment_total_pages = ceil(RoleDAO::getTotalRoles(isset($name) ? $name : null) / 5);
-                $fragment_current_page = isset($page) ? $page : 1;
+                $fragment_current_page = floatval(isset($page) ? $page : 1.0);
                 requirv("admin/access/RolePaginationFragment.php");
                 $granted = true;
             }

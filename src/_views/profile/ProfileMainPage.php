@@ -5,7 +5,7 @@ requirm("profile/profile.php");
 
 class ProfileMainPage extends BaseHTMLDocumentPage
 {
-    private ?IPermissionHolder $holder;
+    protected ?IPermissionHolder $holder;
     private array $verifications;
     public function __construct(?IPermissionHolder $holder, array $verifications)
     {
@@ -151,7 +151,7 @@ class ProfileMainPage extends BaseHTMLDocumentPage
                 ?>
             </card>
             <?
-            $hasUndefindActions = true;
+            $hasUndefindActions = false;
             $hasCourseSupscriptionHistory = $key->isPermissionGranted(Permission_CourseSubscribe);
             $hasAdministrationAction = $key->isPermissionGranted(Permission_SystemPrivilege) && (!isset($profile) || $profile->type !== ProfileType_Learner);
             $hasRelatedActions = $hasUndefindActions || $hasCourseSupscriptionHistory || $hasAdministrationAction;

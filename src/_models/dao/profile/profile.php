@@ -26,13 +26,28 @@ final class ProfileDAO
     {
         $offSet = ($page - 1) * $perPage;
         if (isset($name)) {
-            $sqlQuery = "SELECT * FROM `profile` WHERE CONCAT(`LastName`, `FirstName`) LIKE CONCAT('%', ?, '%') OR CONCAT(`FirstName`, `LastName`) LIKE CONCAT('%', ?, '%') LIMIT $offSet, $perPage";
-            $params = array($name, $name);
+            $likeParam = " LIKE CONCAT('%', ?, '%')";
+            $complexWhereClause = "`profile`.`FirstName`";
+            $complexWhereClause .= $likeParam;
+            $complexWhereClause .= " OR ";
+            $complexWhereClause .= "`profile`.`LastName`";
+            $complexWhereClause .= $likeParam;
+            $complexWhereClause .= " OR ";
+            $complexWhereClause .= "CONCAT(`profile`.`LastName`, ' ', `profile`.`FirstName`)";
+            $complexWhereClause .= $likeParam;
+            $complexWhereClause .= " OR ";
+            $complexWhereClause .= "CONCAT(`profile`.`FirstName`, ' ', `profile`.`LastName`)";
+            $complexWhereClause .= $likeParam;
+            $complexWhereClause = " WHERE ". $complexWhereClause;
+            $params = array($name, $name, $name, $name);
         } else {
-            $sqlQuery = "SELECT * FROM `profile` LIMIT $offSet, $perPage";
+            $complexWhereClause = "";
             $params = null;
         }
-        $result = Database::executeQuery($sqlQuery, $params);
+        $sql = "SELECT * FROM `profile`";
+        $sql .= $complexWhereClause;
+        $sql .= " ORDER BY `profile`.`FirstName` ASC, `profile`.`LastName` ASC LIMIT $offSet, $perPage";
+        $result = Database::executeQuery($sql, $params);
 
         $profiles = array();
         if ($result === null || count($result) === 0)
@@ -61,7 +76,7 @@ final class ProfileDAO
 
     public static function getAllProfiles()
     {
-        $sql = "SELECT * FROM `profile`";
+        $sql = "SELECT * FROM `profile` ORDER BY `profile`.`FirstName` ASC, `profile`.`LastName` ASC";
         $result = Database::executeQuery($sql);
         $profiles = array();
         if ($result === null || count($result) === 0)

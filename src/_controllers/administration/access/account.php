@@ -12,16 +12,13 @@ if (!isset($reqm) || strtolower($reqm) !== "get") {
 } else {
     $granted = false;
     if (isset($holder)) {
-        $key = $holder->getKey();
-        if ($key->isPermissionGranted(Permission_SystemPrivilege) && $key->isPermissionGranted(Permission_AccountManage)) {
-            if ($key->isPermissionGranted(Permission_AccountRead)) {
-                requirv("admin/access/AccountMainPage.php");
-                global $page;
-                $accounts = AccountDAO::getAllAccounts();
-                $page = new AccountMainPage($holder, $accounts);
-                requira("_adminLayout.php");
-                $granted = true;
-            }
+        if (isAllPermissionsGranted(array(Permission_SystemPrivilege, Permission_AccountManage, Permission_AccountRead), $holder)) {
+            requirv("admin/access/AccountMainPage.php");
+            global $page;
+            $accounts = AccountDAO::getAccountFromPage(1);
+            $page = new AccountMainPage($holder, $accounts);
+            requira("_adminLayout.php");
+            $granted = true;
         }
     }
     if (!$granted) {
