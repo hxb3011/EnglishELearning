@@ -10,13 +10,15 @@ final class RoleDAO
     public static function getTotalRoles(?string $name = null)
     {
         if (isset($name)) {
-            $sqlQuery = "SELECT COUNT(*) AS total_roles FROM `role` WHERE `Name` LIKE CONCAT('%', ?, '%')";
-            $params = array($name, $name);
+            $likeNameWhereClause = " WHERE `role`.`Name` LIKE CONCAT('%', ?, '%')";
+            $params = array($name);
         } else {
-            $sqlQuery = "SELECT COUNT(*) AS total_roles FROM `role`";
+            $likeNameWhereClause = "";
             $params = null;
         }
-        $result = Database::executeQuery($sqlQuery, $params);
+        $sql = "SELECT COUNT(*) AS total_roles FROM `role`";
+        $sql .= $likeNameWhereClause;
+        $result = Database::executeQuery($sql, $params);
         if (!isset($result) || count($result) === 0)
             return floatval(0);
         return floatval($result[0]['total_roles']);
@@ -25,13 +27,16 @@ final class RoleDAO
     {
         $offSet = ($page - 1) * $perPage;
         if (isset($name)) {
-            $sqlQuery = "SELECT * FROM `role` WHERE `Name` LIKE CONCAT('%', ?, '%') LIMIT $offSet, $perPage";
+            $likeNameWhereClause = " WHERE `role`.`Name` LIKE CONCAT('%', ?, '%')";
             $params = array($name);
         } else {
-            $sqlQuery = "SELECT * FROM `role` LIMIT $offSet, $perPage";
+            $likeNameWhereClause = "";
             $params = null;
         }
-        $result = Database::executeQuery($sqlQuery, $params);
+        $sql = "SELECT * FROM `role`";
+        $sql .= $likeNameWhereClause;
+        $sql .= " ORDER BY `role`.`Name` ASC LIMIT $offSet, $perPage";
+        $result = Database::executeQuery($sql, $params);
 
         $roles = array();
         if ($result === null || count($result) === 0)
@@ -47,7 +52,7 @@ final class RoleDAO
 
     public static function getAllRoles()
     {
-        $sql = "SELECT * FROM `role`";
+        $sql = "SELECT * FROM `role` ORDER BY `role`.`Name` ASC";
         $result = Database::executeQuery($sql);
         $roles = array();
         if ($result === null || count($result) === 0)
@@ -74,12 +79,15 @@ final class RoleDAO
     }
     public static function findUnallocatedID()
     {
-        $sql = "SELECT COUNT(*) AS RoleCount FROM `role`";
-        $result = Database::executeQuery($sql);
-        if (!isset($result) || count($result) === 0)
-            return "0";
-        else
-            return strval($result[0]["RoleCount"]);
+        $sql = "SELECT COUNT(*) AS RoleCount FROM `role` WHERE `role`.`ID` = ?";
+        for ($i = 0; $i < 100; ++$i) {
+            $id = uniqid(strval(0));
+            $result = Database::executeQuery($sql, array($id));
+            if (isset($result) && count($result) !== 0 && intval($result[0]["RoleCount"]) === 0) {
+                return $id;
+            }
+        }
+        return uniqid();
     }
     public static function createRole(Role $role)
     {
@@ -163,13 +171,31 @@ final class RoleDAO
         }
         return $role;
     }
-    // public static function deleteRole(Role $role)
-    // {
-    //     if (!isset($role))
-    //         return false;
-    //     $sql = "DELETE FROM `role` WHERE `ID` = ?";
-    //     $roleId = $role->getId();
-    //     return Database::executeNonQuery($sql, array($roleId));
-    // }
+
+    public static function canDeleteRole(Role $role)
+    {
+        if (!isset($role))
+            return false;
+
+        $param = array($role->getId());
+        $sql = "SELECT COUNT(*) AS `Count` FROM `profile` WHERE `profile`.`RoleID` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+
+        $sql = "SELECT COUNT(*) FROM `property` WHERE `property`.`Key` LIKE 'DEFAULT_%_ROLE' AND `property`.`Value` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+        return true;
+    }
+
+    public static function deleteRole(Role $role)
+    {
+        if (!self::canDeleteRole($role))
+            return false;
+
+        return Database::executeNonQuery("DELETE FROM `role` WHERE `role`.`ID` = ?", array($role->getId()));
+    }
 }
 ?>

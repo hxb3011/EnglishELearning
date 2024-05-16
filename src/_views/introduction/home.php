@@ -4,6 +4,8 @@ requirl("utils/htmlDocument.php");
 
 final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
 {
+    public array $courses = array();
+    public $basePath;
     public function __construct()
     {
         parent::__construct();
@@ -50,10 +52,9 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
         //     "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         // );
     }
-
     public function body()
     {
-        ?>
+?>
         <card class="banner">
             <!-- <img src="/assets/images/banner-main.png" alt="Băng rôn"> -->
             <h1>Phát triển hoàn thiện kỹ năng với khóa học online</h1>
@@ -65,53 +66,24 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
             <div class="heading" title="Khóa học nổi bật" sub-title="Khám phá các khóa học nổi bật của chúng tôi">
                 <a href="/courses/all.php">Tất cả khóa học</a>
             </div>
-            <div class="content">
-                <a href="#">
-                    <img class="banner" src="/assets/images/blog.png" alt="">
-                    <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
-                    <div class="data">
-                        <span class="mdi-b calendar">2 Tuần</span>
-                        <span class="mdi-b graduation">156 Học viên</span>
-                    </div>
-                    <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
-                </a>
-                <a href="#">
-                    <img class="banner" src="/assets/images/blog.png" alt="">
-                    <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
-                    <div class="data">
-                        <span class="mdi-b calendar">2 Tuần</span>
-                        <span class="mdi-b graduation">156 Học viên</span>
-                    </div>
-                    <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
-                </a>
-                <a href="#">
-                    <img class="banner" src="/assets/images/blog.png" alt="">
-                    <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
-                    <div class="data">
-                        <span class="mdi-b calendar">2 Tuần</span>
-                        <span class="mdi-b graduation">156 Học viên</span>
-                    </div>
-                    <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
-                </a>
-                <a href="#">
-                    <img class="banner" src="/assets/images/blog.png" alt="">
-                    <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
-                    <div class="data">
-                        <span class="mdi-b calendar">2 Tuần</span>
-                        <span class="mdi-b graduation">156 Học viên</span>
-                    </div>
-                    <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
-                </a>
-                <a href="#">
-                    <img class="banner" src="/assets/images/blog.png" alt="">
-                    <p class="name" instructor="by Hoàng Lâm">Khóa học toeic 2 kỹ năng 450</p>
-                    <div class="data">
-                        <span class="mdi-b calendar">2 Tuần</span>
-                        <span class="mdi-b graduation">156 Học viên</span>
-                    </div>
-                    <p class="footer" href="#" price="300.000 VNĐ">Xem chi tiết</p>
-                </a>
-            </div>
+            <div class="content d-flex justify-content-between">
+                <? foreach ($this->courses as $key => $course) : ?>
+                    <a href="/courses/detail.php?courseId=<? echo $course->id ?>">
+                        <img class="banner" src="<?echo($this->basePath.$course->posterURI)?>" alt="">
+                        <p class="name" instructor="by <? echo $course->tutorName; ?>"><? echo $course->name; ?></p>
+                        <div class="data">
+                            <span class="mdi-b calendar">
+                                <?
+                                    $interval = $course->beginDate->diff($course->endDate);
+                                    echo ($interval->days . ' Ngày');
+                                ?>
+                            </span>
+                            <span class="mdi-b graduation"><? echo $course->totalStudent; ?> Học viên</span>
+                        </div>
+                        <p class="footer" href="/courses/detail.php?courseId=<? echo $course->id ?>" price="300.000 VNĐ">Xem chi tiết</p>
+                    </a>
+                <? endforeach ?>
+            </div>  
             <div class="statistic content">
                 <p name="Học viên" value="120"></p>
                 <p name="Khóa học" value="5"></p>
@@ -123,31 +95,27 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
             <div class="heading" title="Đánh giá" sub-title="Những gì học viên nói về EduPress"></div>
             <div class="content">
                 <div class="mdi-b item">
-                    <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
+                    <p class="feedback">Trang web đã giúp tôi học được Tiếng Anh, trước đấy 1 chữ tôi cũng không biết, bây giờ đã có thể nói chuyện được với người Mỹ (Mỹ Tho)</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
                 <div class="mdi-b item">
-                    <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
+                    <p class="feedback">Tôi mới sử dụng web này thôi nhưng thấy web rất là xịn xò, có cả phân trang, thống kê, ajax, web này xứng đáng điểm cao</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
                 <div class="mdi-b item">
-                    <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
+                    <p class="feedback">Tôi rất bực, tôi chưa bao giờ thấy web nào xịn như web này, thật không thể chấp nhận được. Tôi mà là giáo viên chấm web này phải được cộng điểm</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
                 <div class="mdi-b item">
-                    <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
+                    <p class="feedback">Các bạn đừng vào web này nhè, tốn thời gian lắm. Vì từ hồi vào đây tôi không thể ngừng học tiếng Anh được, đến nỗi không có thời gian để làm việc khác, web quá xịn</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
                 <div class="mdi-b item">
-                    <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
+                    <p class="feedback">Học tiếng Anh chưa bao giờ dễ đến vậy, trang web này có mọi thứ mình cần luôn, có cả từ điển xịn xò, các bạn mau đăng ký đi. (Comment này ko có seeding đâu)</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
                 <div class="mdi-b item">
-                    <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
-                    <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
-                </div>
-                <div class="mdi-b item">
-                    <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
+                    <p class="feedback">Tôi là Elon Musk, có tôi đã sử dụng web này 10 năm nay và thấy nó rất tốt. Các bạn nên dùng nó đi</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
             </div>
@@ -223,7 +191,7 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
         <!-- Back to Top -->
         <button id="back-to-top" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></button>
         <script src="/clients/utils/backToTop.js"></script>
-        <?
+<?
     }
 
     // public function afterDocument()

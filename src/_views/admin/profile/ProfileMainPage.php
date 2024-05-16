@@ -154,7 +154,7 @@ class ProfileMainPage extends BaseHTMLDocumentPage
                 $.ajax({
                     url: '/administration/profile/getTotalPage.php',
                     method: 'POST',
-                    data: JSON.stringify(),
+                    data: JSON.stringify(data),
                     headers: {
                         'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
                     },
@@ -162,7 +162,7 @@ class ProfileMainPage extends BaseHTMLDocumentPage
                         $('#pagination').html(response);
                         $('.pagination-item').click(function() {
                             let targetPage = $(this).data('page');
-                            let currentPage = +$('.pagination-item.active').data('page')
+                            let currentPage = $('.pagination-item.active').data('page')
 
                             if (targetPage != currentPage) {
                                 data.page = targetPage;

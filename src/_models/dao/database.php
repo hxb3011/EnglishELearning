@@ -105,7 +105,7 @@ class Database
         if ($command->execute()) {
             $result = $command->affected_rows > 0;
         } else {
-            print($command->error);
+            //print($command->error);
             $result = false;
         }
         $command->close();

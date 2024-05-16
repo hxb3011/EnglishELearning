@@ -22,6 +22,12 @@
 .mdi-b.quiz::before{
     content: var(--mdi-help-circle-outline);
 }
+.mdi-b.start-date::before{
+    content: var(--mdi-clock-start);
+}
+.mdi-b.end-date::before{
+    content: var(--mdi-clock-end);
+}
 .wrapper{
     width: 100%;
 }
@@ -87,7 +93,7 @@ main{
     background-color: #fc0000;
     padding: 8rem 12rem 8rem 12rem;
     border-radius: 6rem;
-    font-size: 12rem;
+    font-size: 18rem;
     font-weight: 700;
     text-transform: capitalize; 
 }

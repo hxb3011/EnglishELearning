@@ -35,7 +35,7 @@ class LemmaModel {
     }
     public function get_all_lemmas(){
         // $sqlQuery = "SELECT Lemma.ID, KeyL, partOfSpeech, meaning.meaning, profile.LastName,profile.FirstName FROM lemma, meaning, contribution, profile WHERE lemma.ID = meaning.LemmaID and contribution.MeaningID = meaning.ID and profile.ID = contribution.ProfileID";
-        $sqlQuery = "SELECT Lemma.ID, Lemma.KeyL, Lemma.partOfSpeech, Meaning.meaning FROM Lemma, Meaning WHERE Lemma.ID = meaning.LemmaID ";
+        $sqlQuery = "SELECT Lemma.ID, Lemma.KeyL, Lemma.partOfSpeech, Meaning.meaning FROM Lemma LEFT JOIN Meaning ON Lemma.ID = Meaning.LemmaID";
         $params = array(
             
         );
@@ -46,6 +46,9 @@ class LemmaModel {
         } catch (Exception $e) {
             return null;
         }
+    }
+    public function getAllFavorite(){
+        $sql = "SELECT Lemma.* FROM Lemma,LearntRecord WHERE Lemma.ID = LearnRecord.LemmaID";
     }
     public function checkKeyExist($key){
         $sqlQuery = "SELECT * FROM Lemma WHERE KeyL like ?" ;

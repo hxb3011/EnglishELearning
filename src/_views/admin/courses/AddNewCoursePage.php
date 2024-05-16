@@ -115,6 +115,16 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                                                             </div>
                                                         </div>
                                                         <div class="form-group row mb-3">
+                                                            <label class="col-md-2 col-form-label" for="state">Trạng thái</label>
+                                                            <div class="col-md-10">
+                                                                <select class="form-select form-select-md mb-3" name="state" id="state">
+                                                                    <option value="">Trạng thái</option>
+                                                                    <option value="1">Hoạt động</option>
+                                                                    <option value="0">Ngưng</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row mb-3">
                                                             <label class="col-md-2 col-form-label" for="start_date">Ngày bắt đầu <span class="required">*</span> </label>
                                                             <div class="col-md-10">
                                                                 <input type="datetime-local" class="form-control" id="start_date" name="start_date" placeholder="Chọn ngày bắt đầu">
@@ -263,6 +273,9 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                         },
                         price: {
                             required: true
+                        },
+                        state:{
+                            required : true
                         }
                     },
                     messages: {
@@ -291,6 +304,9 @@ class AddNewCoursePage extends BaseHTMLDocumentPage
                         },
                         price: {
                             required: "Vui lòng nhập giá cho khóa học"
+                        },
+                        state:{
+                            required : "Vui lòng chọn trạng thái khóa học"
                         }
                     },
                     errorPlacement: function(error, element) {

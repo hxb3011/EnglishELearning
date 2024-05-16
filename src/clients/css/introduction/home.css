@@ -1,3 +1,4 @@
+
 main>card.banner {
     background-image: url("/assets/images/banner-main.png");
     background-position: center;
@@ -11,13 +12,14 @@ main>card.banner>a {
 
 main>card.courses {
     height: 400rem;
-    width: calc(100% - 8rem);
+    width: 100%;
 }
 
 main>card.courses>.content {
     box-sizing: border-box;
     display: flex;
     flex-flow: row nowrap;
+    justify-content: space-evenly;
     margin: 0 -8rem;
     overflow-x: scroll;
     width: calc(100% + 16rem);
@@ -63,26 +65,27 @@ main>card.courses>.content>a>p.name {
     font-weight: 700;
     margin: 0;
     padding: 4rem 0;
+    overflow: hidden;
 }
 
 main>card.courses>.content>a>p.name[instructor]::before {
     display: block;
     color: var(--mdc-on-surface-variant);
     content: attr(instructor);
-    font-size: 8rem;
+    font-size: 10rem;
     padding: 4rem 0;
 }
 
 main>card.courses>.content>a>.data {
     bottom: 28rem;
-    font-size: 8rem;
+    font-size: 10rem;
     height: 16rem;
     line-height: 16rem;
     position: absolute;
 }
 
 main>card.courses>.content>a>.data>.mdi-b {
-    font-size: 8rem;
+    font-size: 8.5rem;
     height: 16rem;
     line-height: 16rem;
     padding: 0 8rem 0 16rem;
@@ -90,7 +93,7 @@ main>card.courses>.content>a>.data>.mdi-b {
 }
 
 main>card.courses>.content>a>.data>.mdi-b::before {
-    font-size: 12rem;
+    font-size: 13rem;
     height: 16rem;
     left: 0;
     line-height: 16rem;
@@ -111,7 +114,7 @@ main>card.courses>.content>a>p.footer {
     color: var(--mdc-on-surface);
     display: flex;
     flex-flow: row nowrap;
-    font-size: 8rem;
+    font-size: 10rem;
     height: 16rem;
     justify-content: space-between;
     line-height: 16rem;
@@ -123,7 +126,7 @@ main>card.courses>.content>a>p.footer[price]::before {
     display: block;
     color: var(--mdc-error);
     content: attr(price);
-    font-size: 12rem;
+    font-size: 10rem;
 }
 
 main>card.courses>.content>a:is(:focus, :hover)>:is(.name, .footer) {
@@ -143,7 +146,7 @@ main>card.courses>.content.statistic>p {
     display: flex;
     flex-flow: column nowrap;
     font-family: Jost, 'Source Sans Pro';
-    font-size: 8rem;
+    font-size: 13rem;
     font-weight: 600;
     height: 56rem;
     justify-content: center;
@@ -156,7 +159,7 @@ main>card.courses>.content.statistic>p {
 main>card.courses>.content.statistic>p[value]::before {
     color: var(--mdc-surface-tint);
     content: attr(value);
-    font-size: 20rem;
+    font-size: 21rem;
     font-weight: 500;
 }
 
@@ -203,7 +206,7 @@ main>card.feedback>.content>.item {
 main>card.feedback>.content>.item.mdi-b::before {
     content: var(--mdi-format-quote-close);
     display: block;
-    font-size: 12rem;
+    font-size: 16rem;
 }
 
 main>card.feedback>.content>.item:is(:focus, :hover) {
@@ -217,7 +220,7 @@ main>card.feedback>.content>.item:active {
 main>card.feedback>.content>.item>.feedback {
     color: var(--mdc-on-surface-variant);
     font-family: Jost, 'Source Sans Pro';
-    font-size: 10rem;
+    font-size: 14rem;
     font-weight: 400;
     line-height: 1.5;
     margin: 8rem 0;
@@ -228,7 +231,7 @@ main>card.feedback>.content>.item>.owner {
     bottom: 8rem;
     color: var(--mdc-on-surface);
     font-family: Exo, 'Source Sans Pro';
-    font-size: 12rem;
+    font-size: 17rem;
     font-weight: 600;
     line-height: 1.2;
     padding: 0;
@@ -240,7 +243,7 @@ main>card.feedback>.content>.item>.owner[role]::after {
     content: attr(role);
     display: block;
     font-family: Exo, 'Source Sans Pro';
-    font-size: 10rem;
+    font-size: 14rem;
     font-weight: 400;
     line-height: 1.5;
 }
@@ -296,7 +299,7 @@ main>card.blog>.content>.item>img.banner {
 main>card.blog>.content>.item>p.title {
     color: var(--mdc-on-surface-variant);
     font-family: Exo, 'Source Sans Pro';
-    font-size: 13rem;
+    font-size: 15rem;
     font-weight: 700;
     height: 36rem;
     line-height: 18rem;
@@ -306,7 +309,7 @@ main>card.blog>.content>.item>p.title {
 }
 
 main>card.blog>.content>.item>.mdi-b {
-    font-size: 8rem;
+    font-size: 13rem;
     height: 16rem;
     line-height: 16rem;
     height: 16rem;
@@ -316,7 +319,7 @@ main>card.blog>.content>.item>.mdi-b {
 }
 
 main>card.blog>.content>.item>.mdi-b::before {
-    font-size: 12rem;
+    font-size: 17rem;
     height: 16rem;
     left: 0;
     line-height: 16rem;
@@ -328,7 +331,7 @@ main>card.blog>.content>.item>.calendar.mdi-b::before {
 }
 
 main>card.blog>.content>.item>.detail {
-    font-size: 12rem;
+    font-size: 14rem;
     height: 36rem;
     line-height: 18rem;
     margin: 0;
@@ -369,7 +372,7 @@ main>card.footer[copyright]::after {
     bottom: 0;
     content: attr(copyright);
     font-family: Exo, 'Source Sans Pro';
-    font-size: 10rem;
+    font-size: 14rem;
     height: 40rem;
     line-height: 40rem;
     position: absolute;
@@ -381,7 +384,7 @@ main>card.footer[copyright]::after {
 main>card.footer>.greeting {
     color: var(--mdc-on-surface-variant);
     font-family: Jost, "Source Sans Pro";
-    font-size: 12rem;
+    font-size: 17rem;
     font-weight: 400;
     line-height: 1.5;
     padding: 0 4rem;
@@ -398,7 +401,7 @@ main>card.footer>.greeting>a {
     display: block;
     color: var(--mdc-on-surface-variant);
     font-family: Exo, "Source Sans Pro";
-    font-size: 14rem;
+    font-size: 19rem;
     font-weight: 700;
     height: 56rem;
     line-height: 56rem;
@@ -419,7 +422,7 @@ main>card.footer>.group[label]::before {
     content: attr(label);
     display: block;
     font-family: Exo, "Source Sans Pro";
-    font-size: 16rem;
+    font-size: 20rem;
     font-weight: 700;
     height: 56rem;
     line-height: 56rem;
@@ -429,7 +432,7 @@ main>card.footer>.group>a {
     color: var(--mdc-on-surface-variant);
     display: block;
     font-family: Jost, "Source Sans Pro";
-    font-size: 12rem;
+    font-size: 17rem;
     font-weight: 400;
     line-height: 1.5;
     padding: 4rem;
@@ -458,7 +461,7 @@ main>card.footer>.contact>.mdi-b {
     color: var(--mdc-on-surface-variant);
     display: block;
     font-family: Jost, "Source Sans Pro";
-    font-size: 12rem;
+    font-size: 17rem;
     font-weight: 400;
     line-height: 1.5;
     margin: 0;
@@ -468,7 +471,7 @@ main>card.footer>.contact>.mdi-b {
 }
 
 main>card.footer>.contact>.mdi-b::before {
-    font-size: 20rem;
+    font-size: 25rem;
     height: 24rem;
     line-height: 24rem;
     text-align: center;

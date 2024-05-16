@@ -23,11 +23,15 @@ if (!isset($reqm) || strtolower($reqm) !== "post") {
         $password = &$_REQUEST["password"];
         $xpassword = &$_REQUEST["xpassword"];
         $zpassword = &$_REQUEST["zpassword"];
-        if (isset($password) && $password === $account->password && isset($xpassword) && isset($zpassword) && $xpassword === $zpassword) {
-            $length = strlen($zpassword);
-            if ($length >= 8 && $length <= 255 && preg_match("@^\s+$@", $zpassword) !== 1) {
-                if (preg_match("@[a-z]@", $zpassword) === 1 && preg_match("@[A-Z]@", $zpassword) && preg_match("@[0-9]@", $zpassword) && preg_match("@[^\w\s]@", $zpassword)) {
-                    $account->password = $password;
+        if (isset($password)) {
+            if (password_verify($password, $account->password) && isset($xpassword) && isset($zpassword) && $xpassword === $zpassword) {
+                $length = strlen($zpassword);
+                if (
+                    $length >= 8 && $length <= 255 && preg_match("@^\s+$@", $zpassword) !== 1
+                    && preg_match("@[a-z]@", $zpassword) === 1 && preg_match("@[A-Z]@", $zpassword) === 1
+                    && preg_match("@[0-9]@", $zpassword) === 1 && preg_match("@[^\w\s]@", $zpassword) === 1
+                ) {
+                    $account->password = AccountDAO::encryptPassword($zpassword);
                     $result = AccountDAO::updateAccount($account);
                 }
             }

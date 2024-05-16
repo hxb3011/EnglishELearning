@@ -92,19 +92,21 @@ class CourseModel
             return 0;
         }
     }
-    public function getAllCourse($courseName = "", $profileId = "")
+    public function getAllCourse($courseName = "", $profileId = "", $state = "")
     {
-        //$sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID";
         if ($profileId != "") {
-            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID= ? ";
+            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%',?, '%') AND profile.ID= ? AND State LIKE CONCAT('%',?, '%')  ";
             $params = array(
                 $courseName,
-                $profileId
+                $profileId,
+                $state
             );
         } else {
-            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') ";
+            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND State LIKE CONCAT('%',?, '%') ";
             $params = array(
                 $courseName,
+                $state
+
             );
         }
         try {
@@ -125,19 +127,21 @@ class CourseModel
             return array();
         }
     }
-    public function getCourseFromPage($page = 1, $perPage = 5, $courseName = "", $profileId = "")
+    public function getCourseFromPage($page = 1, $perPage = 5, $courseName = "", $profileId = "",$state="")
     {
         $offSet = ($page - 1) * $perPage;
         if ($profileId != "") {
-            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID= ?  LIMIT $offSet, $perPage";
+            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND profile.ID= ?  AND State LIKE CONCAT('%', ?, '%') LIMIT $offSet, $perPage";
             $params = array(
                 $courseName,
-                $profileId
+                $profileId,
+                $state
             );
         } else {
-            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') LIMIT $offSet, $perPage";
+            $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID  AND course.name LIKE CONCAT('%', ?, '%') AND State LIKE CONCAT('%', ?, '%') LIMIT $offSet, $perPage";
             $params = array(
                 $courseName,
+                $state
             );
         }
         try {
@@ -156,10 +160,32 @@ class CourseModel
         } catch (Exception $e) {
         }
     }
+    public function getCourse($id)
+    {
+        $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID AND course.ID =?";
+        $params = array(
+            'id' => $id
+        );
+        try {
+            $result = Database::executeQuery($sqlQuery, $params);
+            if ($result != null) {
+                $course = new Course();
+                foreach ($result as $index => $value) {
+                    $course->constructFromArray($value);
+                    break;
+                }
+                return $course;
+            } else {
+                return null;
+            }
+        } catch (Exception $e) {
+            return null;
+        }
+    }
     /* SHARE */
     public function getCourseById($id)
     {
-        $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID AND course.ID =? AND Status=1";
+        $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID AND course.ID =? AND State=0";
         $params = array(
             'id' => $id
         );
@@ -249,6 +275,29 @@ class CourseModel
                 return null;
             }
         } catch (Exception $e) {
+        }
+    }
+    public function getCourseByProfileID($profileId)
+    {
+        $sqlQuery = "SELECT * FROM course WHERE ProfileID = ?";
+        $params = array($profileId);
+
+        try{
+            $result = Database::executeQuery($sqlQuery,$params);
+            if ($result != null) {
+                $courses = [];
+                foreach ($result as $index => $value) {
+                    $course = new Course();
+                    $course->constructFromArray($value);
+                    $courses[] = $course;
+                }
+                return $courses;
+            } else {
+                return array();
+            }
+        }catch(Exception $e)
+        {
+            return array();
         }
     }
 }

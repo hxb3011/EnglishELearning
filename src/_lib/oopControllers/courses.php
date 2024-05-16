@@ -26,7 +26,7 @@ requirm('/dao/profile/profile.php');
 requirm('/excerciseresponse/ExcersResponse.php');
 
 
-
+requirl("profile/permissionChecker.php");
 requirl('/services/S3Service.php');
 class Courses
 {
@@ -61,9 +61,11 @@ class Courses
         $page->courses = array_slice($this->courseModel->getAllCourseBySearch(), 0, 5);
         $page->tutors = ProfileDAO::getProfileByType(0);
         $page->basePath = $this->s3Service->getBasePath();
+        
         if ($page->courses != null) {
             foreach ($page->courses as $key => $course) {
                 $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id,1);
+                $course->totalStudent = $this->subscriptionModel->getTotalStudentOfCourse($course->id);
             }
         }
         //$page->tutors
@@ -77,11 +79,18 @@ class Courses
         $page->course = $this->courseModel->getCourseById($courseId);
         $lessons = $this->lessonModel->getLessonsByCourseId($courseId,1);
         $page->totalLesson = count($lessons);
+        $page->course->totalStudent = $this->subscriptionModel->getTotalStudentOfCourse($page->course->id);
+        $holder = getPermissionHolder();
+        if(isset($holder) && $holder instanceof Profile)
+        {
+            $page->isRegistered = ($this->subscriptionModel->getSubscriptionByProAndCourse(ProfileDAO::getProfileByUid($_SESSION["AUTH_UID"])->getId(),$page->course->id)!= null) ? true : false;
+        }
         foreach ($lessons as $lesson) {
             $lesson->Documents = $this->documentModel->getDocumentsByLessonID($lesson->ID);
             usort($lesson->Documents, array('Courses', 'compareOrderN'));
         }
-
+        $current = new DateTime();
+        $page->isRegisterable = ($current >= $page->course->beginDate && $current <= $page->course->endDate) ?  true  : false;
         $excercises = $this->excerciseModel->getExcercisesByCourseId($courseId);
         $page->totalExcercise = count($excercises);
         $page->programs = array_merge($lessons, $excercises);
@@ -119,10 +128,39 @@ class Courses
 
         requira("_layout.php");
     }
-
-    public function checkout()
+    
+    public function my_course(?Profile $profile)
     {
+        requirv('courses/my-course.php');
+        global $page;
+        $page = new MyCoursePage();
+        $page->basePath = $this->s3Service->getBasePath();
+        if($profile != null)
+        {   
+            $page->profile = $profile;
+            if($profile->type ===  ProfileType_Learner )
+            {
+                $courseIDs = $this->subscriptionModel->getRegisterCoursesByUser($profile->getId());
+                foreach($courseIDs as $index => $value)
+                {
+                    $course = $this->courseModel->getCourseById($value);
+                    $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id,1);
+                    $course->totalStudent = $this->subscriptionModel->getTotalStudentOfCourse($course->id);
 
+                    $page->courses[]= $course;
+                }
+            }else{
+                $courses = $this->courseModel->getCourseByProfileID($profile->getId());
+                if ($courses != null) {
+                    foreach ($courses as $key => $course) {
+                        $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id,1);
+                        $course->totalStudent = $this->subscriptionModel->getTotalStudentOfCourse($course->id);
+                    }
+                }
+                $page->courses = $courses;
+            }
+        }
+       requira("_layout.php");
     }
     /* Ajax call function */
     public function update_tracking()

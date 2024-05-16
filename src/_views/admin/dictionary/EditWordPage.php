@@ -104,33 +104,33 @@ class EditWordPage extends BaseHTMLDocumentPage
                                                                 <input type="text" class="form-control text-capitalize w-25" id="lemmaKey" value="<? echo $this->lemma->keyL ?>" name="lemmaKey">
 
                                                                 <label class="col-md-2 col-form-label w-25" for="partOfSpeech">Loại từ<span class="required">*</span> </label>
-                                                                <input type="text" class="form-control text-capitalize w-25" id="partOfSpeech" name="partOfSpeech" value="<? echo $this->lemma->partOfSpeech ?>"  placeholder="Nhập từ loại" >
+                                                                
+                                                                <select class="form-select form-select-md mb-3 w-25" name="partOfSpeech" id="partOfSpeech">
+                                                                        <option value="Verb" <? if(strcasecmp($this->lemma->partOfSpeech,"verb") == 0)  echo 'selected="true"';  ?> > Verb</option>
+                                                                        <option value="Noun" <? if(strcasecmp($this->lemma->partOfSpeech,"noun") == 0)  echo 'selected="true"';  ?>> Noun</option>
+                                                                        <option value="Adjective" <? if(strcasecmp($this->lemma->partOfSpeech,"adjective") == 0)  echo 'selected="true"';  ?>> Adjective</option>
+                                                                        <option value="Adverb" <? if(strcasecmp($this->lemma->partOfSpeech,"adverd") == 0)  echo 'selected="true"';  ?>> Adverb</option>
+                                                                </select>
                                                             </div>
 
                                                             <h5 class="fw-bold">Pronunciation:</h5> 
-                                                            <? foreach(($this->lemma->pronunciation_arr) as $pronunciation) :?>
-                                                                <div class="form-group row mb-3  d-flex justify-content-between">
-                                                                    <label class="col-md-2 col-form-label w-25" for="region">Kiểu giọng </label>
-                                                                    <input type="text" disabled class="form-control w-25" id="region" name="region" value="<? echo $pronunciation->region ?>" >
+                                                            <div class="form-group row mb-3  d-flex justify-content-left">
+                                                                    <label class="col-md-2 col-form-label w-25" for="IPAUS">United State's Accent<span class="required">*</span> </label>
+                                                                    <input type="text" class="form-control w-25" id="IPAUS" name="IPAUS" placeholder="IPA" value="<? echo $this->lemma->pronunciation_arr[0]->IPA  ?>"></input>
                                                                     
-                                                                    <label class="col-md-2 col-form-label w-25" for="IPA">IPA phát âm<span class="required">*</span> </label>
-                                                                    <input type="text" class="form-control w-25" id="IPA" name="IPA<?echo $pronunciation->region?>" placeholder="Phát âm" value="<? echo $pronunciation->IPA ?>">
-                                                                </div>
-                                                            <? endforeach ?>       
-                                                            <? if(strcasecmp($this->lemma->partOfSpeech,'verb') == 0) : ?>
-                                                            <div class="form-group row mb-3">
-                                                                <h5 class="fw-bold">Conjugation (optional):</h5> 
+                                                                    <label class="col-md-2 col-form-label w-25" for="IPAUK">United Kingdom's Accent<span class="required">*</span> </label>                                                         
+                                                                    <input type="text" class="form-control w-25" id="IPAUK" name="IPAUK" placeholder="IPA" value="<? echo $this->lemma->pronunciation_arr[1]->IPA  ?>"></input>
+                                                            </div>  
+                                                            <div class="form-group row mb-3 _closed" id="conjugation_section">
+                                                                <h5 class="fw-bold">Conjugation:</h5> 
                                                                 <label class="col-md-5 col-form-label" for="description">Description </label>
-                                                                <div class="col-md-10">
+                                                                <div class="col-md-10 autocomplete">
                                                                     <textarea name="description" id="description" class="form-control" ></textarea>
+                                                                    <label class="col-md-5 col-form-label" for="conjugation">Conjugation </label>
+                                                                    <input type="text" class="form-control" name="conjugation" id="conjugation"></input>
+                                                                    <input type="hidden" class="form-control" name="infinitiveID" id="infinitiveID"></input>
                                                                 </div>
-                                                            </div>      
-                                                            <div class="form-group row mb-3 autocomplete">
-                                                                <label class="col-md-5 col-form-label" for="conjugation">Conjugation </label>
-                                                                <input type="text" class="form-control" name="conjugation" id="conjugation"></input>
-                                                                <input type="hidden" class="form-control" name="infinitiveID" id="infinitiveID"></input>
-                                                            </div>
-                                                            <? endif ?> 
+                                                            </div>     
                                                         </div>
                                                         <div class="d-flex align-items-center justify-content-center">
                                                             <button type="submit" class="btn btn-outline-primary btn-rounded btn-icon" id="submit_add_course" >Xác nhận</button>
@@ -140,7 +140,7 @@ class EditWordPage extends BaseHTMLDocumentPage
                                                 <div class="tab-pane " id="meaning" role="tabpanel" aria-labelledby="meaning">
                                                     <div class="row ">
                                                         <div class="col-md-12 mt-4 mb-4 d-flex justify-content-center">
-                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1 me-4" onclick="showAjaxModal('http://localhost:62280/administration/dictionary/ajax_call_action.php?action=meaning_modal&lemmaID=<? echo $this->lemma->ID ?>','Thêm nghĩa')"><i class="mdi-b plus"></i> Thêm nghĩa</a
+                                                            <a href="javascript::void(0)" class="btn btn-outline-primary btn-rounded btn-sm ml-1 me-4" onclick="showAjaxModal('http://localhost:62280/administration/dictionary/ajax_call_action.php?action=meaning_modal&lemmaID=<? echo $this->lemma->ID ?>','Thêm nghĩa')"><i class="mdi-b plus"></i> Thêm nghĩa</a>
                                                         </div>
                                                     </div>
                                                         <div class="row">
@@ -247,7 +247,14 @@ class EditWordPage extends BaseHTMLDocumentPage
         );
         ?>
         <script>
-                autocomplete(document.getElementById("conjugation"),document.getElementById("infinitiveID"),"ajax_call_action.php?action=search")
+            autocomplete(document.getElementById("conjugation"),document.getElementById("infinitiveID"),"ajax_call_action.php?action=search")
+            document.getElementById("partOfSpeech").addEventListener("change",function(e){
+                if(!this.value.localeCompare("Verb")){
+                    document.getElementById("conjugation_section").classList.remove("_closed");
+                }else{
+                    document.getElementById("conjugation_section").classList.add("_closed");
+                }
+            })
             $(document).ready(function() {
             var currentFocus = -1;
                 // thêm summer note
@@ -265,41 +272,35 @@ class EditWordPage extends BaseHTMLDocumentPage
                     rules: {
                         lemmaKey: {
                             required: true,
-                            minlength: 5
+                            minlength: 1
                         },
-                        partOfSpeech: {
+                        IPAUS: {
                             required: true,
-                            date: true
                         },
-                        IPA: {
+                        IPAUK: {
                             required: true,
-                            date: true
-                        },
-                        region: {
-                            required: true
                         },
                         conjugation: {
+                            required: true
+                        },
+                        description: {
                             required: true
                         }
                     },
                     messages: {
                         lemmaKey: {
-                            required: "Vui lòng nhập tên khóa học",
+                            required: "Vui lòng nhập từ",
                             minlength: "Độ dài của tên khóa học tối thiểu là 5"
                         },
-                        partOfSpeech: {
-                            required: "Vui lòng chọn ngày bắt đầu",
-                            date: "Ngày tháng không hợp lệ"
-                        },
                         IPA: {
-                            required: "Vui lòng chọn ngày kết thúc",
+                            required: "Vui lòng nhập IPA",
                             date: "Ngày tháng không hợp lệ"
-                        },
-                        region: {
-                            required: "Vui lòng chọn giáo viên"
                         },
                         conjugation: {
-                            required: "Vui lòng nhập giá cho khóa học"
+                            required: "Vui lòng nhập kiểu chia động từ"
+                        },
+                        description: {
+                            required: true
                         }
                     },
                     errorPlacement: function(error, element) {

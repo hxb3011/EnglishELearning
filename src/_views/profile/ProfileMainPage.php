@@ -3,9 +3,9 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
 requirm("profile/profile.php");
 
-final class ProfileMainPage extends BaseHTMLDocumentPage
+class ProfileMainPage extends BaseHTMLDocumentPage
 {
-    private ?IPermissionHolder $holder;
+    protected ?IPermissionHolder $holder;
     private array $verifications;
     public function __construct(?IPermissionHolder $holder, array $verifications)
     {
@@ -151,7 +151,7 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
                 ?>
             </card>
             <?
-            $hasUndefindActions = true;
+            $hasUndefindActions = false;
             $hasCourseSupscriptionHistory = $key->isPermissionGranted(Permission_CourseSubscribe);
             $hasAdministrationAction = $key->isPermissionGranted(Permission_SystemPrivilege) && (!isset($profile) || $profile->type !== ProfileType_Learner);
             $hasRelatedActions = $hasUndefindActions || $hasCourseSupscriptionHistory || $hasAdministrationAction;
@@ -193,7 +193,7 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
                     if ($hasAdministrationAction) {
                         ?>
                         <hr>
-                        <a class="list-item administration" href="administration/index.php" heading="Hệ thống" title="Quản trị hệ thống">
+                        <a class="list-item administration" href="/administration/index.php" heading="Hệ thống" title="Quản trị hệ thống">
                             <p class="icon mdi-b"></p>
                             <p class="action mdi-b"></p>
                         </a>
@@ -318,37 +318,38 @@ final class ProfileMainPage extends BaseHTMLDocumentPage
                 // </card>
             }
         }
+    //     <card class="section settings" >
+    //     <div class="list-heading" title="Cài đặt">
+    //         <p class="icon mdi-b"></p>
+    //     </div> 
+    //     <hr>
+    //     <a class="list-item theme" href="#" heading="Scope" title="Action">
+    //         <p class="icon mdi-b"></p>
+    //         <p class="action mdi-b"></p>
+    //     </a>
+    //     <hr>
+    //     <a class="list-item birthday" href="#" heading="Scope" title="Action">
+    //         <p class="icon mdi-b"></p>
+    //         <p class="action mdi-b"></p>
+    //     </a>
+    //     <hr>
+    //     <a class="list-item username" href="#" heading="Scope" title="Action">
+    //         <p class="icon mdi-b"></p>
+    //         <p class="action mdi-b"></p>
+    //     </a>
+    //     <hr>
+    //     <a class="list-item password" href="#" heading="Scope" title="Action">
+    //         <p class="icon mdi-b"></p>
+    //         <p class="action mdi-b"></p>
+    //     </a>
+    //     <hr>
+    //     <a class="list-item password" href="#" heading="Scope" title="Action">
+    //         <p class="icon mdi-b"></p>
+    //         <p class="action mdi-b"></p>
+    //     </a>
+    // </card>
         ?>
-        <card class="section settings">
-            <div class="list-heading" title="Cài đặt">
-                <p class="icon mdi-b"></p>
-            </div>
-            <hr>
-            <a class="list-item theme" href="#" heading="Scope" title="Action">
-                <p class="icon mdi-b"></p>
-                <p class="action mdi-b"></p>
-            </a>
-            <hr>
-            <a class="list-item birthday" href="#" heading="Scope" title="Action">
-                <p class="icon mdi-b"></p>
-                <p class="action mdi-b"></p>
-            </a>
-            <hr>
-            <a class="list-item username" href="#" heading="Scope" title="Action">
-                <p class="icon mdi-b"></p>
-                <p class="action mdi-b"></p>
-            </a>
-            <hr>
-            <a class="list-item password" href="#" heading="Scope" title="Action">
-                <p class="icon mdi-b"></p>
-                <p class="action mdi-b"></p>
-            </a>
-            <hr>
-            <a class="list-item password" href="#" heading="Scope" title="Action">
-                <p class="icon mdi-b"></p>
-                <p class="action mdi-b"></p>
-            </a>
-        </card>
+
         <?
     }
 }

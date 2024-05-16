@@ -5,16 +5,43 @@ requirm('/access/permission.php');
 
 final class AccountDAO
 {
+    public static function extractStateFlag(int $flag)
+    {
+        if ($flag > 0) {
+            return "(MOD(`account`.`Status`, " . strval($flag << 1) . ") DIV " . strval($flag) . ")";
+        }
+        return "0";
+    }
+    public static function getStateHasFlagCondition(int $flag)
+    {
+        return "(" . self::extractStateFlag($flag) . " <> 0)";
+    }
+    public static function getStateHasNotFlagCondition(int $flag)
+    {
+        return "(" . self::extractStateFlag($flag) . " = 0)";
+    }
+    public static function encryptPassword(&$password)
+    {
+        if (isset($password) && is_string($password))
+            return password_hash($password, PASSWORD_BCRYPT);
+        else return password_hash("Hello|11", PASSWORD_BCRYPT);
+    }
+
     public static function getTotalAccounts(?string $name = null)
     {
         if (isset($name)) {
-            $sqlQuery = "SELECT COUNT(*) AS total_accounts FROM `account` WHERE CONCAT(`LastName`, `FirstName`) LIKE CONCAT('%', ?, '%') OR CONCAT(`FirstName`, `LastName`) LIKE CONCAT('%', ?, '%')";
-            $params = array($name, $name);
+            $likeNameCondition = " AND (`account`.`UserName` LIKE CONCAT('%', ?, '%'))";
+            $params = array($name);
         } else {
-            $sqlQuery = "SELECT COUNT(*) AS total_accounts FROM `account`";
+            $likeNameCondition = "";
             $params = null;
         }
-        $result = Database::executeQuery($sqlQuery, $params);
+        $sql = "SELECT COUNT(*) AS total_accounts FROM `account` WHERE ";
+        $sql .= "`account`.`UID` <> '0' AND ";
+        $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
+        $sql .= $likeNameCondition;
+        $result = Database::executeQuery($sql, $params);
+
         if (!isset($result) || count($result) === 0)
             return floatval(0);
         return floatval($result[0]['total_accounts']);
@@ -23,13 +50,19 @@ final class AccountDAO
     {
         $offSet = ($page - 1) * $perPage;
         if (isset($name)) {
-            $sqlQuery = "SELECT * FROM `account` WHERE `UserName` LIKE CONCAT('%', ?, '%') LIMIT $offSet, $perPage";
+            $likeNameCondition = " AND (`account`.`UserName` LIKE CONCAT('%', ?, '%'))";
             $params = array($name);
         } else {
-            $sqlQuery = "SELECT * FROM `account` LIMIT $offSet, $perPage";
+            $likeNameCondition = "";
             $params = null;
         }
-        $result = Database::executeQuery($sqlQuery, $params);
+        $sql = "SELECT * FROM `account` WHERE ";
+        $sql .= "`account`.`UID` <> '0' AND ";
+        $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
+        $sql .= $likeNameCondition;
+        $sql .= " ORDER BY `account`.`UserName` ASC";
+        $sql .= " LIMIT " . strval($offSet) . ", " . strval($perPage);
+        $result = Database::executeQuery($sql, $params);
 
         $accounts = array();
         if ($result === null || count($result) === 0)
@@ -50,7 +83,10 @@ final class AccountDAO
 
     public static function getAllAccounts()
     {
-        $sql = "SELECT * FROM `account` WHERE `Status` < 4";
+        $sql = "SELECT * FROM `account` WHERE ";
+        $sql .= "`account`.`UID` <> '0' AND ";
+        $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
+        $sql .= " ORDER BY `account`.`UserName` ASC";
         $result = Database::executeQuery($sql);
         $accounts = array();
         if ($result === null || count($result) === 0)
@@ -70,14 +106,21 @@ final class AccountDAO
     }
     public static function getUnlinkedAccounts(?string $currentAccount)
     {
-        // 000 001 010 011 100 101 110 111
         if (isset($currentAccount)) {
-            $sql = "SELECT * FROM `account` WHERE (`UID` <> 0 AND MOD(`Status`, 2) = 0) OR `UID` = ?";
+            $includeCurrentCondition = "(`account`.`UID` <> '0' OR `account`.`UID` = ?) AND ";
             $params = array($currentAccount);
         } else {
-            $sql = "SELECT * FROM `account` WHERE MOD(`Status`, 2) = 0";
+            $includeCurrentCondition = "`account`.`UID` <> '0' AND ";
             $params = array();
         }
+
+        $sql = "SELECT * FROM `account` WHERE ";
+        $sql .= $includeCurrentCondition;
+        $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
+        $sql .= " AND ";
+        $sql .= self::getStateHasNotFlagCondition(AccountStates_Linked);
+        $sql .= " ORDER BY `account`.`UserName` ASC";
+
         $result = Database::executeQuery($sql, $params);
         $accounts = array();
         if ($result === null || count($result) === 0)
@@ -97,7 +140,9 @@ final class AccountDAO
     }
     public static function getAccountByUid(string $uid)
     {
-        $sql = "SELECT * FROM `account` WHERE `Status` < 4 AND `uid` = ?";
+        $sql = "SELECT * FROM `account` WHERE ";
+        $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
+        $sql .= " AND `account`.`UID` = ?";
         $result = Database::executeQuery($sql, array($uid));
         if ($result === null || count($result) === 0)
             return null;
@@ -114,29 +159,35 @@ final class AccountDAO
     }
     public static function isUserNameExist(string $testUserName)
     {
-        $sql = "SELECT COUNT(*) AS `AccountCount` FROM `account` WHERE `Status` < 4 AND `UserName` = ?";
+        $sql = "SELECT COUNT(*) AS `AccountCount` FROM `account` WHERE ";
+        $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
+        $sql .= " AND `account`.`UserName` = ?";
         $result = Database::executeQuery($sql, array($testUserName));
         return $result !== null && count($result) !== 0 && intval($result[0]["AccountCount"]) !== 0;
     }
     public static function findUnallocatedUID()
     {
-        $sql = "SELECT `UID`, `Status` FROM `account` WHERE `Status` > 3";
+        $sql = "SELECT `account`.`UID` FROM `account` WHERE ";
+        $sql .= self::getStateHasFlagCondition(AccountStates_Deleted);
         $result = Database::executeQuery($sql);
         if (!isset($result) || count($result) === 0) {
-            $sql = "SELECT COUNT(*) AS AccountCount FROM `account` WHERE `Status` < 4";
+            $sql = "SELECT COUNT(*) AS AccountCount FROM `account` WHERE ";
+            $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
             $result = Database::executeQuery($sql);
             if (!isset($result) || count($result) === 0)
                 return "0";
             else
                 return strval($result[0]["AccountCount"]);
         }
-        return strval(count($result));
+        return strval($result[0][`UID`]);
     }
     public static function createAccount(Account $account)
     {
         if (!isset($account))
             return false;
-        $sql = "SELECT `UID`, `Status` FROM `account` WHERE `Status` > 3 AND `UID` = ?";
+        $sql = "SELECT `UID` FROM `account` WHERE ";
+        $sql .= self::getStateHasFlagCondition(AccountStates_Deleted);
+        $sql .= " AND `account`.`UID` = ?";
         $result = Database::executeQuery($sql, array($account->getUid()));
         if (isset($result) && count($result) !== 0)
             return self::updateAccount($account);
@@ -161,15 +212,17 @@ final class AccountDAO
         $permissions = PermissionHolderKey::savePermissions($account);
         return Database::executeNonQuery($sql, array($userName, $password, $status, $permissions, $uid));
     }
+    public static function canDeleteAccount(Account $account)
+    {
+        return isset($account) && !$account->isLinked() && $account->getUid() === "0";
+    }
     public static function deleteAccount(Account $account)
     {
-        if (!isset($account) || ($account->isLinked() || $account->getUid() === "0"))
+        if (!self::canDeleteAccount($account))
             return false;
-        $sql = "UPDATE `account` SET `Status` = ? WHERE `UID` = ?";
-        $uid = $account->getUid();
         $account->setDeleted(true);
-        $state = $account->getState();
-        return Database::executeNonQuery($sql, array($state, $uid));
+        $sql = "UPDATE `account` SET `Status` = ? WHERE `UID` = ?";
+        return Database::executeNonQuery($sql, array($account->getState(), $account->getUid()));
     }
 }
 ?>
