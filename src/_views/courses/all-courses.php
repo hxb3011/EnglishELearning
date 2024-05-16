@@ -108,7 +108,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                                             <span class="mini-icon mdi-b student">
                                                             </span>
                                                             <span class="course-item__info-section__text">
-                                                                <?echo ($course->totalStudent)?> Học viên
+                                                                <? echo ($course->totalStudent) ?> Học viên
                                                             </span>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center b ">
@@ -133,12 +133,21 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                 </div>
                             <? endforeach ?>
                         <? endif ?>
-
+                        <div id="loadingTable" class="loading">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Vui lòng đợi...</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
                                 <ul class="pagination" id="pagination">
+                                    <div id="loadingPagination" class="loading">
+                                        <div class="spinner-border text-primary " role="status">
+                                            <span class="visually-hidden">Vui lòng đợi...</span>
+                                        </div>
+                                    </div>
                                 </ul>
                             </div>
                         </div>
@@ -206,13 +215,14 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                 $(this).addClass('active')
                             }
                         })
+                        $('#loadingTable').css('display','flex');
                         $.ajax({
                             url: 'http://localhost:62280/courses/ajax_call_action.php?action=get_course_by_page',
                             method: 'POST',
                             data: JSON.stringify(searchData),
                             success: function(response) {
+                                $('#loadingTable').hide();
                                 let data = JSON.parse(response);
-                                console.log(data)
                                 showData(data);
                             }
                         })
@@ -245,6 +255,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                     searchData.start_price = start_price;
                     searchData.end_price = end_price;
                 }
+                $('#loadingPagination').css('display','flex');
                 $.ajax({
                     url: 'http://localhost:62280/courses/ajax_call_action.php?action=get_total_page',
                     method: 'POST',
@@ -253,7 +264,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                         'Access-Control-Allow-Origin': '*'
                     },
                     success: function(response) {
-                        console.log(response, ' totalPage');
+                        $('#loadingPagination').hide();
                         html = `
                        <li class="pagination-item" data-page="prev">
                                 <a href="javascript:void(0)">
@@ -276,6 +287,14 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                     <i class="mdi-b next"></i>
                                 </a>
                         </li>
+                        `
+                        html +=
+                            `
+                        <div id="loadingPagination" class="loading">
+                                        <div class="spinner-border text-primary " role="status">
+                                            <span class="visually-hidden">Vui lòng đợi...</span>
+                                        </div>
+                        </div>
                         `
                         maxPage = response;
                         $('#pagination').html(html);
@@ -314,6 +333,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                     searchData.end_price = end_price;
                 }
                 initPagination()
+                $('#loadingTable').css('display','flex')
                 $.ajax({
                     url: 'http://localhost:62280/courses/ajax_call_action.php?action=get_course_by_page',
                     method: 'POST',
@@ -322,6 +342,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                         'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
                     },
                     success: function(response) {
+                        $('#loadingTable').hide();
                         let data = JSON.parse(response);
                         console.log(data)
                         showData(data);
@@ -382,6 +403,14 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                     </div>     
                     `
                 }
+                html +=
+                    `
+                <div id="loadingTable" class="loading">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Vui lòng đợi...</span>
+                    </div>
+                </div>
+                `
                 $('#courses-section__content').html(html)
             }
             // dd-MM-yyyy

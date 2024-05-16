@@ -3,7 +3,7 @@ require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
 requirm("profile/profile.php");
 
-final class ProfileMainPage extends BaseHTMLDocumentPage
+class ProfileMainPage extends BaseHTMLDocumentPage
 {
     private ?IPermissionHolder $holder;
     private array $verifications;

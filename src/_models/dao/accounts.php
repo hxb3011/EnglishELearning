@@ -4,19 +4,6 @@ requirm('/access/Account.php');
 requirm('dao/access/account.php');
 class UserRepo
 {
-    public function getLoginInfo($username)
-    {
-        $sqlQuery = "SELECT * FROM account ac 
-                     join profile pf on ac.UID = pf.UID
-                     join verification vr on pf.id = vr.ProfileID
-                     WHERE username = ? or email = ?";
-        $result = Database::executeQuery($sqlQuery, [$username]);
-        if ($result !== null && count($result) > 0) {
-            return $result[0];
-        }
-        return null;
-    }
-
     public function checkEmail($email)
     {
         try {
@@ -94,85 +81,5 @@ class UserRepo
             return $result[0]['username'];
         }
         return null;
-    }
-
-    public function Register($username, $password, $email, $firstName, $lastName, $gender, $birthday)
-    {
-        try {
-            $sqlCheckExistUserNameOrEmail = "select * from account ac 
-                                             join profile pf on ac.UID = pf.UID
-                                             join verification vr on pf.id = vr.ProfileID
-                                             where UserName = ? or email = ?";
-            $paramsCheck = array(
-                "username" => $username,
-                "email" => $email
-            );
-            $result = Database::executeQuery($sqlCheckExistUserNameOrEmail, $paramsCheck);
-            if ($result != null) {
-                echo ("User email or username already registered");
-                return false;
-            } else {
-                $uid = uniqid();
-                $password = password_hash($password, PASSWORD_BCRYPT);
-                $status = 1;
-                $permissions = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-                $paramsAccount = array($uid, $username, $password, $status, $permissions);
-                $resultAccount = $this->insertAccount($paramsAccount);
-                if ($resultAccount) {
-                    $idProfile = uniqid();
-                    $type = ProfileType_Learner;
-                    $status = 1;
-                    $roleID = RoleDAO::getDefaultRoleForLearner()->getID();
-                    $newGender = $gender == "male" ? Gender_Male : Gender_Female;
-                    $paramsProfile = array($idProfile, $lastName, $firstName, $newGender, $birthday, $type, $status, $uid, $roleID);
-                    $resultProfile = $this->insertProfile($paramsProfile);
-                    if ($resultProfile) {
-                        $keyVerify = "z" . $email;
-                        $paramsVerification = array($idProfile, $keyVerify, $email);
-                        $resultVerification = $this->insertVerification($paramsVerification);
-                        if ($resultVerification) {
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public function insertAccount($params)
-    {
-        try {
-            $sqlQuery = "INSERT INTO account (uid, username, password, status, permissions) VALUES (?, ?, ?, ?, ?)";
-            $result = Database::executeNonQuery($sqlQuery, $params);
-            return $result;
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public function insertProfile($params)
-    {
-        try {
-            $sqlQuery = "INSERT INTO profile (id, lastname,firstname,  gender, birthday, type, status, uid, RoleID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            $result = Database::executeNonQuery($sqlQuery, $params);
-            return $result;
-        } catch (Exception $e) {
-
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public function insertVerification($params)
-    {
-        try {
-            $sqlQuery = "INSERT INTO verification (profileID, keyVerify, email) VALUES (?, ?, ?)";
-            $result = Database::executeNonQuery($sqlQuery, $params);
-            return $result;
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
     }
 }

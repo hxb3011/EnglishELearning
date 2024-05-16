@@ -1,9 +1,7 @@
 <?php
 require_once "/var/www/html/_lib/utils/requir.php";
-requirm("/dao/accounts.php"); //?converting
-requirm("/dao/profile/profile.php");
-requirm("/dao/profile/verification.php");
-requirm("/dao/access/account.php");
+requirm("dao/profile/profile.php");
+requirm("dao/profile/verification.php");
 class Authentication
 {
     public function __construct($formdata)
@@ -40,7 +38,7 @@ class Authentication
                 echo "Username hoặc mật khẩu bỏ trống";
                 return;
             }
-            $auth_uid = AccountDAO::getAccountUidToLogin($subject, AccountDAO::encryptPassword($password));
+            $auth_uid = ProfileDAO::getAccountUidToLogin($subject, $password);
             if (isset($auth_uid)) {
                 if (!session_id())
                     session_start();
@@ -52,7 +50,6 @@ class Authentication
                 } else {
                     echo "Đã có tài khoản đăng nhập.";
                 }
-                echo "success";
             } else {
                 echo "Username hoặc mật khẩu không đúng";
             }
@@ -117,6 +114,7 @@ class Authentication
                 echo "Tạo hồ sơ thất bại";
                 if ($pkey instanceof PermissionHolderKey)
                     $pkey->set(null, null);
+                AccountDAO::deleteAccount($account);
                 return;
             }
 
@@ -125,7 +123,7 @@ class Authentication
                 $v = new Verification($pid, "");
                 $v->setEmail(strval($email));
                 if (!VerificationDAO::createVerification($v)) {
-                    echo "Lưu email thất bại";
+                    echo "success"; // Lưu email thất bại
                     return;
                 }
             }
