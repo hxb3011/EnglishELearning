@@ -163,13 +163,31 @@ final class RoleDAO
         }
         return $role;
     }
-    // public static function deleteRole(Role $role)
-    // {
-    //     if (!isset($role))
-    //         return false;
-    //     $sql = "DELETE FROM `role` WHERE `ID` = ?";
-    //     $roleId = $role->getId();
-    //     return Database::executeNonQuery($sql, array($roleId));
-    // }
+
+    public static function canDeleteRole(Role $role)
+    {
+        if (!isset($role))
+            return false;
+
+        $param = array($role->getId());
+        $sql = "SELECT COUNT(*) AS `Count` FROM `profile` WHERE `profile`.`RoleID` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+
+        $sql = "SELECT COUNT(*) FROM `property` WHERE `property`.`Key` LIKE 'DEFAULT_%_ROLE' AND `property`.`Value` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+        return true;
+    }
+
+    public static function deleteRole(Role $role)
+    {
+        if (!self::canDeleteRole($role))
+            return false;
+
+        return Database::executeNonQuery("DELETE FROM `role` WHERE `role`.`ID` = ?", array($role->getId()));
+    }
 }
 ?>

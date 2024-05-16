@@ -5,7 +5,7 @@ requirm('/dao/database.php');
 final class PropertiesDAO
 {
     public static function ensurePropertiesCreated() {
-        $sql = "CREATE TABLE `property` ( `Key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL, `Value` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL, PRIMARY KEY (`Key`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
+        $sql = "CREATE TABLE IF NOT EXISTS `property` ( `Key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL, `Value` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL, PRIMARY KEY (`Key`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
         $result = Database::executeNonQuery($sql);
         return !$result;
     }

@@ -218,9 +218,63 @@ final class ProfileDAO
             $roleID = $role->getId();
         return Database::executeNonQuery($sql, array($firstName, $lastName, $gender, $birthDay, $type, $status, $uid, $roleID, $profileId));
     }
-    public static function deleteProfile(Profile $profile)
+
+    public static function canDeleteProfile(Profile $profile)
     {
         if (!isset($account))
+            return false;
+
+        $param = array($profile->getId());
+        $sql = "SELECT COUNT(*) FROM `comment` WHERE `comment`.`AuthID` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+
+        $sql = "SELECT COUNT(*) FROM `contribution` WHERE `contribution`.`ProfileID` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+
+        $sql = "SELECT COUNT(*) FROM `course` WHERE `course`.`ProfileID` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+
+        $sql = "SELECT COUNT(*) FROM `execsresponse` WHERE `execsresponse`.`ProfileID` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+
+        $sql = "SELECT COUNT(*) FROM `learntrecord` WHERE `learntrecord`.`ProfileID` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+
+        $sql = "SELECT COUNT(*) FROM `payment` WHERE `payment`.`ProfileID` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+
+        $sql = "SELECT COUNT(*) FROM `post` WHERE `post`.`ProfileID` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+
+        $sql = "SELECT COUNT(*) FROM `tracking` WHERE `tracking`.`ProfileID` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+
+        $sql = "SELECT COUNT(*) FROM `verification` WHERE `verification`.`ProfileID` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+        return true;
+    }
+
+    public static function deleteProfile(Profile $profile)
+    {
+        if (!self::canDeleteProfile($profile))
             return false;
         $sql = "DELETE FROM `profile` WHERE `ID` = ?";
         $profileId = $profile->getId();
