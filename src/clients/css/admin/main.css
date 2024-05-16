@@ -41,6 +41,10 @@
     content: var(--mdi-arrow-left-circle);
 }
 
+.mdi-b.-plus::before {
+    content: var(--mdi-plus-circle);
+}
+
 .mdi-b.-account::before {
     content: var(--mdi-home-account);
 }

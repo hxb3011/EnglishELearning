@@ -46,9 +46,6 @@ class RoleMainPage extends BaseHTMLDocumentPage
             "/clients/css/admin/pagination.css",
             "/node_modules/jquery-ui/dist/themes/base/jquery-ui.min.css"
         );
-        $this->scripts(
-            "/clients/access/changeDefaultRole.js"
-        );
     }
 
     public function body()
@@ -80,51 +77,17 @@ class RoleMainPage extends BaseHTMLDocumentPage
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="filter-section row">
-                                <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12">
+                            <div class="filter-section row justify-content-between">
+                                <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12 m-1">
                                     <div class="form-outline" data-mdb-input-init>
-                                        <input type="search" id="search_name" class="form-control" placeholder="Tìm theo tên" />
+                                        <input type="search" id="search_name" class="form-control" placeholder="Tìm theo tên " />
                                     </div>
                                 </div>
-                                <div class="filter-part d-flex align-items-center justify-content-center col-md-3 col-sm-12" id="btn_search">
-                                    <button class="btn filter-btn" onclick="onSearchData()">
-                                        Lọc
-                                    </button>
+                                <div class="filter-part d-flex align-items-center justify-content-center col-md-3 col-sm-12 m-1" id="btn_search">
+                                    <button class="btn filter-btn" onclick="onSearchData()"> Lọc </button>
                                 </div>
-                                <div class="filter-part d-flex align-items-center justify-content-center col-md-3 col-sm-12" id="btn_search">
-                                    <a type="button" href="/administration/access/editRole.php?add=1" class="btn btn-outline-primary btn-rounded btn-icon">
-                                        <i class="mdi-b back"></i> Thêm
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputDefaultInstructorRole">Vai trò giảng viên mặc định</label>
-                                    <select id="inputDefaultInstructorRole" class="form-control">
-                                        <?
-                                        foreach ($this->roles as $key => $value) {
-                                            if ($value instanceof Role) {
-                                                ?>
-                                                <option value="<?= $value->getId() ?>"<?= $value->getId() === $this->instructorRole->getId() ? " selected" : "" ?>><?= $value->name ?></option>
-                                                <?
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputDefaultLearnerRole">Vai trò học viên mặc định</label>
-                                    <select id="inputDefaultLearnerRole" class="form-control">
-                                        <?
-                                        foreach ($this->roles as $key => $value) {
-                                            if ($value instanceof Role) {
-                                                ?>
-                                                <option value="<?= $value->getId() ?>"<?= $value->getId() === $this->learnerRole->getId() ? " selected" : "" ?>><?= $value->name ?></option>
-                                                <?
-                                            }
-                                        }
-                                        ?>
-                                    </select>
+                                <div class="filter-part d-flex align-items-center justify-content-center col-md-3 col-sm-12 m-1" id="btn_add">
+                                    <a type="button" href="/administration/access/editRole.php?add=1" class="btn btn-outline-primary btn-rounded btn-icon"><i class="mdi-b -plus"></i>Thêm</a>
                                 </div>
                             </div>
                             <div class="row">

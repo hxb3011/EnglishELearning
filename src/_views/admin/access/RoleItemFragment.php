@@ -15,11 +15,16 @@ foreach ($fragment_roles as $key => $value) {
                         <span class="mdi-b dots-vertical"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="javascript:void(0)" target="_blank">Xem vai trò</a></li>
+                        <li><a class="dropdown-item" href="/administration/access/viewRole.php?roleid=<?= $value->getId() ?>">Xem vai trò</a></li>
                         <?
                         if ($fragment_role_update) {
                             ?>
                             <li><a class="dropdown-item" href="/administration/access/editRole.php?add=0&roleid=<?= $value->getId() ?>">Sửa vai trò</a></li>
+                            <?
+                        }
+                        if ($fragment_role_delete) {
+                            ?>
+                            <li><a class="dropdown-item" href="/administration/access/deleteRole.php?roleid=<?= $value->getId() ?>">Xoá vai trò</a></li>
                             <?
                         }
                         ?>

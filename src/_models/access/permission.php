@@ -508,7 +508,7 @@ function getPermissionName(int $permissionValue)
     elseif ($permissionValue === Permission_QAExtensionMatching)
         return "Câu hỏi ghép cột (mở rộng)";
     elseif ($permissionValue === Permission_QAExtensionMultipleChoices)
-        return "Câu hỏi nhiều lựa chọn (mở rộng)";
+        return "Câu hỏi lựa chọn (mở rộng)";
     elseif ($permissionValue === Permission_BlogManage)
         return "Quản lý blog";
     elseif ($permissionValue === Permission_PostCreate)

@@ -6,12 +6,14 @@ class EditRolePage extends BaseHTMLDocumentPage
 {
     private IPermissionHolder $holder;
     private Role $role;
+    private int $type;
     private bool $add;
-    public function __construct(IPermissionHolder $holder, Role $role, bool $add = false)
+    public function __construct(IPermissionHolder $holder, Role $role, int $type, bool $add = false)
     {
         parent::__construct();
         $this->holder = $holder;
         $this->role = $role;
+        $this->type = $type;
         $this->add = $add;
     }
 
@@ -70,10 +72,10 @@ class EditRolePage extends BaseHTMLDocumentPage
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span>
+                                        <b class="px-4">
                                             <?= ($this->add) ? "Thêm vai trò" : "Sửa vai trò" ?>
-                                        </span>
-                                        <a type="button" href="/administration/access/role.php" class="btn btn-outline-primary btn-rounded btn-icon">
+                                        </b>
+                                        <a type="button" href="/administration/access/role.php" class="btn btn-outline-primary btn-rounded btn-icon px-4">
                                             <i class="mdi-b back"></i> Danh sách vai trò
                                         </a>
                                     </div>
@@ -83,28 +85,57 @@ class EditRolePage extends BaseHTMLDocumentPage
                             <div class="row">
                                 <div class="col-md-12">
                                     <form action="/administration/access/editRole.php?add=<?= $this->add ? 1 : 0 ?>&roleid=<?= $this->role->getId() ?>" method="post">
-                                        <div class="form-group">
-                                            <label for="name">Tên</label>
+                                        <div class="mb-3 row m-1">
+                                            <label for="name" class="mx-1"><b>Tên</b></label>
                                             <input type="text" class="form-control" id="name" name="name" placeholder="Tên" value="<?= $this->role->name ?>">
                                         </div>
-                                        <div class="form-group">
-                                            <label>Danh sách quyền</label>
-                                        </div>
                                         <?
-                                        $key = $this->role->getKey();
-                                        for ($value = PermissionMinValue; $value <= PermissionMaxValue; ++$value) {
-                                            $permkey = getPermissionKey($value);
-                                            $permname = getPermissionName($value);
-                                            $permchecked = $key->isPermissionGranted($value) ? " checked" : "";
+                                        if (!$this->add) {
                                             ?>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" id="i<?= $permkey ?>" name="<?= $permkey ?>" value="<?= $value ?>"<?= $permchecked ?>>
-                                                <label class="form-check-label" for="i<?= $permkey ?>"><?= $permname ?></label>
+                                            <div class="mb-3 row m-1">
+                                                <label for="defaulttype" class="mx-1"><b>Tên</b></label>
+                                                <?
+                                                $selected = " selected";
+                                                $unspecified = "";
+                                                $instructor = "";
+                                                $learner = "";
+                                                if ($this->type === ProfileType_Instructor) {
+                                                    $instructor = $selected;
+                                                } elseif ($this->type === ProfileType_Learner) {
+                                                    $learner = $selected;
+                                                } else {
+                                                    $unspecified = $selected;
+                                                }
+                                                ?>
+                                                <select class="form-control" id="defaulttype" name="defaulttype">
+                                                    <option <?= $unspecified ?>>(Không xác định)</option>
+                                                    <option value="<?= ProfileType_Instructor ?>"<?= $instructor ?>>Giảng viên</option>
+                                                    <option value="<?= ProfileType_Learner ?>"<?= $learner ?>>Học viên</option>
+                                                </select>
                                             </div>
                                             <?
                                         }
                                         ?>
-                                        <button type="submit" class="btn btn-primary"><?= ($this->add) ? "Thêm" : "Sửa" ?></button>
+                                        <div class="mb-3 row m-1">
+                                            <label class="mx-1"><b>Danh sách quyền</b></label>
+                                        </div>
+                                        <div class="mb-3 row m-1 px-4 align-items-center">
+                                            <?
+                                            $key = $this->role->getKey();
+                                            for ($value = PermissionMinValue; $value <= PermissionMaxValue; ++$value) {
+                                                $permkey = getPermissionKey($value);
+                                                $permname = getPermissionName($value);
+                                                $permchecked = $key->isPermissionGranted($value) ? " checked" : "";
+                                                ?>
+                                                <div class="form-check form-check-inline col-sm-4 py-1">
+                                                    <input class="form-check-input" type="checkbox" id="i<?= $permkey ?>" name="<?= $permkey ?>" value="<?= $value ?>"<?= $permchecked ?>>
+                                                    <label class="form-check-label" for="i<?= $permkey ?>"><?= $permname ?></label>
+                                                </div>
+                                                <?
+                                            }
+                                            ?>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary m-1"><?= ($this->add) ? "Thêm" : "Sửa" ?></button>
                                     </form>
                                 </div>
                             </div>

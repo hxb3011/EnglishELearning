@@ -2,7 +2,8 @@
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("profile/permissionChecker.php");
 
-function loadPermissionsFromRequest(Role $role) {
+function loadPermissionsFromRequest(Role $role)
+{
     $key = $role->getKey();
     for ($value = PermissionMinValue; $value <= PermissionMaxValue; ++$value) {
         $permkey = getPermissionKey($value);
@@ -41,7 +42,18 @@ if (!isset($reqm)) {
                                 if (!isset($role)) {
                                     $role = new Role($roleid);
                                 }
-                                $page = new EditRolePage($holder, $role, false);
+                                $type = 2;
+                                if (isset($role)) {
+                                    $default = RoleDAO::getDefaultRoleForInstructor();
+                                    if ($default->getId() === $roleid) {
+                                        $type = ProfileType_Instructor;
+                                    }
+                                    $default = RoleDAO::getDefaultRoleForLearner();
+                                    if ($default->getId() === $roleid) {
+                                        $type = ProfileType_Learner;
+                                    }
+                                }
+                                $page = new EditRolePage($holder, $role, $type, false);
                                 requira("_adminLayout.php");
                                 $granted = true;
                             }
@@ -54,7 +66,7 @@ if (!isset($reqm)) {
                             if (!isset($role))
                                 $role = RoleDAO::findUnallocatedID();
                             $role = new Role($role);
-                            $page = new EditRolePage($holder, $role, true);
+                            $page = new EditRolePage($holder, $role, 2, true);
                             requira("_adminLayout.php");
                             $granted = true;
                         }
@@ -87,6 +99,14 @@ if (!isset($reqm)) {
                                     header('Location: /administration/access/editRole.php?add=' . $add . '&roleid=' . $id);
                                 }
                                 $granted = true;
+                            }
+                            $defaultType = &$_REQUEST["defaulttype"];
+                            if (isset($defaultType) && isset($role)) {
+                                if ($defaultType === strval(ProfileType_Instructor)) {
+                                    RoleDAO::setDefaultRoleForInstructor($role->getId());
+                                } elseif ($defaultType === strval(ProfileType_Learner)) {
+                                    RoleDAO::setDefaultRoleForInstructor($role->getId());
+                                }
                             }
                         }
                     } elseif ($add === "1") {

@@ -1,18 +1,16 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("utils/htmlDocument.php");
-requirm("access/permission.php");
-class EditAccountPage extends BaseHTMLDocumentPage
+requirm("profile/profile.php");
+class DeleteProfilePage extends BaseHTMLDocumentPage
 {
-    private IPermissionHolder $holder;
-    private Account $account;
-    private bool $add;
-    public function __construct(IPermissionHolder $holder, Account $account, bool $add = false)
+    private Profile $profile;
+    private bool $deleted;
+    public function __construct(Profile $profile, bool $deleted)
     {
         parent::__construct();
-        $this->holder = $holder;
-        $this->account = $account;
-        $this->add = $add;
+        $this->profile = $profile;
+        $this->$deleted = $deleted;
     }
 
     // public function beforeDocument()
@@ -22,12 +20,12 @@ class EditAccountPage extends BaseHTMLDocumentPage
 
     public function documentInfo(string $author, string $description, string $title)
     {
-        parent::documentInfo($author, $description, "Tài khoản - " . $title);
+        parent::documentInfo($author, $description, "Hồ sơ - " . $title);
     }
 
     public function openGraphInfo(string $image, string $description, string $title)
     {
-        parent::openGraphInfo($image, $description, "Tài khoản - " . $title);
+        parent::openGraphInfo($image, $description, "Hồ sơ - " . $title);
     }
 
     public function favIcon(string $ico = null, string $svg = null)
@@ -56,10 +54,7 @@ class EditAccountPage extends BaseHTMLDocumentPage
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="admin-header">
-                        <i class="mdi-b apple-keyboard-command admin-header__icon"></i>
-                        <?= ($this->add) ? "Thêm tài khoản" : "Sửa tài khoản" ?>
-                    </div>
+                    <div class="admin-header"><i class="mdi-b apple-keyboard-command admin-header__icon"></i>Xoá hồ sơ</div>
                 </div>
             </div>
             <div style="margin-top:10px; margin-bottom:10px"></div>
@@ -70,11 +65,9 @@ class EditAccountPage extends BaseHTMLDocumentPage
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <b class="px-4">
-                                            <?= ($this->add) ? "Thêm tài khoản" : "Sửa tài khoản" ?>
-                                        </b>
-                                        <a type="button" href="/administration/access/account.php" class="btn btn-outline-primary btn-rounded btn-icon">
-                                            <i class="mdi-b back"></i> Danh sách tài khoản
+                                        <b>Xoá hồ sơ</b>
+                                        <a type="button" href="/administration/profile/index.php" class="btn btn-outline-primary btn-rounded btn-icon">
+                                            <i class="mdi-b back"></i> Danh sách hồ sơ
                                         </a>
                                     </div>
                                 </div>
@@ -82,17 +75,7 @@ class EditAccountPage extends BaseHTMLDocumentPage
                             <div style="margin-top:24px; margin-bottom:24px;"></div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="/administration/access/editAccount.php?add=<?= $this->add ? 1 : 0 ?>&uid=<?= $this->account->getUid() ?>" method="post">
-                                        <div class="mb-3 row m-1">
-                                            <label for="userName"><b>Tên người dùng</b></label>
-                                            <input type="text" class="form-control" id="userName" name="userName" placeholder="Tên người dùng" value="<?= $this->account->userName ?>">
-                                        </div>
-                                        <div class="mb-3 row m-1">
-                                            <label for="password"><b>Mật khẩu</b></label>
-                                            <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary m-1"><?= ($this->add) ? "Thêm" : "Sửa" ?></button>
-                                    </form>
+                                    <?= $this->deleted ? "Xoá hồ sơ thành công." : "Xoá hồ sơ thất bại do có dữ liệu phụ thuộc." ?>
                                 </div>
                             </div>
                         </div>
