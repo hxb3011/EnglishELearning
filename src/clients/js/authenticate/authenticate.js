@@ -82,7 +82,7 @@ function register() {
             data: JSON.stringify(formdata),
             contentType: "application/json",
             success: function (data) {
-                // console.log(data);
+                console.log(data);
                 if (data == "success") {
                     checkUI();
                     document.getElementById("error").classList.add("alert-success");
