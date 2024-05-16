@@ -47,6 +47,9 @@ class LemmaModel {
             return null;
         }
     }
+    public function getAllFavorite(){
+        $sql = "SELECT Lemma.* FROM Lemma,LearntRecord WHERE Lemma.ID = LearnRecord.LemmaID";
+    }
     public function checkKeyExist($key){
         $sqlQuery = "SELECT * FROM Lemma WHERE KeyL like ?" ;
         $params = array(
