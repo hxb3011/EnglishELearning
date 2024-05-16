@@ -9,7 +9,7 @@ requirm('/access/dictionary/Pronunciation.php');
 
 final class DictionaryMainPage extends BaseHTMLDocumentPage
 {
-    public Lemma $lemma;
+    public $lemma_arr = array();
     public $conjugation_arr = array();
     public $example_arr = array();
     public function __construct()
@@ -90,9 +90,9 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
                 echo 
                 '<div class="word-detail ">
                 <div class="card  padding-5">
-                    <h3 class="part-of-speech  text-capitalize">'. $this->lemma->partOfSpeech.'</h3>
+                    <h3 class="part-of-speech  ">'. $this->lemma->partOfSpeech.'</h3>
                     <div class="title_n_heart">
-                        <h3 class="word_title text-reset text-capitalize">'. $this->lemma->keyL.'</h3>
+                        <h3 class="word_title text-reset ">'. $this->lemma->keyL.'</h3>
                         <a class="mdi-b heart-icon -dictionary " hint="Yêu thích" id="favorite" value="'.$this->lemma->ID.'" href="#"></a>
                     </div>
                     <span class="word_pronunciation ">';
@@ -102,7 +102,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
                     echo '</span>';
                     if(!is_null($this->lemma->meaning_arr))
                     foreach(($this->lemma->meaning_arr) as $item){
-                        echo '<p class="word_definition text-reset  text-capitalize" align ="jusitify"> '.$item->meaning .' </p>';
+                        echo '<p class="word_definition text-reset " align ="jusitify"> '.$item->meaning .' </p>';
                         echo '<p class="word_definition text-reset  " align ="jusitify"> '.$item->explanation .' </p>';
 
                         echo '<i class="example " align ="jusitify">Example:</i>';
