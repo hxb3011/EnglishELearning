@@ -66,7 +66,7 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
             <div class="heading" title="Khóa học nổi bật" sub-title="Khám phá các khóa học nổi bật của chúng tôi">
                 <a href="/courses/all.php">Tất cả khóa học</a>
             </div>
-            <div class="content">
+            <div class="content d-flex justify-content-between">
                 <? foreach ($this->courses as $key => $course) : ?>
                     <a href="/courses/detail.php?courseId=<? echo $course->id ?>">
                         <img class="banner" src="<?echo($this->basePath.$course->posterURI)?>" alt="">
@@ -83,7 +83,7 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
                         <p class="footer" href="/courses/detail.php?courseId=<? echo $course->id ?>" price="300.000 VNĐ">Xem chi tiết</p>
                     </a>
                 <? endforeach ?>
-            </div>
+            </div>  
             <div class="statistic content">
                 <p name="Học viên" value="120"></p>
                 <p name="Khóa học" value="5"></p>
@@ -95,31 +95,27 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
             <div class="heading" title="Đánh giá" sub-title="Những gì học viên nói về EduPress"></div>
             <div class="content">
                 <div class="mdi-b item">
-                    <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
+                    <p class="feedback">Trang web đã giúp tôi học được Tiếng Anh, trước đấy 1 chữ tôi cũng không biết, bây giờ đã có thể nói chuyện được với người Mỹ (Mỹ Tho)</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
                 <div class="mdi-b item">
-                    <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
+                    <p class="feedback">Tôi mới sử dụng web này thôi nhưng thấy web rất là xịn xò, có cả phân trang, thống kê, ajax, web này xứng đáng điểm cao</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
                 <div class="mdi-b item">
-                    <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
+                    <p class="feedback">Tôi rất bực, tôi chưa bao giờ thấy web nào xịn như web này, thật không thể chấp nhận được. Tôi mà là giáo viên chấm web này phải được cộng điểm</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
                 <div class="mdi-b item">
-                    <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
+                    <p class="feedback">Các bạn đừng vào web này nhè, tốn thời gian lắm. Vì từ hồi vào đây tôi không thể ngừng học tiếng Anh được, đến nỗi không có thời gian để làm việc khác, web quá xịn</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
                 <div class="mdi-b item">
-                    <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
+                    <p class="feedback">Học tiếng Anh chưa bao giờ dễ đến vậy, trang web này có mọi thứ mình cần luôn, có cả từ điển xịn xò, các bạn mau đăng ký đi. (Comment này ko có seeding đâu)</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
                 <div class="mdi-b item">
-                    <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
-                    <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
-                </div>
-                <div class="mdi-b item">
-                    <p class="feedback">Tôi phải giải thích cho bạn biết tại sao tất cả điều này lại sai lầm. Tdea tố cáo niềm vui và ca ngợi nỗi đau đã ra đời và tôi sẽ cung cấp cho bạn một tài khoản đầy đủ về hệ thống và giải thích</p>
+                    <p class="feedback">Tôi là Elon Musk, có tôi đã sử dụng web này 10 năm nay và thấy nó rất tốt. Các bạn nên dùng nó đi</p>
                     <p class="owner" role="Học viên">Lê Tấn Minh Toàn</p>
                 </div>
             </div>

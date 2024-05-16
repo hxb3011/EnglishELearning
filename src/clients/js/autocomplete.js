@@ -19,7 +19,7 @@ function autocomplete(inp, inp_save, url, positionAbsolute) {
             {
                 if(response.status == '204')
                 {
-                    show_autocomplete(inp,val,response.items,positionAbsolute);
+                    show_autocomplete(inp,val,response.items,inp_save,positionAbsolute);
                 }
                 else if(response.status == '404')
                 {
@@ -61,7 +61,7 @@ function autocomplete(inp, inp_save, url, positionAbsolute) {
         closeAllLists(inp,e.target);
     });
 }
-function show_autocomplete(inp,val,data,positionAbsolute){   
+function show_autocomplete(inp,val,data,inp_save,positionAbsolute){   
     
     //Đóng danh sách đang mở nếu có
     var a, b, i;
