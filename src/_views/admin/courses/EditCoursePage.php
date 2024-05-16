@@ -215,6 +215,16 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row mb-3">
+                                                                <label class="col-md-2 col-form-label" for="state">Trạng thái</label>
+                                                                <div class="col-md-10">
+                                                                    <select class="form-select form-select-md mb-3" name="state" id="state">
+                                                                        <option value="">Trạng thái</option>
+                                                                        <option value="1" <?if($this->course->state == 1) echo "selected"?>>Hoạt động</option>
+                                                                        <option value="0" <?if($this->course->state == 0) echo "selected"?>>Ngưng</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-3">
                                                                 <label class="col-md-2 col-form-label" for="start_date">Ngày bắt đầu <span class="required">*</span> </label>
                                                                 <div class="col-md-10">
                                                                     <input type="datetime-local" class="form-control" id="start_date" name="start_date" placeholder="Chọn ngày bắt đầu" value="<? echo ($this->course->beginDate->format('Y-m-d\TH:i')); ?>">
@@ -238,7 +248,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                                                                     <select class="form-select form-select-md mb-3" name="tutor" id="tutor">
                                                                         <option>Lựa chọn giảng viên</option>
                                                                         <? foreach ($this->tutors as $index => $tutor) : ?>
-                                                                            <option value="<? echo $tutor->getId() ?>" <?if($tutor->getId()==$this->course->profileID) echo('selected')?>  ><? echo ($tutor->lastName . ' ' . $tutor->firstName) ?></option>
+                                                                            <option value="<? echo $tutor->getId() ?>" <? if ($tutor->getId() == $this->course->profileID) echo ('selected') ?>><? echo ($tutor->lastName . ' ' . $tutor->firstName) ?></option>
                                                                         <? endforeach ?>
                                                                     </select>
                                                                 </div>
@@ -340,7 +350,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
             $(document).ready(function() {
                 // thêm summer note
                 initSummerNote('#description');
-                $.validator.addMethod("notEmpty",function(value,element){
+                $.validator.addMethod("notEmpty", function(value, element) {
                     return value.trim().length > 0;
                 })
                 //thêm các validate rule cho form
@@ -358,11 +368,11 @@ class EditCoursePage extends BaseHTMLDocumentPage
                         title: {
                             required: true,
                             minlength: 5,
-                            notEmpty : true,
+                            notEmpty: true,
                         },
                         description: {
                             required: true,
-                            notEmpty : true,
+                            notEmpty: true,
                         },
                         start_date: {
                             required: true,
@@ -377,17 +387,20 @@ class EditCoursePage extends BaseHTMLDocumentPage
                         },
                         price: {
                             required: true
+                        },
+                        state:{
+                            required : true
                         }
                     },
                     messages: {
                         title: {
                             required: "Vui lòng nhập tên khóa học",
                             minlength: "Độ dài của tên khóa học tối thiểu là 5",
-                            notEmpty : "Độ dài của tên khóa học tối thiểu là 5"
+                            notEmpty: "Độ dài của tên khóa học tối thiểu là 5"
                         },
                         description: {
                             required: "Vui lòng nhập mô tả khóa học",
-                            notEmpty : "Độ dài của tên khóa học tối thiểu là 5"
+                            notEmpty: "Độ dài của tên khóa học tối thiểu là 5"
                         },
                         start_date: {
                             required: "Vui lòng chọn ngày bắt đầu",
@@ -402,6 +415,9 @@ class EditCoursePage extends BaseHTMLDocumentPage
                         },
                         price: {
                             required: "Vui lòng nhập giá cho khóa học"
+                        },
+                        state:{
+                            required : "Vui lòng chọn trạng thái khóa học"
                         }
                     },
                     errorPlacement: function(error, element) {
