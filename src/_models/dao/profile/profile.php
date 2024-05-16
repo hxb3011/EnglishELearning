@@ -173,21 +173,21 @@ final class ProfileDAO
         }
         return uniqid();
     }
-    public static function getAccountUidToLogin(string $subject, string $encryptedPassword)
+    public static function getAccountUidToLogin(string $subject, string $password)
     {
-        $sql = "SELECT `account`.`UID` FROM `account` WHERE ";
+        $sql = "SELECT `account`.`UID`, `account`.`Password` FROM `account` WHERE ";
         $sql .= AccountDAO::getStateHasNotFlagCondition(AccountStates_Deleted);
-        $sql .= " AND `account`.`UserName` = ? AND `account`.`Password` = ?";
-        $result = Database::executeQuery($sql, array($subject, $encryptedPassword));
-        if (isset($result) && count($result) !== 0) {
+        $sql .= " AND `account`.`UserName` = ?";
+        $result = Database::executeQuery($sql, array($subject));
+        if (isset($result) && count($result) !== 0 && password_verify($password, $result[0]["Password"])) {
             return strval($result[0]["UID"]);
         }
         $key = Verification::getKeyForOAuthEmail($subject);
-        $sql = "SELECT `account`.`UID` FROM `account` JOIN `profile` ON `account`.`UID` = `profile`.`UID` JOIN `verification` ON `profile`.`ID` = `verification`.`ProfileID` WHERE ";
+        $sql = "SELECT `account`.`UID`, `account`.`Password` FROM `account` JOIN `profile` ON `account`.`UID` = `profile`.`UID` JOIN `verification` ON `profile`.`ID` = `verification`.`ProfileID` WHERE ";
         $sql .= AccountDAO::getStateHasNotFlagCondition(AccountStates_Deleted);
-        $sql .= " AND `verification`.`KeyVerify` = ? AND `account`.`Password` = ?";
-        $result = Database::executeQuery($sql, array($key, $encryptedPassword));
-        if (isset($result) && count($result) !== 0) {
+        $sql .= " AND `verification`.`KeyVerify` = ?";
+        $result = Database::executeQuery($sql, array($key));
+        if (isset($result) && count($result) !== 0 && password_verify($password, $result[0]["Password"])) {
             return strval($result[0]["UID"]);
         }
         return null;

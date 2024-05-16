@@ -24,8 +24,7 @@ if (!isset($reqm) || strtolower($reqm) !== "post") {
         $xpassword = &$_REQUEST["xpassword"];
         $zpassword = &$_REQUEST["zpassword"];
         if (isset($password)) {
-            $password = AccountDAO::encryptPassword($password);
-            if ($password === $account->password && isset($xpassword) && isset($zpassword) && $xpassword === $zpassword) {
+            if (password_verify($password, $account->password) && isset($xpassword) && isset($zpassword) && $xpassword === $zpassword) {
                 $length = strlen($zpassword);
                 if (
                     $length >= 8 && $length <= 255 && preg_match("@^\s+$@", $zpassword) !== 1

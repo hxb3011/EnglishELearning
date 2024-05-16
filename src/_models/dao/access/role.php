@@ -74,12 +74,15 @@ final class RoleDAO
     }
     public static function findUnallocatedID()
     {
-        $sql = "SELECT COUNT(*) AS RoleCount FROM `role`";
-        $result = Database::executeQuery($sql);
-        if (!isset($result) || count($result) === 0)
-            return "0";
-        else
-            return strval($result[0]["RoleCount"]);
+        $sql = "SELECT COUNT(*) AS RoleCount FROM `role` WHERE `role`.`ID` = ?";
+        for ($i = 0; $i < 100; ++$i) {
+            $id = uniqid(strval(0));
+            $result = Database::executeQuery($sql, array($id));
+            if (isset($result) && count($result) !== 0 && intval($result[0]["RoleCount"]) === 0) {
+                return $id;
+            }
+        }
+        return uniqid();
     }
     public static function createRole(Role $role)
     {

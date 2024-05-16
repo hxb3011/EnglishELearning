@@ -38,7 +38,7 @@ class Authentication
                 echo "Username hoặc mật khẩu bỏ trống";
                 return;
             }
-            $auth_uid = ProfileDAO::getAccountUidToLogin($subject, AccountDAO::encryptPassword($password));
+            $auth_uid = ProfileDAO::getAccountUidToLogin($subject, $password);
             if (isset($auth_uid)) {
                 if (!session_id())
                     session_start();
@@ -50,7 +50,6 @@ class Authentication
                 } else {
                     echo "Đã có tài khoản đăng nhập.";
                 }
-                echo "success";
             } else {
                 echo "Username hoặc mật khẩu không đúng";
             }
