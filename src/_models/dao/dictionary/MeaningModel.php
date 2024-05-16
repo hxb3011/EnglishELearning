@@ -68,6 +68,18 @@ class MeaningModel {
             return null;
         }
     }
+    public function meaningExist($lemmaID){
+        $sql = "SELECT * from meaning WHERE LemmaID = ?";
+        $params = array(
+            "LemmaID" => $lemmaID,
+        );
+        try{
+            $result =Database::executeQuery($sql,$params);
+            return $result;
+        } catch (Exception $e){
+            return false;
+        }
+    }
     public function addMeaning(Meaning $Meaning){
         $sql = "INSERT INTO Meaning (ID, LemmaID, Meaning, Explanation, LevelV, Note) VALUES (?, ?, ?, ?, ?, ?)";
         $params = array(
