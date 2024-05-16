@@ -9,6 +9,8 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
     public string $basePath;
     public int $totalLesson;
     public int $totalExcercise;
+    public bool $isRegistered;
+    public bool $isRegisterable;
     public function __construct()
     {
         parent::__construct();
@@ -65,8 +67,8 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
                             </div>
                             <div class="d-flex justify-content-between align-items-center course_info">
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <span class="mdi-b student"style="font-size: 18rem;"></span>
-                                    150 Học viên
+                                    <span class="mdi-b student" style="font-size: 18rem;"></span>
+                                    <? echo ($this->course->totalStudent) ?> Học viên
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center">
                                     <span class="mdi-b calendar"></span>
@@ -85,17 +87,37 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
                                     <? echo ($this->totalExcercise) ?> Bài Tập
                                 </div>
                             </div>
+                            <div class="d-flex justify-content-start align-items-center course_info" style="margin-top:24rem;">
+                                <div class="d-flex align-items-center " style="margin-right:20rem;">
+                                    <span class="mdi-b start-date" style="font-size: 18rem;"></span>
+                                    Bắt đầu : <? echo ($this->course->beginDate->format('d-m-Y H:i:s')) ?>
+                                </div>
+                                <div class="d-flex align-items-center ">
+                                    <span class="mdi-b end-date" style="font-size: 18rem;"></span>
+                                    Kết thúc : <? echo ($this->course->endDate->format('d-m-Y H:i:s')) ?>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-3 col-lg-3 position-relative">
                             <div class="card position-absolute course__wrapper">
-                                <img src="<?echo($this->basePath.$this->course->posterURI)?>" alt="" class="card-img-top course__img">
+                                <img src="<? echo ($this->basePath . $this->course->posterURI) ?>" alt="" class="card-img-top course__img">
                                 <div class="card-body d-flex justify-content-between align-items-center course__wrapper-inner">
                                     <div class="card-text course_price">
                                         <? echo ($this->course->price) ?> VNĐ
                                     </div>
-                                    <a href="/courses/learn.php?courseId=<?echo $this->course->id?>" class="btn course_gobtn">
-                                        Vào học
-                                    </a>
+                                    <? if (isset($this->isRegistered) && ($this->isRegistered == true)) : ?>
+                                        <a href="/courses/learn.php?courseId=<? echo $this->course->id ?>" class="btn course_gobtn">
+                                            Vào học
+                                        </a>
+                                    <? elseif (!isset($this->isRegistered) || ($this->isRegistered == false)): ?>
+                                        <? if ($this->isRegisterable) : ?>
+                                            <a href="/courses/learn.php?courseId=<? echo $this->course->id ?>" class="btn course_gobtn">
+                                                Đăng ký
+                                            </a>
+                                        <? else : ?>
+                                            <p style="font-size: 18rem;">Quá hạn đăng ký</p>
+                                    <? endif ?>
+                                    <? endif ?>
                                 </div>
                             </div>
                         </div>
@@ -121,12 +143,12 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
                                         <? if ($program instanceof Lesson) : ?>
                                             <div class="course_lesson">
                                                 <div class="course_lesson-title">
-                                                    <a data-bs-toggle="collapse" href="#collapse<?echo ($index+1)?>" role="button" aria-expanded="false" aria-controls="collapse1">
+                                                    <a data-bs-toggle="collapse" href="#collapse<? echo ($index + 1) ?>" role="button" aria-expanded="false" aria-controls="collapse1">
                                                         <span class="mdi-b toggle" styles="margin-right:4rem;"></span>
                                                         <? echo ($program->Description) ?>
                                                     </a>
                                                 </div>
-                                                <div class="course_lesson-content collapse" id="collapse<?echo ($index+1)?>" style="padding-left: 8rem;">
+                                                <div class="course_lesson-content collapse" id="collapse<? echo ($index + 1) ?>" style="padding-left: 8rem;">
                                                     <? foreach ($program->Documents as $index => $document) : ?>
                                                         <div class="course_lesson-doc">
                                                             <span class="mdi-b <? if ($document->Type == 'text') echo ('file');
@@ -139,7 +161,7 @@ final class CourseSinglePage extends BaseHTMLDocumentPage
                                         <? else : ?>
                                             <div class="course_lesson">
                                                 <div class="course_lesson-title">
-                                                    <a  role="button" aria-expanded="false" >
+                                                    <a role="button" aria-expanded="false">
                                                         <span class="mdi-b quiz" styles="margin-right:4rem;"></span>
                                                         <? echo ($program->Description) ?>
                                                     </a>

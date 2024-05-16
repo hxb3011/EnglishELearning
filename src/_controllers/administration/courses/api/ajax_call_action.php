@@ -1,4 +1,6 @@
 <?
+if(!session_id())
+session_start();
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("oopControllers/admin/courses.php");
 $action = $_REQUEST['action'];

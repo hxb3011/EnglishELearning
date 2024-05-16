@@ -4,6 +4,8 @@ requirl("utils/htmlDocument.php");
 
 final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
 {
+    public array $courses = array();
+    public $basePath;
     public function __construct()
     {
         parent::__construct();

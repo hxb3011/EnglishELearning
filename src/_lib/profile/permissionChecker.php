@@ -188,4 +188,13 @@ function isPermissionGranted(int $permission, ?IPermissionHolder $holder = null)
         return $holder->getKey()->isPermissionGranted($permission);
     return isPermissionGrantedToGuest($permission);
 }
+function isAllPermissionsGranted(array $permissions, ?IPermissionHolder $holder = null): bool
+{
+    foreach ($permissions as $key => $value) {
+        if (!isPermissionGranted(intval($value), $holder)) {
+            return false;
+        }
+    }
+    return true;
+}
 ?>

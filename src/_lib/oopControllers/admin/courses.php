@@ -13,7 +13,7 @@ requirm('/learn/Excercise.php');
 requirm('/learn/Document.php');
 requirm('/learn/Question.php');
 
-
+requirl("profile/permissionChecker.php");
 requirl('/services/S3Service.php');
 
 class AdminCourses
@@ -40,7 +40,7 @@ class AdminCourses
         requirv("admin/courses/ManageAllCoursePage.php");
         global $page;
         $page = new ManageAllCoursePage();
-        $page->courses = array_slice($this->courseModel->getAllCourse(),0,5);
+        $page->courses = array_slice($this->courseModel->getAllCourse(), 0, 5);
         $page->tutors = ProfileDAO::getProfileByType(0);
         requira("_adminLayout.php");
     }
@@ -82,7 +82,7 @@ class AdminCourses
             $course->id = $this->courseModel->generateValidCourseID();
             $course->name = $_POST['title'];
             $course->description = $_POST['description'];
-            $course->state = 1;
+            $course->state = $_POST['state'];
             $course->profileID = $_POST['tutor'];
             $course->price = floatval($_POST['price']);
             $course->beginDate  = DateTime::createFromFormat('Y-m-d\TH:i', $_POST['start_date']);
@@ -106,7 +106,7 @@ class AdminCourses
             $course = $this->courseModel->getCourseById($_POST['courseID']);
             $course->name = $_POST['title'];
             $course->description = $_POST['description'];
-            $course->state = 1;
+            $course->state = $_POST['state'];
             $course->profileID = $_POST['tutor'];
             $course->price = floatval($_POST['price']);
             $course->beginDate  = DateTime::createFromFormat('Y-m-d\TH:i', $_POST['start_date']);
@@ -149,6 +149,19 @@ class AdminCourses
     }
     public function add_lesson()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_LessonCreate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $lesson = new Lesson();
             $lesson->ID = $this->lessonModel->generateValidLessonID();
@@ -169,6 +182,19 @@ class AdminCourses
     }
     public function update_lesson()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_LessonUpdate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $lesson = new Lesson();
             $lesson->ID = $_POST['lesson_id'];
@@ -186,8 +212,19 @@ class AdminCourses
     }
     public function delete_lesson()
     {
-        //
         $response = array();
+        $granted = false;
+        $holder = getPermissionHolder();
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_LessonDelete],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            echo json_encode('Quyền xóa bài giảng bị từ chối',JSON_UNESCAPED_UNICODE);
+            return;
+        }
         $jsonData = "";
         if (isset($_REQUEST['lessonId'])) {
             $lesson = $this->lessonModel->getLessonById($_REQUEST['lessonId']);
@@ -209,6 +246,19 @@ class AdminCourses
     }
     public function add_excercise()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_AnswersCreate], $holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $excercise = new Excercise();
             $excercise->Description = $_POST['description'];
@@ -229,6 +279,19 @@ class AdminCourses
     }
     public function update_excercise()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_AnswersUpdate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $excercise = $this->excerciseModel->getExcerciseById($_POST['excercise_id']);
             $excercise->Description = $_POST['description'];
@@ -245,6 +308,19 @@ class AdminCourses
     }
     public function delete_excercise()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_AnswersDelete],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $message = "Quyền xóa bài kiểm bị từ chối";
+            echo json_encode($message,JSON_UNESCAPED_UNICODE);
+            return;
+        }
         $response = array();
         $jsonData = "";
         $result = 0;
@@ -263,6 +339,21 @@ class AdminCourses
     }
     public function add_question()
     {
+        $response = array();
+        $granted = false;
+        $holder = getPermissionHolder();
+
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_QuestionsCreate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $message = "Quyền thêm câu hỏi bị từ chối";
+            echo json_encode($message,JSON_UNESCAPED_UNICODE);
+            exit();
+        }
         $question = new Question();
 
         $question->Content = $_POST['content'];
@@ -271,7 +362,6 @@ class AdminCourses
         $question->OrderN  = $this->questionModel->getTotalQuestionInExcercise($question->ExcerciseID) + 1;
 
         $newQuestionId = $this->questionModel->addQuestion($question);
-        $response = array();
         switch ($_POST['type']) {
             case 'multi_choice':
                 $questions = $_POST['mul_options'];
@@ -325,12 +415,26 @@ class AdminCourses
                 break;
         }
         $response["status"] = '204';
-        $response['message'] = 'Xóa thành công';
+        $response['message'] = 'Thêm thành công';
 
         echo json_encode($response);
     }
     public function update_question()
     {
+        $response = array();
+        $granted = false;
+        $holder = getPermissionHolder();
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_QuestionsUpdate],$holder)) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $message = "Quyền sửa câu hỏi bị từ chối";
+            echo json_encode($message,JSON_UNESCAPED_UNICODE);
+            return;
+        }
         $questionObj = $this->questionModel->getQuestionById($_POST['questionId']);
         $questionObj->Content = $_POST['content'];
         $questionObj->State = intval($_POST['state']);
@@ -352,8 +456,7 @@ class AdminCourses
                 break;
             case 'matching':
                 $oldMatching = $this->questionModel->getQMatchingByQuestion($questionObj->ID);
-                foreach($oldMatching as $index => $value)
-                {
+                foreach ($oldMatching as $index => $value) {
                     $this->questionModel->deleteQMatchingKey($value->KeyQ);
                 }
                 $this->questionModel->deleteQMatchingByQuestion($questionObj->ID);
@@ -395,10 +498,22 @@ class AdminCourses
 
                 break;
         }
-        }
+    }
     public function delete_question()
     {
         $response = array();
+        $granted = false;
+        $holder = getPermissionHolder();
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_QuestionsDelete],$holder) || isset($_SESSION['isTutorOfCourse']))
+                $granted = true;
+        }
+        if (!$granted) {
+            http_response_code(403);
+            echo json_encode("Quyền xóa bị từ chối",JSON_UNESCAPED_UNICODE);
+
+            return;
+        }
         if (isset($_REQUEST['questionId'])) {
             $result = $this->questionModel->deleteQuestion($_REQUEST['questionId']);
         }
@@ -427,6 +542,19 @@ class AdminCourses
     }
     public function add_document()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_DocumentRead, Permission_DocumentCreate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $document = new Document();
             $document->ID = $this->documentModel->generateValidDocumentID();
@@ -458,6 +586,19 @@ class AdminCourses
     }
     public function update_document()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_DocumentUpdate],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $document = $this->documentModel->getDocumentByID($_POST['documentId']);
             $document->Description = $_POST['description'];
@@ -482,6 +623,19 @@ class AdminCourses
     public function delete_document()
     {
         $response = array();
+        $granted = false;
+        $holder = getPermissionHolder();
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_SystemPrivilege, Permission_DocumentDelete],$holder) || isset($_SESSION['isTutorOfCourse'])) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $response['message'] = "Quyền xóa tài liệu bị từ chối";
+            echo json_encode("Quyền xóa tài liệu bị từ chối");
+            return;
+        }
         $jsonData = "";
         if (isset($_REQUEST['documentId'])) {
             $document = $this->documentModel->getDocumentByID($_REQUEST['documentId']);
@@ -518,9 +672,9 @@ class AdminCourses
     public function get_total_page()
     {
         $data = json_decode(file_get_contents("php://input"), true);
-        $courses = $this->courseModel->getAllCourse($data['name'],$data['tutor']);
+        $courses = $this->courseModel->getAllCourse($data['name'], $data['tutor'],$data['state']);
         $totalCourses = count($courses);
-        $totalPages= $totalCourses / 5;
+        $totalPages = $totalCourses / 5;
 
         echo json_encode(ceil($totalPages));
     }
@@ -530,7 +684,7 @@ class AdminCourses
         $response = array();
 
         $response['page'] = $data['page'];
-        $course = $this->courseModel->getCourseFromPage(intval($data['page']),5,$data['name'],$data['tutor']);
+        $course = $this->courseModel->getCourseFromPage(intval($data['page']), 5, $data['name'], $data['tutor'],$data['state']);
         $response['course'] = $course;
         echo json_encode($response);
     }
@@ -570,7 +724,7 @@ class AdminCourses
         $editMode = isset($_REQUEST['editmode']);
         if ($editMode) {
             $document = $this->documentModel->getDocumentByID($_REQUEST['documentId']);
-            $document->DocUri = $this->s3Service->presignUrl($document->DocUri,"");
+            $document->DocUri = $this->s3Service->presignUrl($document->DocUri, "");
         }
         requirv("admin/courses/modal/document.php");
     }
@@ -698,5 +852,17 @@ class AdminCourses
     private function removeFile($filePath)
     {
         $this->s3Service->deleteFileInBucket($filePath);
+    }
+    public function isTutor($profileID, $courseID)
+    {
+        $course = $this->courseModel->getCourseById($courseID);
+        if ($course != null) {
+            $isTutorOfCourse = $course->profileID == $profileID ? true : false;
+            if ($isTutorOfCourse) {
+                $_SESSION['isTutorOfCourse'] = true;
+            }
+            return $isTutorOfCourse;
+        }
+        return false;
     }
 }

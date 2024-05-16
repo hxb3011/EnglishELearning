@@ -123,6 +123,9 @@ function confirm_delete_modal(url, title, text) {
                     } else {
                         toastr.error('Xóa thất bại')
                     }
+                },
+                error:function(data){
+                    toastr.error(data.responseText)
                 }
             })
         }
