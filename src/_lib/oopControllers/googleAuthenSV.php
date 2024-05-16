@@ -1,9 +1,11 @@
 <?php
-session_start();
-
 require_once "/var/www/html/_lib/utils/requir.php";
-requirm("/dao/accounts.php");
+requirm("/dao/accounts.php"); // ?converting
+requirm('dao/access/account.php');
 requirl("composer/vendor/autoload.php");
+
+if (!session_id())
+    session_start();
 
 class GoogleLoginController
 {
@@ -19,9 +21,7 @@ class GoogleLoginController
 
     public function getProfileLength()
     {
-        if ($this->AccountCtl->getNumberOfTotalAccount() > 0) {
-            return $this->AccountCtl->getNumberOfTotalAccount();
-        }
+        return AccountDAO::getTotalAccounts();
     }
 
     public function getProfile($email)
