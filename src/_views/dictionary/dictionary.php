@@ -14,7 +14,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
     public $example_arr = array();
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct(NAV_DICT_ALL);
 
     }
     public function detail_contruct($lemma,$conjugation)

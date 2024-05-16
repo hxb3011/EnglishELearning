@@ -344,7 +344,7 @@ class ManageAllCoursePage extends BaseHTMLDocumentPage
                                                                         <span class="mdi-b dots-vertical"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="/courses/detail.php/${data.course[i].id}" target="_blank">Xem khóa học</a></li>
+                                                <li><a class="dropdown-item" href="/courses/detail.php/courseId=${data.course[i].id}" target="_blank">Xem khóa học</a></li>
                                                 <li><a class="dropdown-item" href="/administration/courses/edit.php?courseId=${data.course[i].id}">Sửa khóa học</a></li>
                                                 <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=${data.course[i].id}','Xóa khóa học')">Xóa khóa học</a></li>
 

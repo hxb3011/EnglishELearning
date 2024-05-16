@@ -7,7 +7,7 @@ final class DictionaryFavoritePage extends BaseHTMLDocumentPage
     public $lemma_arr = array();
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct(NAV_DICT_REVIEW);
     }
 
     // public function beforeDocument()
