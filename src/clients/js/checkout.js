@@ -109,7 +109,7 @@ async function checkPaid(soTien, noiDungCK) {
             console.log(lastPaid);
             const splitArray = lastContent.split(" ");
             //COURSE106640c9a32f39a- lấy đoạn này thay noiDungCK để test
-            if (lastPrice >= +soTien && lastContent.includes('noiDungCK')) {
+            if (lastPrice >= +soTien && lastContent.includes(noiDungCK)) {
                 clearInterval(countdownInterval);
                 isPaidSuccess = true
                 $('.modal-cart.qr-code').removeClass('open')

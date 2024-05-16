@@ -8,6 +8,7 @@ a{
     align-self: center;
     justify-content: center;
     margin-top: 24rem;
+    position: relative;
 }
 
 .pagination-item {
