@@ -11,6 +11,7 @@ final class LearnPage extends BaseHTMLDocumentPage
     public Course $course;
     public array $programs;
     public $currentProgram;
+    public $nextProgram;
     public array $tracking = array();
     public $profileID;
     public function __construct()
@@ -113,6 +114,7 @@ final class LearnPage extends BaseHTMLDocumentPage
                 </div>
             </div>
             <div class="container-fluid">
+
                 <div class="row">
                     <div class="col-md-8 col-sm-12">
                         <div id="course_content">
@@ -139,9 +141,14 @@ final class LearnPage extends BaseHTMLDocumentPage
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <div>
-                                            <iframe src="<?php echo htmlspecialchars($this->currentProgram->DocUri); ?>" width="100%" height="600px"></iframe>
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <a id="btnConfirm" href="javascript:void(0)" class="custom-btn" style="width:fit-content;text-decoration:none;">Xác nhận hoàn thành</a>
                                         </div>
+                                        <div>
+                                            <iframe src="<?php echo htmlspecialchars($this->currentProgram->DocUri); ?>" width="100%" height="500px"></iframe>
+                                        </div>
+
+
                                     </div>
                                 <? elseif ($this->currentProgram instanceof Excercise) : ?>
                                     <form method="post" action="/courses/ajax_call_action.php?action=submit_test" class="card" style="padding: 12rem;" id="excerciseSMForm">
@@ -185,8 +192,9 @@ final class LearnPage extends BaseHTMLDocumentPage
                                                         <? elseif (is_array($question->main) && $question->main[0] instanceof QMatching) : ?>
                                                             <?
                                                             $keys = '';
-                                                            shuffle($question->main);
-                                                            foreach ($question->main as $index => $matching) {
+                                                            $tmp = $question->main;
+                                                            shuffle($tmp);
+                                                            foreach ($tmp as $index => $matching) {
                                                                 $keys = $keys . "<option value='{$matching->QMatchingKey->ID}'>{$matching->QMatchingKey->Content}</option>";
                                                             }
                                                             ?>
@@ -203,7 +211,7 @@ final class LearnPage extends BaseHTMLDocumentPage
 
                                                                             <label class="d-flex align-items-center" style="margin-right:12rem;"><? echo $matching->Content ?></label>
                                                                             <input type="hidden" name="cau[<? echo $key + 1 ?>][matching][]" value="<? echo $matching->ID ?>">
-                                                                            <select class="question_select" name="cau[<? echo $key + 1 ?>][matchingkey][]">
+                                                                            <select class="question_select" name="cau[<? echo $key + 1 ?>][matchingkey][]" style="width: fit-content;">
                                                                                 <? echo ($keys) ?>
                                                                             </select>
                                                                         </div>
@@ -370,7 +378,7 @@ final class LearnPage extends BaseHTMLDocumentPage
                                             <div class="">
                                                 <a href="/courses/learn.php?courseId=<? echo $program->CourseID ?>&excerciseId=<? echo $program->ID ?>" class="learn_lesson-name " role="button" aria-expanded="false">
                                                     <? echo $program->Description ?>
-                                                    <span class="mdi-b toggle"></span>
+                                                    <span class="mdi-b excercise"></span>
                                                 </a>
                                             </div>
                                         </div>
@@ -472,6 +480,49 @@ final class LearnPage extends BaseHTMLDocumentPage
                     })
                 })
             })
+        </script>
+        <script>
+            $('#courseVideo').on('ended', function() {
+                $.ajax({
+                    url: 'http://localhost:62280/courses/ajax_call_action.php?action=update_tracking',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        courseId: '<? echo $this->course->id ?>',
+                        documentId: '<? echo $this->currentProgram->ID ?>',
+                        checked: 'checked',
+                        profileId: '<? echo $this->profileID ?>'
+                    }),
+                    success: function(response) {
+                        let object = JSON.parse(response);
+                        toastr.success(object.message, "Thông báo")
+                        navigateToNextCourse()
+                    }
+                })
+            });
+            $('#btnConfirm').on('click', function() {
+                $.ajax({
+                    url: 'http://localhost:62280/courses/ajax_call_action.php?action=update_tracking',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        courseId: '<? echo $this->course->id ?>',
+                        documentId: '<? echo $this->currentProgram->ID ?>',
+                        checked: 'checked',
+                        profileId: '<? echo $this->profileID ?>'
+                    }),
+                    success: function(response) {
+                        let object = JSON.parse(response);
+                        toastr.success(object.message, "Thông báo")
+                        navigateToNextCourse()
+                    }
+                })
+            })
+
+            function navigateToNextCourse() {
+                <? if (isset($this->nextProgram)) : ?>
+                    window.location.href = "/courses/learn.php?courseId=<? echo ($this->course->id) ?>&<? if ($this->nextProgram instanceof Document) echo 'documentId';
+                                                                                                else echo 'excerciseId' ?>=<?echo $this->nextProgram->ID ?>";
+                <? endif ?>
+            }
         </script>
 <?
 

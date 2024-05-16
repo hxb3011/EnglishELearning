@@ -380,7 +380,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
                                                             <span class="mini-icon mdi-b student">
                                                             </span>
                                                             <span class="course-item__info-section__text">
-                                                                2 Học viên
+                                                            ${data.course[i].totalStudent} Học viên
                                                             </span>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center b">
