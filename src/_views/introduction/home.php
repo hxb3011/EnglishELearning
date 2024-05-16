@@ -33,28 +33,30 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
 
     public function head()
     {
-        // $this->style(
-        //     "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
-        //     "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-        // );
-        // $this->script(
-        //     "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
-        //     "sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        // );
+        $this->style(
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
+            "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        );
+        $this->script(
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+            "sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        );
         $this->styles(
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
             "/clients/css/layout/card.css",
             "/clients/css/introduction/home.css"
         );
-        // $this->scripts(
-        //     "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
-        //     "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
-        //     "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        // );
+        $this->scripts(
+            "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js",
+            "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js",
+            "https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js",
+            "/clients/utils/backToTop.js"
+        );
     }
     public function body()
     {
-?>
+        ?>
         <card class="banner">
             <!-- <img src="/assets/images/banner-main.png" alt="Băng rôn"> -->
             <h1>Phát triển hoàn thiện kỹ năng với khóa học online</h1>
@@ -189,9 +191,8 @@ final class CoursesIntroductionHomePage extends BaseHTMLDocumentPage
             </div>
         </card>
         <!-- Back to Top -->
-        <button id="back-to-top" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></button>
-        <script src="/clients/utils/backToTop.js"></script>
-<?
+        <button id="to-top-button" title="Go To Top" class="z-90 bottom-8 right-8 border-0 w-10 h-10 rounded-full drop-shadow-md text-white text-lg font-bold">↑</button>
+        <?
     }
 
     // public function afterDocument()
