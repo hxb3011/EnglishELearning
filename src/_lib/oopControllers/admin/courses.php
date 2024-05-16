@@ -82,7 +82,7 @@ class AdminCourses
             $course->id = $this->courseModel->generateValidCourseID();
             $course->name = $_POST['title'];
             $course->description = $_POST['description'];
-            $course->state = 1;
+            $course->state = $_POST['state'];
             $course->profileID = $_POST['tutor'];
             $course->price = floatval($_POST['price']);
             $course->beginDate  = DateTime::createFromFormat('Y-m-d\TH:i', $_POST['start_date']);
@@ -106,7 +106,7 @@ class AdminCourses
             $course = $this->courseModel->getCourseById($_POST['courseID']);
             $course->name = $_POST['title'];
             $course->description = $_POST['description'];
-            $course->state = 1;
+            $course->state = $_POST['state'];
             $course->profileID = $_POST['tutor'];
             $course->price = floatval($_POST['price']);
             $course->beginDate  = DateTime::createFromFormat('Y-m-d\TH:i', $_POST['start_date']);
@@ -672,7 +672,7 @@ class AdminCourses
     public function get_total_page()
     {
         $data = json_decode(file_get_contents("php://input"), true);
-        $courses = $this->courseModel->getAllCourse($data['name'], $data['tutor']);
+        $courses = $this->courseModel->getAllCourse($data['name'], $data['tutor'],$data['state']);
         $totalCourses = count($courses);
         $totalPages = $totalCourses / 5;
 
@@ -684,7 +684,7 @@ class AdminCourses
         $response = array();
 
         $response['page'] = $data['page'];
-        $course = $this->courseModel->getCourseFromPage(intval($data['page']), 5, $data['name'], $data['tutor']);
+        $course = $this->courseModel->getCourseFromPage(intval($data['page']), 5, $data['name'], $data['tutor'],$data['state']);
         $response['course'] = $course;
         echo json_encode($response);
     }
