@@ -59,9 +59,9 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                     <span class="filter-text">
                                         Người đăng
                                     </span>
-                                    <select class="form-select" name="nguoi_dang" id="author">
+                                    <select class="form-select" name="nguoi_dang" id="tac_gia">
                                         <?foreach($this->authors as $index=>$author):?>
-                                                <option value="<?echo $author->getId()?>"><?echo($author->lastName.' '.$author->firstName)?></option>
+                                                <option value="<?echo $author->getId()?>"><?echo($author->firstName.' '.$author->lastName)?></option>
                                             <?endforeach?>
                                         </select>
                                     </div>
@@ -118,9 +118,9 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                                                     <span class="mdi-b dots-vertical"></span>
                                                                 </button>
                                                                 <ul class="dropdown-menu">
-                                                                    <li><a class="dropdown-item" href="/blog/detail.php/<?echo $post->SubId?>" target="_blank">Xem khóa học</a></li>
-                                                                    <li><a class="dropdown-item" href="/administration/blog/edit.php?Id=<?echo $post->SubId?>">Sửa khóa học</a></li>
-                                                                    <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=<? echo ($post->id); ?>','Xóa khóa học')">Xóa khóa học</a></li>
+                                                                    <li><a class="dropdown-item" href="/blog/detail.php/<?echo $post->SubId?>" target="_blank">Xem bài post</a></li>
+                                                                    <li><a class="dropdown-item" href="/administration/blog/edit.php?Id=<?echo $post->SubId?>">Sửa post</a></li>
+                                                                    <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=<? echo ($post->id); ?>','Xóa khóa học')">Xóa</a></li>
 
                                                                 </ul>
                                                             </div>
@@ -128,35 +128,6 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                                     </tr>
                                                 <?php endforeach ?>
                                             <? endif?>
-                                            <!--
-                                            <th scope="row">1</th>
-                                            <td>001</td>
-                                            <td>Sub1</td>
-                                            <td>Bài post 1</td>
-                                            <td>Bài này hay vcl</td>
-                                            <td>25/01/2000</td>
-                                            <td>asdas, sad ,a sd asd </td>
-                                            <td>1</td>
-                                            <td>
-                                                <? //if ($post->state == 1) : ?>
-                                                    <span class="badge text-bg-success">Hoạt động</span>
-                                                <? //else : ?>
-                                                    <span class="badge text-bg-danger">Ngưng</span>
-                                                <? //endif ?>
-                                            </td>
-                                            <td>
-                                                <div class="dropright">
-                                                    <button type="button" class="btn btn-sm btn-outline-primary btn-rounded btn-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <span class="mdi-b dots-vertical"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="/courses/detail.php/<?//echo $post->SubId?>" target="_blank">Xem khóa học</a></li>
-                                                        <li><a class="dropdown-item" href="/administration/courses/edit.php?courseId=<?//echo $post->SubId?>">Sửa khóa học</a></li>
-                                                        <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=<? //echo ($post->id); ?>','Xóa khóa học')">Xóa khóa học</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -238,7 +209,7 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
             function initPagination() {
                 search = 0;
                 $.ajax({
-                    url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=get_total_page',
+                    url: 'http://localhost:62280/administration/blog/api/ajax_call_action.php?action=get_total_page',
                     method: 'POST',
                     data: JSON.stringify({
                         author: author,
@@ -279,12 +250,12 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
             }
 
             function onSearchData() {
-                tutor = $('#author').val();
+                author = $('#tac_gia').val();
                 title = $('#search_name').val();
                 initPagination()
                 search = 1;
                 $.ajax({
-                    url: 'http://localhost:62280/administration/courses/api/ajax_call_action.php?action=get_post_by_page',
+                    url: 'http://localhost:62280/administration/post/api/ajax_call_action.php?action=get_posts_by_page',
                     method: 'POST',
                     data: JSON.stringify({
                         page: 1,
@@ -319,7 +290,7 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                     <td>${data.post[i].amount_of_comments}</td>
                                     <td><? echo ($post->tags) ?></td>
                                     <td>
-                                        ${ (data.post[i].status==1) ? "<span class=\"badge text-bg-success\">Hoạt động</span>" : "<span class=\"badge text-bg-success\">Hoạt động</span>"}
+                                        ${ (data.post[i].status==1) ? "<span class=\"badge text-bg-success\">Hiện</span>" : "<span class=\"badge text-bg-success\">Ẩn</span>"}
                                     </td>
                                     <td>
                                         <div class="dropright">
@@ -327,9 +298,9 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                                                         <span class="mdi-b dots-vertical"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="/courses/detail.php/${data.post[i].SubId}" target="_blank">Chi tiết</a></li>
-                                                <li><a class="dropdown-item" href="/administration/courses/edit.php?courseId=${data.post[i].SubId}">Sửa </a></li>
-                                                <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_post&subId=${data.post[i].SubId}','Xóa khóa học')">Xóa</a></li>
+                                                <li><a class="dropdown-item" href="/courses/detail.php/${data.post[i].SubId}" target="_blank">Xem bài post</a></li>
+                                                <li><a class="dropdown-item" href="/administration/courses/edit.php?courseId=${data.post[i].SubId}">Sửa post</a></li>
+                                                <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/post/api/ajax_call_action.php?action=delete_post&subId=${data.post[i].SubId}','Xóa')">Xóa</a></li>
                                             </ul>
                                         </div>
                                 </td>
@@ -348,9 +319,9 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
             <td><? echo ($post->tags) ?></td>
             <td>
                 <? if ($post->status == 1) : ?>
-                    <span class="badge text-bg-success">Hoạt động</span>
+                    <span class="badge text-bg-success">Hiện</span>
                 <? else : ?>
-                    <span class="badge text-bg-danger">Ngưng</span>
+                    <span class="badge text-bg-danger">Ẩn</span>
                 <? endif ?>
             </td>
             <td>
@@ -359,9 +330,9 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                         <span class="mdi-b dots-vertical"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/blog/detail.php/<?echo $post->SubId?>" target="_blank">Xem khóa học</a></li>
-                        <li><a class="dropdown-item" href="/administration/blog/edit.php?Id=<?echo $post->SubId?>">Sửa khóa học</a></li>
-                        <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=<? echo ($post->id); ?>','Xóa khóa học')">Xóa khóa học</a></li>
+                        <li><a class="dropdown-item" href="/blog/detail.php/<?echo $post->SubId?>" target="_blank">Xem bài post</a></li>
+                        <li><a class="dropdown-item" href="/administration/blog/edit.php?Id=<?echo $post->SubId?>">Sửa post</a></li>
+                        <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/post/api/ajax_call_action.php?action=delete_post&postSubId=<? echo ($post->SubId); ?>','Xóa khóa học')">Xóa</a></li>
                     </ul>
                 </div>
             </td>

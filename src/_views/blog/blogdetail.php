@@ -295,12 +295,12 @@ final class BlogDetailPage extends BaseHTMLDocumentPage
                             <div class="mb-5 tags">
                                 <h3 class="text-uppercase mb-4; color: orange">Tags</h3>
                                 <div class="d-flex flex-wrap m-n1">
-                                    <a href="" class="btn btn-outline-dark m-1">Development</a>
-                                    <a href="" class="btn btn-outline-dark m-1">Design</a>
-                                    <a href="" class="btn btn-outline-dark m-1">Marketing</a>
-                                    <a href="" class="btn btn-outline-dark m-1">SEO</a>
-                                    <a href="" class="btn btn-outline-dark m-1">Writing</a>
-                                    <a href="" class="btn btn-outline-dark m-1">Consulting</a>
+                                    <a href="" class="btn btn-outline-dark m-5">Development</a>
+                                    <a href="" class="btn btn-outline-dark m-5">Design</a>
+                                    <a href="" class="btn btn-outline-dark m-5">Marketing</a>
+                                    <a href="" class="btn btn-outline-dark m-5">SEO</a>
+                                    <a href="" class="btn btn-outline-dark m-5">Writing</a>
+                                    <a href="" class="btn btn-outline-dark m-5">Consulting</a>
                                 </div>
                             </div>
                         </div>

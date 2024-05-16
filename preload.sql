@@ -780,7 +780,7 @@ CREATE TABLE `qmulchoption` (
 
 LOCK TABLES `qmulchoption` WRITE;
 /*!40000 ALTER TABLE `qmulchoption` DISABLE KEYS */;
-INSERT INTO `qmulchoption` VALUES (85,'Berlin',0,39),(86,'London',0,39),(87,'Paris',1,39),(88,'Rome',0,39),(89,'Childs',0,40),(90,'Childrens',0,40),(91,'Childs\'',0,40),(92,'Children',1,40);
+INSERT INTO `qmulchoption` VALUES (85,'Berlin',0,39),(86,'London',0,39),(87,'Paris',1,39),(88,'Rome',0,39),(89,'Childs',0,40),(90,'Childrens',0,40),(91,'Childs',0,40),(92,'Children',1,40);
 /*!40000 ALTER TABLE `qmulchoption` ENABLE KEYS */;
 UNLOCK TABLES;
 

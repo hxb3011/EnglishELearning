@@ -25,7 +25,7 @@ Class Post{
         $this->tags = $arrayValue['tags'];    ;
         $this->status = $arrayValue['Status'];
         $this->updated = $arrayValue['Updated']; 
-        $this->author = $arrayValue['LastName'] . ' '.$arrayValue['FirstName'];
+        $this->author = $arrayValue['FirstName'] . ' '.$arrayValue['LastName'];
         $this->amount_of_comments = $arrayValue['amount_of_comments'];
     }
 }

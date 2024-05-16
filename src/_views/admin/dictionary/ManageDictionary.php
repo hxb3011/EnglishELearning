@@ -225,7 +225,7 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
                         console.log(re);
                     }
                 })
-            })
+            }
             
 
             // function initPagination() {

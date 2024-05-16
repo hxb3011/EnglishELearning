@@ -112,16 +112,18 @@ $page->beforeDocument();
                     </ul>
                 </li>
                 <li class="sidebar-item">
-                    <a href="/administration/blog/index.php" class="sidebar-link" >
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#blog" aria-expanded="false" aria-controls="blog">
                         <span class="mdi-b -blog"></span>
                         <span class="sidebar-item__text">Blog</span>
                     </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="" class="sidebar-link" >
-                        <span class="mdi-b -blog"></span>
-                        <span class="sidebar-item__text">Bình luận</span>
-                    </a>
+                    <ul id="blog" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/administration/blog/index.php" class="sidebar-link">Quản lý bài đăng</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">Quản lý bình luận</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="sidebar-item">
                     <a href="/administration/history/index.php" class="sidebar-link" >

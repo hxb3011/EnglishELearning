@@ -71,6 +71,11 @@ $page->beforeDocument();
             <a class="mdi-b nav-item -courses<?= ($page->activeNav === NAV_COURSE_MY) ? " _selected" : "" ?>" hint="Khoá học của tôi" href="#"></a>
             <a class="mdi-b nav-item -courses<?= ($page->activeNav === NAV_COURSE_INTRO) ? " _selected" : "" ?>" hint="Giới thiệu" href="/introduction/index.php"></a>
         </nav>
+        <nav class="drawer -posts _closed">
+            <a class="mdi-b nav-item -back _action" hint="Bài viết" href="#"></a>
+            <a class="mdi-b nav-item -posts<?= ($page->activeNav === NAV_BLOG) ? " _selected" : "" ?>" hint="Trang Blog" href="/blog/all.php"></a>
+            <a class="mdi-b nav-item -posts<?= ($page->activeNav === NAV_BLOG) ? " _selected" : "" ?>" hint="Bài đăng yêu thích" href="#"></a>
+        </nav>
     <? endif ?>
 
     <main><? $page->body(); ?></main>

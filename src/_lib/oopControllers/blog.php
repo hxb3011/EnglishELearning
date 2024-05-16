@@ -2,7 +2,7 @@
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm('/dao/PostModel.php');
 requirm('/dao/CommentModel.php');
-requirm('/dao/profile.php');
+requirm('/dao/profile/profile.php');
 
 requirm('/access/Post.php');
 requirm('/access/Comment.php');
