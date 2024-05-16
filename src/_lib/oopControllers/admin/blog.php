@@ -95,12 +95,30 @@ Class AdminBlog{
     }
     public function delete_post()
     {
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_PostDelete], $holder)) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            echo json_encode('Quyền xóa bài viết bị từ chối', JSON_UNESCAPED_UNICODE);
+
+        }
         $response = array();
         $jsonData = "";
         if (isset($_REQUEST['ProfileID' . 'SubID'])) {
+            $deletePoster = $this->s3Service->deleteFileInFolder('public/poster/' . $_REQUEST['ProfileID'] . '&' . $_REQUEST['SubID'] . '/');
             $result = $this->commentModel->deleteCommentsOfAPost($_REQUEST['ProfileID'], $_REQUEST['SubID']);
             $result = $this->postModel->deletePost($_REQUEST['ProfileID'], $_REQUEST['SubID']);
+        }else {
+            http_response_code(405);
+            echo json_encode('Quyền xóa khóa học bị từ chối', JSON_UNESCAPED_UNICODE);
+            exit();
         }
+
         if (isset($result) && $result > 0) {
             $response['status'] = '204';
             $response['message'] = 'Xóa thành công';

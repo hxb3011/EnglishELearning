@@ -127,7 +127,7 @@ Class CommentModel{
     /* Xóa toàn bộ comment đã viết */
     public function deleteAllComments(string $AuthId)
     {
-        $sqlQuery = "DELETE FROM comment WHERE AuthID=?";
+        $sqlQuery = "DELETE FROM comment WHERE PProfId=? AND PSubId=? AND SubId=?";
         $params = array($AuthId);
         try {
             $result = Database::executeNonQuery($sqlQuery, $params);

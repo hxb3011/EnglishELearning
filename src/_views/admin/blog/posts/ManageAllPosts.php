@@ -118,9 +118,9 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                                                     <span class="mdi-b dots-vertical"></span>
                                                                 </button>
                                                                 <ul class="dropdown-menu">
-                                                                    <li><a class="dropdown-item" href="/blog/detail.php/<?echo $post->SubId?>" target="_blank">Xem bài post</a></li>
+                                                                    <li><a class="dropdown-item" href="http://localhost:62280/blog/detail.php?SubId=/<?echo $post->SubId?>" target="_blank">Xem bài post</a></li>
                                                                     <li><a class="dropdown-item" href="/administration/blog/edit.php?Id=<?echo $post->SubId?>">Sửa post</a></li>
-                                                                    <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/blog/api/ajax_call_action.php?action=delete_post&SubId=<? echo ($post->id); ?>','Xóa khóa học')">Xóa</a></li>
+                                                                    <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/blog/api/ajax_call_action.php?action=delete_post&ProfileId=<?echo ($post->ProfileId)?>&SubId=<? echo ($post->SubId); ?>','Xóa')">Xóa</a></li>
 
                                                                 </ul>
                                                             </div>
@@ -150,7 +150,7 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
             "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
             "/node_modules/toastr/build/toastr.min.js",
             "/node_modules/sweetalert2/dist/sweetalert2.min.js",
-            "/clients/js/admin/main.js"
+            "/clients/admin/main.js"
         );
         ?>
         <script>
@@ -300,7 +300,7 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item" href="/courses/detail.php/${data.post[i].SubId}" target="_blank">Xem bài post</a></li>
                                                 <li><a class="dropdown-item" href="/administration/courses/edit.php?courseId=${data.post[i].SubId}">Sửa post</a></li>
-                                                <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/post/api/ajax_call_action.php?action=delete_post&subId=${data.post[i].SubId}','Xóa')">Xóa</a></li>
+                                                <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/blog/api/ajax_call_action.php?action=delete_post&ProfileId${data.post[i].ProfileId}&SubId=${data.post[i].SubId}','Xóa')">Xóa</a></li>
                                             </ul>
                                         </div>
                                 </td>
@@ -332,7 +332,7 @@ Class ManageAllPosts extends BaseHTMLDocumentPage{
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/blog/detail.php/<?echo $post->SubId?>" target="_blank">Xem bài post</a></li>
                         <li><a class="dropdown-item" href="/administration/blog/edit.php?Id=<?echo $post->SubId?>">Sửa post</a></li>
-                        <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/post/api/ajax_call_action.php?action=delete_post&postSubId=<? echo ($post->SubId); ?>','Xóa khóa học')">Xóa</a></li>
+                        <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/blog/api/ajax_call_action.php?action=delete_post&ProfileId${data.post[i].ProfileId}&SubId=${data.post[i].SubId}','Xóa khóa học')">Xóa</a></li>
                     </ul>
                 </div>
             </td>
