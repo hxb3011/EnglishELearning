@@ -99,7 +99,7 @@ class Authentication
                 $lastName = strval($lastName);
 
             $gender = &$obj['gender'];
-            $gender == isset($gender) && $gender !== "male" ? Gender_Female : Gender_Male;
+            $gender = isset($gender) && $gender !== "male" ? Gender_Female : Gender_Male;
 
             $birthday = &$obj['birthday'];
             if (empty($birthday))
