@@ -210,6 +210,7 @@ class Courses
         if ($courses != null) {
             foreach ($courses as $key => $course) {
                 $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id,1);
+                $course->totalStudent = $this->subscriptionModel->getTotalStudentOfCourse($course->id);
             }
         }
         $response['course'] = $courses;

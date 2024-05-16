@@ -115,14 +115,13 @@ class CheckoutHistoryPage extends BaseHTMLDocumentPage
                             width: "10%"
                         },
                         {
-                            data: 'FirstName',
-                            with:"15%"
-                        },
-                        {
                             data: 'LastName',
                             with:"15%"
                         },
-
+                        {
+                            data: 'FirstName',
+                            with:"15%"
+                        },
                         {
                             data: 'Name',
                             width: "30%"

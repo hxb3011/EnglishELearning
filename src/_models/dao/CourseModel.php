@@ -189,7 +189,7 @@ class CourseModel
     /* SHARE */
     public function getCourseById($id)
     {
-        $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID AND course.ID =? AND State=0";
+        $sqlQuery = "SELECT course.* , profile.LastName,profile.FirstName FROM course,profile WHERE course.ProfileID = profile.ID AND course.ID =?";
         $params = array(
             'id' => $id
         );
