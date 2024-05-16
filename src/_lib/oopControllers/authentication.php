@@ -1,8 +1,9 @@
 <?php
 require_once "/var/www/html/_lib/utils/requir.php";
 requirm("/dao/accounts.php"); //?converting
-requirm("dao/profile/profile.php");
-requirm("dao/profile/verification.php");
+requirm("/dao/profile/profile.php");
+requirm("/dao/profile/verification.php");
+requirm("/dao/access/account.php");
 class Authentication
 {
     public function __construct($formdata)

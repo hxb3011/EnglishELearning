@@ -161,6 +161,7 @@ final class AccountDAO
         $sql .= " AND `account`.`UserName` = ? AND `account`.`Password` = ?";
         $result = Database::executeQuery($sql, array($subject, $encryptedPassword));
         if (isset($result) && count($result) !== 0) {
+            echo $result[0]["UID"];
             return strval($result[0]["UID"]);
         }
         $sql = "SELECT `account`.`UID` FROM `account` JOIN `profile` ON `account`.`UID` = `profile`.`UID` JOIN `verification` ON `profile`.`ID` = `verification`.`ProfileID` WHERE ";
@@ -172,6 +173,7 @@ final class AccountDAO
         }
         return null;
     }
+    
     public static function isUserNameExist(string $testUserName)
     {
         $sql = "SELECT COUNT(*) AS `AccountCount` FROM `account` WHERE ";
@@ -236,4 +238,3 @@ final class AccountDAO
         return Database::executeNonQuery($sql, array($account->getState(), $account->getUid()));
     }
 }
-?>
