@@ -1,21 +1,19 @@
 <?php
 require_once "/var/www/html/_lib/utils/requir.php";
-requirm("/dao/accounts.php");
+requirm("dao/profile/profile.php");
+requirm("dao/profile/verification.php");
 class Authentication
 {
-    public function __construct($formdata) 
+    public function __construct($formdata)
     {
         $this->auth($formdata);
     }
 
     public function auth($obj)
     {
-        $username = $obj['username'];
-        $password = $obj['password'];
         $action = $obj['action'];
         if ($action == "login") {
-            $subject = $username;
-            $this->login($subject, $password);
+            $this->login($obj['username'], $obj['password']);
         } else if ($action == "register") {
             $this->register($obj);
         }
@@ -33,46 +31,105 @@ class Authentication
         }
     }
 
-    public function login($subject, $password)
+    public function login(&$subject, &$password)
     {
         try {
-            if (strlen($subject) == 0 || strlen($password) == 0) {
+            if (!isset($subject) || strlen($subject) == 0 || !isset($password) || strlen($password) == 0) {
                 echo "Username hoặc mật khẩu bỏ trống";
                 return;
             }
-            $user = new UserRepo();
-            $auth = $user->Login($subject, $password);
-            if ($auth != null) {
-                // if (session_status() == PHP_SESSION_NONE) {
-                //     session_start();
-                // }
-                //session_regenerate_id();
-                if (empty($_SESSION['AUTH_UID'])) {
-                    $_SESSION['AUTH_UID'] = $auth['UID'];
+            $auth_uid = ProfileDAO::getAccountUidToLogin($subject, $password);
+            if (isset($auth_uid)) {
+                if (!session_id())
+                    session_start();
+
+                $sauth_uid = &$_SESSION['AUTH_UID'];
+                if (!isset($sauth_uid) || empty($sauth_uid)) {
+                    $sauth_uid = $auth_uid;
+                    echo "success";
+                } else {
+                    echo "Đã có tài khoản đăng nhập.";
                 }
-                echo "success";
             } else {
                 echo "Username hoặc mật khẩu không đúng";
             }
         } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+            echo $e->getMessage();
         }
     }
 
     public function register($obj)
     {
         try {
-            $username = $obj['username'];
-            $password = $obj['password'];
-            $email = $obj['email'];
-            $firstName = $obj['firstname'];
-            $lastName = $obj['lastname'];
-            $gender = $obj['gender'];
-            $birthday = $obj['birthday'];
-            $user = new UserRepo();
-            echo $user->Register($username,$password,$email,$firstName,$lastName,$gender,$birthday) ? "success" : "";
+            $uid = AccountDAO::findUnallocatedUID();
+            $username = &$obj['username'];
+            if (!empty($username)) {
+                $username = strval($username);
+                if (AccountDAO::isUserNameExist($username)) {
+                    echo "Tên người dùng đã tồn tại";
+                    return;
+                }
+            } else
+                $username = "user" . $uid;
+
+            $password = &$obj['password'];
+            $password = AccountDAO::encryptPassword($password);
+
+            $account = new Account($uid, $username, $password);
+            if (!AccountDAO::createAccount($account)) {
+                echo "Tạo tài khoản thất bại";
+                return;
+            }
+
+            $role = RoleDAO::getDefaultRoleForLearner();
+            $pid = ProfileDAO::findUnallocatedID();
+
+            $firstName = &$obj['firstname'];
+            if (empty($firstName))
+                $firstName = "First Name";
+            else
+                $firstName = strval($firstName);
+
+            $lastName = &$obj['lastname'];
+            if (empty($lastName))
+                $lastName = "Last Name";
+            else
+                $lastName = strval($lastName);
+
+            $gender = &$obj['gender'];
+            $gender = isset($gender) && $gender !== "male" ? Gender_Female : Gender_Male;
+
+            $birthday = &$obj['birthday'];
+            if (empty($birthday))
+                $birthday = "2000-01-01";
+            else
+                $birthday = strval($birthday);
+
+            $profile = new Profile($pid, $firstName, $lastName, $gender, $birthday, ProfileType_Learner, 0);
+            $pkey = $profile->getKey();
+            if ($pkey instanceof PermissionHolderKey)
+                $pkey->set($account, $role);
+
+            if (!ProfileDAO::createProfile($profile)) {
+                echo "Tạo hồ sơ thất bại";
+                if ($pkey instanceof PermissionHolderKey)
+                    $pkey->set(null, null);
+                AccountDAO::deleteAccount($account);
+                return;
+            }
+
+            $email = &$obj['email'];
+            if (!empty($email)) {
+                $v = new Verification($pid, "");
+                $v->setEmail(strval($email));
+                if (!VerificationDAO::createVerification($v)) {
+                    echo "success"; // Lưu email thất bại
+                    return;
+                }
+            }
+            echo "success";
         } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+            echo $e->getMessage();
         }
     }
 }

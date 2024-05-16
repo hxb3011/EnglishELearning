@@ -4,6 +4,7 @@ requirm('/access/permission.php');
 
 const Gender_Male = 0;
 const Gender_Female = 1;
+const Gender_Unspecified = 2;
 const ProfileType_Instructor = 0;
 const ProfileType_Learner = 1;
 

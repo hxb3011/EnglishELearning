@@ -74,12 +74,15 @@ final class RoleDAO
     }
     public static function findUnallocatedID()
     {
-        $sql = "SELECT COUNT(*) AS RoleCount FROM `role`";
-        $result = Database::executeQuery($sql);
-        if (!isset($result) || count($result) === 0)
-            return "0";
-        else
-            return strval($result[0]["RoleCount"]);
+        $sql = "SELECT COUNT(*) AS RoleCount FROM `role` WHERE `role`.`ID` = ?";
+        for ($i = 0; $i < 100; ++$i) {
+            $id = uniqid(strval(0));
+            $result = Database::executeQuery($sql, array($id));
+            if (isset($result) && count($result) !== 0 && intval($result[0]["RoleCount"]) === 0) {
+                return $id;
+            }
+        }
+        return uniqid();
     }
     public static function createRole(Role $role)
     {
@@ -163,13 +166,31 @@ final class RoleDAO
         }
         return $role;
     }
-    // public static function deleteRole(Role $role)
-    // {
-    //     if (!isset($role))
-    //         return false;
-    //     $sql = "DELETE FROM `role` WHERE `ID` = ?";
-    //     $roleId = $role->getId();
-    //     return Database::executeNonQuery($sql, array($roleId));
-    // }
+
+    public static function canDeleteRole(Role $role)
+    {
+        if (!isset($role))
+            return false;
+
+        $param = array($role->getId());
+        $sql = "SELECT COUNT(*) AS `Count` FROM `profile` WHERE `profile`.`RoleID` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+
+        $sql = "SELECT COUNT(*) FROM `property` WHERE `property`.`Key` LIKE 'DEFAULT_%_ROLE' AND `property`.`Value` = ?";
+        $result = Database::executeQuery($sql, $param);
+        if (isset($result) && count($result) !== 0 && floatval($result[0]["Count"]) !== floatval(0))
+            return false;
+        return true;
+    }
+
+    public static function deleteRole(Role $role)
+    {
+        if (!self::canDeleteRole($role))
+            return false;
+
+        return Database::executeNonQuery("DELETE FROM `role` WHERE `role`.`ID` = ?", array($role->getId()));
+    }
 }
 ?>

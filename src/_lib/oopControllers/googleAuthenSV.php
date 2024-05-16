@@ -1,61 +1,22 @@
 <?php
-session_start();
-
 require_once "/var/www/html/_lib/utils/requir.php";
-requirm("/dao/accounts.php");
+requirm('dao/profile/profile.php');
+requirm('dao/profile/verification.php');
 requirl("composer/vendor/autoload.php");
+
+if (!session_id())
+    session_start();
 
 class GoogleLoginController
 {
-    private $AccountCtl;
+    private UserRepo $AccountCtl;
     private $client;
 
     public function __construct($formdata)
     {
         $this->client = $this->clientGoogle();
-        $this->AccountCtl = new UserRepo();
-        $this->loginGoogle($this->client,$formdata);
-    }
-
-    public function getProfileLength()
-    {
-        if ($this->AccountCtl->getNumberOfTotalAccount() > 0) {
-            return $this->AccountCtl->getNumberOfTotalAccount();
-        }
-    }
-
-    public function getProfile($email)
-    {
-        return $this->AccountCtl->checkEmail($email);
-    }
-
-    public function addProfile($email,$firstName, $lastName, $gender, $birthday)
-    {
-        try {
-            $length = $this->getProfileLength();
-            if ($length >= 0) {
-                $length += 1;
-                $id = 'KH_' . "_" . sprintf("%04d", $length);
-                if ($firstName === '') $firstName = 'Unknown';
-                if ($lastName === '') $lastName = 'Unknown';
-                if ($gender === '') $gender = 'Unknown';
-                if ($birthday === '') {
-                    $newbirthday = new DateTime();
-                    $birthday = $newbirthday->format('Y-m-d');
-                }
-                $username = $id;
-                $password = 'google';
-                $this->AccountCtl->Register($username, $password, $email, $firstName, $lastName, $gender, $birthday);
-            }
-            return false;
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public function getLoginInfo($username)
-    {
-        return $this->AccountCtl->getLoginInfo($username);
+        // $this->AccountCtl = new UserRepo();
+        $this->loginGoogle($this->client, $formdata);
     }
 
     public function clientGoogle()
@@ -79,7 +40,7 @@ class GoogleLoginController
         return $url;
     }
 
-    public function loginGoogle($client,$formdata)
+    public function loginGoogle($client, $formdata)
     {
         $action = isset($formdata['action']) ? $formdata['action'] : '';
         switch ($action) {
@@ -97,18 +58,69 @@ class GoogleLoginController
                 $client->setAccessToken($token['access_token']);
                 $google_oauth = new Google\Service\Oauth2($client);
                 $google_account_info = $google_oauth->userinfo->get();
-                $email =  $google_account_info->email;
-                // $name =  $google_account_info->name;
-                if (!$this->getProfile($email)) {
-                    $this->addProfile($email,  '', '', '', '');
+
+                $firstName = $google_account_info->getGivenName();
+                $lastName = $google_account_info->getFamilyName();
+                $gender = $google_account_info->getGender();
+                if ($gender === "male")
+                    $gender = Gender_Male;
+                elseif ($gender === "female")
+                    $gender = Gender_Female;
+                else
+                    $gender = Gender_Unspecified;
+                $email = $google_account_info->getEmail();
+
+                $auth_uid = null;
+                $verification = VerificationDAO::getProfileIdByOAuthEmail($email);
+                if (!isset($verification)) {
+                    $auth_uid = AccountDAO::findUnallocatedUID();
+                    $username = "user" . $auth_uid;
+                    $password = $email;
+                    $password = AccountDAO::encryptPassword($password);
+                    $account = new Account($auth_uid, $username, $password);
+                    if (!AccountDAO::createAccount($account))
+                        $auth_uid = null;
+
+                    if (isset($auth_uid)) {
+                        $role = RoleDAO::getDefaultRoleForLearner();
+                        $pid = ProfileDAO::findUnallocatedID();
+                        $birthday = "2000-01-01";
+                        $profile = new Profile($pid, $firstName, $lastName, $gender, $birthday, ProfileType_Learner, 0);
+                        $pkey = $profile->getKey();
+                        if ($pkey instanceof PermissionHolderKey)
+                            $pkey->set($account, $role);
+
+                        if (!ProfileDAO::createProfile($profile)) {
+                            if ($pkey instanceof PermissionHolderKey)
+                                $pkey->set(null, null);
+                            AccountDAO::deleteAccount($account);
+                            $auth_uid = null;
+                            return;
+                        }
+                        if (isset($auth_uid)) {
+                            $verification = Verification::createWithOAuthEmail($pid, $email);
+                            VerificationDAO::createVerification($verification);
+                        }
+                    }
+                } else {
+                    $profile = ProfileDAO::getProfileById($verification->getProfileId());
+                    if (isset($profile)) {
+                        $account = $profile->getAccount();
+                        if (isset($account))
+                            $auth_uid = $account->getUid();
+                    }
                 }
-                $info = $this->getLoginInfo($email);
-                session_regenerate_id();
-                $_SESSION['AUTH_UID'] = $info['uid'];
-                header("Location: /authentication/authenticate.php");
+                if (isset($auth_uid)) {
+                    $_SESSION['AUTH_UID'] = $auth_uid;
+                    header("Location: /authentication/authenticate.php");
+                } else {
+                    http_response_code(500);
+                    $_REQUEST["ersp"] = "500";
+                    requira("_error.php");
+                }
                 exit;
             }
-        } catch (Exception $e) {    
+        } catch (Exception $e) {
             throw new ($e->getMessage());
         }
     }
