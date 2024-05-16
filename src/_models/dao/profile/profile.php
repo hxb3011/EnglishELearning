@@ -194,7 +194,7 @@ final class ProfileDAO
     }
     public static function createProfile(Profile $profile)
     {
-        if (!isset($account))
+        if (!isset($profile))
             return false;
         $sql = "INSERT INTO `profile`(`ID`, `FirstName`, `LastName`, `Gender`, `BirthDay`, `Type`, `Status`, `UID`, `RoleID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $profileId = $profile->getId();

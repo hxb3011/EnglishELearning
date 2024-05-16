@@ -63,7 +63,7 @@ $page->beforeDocument();
         <nav class="drawer -dictionary _closed">
             <a class="mdi-b nav-item -back _action" hint="Từ điển"  href="javascript:void(0)"></a>
             <a class="mdi-b nav-item -dictionary<?= ($page->activeNav === NAV_DICT_ALL) ? " _selected" : "" ?>" hint="Tất cả từ" href="/dictionary/all.php"></a>
-            <a class="mdi-b nav-item -dictionary<?= ($page->activeNav === NAV_DICT_REVIEW) ? " _selected" : "" ?>" hint="Danh sách yêu thích" href="#"></a>
+            <a class="mdi-b nav-item -dictionary<?= ($page->activeNav === NAV_DICT_REVIEW) ? " _selected" : "" ?>" hint="Danh sách yêu thích" href="/dictionary/favorite.php"></a>
         </nav>
         <nav class="drawer -courses _closed">
             <a class="mdi-b nav-item -back _action" hint="Khoá học"  href="javascript:void(0)"></a>
