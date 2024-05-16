@@ -32,3 +32,8 @@
     /*when navigating through the items using the arrow keys:*/
     background-color: #e9e9e9 !important;
 }
+
+/* datatable */
+td::first-letter{
+    text-transform: capitalize;
+}

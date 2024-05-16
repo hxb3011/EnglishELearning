@@ -147,6 +147,19 @@ class AdminDictionary
     }
 
     public function editLemma(){
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_LemmaWrite],$holder)) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try{
             $lemmaID = $_POST['lemmaID'];
             $lemmaKey = $_POST['lemmaKey'];
@@ -176,19 +189,34 @@ class AdminDictionary
         }
     }
     public function addLemma(){
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_LemmaWrite],$holder)) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try{
             $lemmaKey = $_POST['lemmaKey'];
             $partOfSpeech = $_POST['partOfSpeech'];
             $infinitiveID = $_POST['infinitiveID'];
             $description = $_POST['description'];
-            $region = $_POST['region'];
-            $IPA = $_POST['IPA'];
+            $IPAUS = $_POST['IPAUS'];
+            $IPAUK = $_POST['IPAUK'];
             $result = $this->lemmaModel->addLemma($lemmaKey,$partOfSpeech);
             if ($result >= 1) {
                 $lemmaID = $this->lemmaModel->getLemmaID($lemmaKey);
-                $result = $this->pronunciationModel->addPronunciation($lemmaID,$region,$IPA);
+                $result = $this->pronunciationModel->addPronunciation($lemmaID,'US',$IPAUS);
+                $result = $this->pronunciationModel->addPronunciation($lemmaID,'UK',$IPAUK);
                 if($result >= 1 && !empty($infinitiveID)){
                     $result = $this->conjugationModel->addConjugation($infinitiveID,$lemmaID,$description);
+                    $result = $this->conjugationModel->addConjugation($lemmaID,$infinitiveID,$description);
                     if($result >= 1){
                         $redirect = "Location: /administration/dictionary/dictionary.php";
                         header($redirect);
@@ -203,8 +231,45 @@ class AdminDictionary
             echo $e;
         }
     }
+    public function delete_Lemma(){
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_DictionaryManage],$holder)) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
+        $response = array();
+        $jsonData = "";
+        if (isset($_REQUEST['lemmaID'])) { 
+            $lemmaID = $_REQUEST['lemmaID'];
+            $checkMeaning = $this->meaningModel->meaningExist($lemmaID);
+            $meaning = $this->meaningModel->getMeaningByLemmaID($lemmaID);
+            $checkExample = $this->exampleModel->exampleExist($meaning->ID);  
+            echo $checkMeaning;
+            echo $checkExample;
+            // $result = $this->courseModel->deleteCourse($lemmaID);
+        }
+        if (isset($result) && $result > 0) {
+            $response['status'] = '204';
+            $response['message'] = 'Xóa thành công';
+        } else {
+            $response['status'] = '404';
+            $response['message'] = 'Không xóa được';
+        }
+
+        $jsonData = json_encode($response);
+        echo $jsonData;
+    }
     //Hiển thị modal
     public function meaning_modal()
+    
     {
         global $editMode;
         global $lemma;
@@ -257,6 +322,19 @@ class AdminDictionary
     }
 
     public function add_meaning(){
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_MeaningRead],$holder)) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $meaning = new Meaning();
             $meaning->ID = $this->meaningModel->generateValidMeaningID();
@@ -277,6 +355,19 @@ class AdminDictionary
     }
 
     public function update_meaning(){
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_MeaningWrite],$holder)) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $meaning = new Meaning();
             $meaning->ID = $_POST['meaning_ID'];
@@ -297,6 +388,19 @@ class AdminDictionary
     }
 
     public function delete_meaning(){
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_MeaningRead],$holder)) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         $response = array();
         $jsonData = "";
         if (isset($_REQUEST['meaning_ID'])) {
@@ -320,6 +424,19 @@ class AdminDictionary
     }
 
     public function add_example(){
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_ExampleWrite],$holder)) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $example = new Example();
             $example->meaningID = $_POST['meaning_ID'];
@@ -337,6 +454,19 @@ class AdminDictionary
     }
 
     public function update_example(){
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_ExampleWrite],$holder)) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         try {
             $example = new Example();
             $example->ID = $_POST['example_ID'];
@@ -355,6 +485,19 @@ class AdminDictionary
     }
     
     public function delete_example(){
+        // $holder = getPermissionHolder();
+        // $granted = false;
+        // if (isset($holder)) {
+        //     if (isAllPermissionsGranted([Permission_DictionaryManage],$holder)) {
+        //         $granted = true;
+        //     }
+        // }
+        // if (!$granted) {
+        //     http_response_code(403);
+        //     $_REQUEST["ersp"] = "403";
+        //     requira("_error.php");
+        //     return;
+        // }
         $response = array();
         $jsonData = "";
         if (isset($_REQUEST['example_ID'])) {

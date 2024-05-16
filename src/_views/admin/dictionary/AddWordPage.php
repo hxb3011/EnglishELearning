@@ -87,19 +87,21 @@ class AddWordPage extends BaseHTMLDocumentPage
                                                                 <input type="text" class="form-control  w-25" id="lemmaKey" name="lemmaKey" placeholder="Nhập từ mới" value="">
 
                                                                 <label class="col-md-2 col-form-label w-25" for="partOfSpeech">Loại từ<span class="required">*</span> </label>
-                                                                <input type="text" class="form-control w-25" id="partOfSpeech" name="partOfSpeech" placeholder="Nhập loại từ" value="">
+                                                                <select class="form-select form-select-md mb-3 w-25" name="partOfSpeech" id="partOfSpeech">
+                                                                        <option value="Verb" selected="true"> Verb</option>
+                                                                        <option value="Noun"> Noun</option>
+                                                                        <option value="Adjective"> Adjective</option>
+                                                                        <option value="Adverb"> Adverb</option>
+                                                                    </select>
                                                             </div>
 
                                                             <h5 class="fw-bold">Pronunciation:</h5> 
-                                                            <div class="form-group row mb-3  d-flex justify-content-between">
-                                                                    <label class="col-md-2 col-form-label w-25" for="region">Kiểu giọng<span class="required">*</span> </label>
-                                                                    <select class="form-select form-select-md mb-3 w-25" name="region" id="region">
-                                                                        <option value="US" selected="true"> Giọng Mỹ US</option>
-                                                                        <option value="UK"> Giọng Anh UK</option>
-                                                                    </select>
-
-                                                                    <label class="col-md-2 col-form-label w-25" for="IPA">IPA phát âm<span class="required">*</span> </label>
-                                                                    <input type="text" class="form-control w-25" id="IPA" name="IPA" placeholder="Phát âm" value="">
+                                                            <div class="form-group row mb-3  d-flex justify-content-left">
+                                                                    <label class="col-md-2 col-form-label w-25" for="region">United State's Accent<span class="required">*</span> </label>
+                                                                    <input type="text" class="form-control w-25" id="IPA" name="IPAUS" placeholder="IPA" value="">
+                                                                    
+                                                                    <label class="col-md-2 col-form-label w-25" for="region">United Kingdom's Accent<span class="required">*</span> </label>                                                         
+                                                                    <input type="text" class="form-control w-25" id="IPA" name="IPAUK" placeholder="IPA" value="">
                                                             </div>
                                                                     
                                                             <div class="form-group row mb-3">
@@ -217,11 +219,10 @@ $this->scripts(
                         lemmaKey: {
                             required: true,
                             keyExisted: true,
-                            minlength: 2
+                            minlength: 1
                         },
                         partOfSpeech: {
                             required: true,
-                            minlength: 2
                         },
                         IPA: {
                             required: true,

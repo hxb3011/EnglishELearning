@@ -49,6 +49,19 @@ class ExampleModel {
             return null;
         }
     }
+    
+    public function exampleExist($meaningID){
+        $sql = "SELECT * from example WHERE MeaningID = ?";
+        $params = array(
+            "MeaningID" => $meaningID,
+        );
+        try{
+            $result =Database::executeQuery($sql,$params);
+            return $result;
+        } catch (Exception $e){
+            return false;
+        }
+    }
 
     public function addExample(Example $Example){
         $sql = "INSERT INTO Example (MeaningID, Example, Explanation) VALUES (?, ?, ?)";

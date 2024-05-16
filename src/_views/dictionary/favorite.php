@@ -4,6 +4,9 @@ requirl("utils/htmlDocument.php");
 
 final class DictionaryFavoritePage extends BaseHTMLDocumentPage
 {
+    public Lemma $lemma;
+    public $conjugation_arr = array();
+    public $example_arr = array();
     public function __construct()
     {
         parent::__construct();
@@ -56,7 +59,7 @@ final class DictionaryFavoritePage extends BaseHTMLDocumentPage
     {
         ?>
         <div class="word-detail _closed">
-            <div class="card round-5 padding-5">
+            <div class="card round-5 padding-5">    
                 <h3 class="part-of-speech ">Noun</h3>
                 <div class="title_n_heart">
                     <h3 class="word_title text-reset">Coffee</h3>

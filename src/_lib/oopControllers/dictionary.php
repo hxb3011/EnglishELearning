@@ -73,13 +73,11 @@ class Dictionary{
         }
         
     }
-    public function get_all()
-    {
-        $arr = array();
-        $arr['data'] = $this->subscription->get_all();
-        echo json_encode($arr);
+    public function getFavorite(){
+        requirv("dictionary/favorite.php");
+        $page = new DictionaryFavoritePage();
+        $page->lemma_arr = $this->lemmaModel->getAllFavorite();
     }
-
     public function add_favorite()
     {
         // $lemmaID = $_POST[]
