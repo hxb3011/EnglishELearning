@@ -15,11 +15,16 @@ foreach ($fragment_accounts as $key => $value) {
                         <span class="mdi-b dots-vertical"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="javascript:void(0)" target="_blank">Xem tài khoản</a></li>
+                        <li><a class="dropdown-item" href="/administration/access/viewAccount.php?uid=<?= $value->getUid() ?>">Xem tài khoản</a></li>
                         <?
                         if ($fragment_account_update) {
                             ?>
                             <li><a class="dropdown-item" href="/administration/access/editAccount.php?add=0&uid=<?= $value->getUid() ?>">Sửa tài khoản</a></li>
+                            <?
+                        }
+                        if ($fragment_account_delete) {
+                            ?>
+                            <li><a class="dropdown-item" href="/administration/access/deleteAccount.php?uid=<?= $value->getUid() ?>">Xoá tài khoản</a></li>
                             <?
                         }
                         ?>

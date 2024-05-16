@@ -73,21 +73,17 @@ class ProfileMainPage extends BaseHTMLDocumentPage
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="filter-section row">
-                                <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12   ">
+                            <div class="filter-section row justify-content-between">
+                                <div class="filter-part d-flex align-items-center justify-content-center col-md-4 col-sm-12 m-1">
                                     <div class="form-outline" data-mdb-input-init>
                                         <input type="search" id="search_name" class="form-control" placeholder="Tìm theo tên " />
                                     </div>
                                 </div>
-                                <div class="filter-part d-flex align-items-center justify-content-center col-md-3 col-sm-12" id="btn_search">
-                                    <button class="btn filter-btn" onclick="onSearchData()">
-                                        Lọc
-                                    </button>
+                                <div class="filter-part d-flex align-items-center justify-content-center col-md-3 col-sm-12 m-1" id="btn_search">
+                                    <button class="btn filter-btn" onclick="onSearchData()"> Lọc </button>
                                 </div>
-                                <div class="filter-part d-flex align-items-center justify-content-center col-md-3 col-sm-12" id="btn_search">
-                                    <a type="button" href="/administration/profile/edit.php?add=1" class="btn btn-outline-primary btn-rounded btn-icon">
-                                        <i class="mdi-b back"></i> Thêm
-                                    </a>
+                                <div class="filter-part d-flex align-items-center justify-content-center col-md-3 col-sm-12 m-1" id="btn_add">
+                                    <a type="button" href="/administration/profile/edit.php?add=1" class="btn btn-outline-primary btn-rounded btn-icon"><i class="mdi-b -plus"></i>Thêm</a>
                                 </div>
                             </div>
                             <div class="row">
@@ -100,8 +96,6 @@ class ProfileMainPage extends BaseHTMLDocumentPage
                                                 <th scope="col">Giới tính</th>
                                                 <th scope="col">Ngày sinh</th>
                                                 <th scope="col">Loại hồ sơ</th>
-                                                <th scope="col">Tài khoản</th>
-                                                <th scope="col">Vai trò</th>
                                                 <th scope="col">Actions</th>
                                             </tr>
                                         </thead>

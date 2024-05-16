@@ -74,9 +74,9 @@ class EditProfilePage extends BaseHTMLDocumentPage
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span>
+                                        <b class="mx-1">
                                             <?= ($this->add) ? "Thêm hồ sơ" : "Sửa hồ sơ" ?>
-                                        </span>
+                                        </b>
                                         <a type="button" href="/administration/profile/index.php" class="btn btn-outline-primary btn-rounded btn-icon">
                                             <i class="mdi-b back"></i> Danh sách hồ sơ
                                         </a>
@@ -87,41 +87,45 @@ class EditProfilePage extends BaseHTMLDocumentPage
                             <div class="row">
                                 <div class="col-md-12">
                                     <form action="/administration/profile/edit.php?add=<?= $this->add ? 1 : 0 ?>&profileid=<?= $this->profile->getId() ?><?= !$this->add ? "&profiletype=" . $this->profile->type : "" ?>" method="post">
-                                        <div class="form-group">
-                                            <label for="lastName">Họ</label>
+                                        <div class="form-group m-1">
+                                            <label for="lastName" class="mx-1"><b>Họ</b></label>
                                             <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Họ" value="<?= $this->profile->lastName ?>">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="firstName">Tên</label>
+                                        <div class="form-group m-1">
+                                            <label for="firstName" class="mx-1"><b>Tên</b></label>
                                             <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Tên" value="<?= $this->profile->firstName ?>">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="profiletype">Loại hồ sơ</label>
-                                            <select class="form-control" id="profiletype" name="gender"<?= ($this->add) ? "" : " readonly" ?>>
+                                        <div class="form-group m-1">
+                                            <label for="gender" class="mx-1"><b>Giới tính</b></label>
+                                            <select class="form-control" id="gender" name="gender">
                                                 <?
                                                 $selected = " selected";
                                                 $male = "";
                                                 $female = "";
+                                                $unspecified = "";
                                                 if ($this->profile->gender === Gender_Male) {
                                                     $male = $selected;
                                                 } elseif ($this->profile->gender === Gender_Female) {
                                                     $female = $selected;
+                                                } else {
+                                                    $unspecified = $selected;
                                                 }
                                                 ?>
+                                                <option value="<?= Gender_Unspecified ?>"<?= $unspecified ?>>(Không xác định)</option>
                                                 <option value="<?= Gender_Male ?>"<?= $male ?>>Nam</option>
                                                 <option value="<?= Gender_Female ?>"<?= $female ?>>Nữ</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="birthday">Ngày sinh</label>
+                                        <div class="form-group m-1">
+                                            <label for="birthday" class="mx-1"><b>Ngày sinh</b></label>
                                             <input type="date" class="form-control" id="birthday" name="birthday" placeholder="Ngày sinh" value="<?= $this->profile->birthday ?>">
                                         </div>
                                         <?
                                         if ($this->add) {
                                            ?>
-                                            <div class="form-group">
-                                                <label for="gender">Loại hồ sơ</label>
-                                                <select class="form-control" id="gender" name="gender"<?= ($this->add) ? "" : " readonly" ?>>
+                                            <div class="form-group m-1">
+                                                <label for="profiletype" class="mx-1"><b>Loại hồ sơ</b></label>
+                                                <select class="form-control" id="profiletype" name="profiletype"<?= ($this->add) ? "" : " readonly" ?>>
                                                     <?
                                                     $selected = " selected";
                                                     $instructor = "";
@@ -139,8 +143,8 @@ class EditProfilePage extends BaseHTMLDocumentPage
                                             <?
                                         }
                                         ?>
-                                        <div class="form-group">
-                                            <label for="account">Tài khoản</label>
+                                        <div class="form-group m-1">
+                                            <label for="account" class="mx-1"><b>Tài khoản</b></label>
                                             <select class="form-control" id="account" name="account">
                                                 <?
                                                 $account = $this->profile->getAccount();
@@ -167,8 +171,8 @@ class EditProfilePage extends BaseHTMLDocumentPage
                                                 ?>
                                             </select>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="role">Vai trò</label>
+                                        <div class="form-group m-1">
+                                            <label for="role" class="mx-1"><b>Vai trò</b></label>
                                             <select class="form-control" id="role" name="role">
                                                 <?
                                                 $role = $this->profile->getRole();
@@ -187,7 +191,7 @@ class EditProfilePage extends BaseHTMLDocumentPage
                                                 ?>
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-primary"><?= ($this->add) ? "Thêm" : "Sửa" ?></button>
+                                        <button type="submit" class="btn btn-primary m-1"><?= ($this->add) ? "Thêm" : "Sửa" ?></button>
                                     </form>
                                 </div>
                             </div>

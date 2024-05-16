@@ -107,18 +107,20 @@ final class AccountDAO
     public static function getUnlinkedAccounts(?string $currentAccount)
     {
         if (isset($currentAccount)) {
-            $includeCurrentCondition = "(`account`.`UID` <> '0' OR `account`.`UID` = ?) AND ";
+            $includeCurrentCondition = " OR `account`.`UID` = ?";
             $params = array($currentAccount);
         } else {
-            $includeCurrentCondition = "`account`.`UID` <> '0' AND ";
+            $includeCurrentCondition = "";
             $params = array();
         }
 
         $sql = "SELECT * FROM `account` WHERE ";
-        $sql .= $includeCurrentCondition;
         $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
-        $sql .= " AND ";
+        $sql .= " AND ((`account`.`UID` <> '0' AND ";
         $sql .= self::getStateHasNotFlagCondition(AccountStates_Linked);
+        $sql .= ")";
+        $sql .= $includeCurrentCondition;
+        $sql .= ")";
         $sql .= " ORDER BY `account`.`UserName` ASC";
 
         $result = Database::executeQuery($sql, $params);
