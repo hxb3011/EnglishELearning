@@ -10,13 +10,15 @@ final class RoleDAO
     public static function getTotalRoles(?string $name = null)
     {
         if (isset($name)) {
-            $sqlQuery = "SELECT COUNT(*) AS total_roles FROM `role` WHERE `Name` LIKE CONCAT('%', ?, '%')";
-            $params = array($name, $name);
+            $likeNameWhereClause = " WHERE `role`.`Name` LIKE CONCAT('%', ?, '%')";
+            $params = array($name);
         } else {
-            $sqlQuery = "SELECT COUNT(*) AS total_roles FROM `role`";
+            $likeNameWhereClause = "";
             $params = null;
         }
-        $result = Database::executeQuery($sqlQuery, $params);
+        $sql = "SELECT COUNT(*) AS total_roles FROM `role`";
+        $sql .= $likeNameWhereClause;
+        $result = Database::executeQuery($sql, $params);
         if (!isset($result) || count($result) === 0)
             return floatval(0);
         return floatval($result[0]['total_roles']);
@@ -25,13 +27,16 @@ final class RoleDAO
     {
         $offSet = ($page - 1) * $perPage;
         if (isset($name)) {
-            $sqlQuery = "SELECT * FROM `role` WHERE `Name` LIKE CONCAT('%', ?, '%') LIMIT $offSet, $perPage";
+            $likeNameWhereClause = " WHERE `role`.`Name` LIKE CONCAT('%', ?, '%')";
             $params = array($name);
         } else {
-            $sqlQuery = "SELECT * FROM `role` LIMIT $offSet, $perPage";
+            $likeNameWhereClause = "";
             $params = null;
         }
-        $result = Database::executeQuery($sqlQuery, $params);
+        $sql = "SELECT * FROM `role`";
+        $sql .= $likeNameWhereClause;
+        $sql .= " ORDER BY `role`.`Name` ASC LIMIT $offSet, $perPage";
+        $result = Database::executeQuery($sql, $params);
 
         $roles = array();
         if ($result === null || count($result) === 0)
@@ -47,7 +52,7 @@ final class RoleDAO
 
     public static function getAllRoles()
     {
-        $sql = "SELECT * FROM `role`";
+        $sql = "SELECT * FROM `role` ORDER BY `role`.`Name` ASC";
         $result = Database::executeQuery($sql);
         $roles = array();
         if ($result === null || count($result) === 0)

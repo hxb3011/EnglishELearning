@@ -125,6 +125,40 @@ class Courses
         $page->tracking = $this->trackingModel->getTrackingsByProfileAndCourse($profileID, $courseID);
         $page->profileID = $profileID;
         usort($page->programs, array('Courses', 'compareOrderN'));
+        if(isset($page->currentProgram))
+        {
+            foreach($page->programs as $index=>$program)
+            {
+                if($program instanceof Lesson && $page->currentProgram instanceof Document)
+                {
+                    foreach($program->Documents as $i=>$document)
+                    {
+                        if($document->ID == $page->currentProgram->ID)
+                        {
+                            if (isset($program->Documents[$i+1]))
+                            {
+                                $page->nextProgram = $program->Documents[$i+1];
+                            }
+                            elseif(isset($page->programs[$index+1]))
+                            {
+                                if($page->programs[$index+1] instanceof Excercise)
+                                {
+                                    $page->nextProgram = $page->programs[$index+1];
+                                    $this->loadQuestions($page->nextProgram);
+                                    $this->loadResponses($page->nextProgram);
+                                }else{
+                                    $page->nextProgram = isset($page->programs[$index+1]->Documents[0]) ? $page->programs[$index+1]->Documents[0] : null  ;
+                                    print_r($page->nextProgram);
+                                }
+                            }else{
+                                $page->nextProgram = null;
+                            }
+                        }
+                    }
+                }
+            }
+            print_r($page->nextProgram);
+        }
 
         requira("_layout.php");
     }
@@ -210,6 +244,7 @@ class Courses
         if ($courses != null) {
             foreach ($courses as $key => $course) {
                 $course->lessons = $this->lessonModel->getLessonsByCourseId($course->id,1);
+                $course->totalStudent = $this->subscriptionModel->getTotalStudentOfCourse($course->id);
             }
         }
         $response['course'] = $courses;

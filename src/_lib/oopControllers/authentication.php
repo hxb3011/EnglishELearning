@@ -111,6 +111,7 @@ class Authentication
                 $pkey->set($account, $role);
 
             if (!ProfileDAO::createProfile($profile)) {
+                print_r($profile);
                 echo "Tạo hồ sơ thất bại";
                 if ($pkey instanceof PermissionHolderKey)
                     $pkey->set(null, null);

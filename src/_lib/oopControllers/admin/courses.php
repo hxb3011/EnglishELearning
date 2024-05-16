@@ -104,9 +104,7 @@ class AdminCourses
     }
     public function edit_course()
     {
-
         try {
-
             $course = $this->courseModel->getCourseById($_POST['courseID']);
             $course->name = $_POST['title'];
             $course->description = $_POST['description'];
@@ -121,10 +119,7 @@ class AdminCourses
                 $course->posterURI = $this->saveImageToFolder($course->id);
             }
             $result = $this->courseModel->updateCourse($course);
-            if ($result >= 1) {
-
-                header('Location: /administration/courses/index.php');
-            }
+            header('Location: /administration/courses/index.php');
         } catch (Exception $e) {
             echo $e->getMessage();
         }
@@ -141,7 +136,6 @@ class AdminCourses
         if (!$granted) {
             http_response_code(403);
             echo json_encode('Quyền xóa khóa học bị từ chối', JSON_UNESCAPED_UNICODE);
-
         }
         $response = array();
         $jsonData = "";
@@ -151,7 +145,7 @@ class AdminCourses
                 $deletePoster = $this->s3Service->deleteFileInFolder('public/poster/' . $_REQUEST['courseId'] . '/');
                 $deleteTextFile = $this->s3Service->deleteFileInFolder('private/text/' . $_REQUEST['courseId'] . '/');
                 $delete = $this->s3Service->deleteFileInFolder('private/video/' . $_REQUEST['courseId'] . '/');
-               $result = $this->courseModel->deleteCourse($_REQUEST['courseId']);
+                $result = $this->courseModel->deleteCourse($_REQUEST['courseId']);
             } else {
                 http_response_code(405);
                 echo json_encode('Quyền xóa khóa học bị từ chối', JSON_UNESCAPED_UNICODE);

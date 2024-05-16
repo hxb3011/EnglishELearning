@@ -149,7 +149,7 @@ class AccountMainPage extends BaseHTMLDocumentPage
                 $.ajax({
                     url: '/administration/access/getTotalAccountPage.php',
                     method: 'POST',
-                    data: JSON.stringify(),
+                    data: JSON.stringify(data),
                     headers: {
                         'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
                     },
@@ -157,7 +157,7 @@ class AccountMainPage extends BaseHTMLDocumentPage
                         $('#pagination').html(response);
                         $('.pagination-item').click(function() {
                             let targetPage = $(this).data('page');
-                            let currentPage = +$('.pagination-item.active').data('page')
+                            let currentPage = $('.pagination-item.active').data('page')
 
                             if (targetPage != currentPage) {
                                 data.page = targetPage;

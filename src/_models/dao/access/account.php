@@ -60,6 +60,7 @@ final class AccountDAO
         $sql .= "`account`.`UID` <> '0' AND ";
         $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
         $sql .= $likeNameCondition;
+        $sql .= " ORDER BY `account`.`UserName` ASC";
         $sql .= " LIMIT " . strval($offSet) . ", " . strval($perPage);
         $result = Database::executeQuery($sql, $params);
 
@@ -85,6 +86,7 @@ final class AccountDAO
         $sql = "SELECT * FROM `account` WHERE ";
         $sql .= "`account`.`UID` <> '0' AND ";
         $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
+        $sql .= " ORDER BY `account`.`UserName` ASC";
         $result = Database::executeQuery($sql);
         $accounts = array();
         if ($result === null || count($result) === 0)
@@ -117,6 +119,7 @@ final class AccountDAO
         $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
         $sql .= " AND ";
         $sql .= self::getStateHasNotFlagCondition(AccountStates_Linked);
+        $sql .= " ORDER BY `account`.`UserName` ASC";
 
         $result = Database::executeQuery($sql, $params);
         $accounts = array();
