@@ -7,7 +7,6 @@ requirm("dao/profile/profile.php");
 requirl("profile/permissionChecker.php");
 
 $holder = getPermissionHolder();
-if($holder instanceof Profile)
 if (isset($holder)) {
     if ($holder instanceof Profile) {
         $ctrl = new Courses();

@@ -13,7 +13,9 @@
 .mdi-b.play::before {
     content: '\F040A';
 }
-
+.mdi-b.excercise::before{
+    content: '\F03A1';
+}
 .learn_lesson-name[aria-expanded="false"] .mdi-b.toggle::before {
     content: var(--mdi-menu-down);
 }
@@ -43,7 +45,7 @@ main {
     padding: 4rem;
     border-radius: 4rem;
     width: 80rem;
-    transition: all 0.5s ease-in;
+    transition: all 0.2s ease-in;
 }
 .custom-btn:hover{
     color: white;
