@@ -50,7 +50,7 @@ function getAdminAccount()
     $key->setPermissionGranted(Permission_CourseRead);
     $key->setPermissionGranted(Permission_CourseUpdate);
     $key->setPermissionGranted(Permission_CourseDelete);
-    $key->setPermissionGranted(Permission_CourseSubscribe);
+    $key->setPermissionGranted(Permission_CourseSubscribe, false);
     $key->setPermissionGranted(Permission_DocumentCreate);
     $key->setPermissionGranted(Permission_DocumentRead);
     $key->setPermissionGranted(Permission_DocumentUpdate);

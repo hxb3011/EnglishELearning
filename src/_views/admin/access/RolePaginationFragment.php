@@ -12,7 +12,7 @@ if ($fragment_next_page > $fragment_total_pages) $fragment_next_page = $fragment
     </a>
 </li>
 <?
-for ($i = 1; $i <= $fragment_total_pages; ++$i) {
+for ($i = 1.0; $i <= $fragment_total_pages; ++$i) {
     ?>
     <li class="pagination-item<?= $i === $fragment_current_page ? " active" : "" ?>" data-page="<?= $i ?>">
         <a href="javascript:void(0)" class="pagination-item__link"><?= $i ?></a>
@@ -20,7 +20,7 @@ for ($i = 1; $i <= $fragment_total_pages; ++$i) {
     <?
 }
 ?>
-<li class="pagination-item" data-page="<?= $fragment_prev_page ?>">
+<li class="pagination-item" data-page="<?= $fragment_next_page ?>">
     <a href="javascript:void(0)">
         <i class="mdi-b next"></i>
     </a>
