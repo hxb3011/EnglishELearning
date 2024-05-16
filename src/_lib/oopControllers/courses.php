@@ -90,7 +90,9 @@ class Courses
             usort($lesson->Documents, array('Courses', 'compareOrderN'));
         }
         $current = new DateTime();
-        $page->isRegisterable = ($current >= $page->course->beginDate && $current <= $page->course->endDate) ?  true  : false;
+        //$page->isRegisterable = ($current >= $page->course->beginDate && $current <= $page->course->endDate) ?  true  : false;
+        $page->isRegisterable = ($current <= $page->course->beginDate) ?  true  : false;
+
         $excercises = $this->excerciseModel->getExcercisesByCourseId($courseId);
         $page->totalExcercise = count($excercises);
         $page->programs = array_merge($lessons, $excercises);
