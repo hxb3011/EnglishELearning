@@ -37,7 +37,7 @@ final class AccountDAO
             $params = null;
         }
         $sql = "SELECT COUNT(*) AS total_accounts FROM `account` WHERE ";
-        $sql = "`account`.`UID` <> '0' AND ";
+        $sql .= "`account`.`UID` <> '0' AND ";
         $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
         $sql .= $likeNameCondition;
         $result = Database::executeQuery($sql, $params);
@@ -57,7 +57,7 @@ final class AccountDAO
             $params = null;
         }
         $sql = "SELECT * FROM `account` WHERE ";
-        $sql = "`account`.`UID` <> '0' AND ";
+        $sql .= "`account`.`UID` <> '0' AND ";
         $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
         $sql .= $likeNameCondition;
         $sql .= " LIMIT " . strval($offSet) . ", " . strval($perPage);
@@ -83,7 +83,7 @@ final class AccountDAO
     public static function getAllAccounts()
     {
         $sql = "SELECT * FROM `account` WHERE ";
-        $sql = "`account`.`UID` <> '0' AND ";
+        $sql .= "`account`.`UID` <> '0' AND ";
         $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
         $result = Database::executeQuery($sql);
         $accounts = array();
@@ -154,24 +154,6 @@ final class AccountDAO
         PermissionHolderKey::loadPermissions($account, $value["Permissions"]);
         return $account;
     }
-    public static function getAccountUidToLogin(string $subject, string $encryptedPassword)
-    {
-        $sql = "SELECT `account`.`UID` FROM `account` WHERE ";
-        $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
-        $sql .= " AND `account`.`UserName` = ? AND `account`.`Password` = ?";
-        $result = Database::executeQuery($sql, array($subject, $encryptedPassword));
-        if (isset($result) && count($result) !== 0) {
-            return strval($result[0]["UID"]);
-        }
-        $sql = "SELECT `account`.`UID` FROM `account` JOIN `profile` ON `account`.`UID` = `profile`.`UID` JOIN `verification` ON `profile`.`ID` = `verification`.`ProfileID` WHERE ";
-        $sql .= self::getStateHasNotFlagCondition(AccountStates_Deleted);
-        $sql .= " AND `verification`.`email` = ? AND `account`.`Password` = ?";
-        $result = Database::executeQuery($sql, array($subject, $encryptedPassword));
-        if (isset($result) && count($result) !== 0) {
-            return strval($result[0]["UID"]);
-        }
-        return null;
-    }
     public static function isUserNameExist(string $testUserName)
     {
         $sql = "SELECT COUNT(*) AS `AccountCount` FROM `account` WHERE ";
@@ -227,9 +209,13 @@ final class AccountDAO
         $permissions = PermissionHolderKey::savePermissions($account);
         return Database::executeNonQuery($sql, array($userName, $password, $status, $permissions, $uid));
     }
+    public static function canDeleteAccount(Account $account)
+    {
+        return isset($account) && !$account->isLinked() && $account->getUid() === "0";
+    }
     public static function deleteAccount(Account $account)
     {
-        if (!isset($account) || ($account->isLinked() || $account->getUid() === "0"))
+        if (!self::canDeleteAccount($account))
             return false;
         $account->setDeleted(true);
         $sql = "UPDATE `account` SET `Status` = ? WHERE `UID` = ?";
