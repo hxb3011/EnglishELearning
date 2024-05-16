@@ -9,12 +9,14 @@ class Lemma{
     public string $ID;
     public string $keyL;
     public string $partOfSpeech;
+    public bool $favorite;
     public $meaning_arr = array();
     public $pronunciation_arr = array();
     public $conjugation_arr = array();
     
     public function __construct()
     {
+        $this->favorite = false;
     }
     // public function __construct(Lemma $lemma)
     // {
@@ -39,4 +41,5 @@ class Lemma{
         $this->conjugation_arr = $conjugation_arr;
         
     }
+    
 }

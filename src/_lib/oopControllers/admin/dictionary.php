@@ -15,7 +15,7 @@ requirm('/dao/dictionary/ConjugationModel.php');
 requirm('/dao/dictionary/PronunciationModel.php');
 requirm('/dao/dictionary/ContributionModel.php');
 
-
+requirl("profile/permissionChecker.php");
 requirl('/services/S3Service.php');
 
 class AdminDictionary
@@ -189,19 +189,6 @@ class AdminDictionary
         }
     }
     public function addLemma(){
-        $holder = getPermissionHolder();
-        $granted = false;
-        if (isset($holder)) {
-            if (isAllPermissionsGranted([Permission_LemmaWrite],$holder)) {
-                $granted = true;
-            }
-        }
-        if (!$granted) {
-            http_response_code(403);
-            $_REQUEST["ersp"] = "403";
-            requira("_error.php");
-            return;
-        }
         try{
             $lemmaKey = $_POST['lemmaKey'];
             $partOfSpeech = $_POST['partOfSpeech'];

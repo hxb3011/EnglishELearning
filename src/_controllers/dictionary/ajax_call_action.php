@@ -1,14 +1,20 @@
 <?
 require_once "/var/www/html/_lib/utils/requir.php";
 requirl("oopControllers/dictionary.php");
+requirl("profile/permissionChecker.php");
+requirm("dao/profile/profile.php");
+
 $action = $_REQUEST['action'];
-$search_input = $_REQUEST['search_input'];
+$profile = getPermissionHolder();
+
 $ctrl = new Dictionary();
 if(isset($action) && method_exists($ctrl,$action))
 {
-    if(strcmp($action,'search') == 0)
-        call_user_func(array($ctrl,$action),$search_input);
-    else
-        call_user_func(array($ctrl,$action));
+    if(isset($profile) && $profile instanceof Profile && strcasecmp($action,"update_favorite"))
+        call_user_func(array($ctrl,$action),$profile->getId());
+    else{
+        call_user_func(array($ctrl,$action),$profile->getId());
+    }
 }else{
+    call_user_func(array($ctrl,$action));
 }
