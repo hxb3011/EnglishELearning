@@ -6,6 +6,7 @@ requirm('/dao/dictionary/MeaningModel.php');
 requirm('/dao/dictionary/ConjugationModel.php');
 requirm('/dao/dictionary/PronunciationModel.php');
 requirm('/dao/dictionary/ContributionModel.php');
+requirm('/dao/dictionary/FavoriteModel.php');
 
 class LemmaModel {
 
@@ -47,8 +48,17 @@ class LemmaModel {
             return null;
         }
     }
-    public function getAllFavorite(){
-        $sql = "SELECT Lemma.* FROM Lemma,LearntRecord WHERE Lemma.ID = LearnRecord.LemmaID";
+    public function getAllFavorite($profileID){
+        $sql = "SELECT lemma.* FROM lemma,favorite WHERE lemma.ID = favorite.LemmaID and profileID = ?";
+        $params = array(
+            'profileID' => $profileID,
+        );
+        try {
+            $result = Database::executeQuery($sql, $params);
+            return $this->get_full_data_lemma($result,false);
+        } catch (Exception $e) {
+            return null;
+        }
     }
     public function checkKeyExist($key){
         $sqlQuery = "SELECT * FROM Lemma WHERE KeyL like ?" ;
@@ -193,8 +203,8 @@ class LemmaModel {
                     $Lemma->constructFromArray($value,$meaning_arr,$pronunciation,$conjugation);
                     $lemmas[] = $Lemma;
                 }
+                return $lemmas;
             }
-            return $lemmas;
         } else {
             return null;
         }
