@@ -9,7 +9,7 @@ final class AllCoursesPage extends BaseHTMLDocumentPage
     public string $basePath;
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct(NAV_COURSE_ALL);
     }
     public function documentInfo(string $author, string $description, string $title)
     {
