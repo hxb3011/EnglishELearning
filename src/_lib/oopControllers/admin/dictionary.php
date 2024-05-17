@@ -54,14 +54,6 @@ class AdminDictionary
         $page->lemma = $this->lemmaModel->getLemmaByID($lemmaID);
         $conjugation = $this->conjugationModel->getConjugationBy_InfinitiveID($page->lemma->ID);
         $alternative = [];
-        // foreach($conjugation as $item){
-        //     $alterLemma = new Lemma();
-        //     $alterLemma = $this->lemmaModel->getLemmaByID($item->alternativeID);
-        //     $lemma_conjugation_group = [];
-        //     $lemma_conjugation_group['lemma'] = $alterLemma;
-        //     $lemma_conjugation_group['description'] = $item->description;
-        //     $alternative[] = $lemma_conjugation_group;
-        // }
         requira("_adminLayout.php");
     }
     
@@ -173,19 +165,19 @@ class AdminDictionary
                 $result = $this->pronunciationModel->updatePronunciation($lemmaID,'UK',$IPAUK);
                 if($result >= 1 && !empty($infinitiveID)){
                     // $result = $this->conjugationModel->updateConjugation($infinitiveID,$alternativeID,$description);
-                    $redirect = "Location: /administration/dictionary/edit.php?lemmaID=" . $lemmaID;
+                    $redirect = "'Location: /administration/courses/index.php'" . $lemmaID;
                     header($redirect);
                     exit;
                 }
-                $redirect = "Location: /administration/dictionary/edit.php?lemmaID=" . $lemmaID;
+                $redirect = "'Location: /administration/courses/index.php'" . $lemmaID;
                 header($redirect);
                 exit;
             }
-            $redirect = "Location: /administration/dictionary/edit.php?lemmaID=" . $lemmaID;
+            $redirect = "'Location: /administration/courses/index.php'" . $lemmaID;
             header($redirect);
             exit;
         } catch (Exception $e){
-            echo $e;
+            // echo $e;
         }
     }
     public function addLemma(){
@@ -222,7 +214,7 @@ class AdminDictionary
         $holder = getPermissionHolder();
         $granted = false;
         if (isset($holder)) {
-            if (isAllPermissionsGranted([Permission_DictionaryManage],$holder)) {
+            if (isAllPermissionsGranted([Permission_DictionaryManage,Permission_LemmaWrite],$holder)) {
                 $granted = true;
             }
         }
@@ -238,10 +230,12 @@ class AdminDictionary
             $lemmaID = $_REQUEST['lemmaID'];
             $checkMeaning = $this->meaningModel->meaningExist($lemmaID);
             $meaning = $this->meaningModel->getMeaningByLemmaID($lemmaID);
-            $checkExample = $this->exampleModel->exampleExist($meaning->ID);  
-            echo $checkMeaning;
-            echo $checkExample;
-            // $result = $this->courseModel->deleteCourse($lemmaID);
+            foreach($meaning as $item) {
+                $checkExample = $this->exampleModel->exampleExist($item->ID);
+            }
+            if($checkMeaning[0]['exist'] == 0 && $checkExample[0]['exist'] == 0){
+                $result = $this->lemmaModel->deleteLemma($lemmaID);
+            }
         }
         if (isset($result) && $result > 0) {
             $response['status'] = '204';
@@ -390,11 +384,11 @@ class AdminDictionary
         }
         $response = array();
         $jsonData = "";
-        if (isset($_REQUEST['meaning_ID'])) {
-            $meaning = $this->meaningModel->getMeaningByID($_REQUEST['meaning_ID']);
+        if (isset($_REQUEST['meaningID'])) {
+            $meaning = $this->meaningModel->getMeaningByID($_REQUEST['meaningID']);
             if($meaning){
-                $delete_example_folder = $this->exampleModel->deleteExamplesBy_MeaningID($meaning->ID);
-                if(isset($delete_example_folder) && $delete_example_folder > 0)
+                $checkExample = $this->exampleModel->exampleExist($meaning->ID);
+                if($checkExample[0]['exist'] == 0)
                     $result = $this->meaningModel->deleteMeaning($meaning);
             }
         }
@@ -435,6 +429,7 @@ class AdminDictionary
                 header($redirect);
                 exit;
             }
+        
         } catch (Exception $ex) {
             echo $ex;
         }
@@ -461,34 +456,40 @@ class AdminDictionary
             $example->example = $_POST['example_key'];
             $example->explanation = $_POST['example_explanation'];
             $result = $this->exampleModel->updateExample($example);
-            if ($result >= 1) {
-                $redirect = "Location: /administration/dictionary/edit.php?lemmaID=" . $_POST['lemma_ID'];
-                header($redirect);
-                exit;
-            }
+            
+        if (isset($result) && $result > 0) {
+            $response['status'] = '204';
+            $response['message'] = 'Xóa thành công';
+        } else {
+            $response['status'] = '404';
+            $response['message'] = 'Không xóa được';
+        }
+        $redirect = "Location: /administration/dictionary/edit.php?lemmaID=" . $_POST['lemma_ID'];
+        header($redirect);
+        exit;
         } catch (Exception $ex) {
             echo $ex;
         }
     }
     
     public function delete_example(){
-        // $holder = getPermissionHolder();
-        // $granted = false;
-        // if (isset($holder)) {
-        //     if (isAllPermissionsGranted([Permission_DictionaryManage],$holder)) {
-        //         $granted = true;
-        //     }
-        // }
-        // if (!$granted) {
-        //     http_response_code(403);
-        //     $_REQUEST["ersp"] = "403";
-        //     requira("_error.php");
-        //     return;
-        // }
+        $holder = getPermissionHolder();
+        $granted = false;
+        if (isset($holder)) {
+            if (isAllPermissionsGranted([Permission_ExampleWrite],$holder)) {
+                $granted = true;
+            }
+        }
+        if (!$granted) {
+            http_response_code(403);
+            $_REQUEST["ersp"] = "403";
+            requira("_error.php");
+            return;
+        }
         $response = array();
         $jsonData = "";
-        if (isset($_REQUEST['example_ID'])) {
-            $example = $this->exampleModel->getExampleByID($_REQUEST['example_ID']);
+        if (isset($_REQUEST['exampleId'])) {
+            $example = $this->exampleModel->getExampleByID($_REQUEST['exampleId']);
             if($example)
                 $result = $this->exampleModel->deleteExample($example);
         }
@@ -499,7 +500,6 @@ class AdminDictionary
             $response['status'] = '404';
             $response['message'] = 'Không xóa được';
         }
-
         $jsonData = json_encode($response);
         echo $jsonData;
     }

@@ -80,12 +80,6 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
                                     </table>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <ul class="pagination" id="pagination">
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -152,11 +146,11 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
                                 return `
                                 <div class="dropleft">
                                     <button type="button" class="btn btn-sm btn-outline-primary btn-rounded btn-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span class="mdi-b dots-vertical"></span>
+                                        <span class="mdi-b dots-vertical"></span>   
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="/administration/dictionary/edit.php?lemmaID=${data}">Chỉnh sửa</a></li>
-                                        <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/courses/api/ajax_call_action.php?action=delete_course&courseId=${data}','Xóa từ')">Xóa từ</a></li>
+                                        <li><a class="dropdown-item" onclick="confirm_delete_modal('http://localhost:62280/administration/dictionary/ajax_call_action.php?action=delete_Lemma&lemmaID=${data}','Xóa từ')">Xóa từ</a></li>
 
                                     </ul>
                                 </div>`
@@ -166,52 +160,51 @@ class ManageDictionaryPage extends BaseHTMLDocumentPage
 
                     ],
                 });
-                initPagination();
             })
 
-            function setUpEvents() {
-                $('.pagination-item').click(function() {
-                    let targetPage = $(this).data('page');
-                    let currentPage = +$('.pagination-item.active').data('page')
+            // function setUpEvents() {
+            //     $('.pagination-item').click(function() {
+            //         let targetPage = $(this).data('page');
+            //         let currentPage = +$('.pagination-item.active').data('page')
 
-                    if (targetPage == 'prev') {
-                        targetPage = currentPage - 1;
-                        targetPage = (targetPage <= 0) ? targetPage = 1 : targetPage;
-                    } else if (targetPage == 'next') {
-                        targetPage = currentPage + 1;
-                        targetPage = (targetPage > maxPage) ? targetPage = maxPage : targetPage;
-                    }
+            //         if (targetPage == 'prev') {
+            //             targetPage = currentPage - 1;
+            //             targetPage = (targetPage <= 0) ? targetPage = 1 : targetPage;
+            //         } else if (targetPage == 'next') {
+            //             targetPage = currentPage + 1;
+            //             targetPage = (targetPage > maxPage) ? targetPage = maxPage : targetPage;
+            //         }
 
 
-                    targetPage = +targetPage;
+            //         targetPage = +targetPage;
 
-                    if (targetPage != currentPage) {
-                        $('.pagination-item.active').removeClass('active');
-                        $('.pagination-item').each(function() {
-                            if (+$(this).data('page') == targetPage) {
-                                $(this).addClass('active')
-                            }
-                        })
-                        $.ajax({
-                            url: '',
-                            method: 'POST',
-                            data: JSON.stringify({
-                                page: targetPage,
-                                tutor: tutor,
-                                name: name
-                            }),
-                            ers: {
-                                'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
-                            },
-                            success: function(response) {
-                                let data = JSON.parse(response);
-                                showData(data);
-                            }
-                        })
-                    }
+            //         if (targetPage != currentPage) {
+            //             $('.pagination-item.active').removeClass('active');
+            //             $('.pagination-item').each(function() {
+            //                 if (+$(this).data('page') == targetPage) {
+            //                     $(this).addClass('active')
+            //                 }
+            //             })
+            //             $.ajax({
+            //                 url: '',
+            //                 method: 'POST',
+            //                 data: JSON.stringify({
+            //                     page: targetPage,
+            //                     tutor: tutor,
+            //                     name: name
+            //                 }),
+            //                 ers: {
+            //                     'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
+            //                 },
+            //                 success: function(response) {
+            //                     let data = JSON.parse(response);
+            //                     showData(data);
+            //                 }
+            //             })
+            //         }
 
-                })
-            }
+            //     })
+            // }
 
             
             

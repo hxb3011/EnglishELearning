@@ -51,7 +51,7 @@ class ExampleModel {
     }
     
     public function exampleExist($meaningID){
-        $sql = "SELECT * from example WHERE MeaningID = ?";
+        $sql = "SELECT EXISTS(SELECT * from example WHERE MeaningID = ?) as exist";
         $params = array(
             "MeaningID" => $meaningID,
         );

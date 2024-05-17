@@ -55,6 +55,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
         );
         $this->styles(
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
+            "/clients/css/admin/autocomplete.css",
             "/clients/css/dictionary/dictionary-main.css",
             "/clients/css/home/home_main.css",
             "/clients/css/header/header.css",
