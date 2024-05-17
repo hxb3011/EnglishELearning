@@ -76,7 +76,7 @@ final class DictionaryFavoritePage extends BaseHTMLDocumentPage
         <div class="container my-5 mx-0" >
             <div class="section-heading xx-large mtop-5">Favorite</div>
             <div class = " flashcard__container mtop-5">
-                <!-- <div class="margin-5">
+                <div class="margin-5">
                     <form class="form-inline d-flex width-search round-5 mx-auto" autocomplete="off">
                     <div class="autocomplete w-100">
                         <input class="form-control border border-dark mr-sm-2 search_bar" id="inp_search" type="search" placeholder=" Search..." aria-label="Search">
@@ -85,7 +85,7 @@ final class DictionaryFavoritePage extends BaseHTMLDocumentPage
                         <i class="fas fa-search icon_search"></i>
                     </button>
                     </form>
-                </div> -->
+                </div>
                 <div class="row mt-5 justify-content-center mx-auto">
                 <? foreach (($this->lemma_arr) as $lemma) : ?>
                     <div class=" col col-sm-2  margin-5" onclick="showDetail('<? echo $lemma->ID ?>')">
@@ -113,6 +113,9 @@ final class DictionaryFavoritePage extends BaseHTMLDocumentPage
         <div class="section-heading xx-large">Nơi này trống trải quá, hãy thêm từ vào yêu thích nhé!</div>
         <? endif ?>
         <script>
+            
+        var currentFocus = -1;
+        autocomplete(document.getElementById("inp_search"),"inp_save",'ajax_call_action.php?action=search');
         function showDetail(lemmaID){
             let data = {
                 lemmaID : lemmaID,
@@ -136,7 +139,7 @@ final class DictionaryFavoritePage extends BaseHTMLDocumentPage
                 <h3 class="part-of-speech "> ' +lemma["partOfSpeech"] +'</h3>\
                 <div class="title_n_heart">\
                     <h3 class="word_title text-reset">'+ lemma["keyL"] +'</h3>\
-                    <a class="mdi-b heart-icon " hint="Yêu thích" href="#"></a>\
+                    <a class="mdi-b heart-icon _selected" hint="Yêu thích" href="#"></a>\
                 </div>\
                 <p class="word_pronunciation  text-reset opacity-75 ">'+ lemma['pronunciation_arr'][0]["IPA"] +'</p>\
                 <p class="word_pronunciation  text-reset opacity-75 ">'+ lemma['pronunciation_arr'][1]["IPA"] +'</p>';
