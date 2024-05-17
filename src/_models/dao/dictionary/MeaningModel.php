@@ -69,7 +69,7 @@ class MeaningModel {
         }
     }
     public function meaningExist($lemmaID){
-        $sql = "SELECT * from meaning WHERE LemmaID = ?";
+        $sql = "SELECT EXISTS (SELECT * from meaning WHERE LemmaID = ?) as exist";
         $params = array(
             "LemmaID" => $lemmaID,
         );

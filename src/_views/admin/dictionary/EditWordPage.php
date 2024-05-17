@@ -77,7 +77,7 @@ class EditWordPage extends BaseHTMLDocumentPage
                             <div style="margin-top:24px; margin-bottom:24px;"></div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form class="" action="/administration/dictionary/edit.php" id="form_edit_course" method="post" enctype="multipart/form-data">
+                                    <form class="" action="/administration/dictionary/dictionary.php" id="form_edit_course" method="post" enctype="multipart/form-data">
                                         <div class="basicwizard">
                                             <ul class="nav nav-pills nav-justified form-wizard-header">
                                                 <li class="nav-item">
@@ -271,8 +271,8 @@ class EditWordPage extends BaseHTMLDocumentPage
                     },
                     rules: {
                         lemmaKey: {
-                            required: true,
-                            minlength: 1
+                            required: false,
+                            minlength: 2
                         },
                         IPAUS: {
                             required: true,
@@ -280,27 +280,17 @@ class EditWordPage extends BaseHTMLDocumentPage
                         IPAUK: {
                             required: true,
                         },
-                        conjugation: {
-                            required: true
-                        },
-                        description: {
-                            required: true
-                        }
                     },
                     messages: {
                         lemmaKey: {
                             required: "Vui lòng nhập từ",
-                            minlength: "Độ dài của tên khóa học tối thiểu là 5"
-                        },
-                        IPA: {
-                            required: "Vui lòng nhập IPA",
-                            date: "Ngày tháng không hợp lệ"
+                            minlength: "Vui lòng nhập từ hợp lệ",
                         },
                         conjugation: {
-                            required: "Vui lòng nhập kiểu chia động từ"
+                            required: "Vui lòng nhập kiểu chia động từ",
                         },
                         description: {
-                            required: true
+                            required: "",
                         }
                     },
                     errorPlacement: function(error, element) {
@@ -309,7 +299,11 @@ class EditWordPage extends BaseHTMLDocumentPage
                     submitHandler: function(form) {
                         form.submit()
                     }
-                })
+                });
+                $.validator.addMethod("lettersonly", function(value, element) 
+                {
+                return this.optional(element) || /^[a-z," "]+$/i.test(value);
+                }, "Letters and spaces only please"); 
 
                 $('.on-hover-action').mouseenter(function() {
                     let id = this.id;
@@ -320,7 +314,7 @@ class EditWordPage extends BaseHTMLDocumentPage
                     let id = this.id;
                     $('#widget-of-' + id).hide()
                 })
-            })
+            });
             // initImageUpload(document.getElementsByClassName('image-box')[0])
         </script>
 <?
