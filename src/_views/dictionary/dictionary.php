@@ -130,7 +130,7 @@ final class DictionaryMainPage extends BaseHTMLDocumentPage
         <script defer>
         
         var currentFocus = -1;
-        autocomplete(document.getElementById("inp_search"),"inp_save",'ajax_call_action.php?action=search');
+        autocomplete(document.getElementById("inp_search"),"inp_save",'ajax_call_action.php?action=search',);
         //add favorite
         document.getElementById("favorite").addEventListener("click",function(e){
             e.preventDefault();

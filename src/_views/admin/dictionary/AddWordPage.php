@@ -88,8 +88,8 @@ class AddWordPage extends BaseHTMLDocumentPage
 
                                                                 <label class="col-md-2 col-form-label w-25" for="partOfSpeech">Loại từ<span class="required">*</span> </label>
                                                                 <select class="form-select form-select-md mb-3 w-25" name="partOfSpeech" id="partOfSpeech">
-                                                                        <option value="Verb" selected="true"> Verb</option>
-                                                                        <option value="Noun"> Noun</option>
+                                                                        <option value="Verb" > Verb</option>
+                                                                        <option value="Noun" selected="true"> Noun</option>
                                                                         <option value="Adjective"> Adjective</option>
                                                                         <option value="Adverb"> Adverb</option>
                                                                     </select>
@@ -103,19 +103,17 @@ class AddWordPage extends BaseHTMLDocumentPage
                                                                     <label class="col-md-2 col-form-label w-25" for="region">United Kingdom's Accent<span class="required">*</span> </label>                                                         
                                                                     <input type="text" class="form-control w-25" id="IPA" name="IPAUK" placeholder="IPA" value="">
                                                             </div>
-                                                                    
-                                                            <div class="form-group row mb-3">
-                                                                <h5 class="fw-bold">Conjugation (optional):</h5> 
+                                                            <div class="form-group row mb-3 _closed" id="conjugation_section">
+                                                                <h5 class="fw-bold">Conjugation:</h5> 
                                                                 <label class="col-md-5 col-form-label" for="description">Description </label>
-                                                                <div class="col-md-10">
+                                                                <div class="col-md-10 autocomplete">
                                                                     <textarea name="description" id="description" class="form-control" ></textarea>
+                                                                    <label class="col-md-5 col-form-label" for="conjugation">Conjugation </label>
+                                                                    <input type="text" class="form-control" name="conjugation" id="conjugation"></input>
+                                                                    <input type="hidden" class="form-control" name="infinitiveID" id="infinitiveID"></input>
                                                                 </div>
-                                                            </div>
-                                                            <div class="form-group row mb-3 autocomplete">
-                                                                <label class="col-md-5 col-form-label" for="conjugation">Conjugation </label>
-                                                                <input type="text" class="form-control" name="conjugation" id="conjugation"></input>
-                                                                <input type="hidden" class="form-control" name="infinitiveID" id="infinitiveID"></input>
-                                                            </div>
+                                                            </div>   
+                                                            
                                                             <div class="d-flex align-items-center justify-content-center">
                                                                 <button type="submit" class="btn btn-outline-primary btn-rounded btn-icon" id="submit_add_course" >Xác nhận</button>
                                                             </div>
@@ -184,6 +182,7 @@ $this->scripts(
                 let data = {
                     input: value
                 }
+                console.log("check");
                 $.ajax({
                     url : "ajax_call_action.php?action=checkKeyExist",
                     data : data,
@@ -192,17 +191,39 @@ $this->scripts(
                     {
                         if(response.status==204)
                         {
-                            return false;
+                            return true;
                         }
                         else 
                         {
-                            return true;
+                            return false;
                         }
-                    
                     }
                 });
-                return true;
+                return false;
             }
+
+            document.getElementById("form_add_word").addEventListener("submit", function(e){
+                
+                let data = {
+                    input : document.getElementById("lemmaKey").value,
+                };
+                if(checkKeyExist(document.getElementById("lemmaKey").value,document.getElementById("form_add_word"))){
+                    e.preventDefault();
+                    toastr.error("Từ đã tồn tại", "Thêm từ vựng: ")
+                    console.log(checkKeyExist(document.getElementById("lemmaKey").value,document.getElementById("form_add_word")));
+                }
+                else   
+                    {e.currentTarget.submit();}
+            })
+
+            
+            document.getElementById("partOfSpeech").addEventListener("change",function(e){
+                if(!this.value.localeCompare("Verb")){
+                    document.getElementById("conjugation_section").classList.remove("_closed");
+                }else{
+                    document.getElementById("conjugation_section").classList.add("_closed");
+                }
+            })
             $(document).ready(function() {
                 // thêm summer note
                 //thêm các validate rule cho form
@@ -218,8 +239,8 @@ $this->scripts(
                     rules: {
                         lemmaKey: {
                             required: true,
-                            keyExisted: true,
-                            minlength: 1
+                            minlength: 1,
+                            lettersonly: true,
                         },
                         partOfSpeech: {
                             required: true,
@@ -247,20 +268,23 @@ $this->scripts(
                         },
                     },
                     submitHandler: function(form) {
-                        form.submit();
+
                     },
                     errorPlacement: function(error, element) {
                         error.insertAfter(element); // Place error message after the input element
                     },
 
                 })
+                
+                $.validator.addMethod("lettersonly", function(value, element) 
+                {
+                return this.optional(element) || /^[a-z]+$/i.test(value);
+                }, "Chỉ nhập chữ và 1 từ"); 
+
             $.validator.addMethod("nonNumeric", function(value, element) {
                 return this.optional(element) || /^[\D+]*$/.test(value);
             },"Only alphabatic characters allowed.");
             
-            $.validator.addMethod("keyExisted", function(value,element){
-                return checkKeyExist(value, element);
-            });
             })
            
 

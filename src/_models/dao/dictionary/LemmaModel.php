@@ -34,6 +34,31 @@ class LemmaModel {
             return null;
         }
     }
+    public function liveSearch_fav($profileID,$key)
+    {
+        $sqlQuery = "SELECT lemma.* FROM lemma,favorite WHERE lemma.ID = favorite.LemmaID and profileID = ? and KeyL like CONCAT(?,'%')" ;
+        $params = array(
+            'profileID' => $profileID,
+            'KeyL' => $key
+        );
+        try {
+            $result = Database::executeQuery($sqlQuery, $params);
+            if ($result != null) {
+                $lemmas = [];
+                foreach ($result as $index => $value) {
+                    $item = [];
+                    $item['key'] = $value['KeyL'];
+                    $item['ID'] = $value['ID'];
+                    $lemmas[] = $item;
+                }
+                return $lemmas;
+            } else {
+                return null;
+            }
+        } catch (Exception $e) {
+            return null;
+        }
+    }
     public function get_all_lemmas(){
         // $sqlQuery = "SELECT Lemma.ID, KeyL, partOfSpeech, meaning.meaning, profile.LastName,profile.FirstName FROM lemma, meaning, contribution, profile WHERE lemma.ID = meaning.LemmaID and contribution.MeaningID = meaning.ID and profile.ID = contribution.ProfileID";
         $sqlQuery = "SELECT Lemma.ID, Lemma.KeyL, Lemma.partOfSpeech, Meaning.meaning FROM Lemma LEFT JOIN Meaning ON Lemma.ID = Meaning.LemmaID";
@@ -61,16 +86,13 @@ class LemmaModel {
         }
     }
     public function checkKeyExist($key){
-        $sqlQuery = "SELECT * FROM Lemma WHERE KeyL like ?" ;
+        $sqlQuery = "SELECT EXISTS (SELECT * FROM Lemma WHERE KeyL like ?) AS exist" ;
         $params = array(
             'KeyL' => $key
         );
         try {
             $result = Database::executeQuery($sqlQuery, $params);
-            if($result != null){
-                return true;
-            } else
-                return false;
+            return $result;
 
         } catch (Exception $e) {
             return null;

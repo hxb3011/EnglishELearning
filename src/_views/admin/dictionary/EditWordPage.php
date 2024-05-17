@@ -271,8 +271,9 @@ class EditWordPage extends BaseHTMLDocumentPage
                     },
                     rules: {
                         lemmaKey: {
-                            required: false,
-                            minlength: 2
+                            required: true,
+                            minlength: 2,
+                            lettersonly: true,
                         },
                         IPAUS: {
                             required: true,
@@ -302,8 +303,8 @@ class EditWordPage extends BaseHTMLDocumentPage
                 });
                 $.validator.addMethod("lettersonly", function(value, element) 
                 {
-                return this.optional(element) || /^[a-z," "]+$/i.test(value);
-                }, "Letters and spaces only please"); 
+                return this.optional(element) || /^[a-z]+$/i.test(value);
+                }, "Chỉ nhập chữ và 1 từ"); 
 
                 $('.on-hover-action').mouseenter(function() {
                     let id = this.id;
