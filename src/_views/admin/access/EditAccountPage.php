@@ -54,7 +54,7 @@ class EditAccountPage extends BaseHTMLDocumentPage
     }
     public function body()
     {
-?>
+        ?>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -125,11 +125,8 @@ class EditAccountPage extends BaseHTMLDocumentPage
                 //thêm các validate rule cho form
                 $("#form_edit_account").validate({
                     ignore: [],
-                    onkeyup: function(e) {
-                        $(e).valid()
-                    },
-                    onchange: function(e) {},
-                    errorPlacement: function() {},
+                    onkeyup: function(e) { $(e).valid() },
+                    onchange: function(e) { $(e).valid() },
                     invalidHandler: function() {
                         toastr.error("Vui lòng kiểm tra lại các trường dữ liệu", "Sửa tài khoản : ")
                     },
@@ -139,7 +136,17 @@ class EditAccountPage extends BaseHTMLDocumentPage
                             minlength: 6,
                             maxlength: 255,
                             notEmpty: true,
-                            isUserExists : true
+                            remote: {
+                                url: "/profile/checkUserName.php",
+                                type: "post",
+                                data: {
+                                    uid() { return "<?= $this->account->getUid() ?>"; },
+                                    userName() { return $("#userName").val(); }
+                                },
+                                success(data) {
+                                    return ((Number(data) !== 0) ? "Tên đăng nhập đã tồn tại." : true);
+                                }
+                            }
                         },
                         password: {
                             required: false,
@@ -154,7 +161,7 @@ class EditAccountPage extends BaseHTMLDocumentPage
                             minlength: "Tên đăng nhập phải đủ 6 ký tự.",
                             maxlength: "Tên đăng nhập không vượt quá 255 ký tự.",
                             notEmpty: "Vui lòng nhập tên đăng nhập.",
-                            isUserExists : "Tài khoản đã tồn tại"
+                            remote: "Tên đăng nhập đã tồn tại."
                         },
                         password: {
                             minlength: "Mật khẩu phải đủ 8 ký tự.",

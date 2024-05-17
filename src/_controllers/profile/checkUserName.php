@@ -20,21 +20,25 @@ if (!isset($reqm) || strtolower($reqm) !== "post") {
     http_response_code(404);
     $_REQUEST["ersp"] = "404";
     requira("_error.php");
-} elseif (!isset($account)) {
-    http_response_code(403);
-    $_REQUEST["ersp"] = "403";
-    requira("_error.php");
 } else {
-    $data = json_decode(file_get_contents("php://input"), true);
-    $result = 1;
-    if (is_array($data)) {
-        $testUserName = &$data["userName"];
+    $uid = &$_REQUEST["uid"];
+    $testUserName = &$_REQUEST["userName"];
+    if (isset($uid)) {
+        $targetAccount = AccountDAO::getAccountByUid($uid);
+        if (isset($targetAccount)) $account = $targetAccount;
+    }
+    if (!isset($account)) {
+        http_response_code(403);
+        $_REQUEST["ersp"] = "403";
+        requira("_error.php");
+    } else {
+        $result = 1;
         if (isset($testUserName)) {
             $currentUserName = $account->userName;
             if ($testUserName == $currentUserName || !AccountDAO::isUserNameExist($testUserName)) {
                 $result = 0;
             }
         }
+        echo $result;
     }
-    echo $result;
 }

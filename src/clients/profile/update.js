@@ -128,6 +128,7 @@ const ProfileEditor = ((_) => {
                 const input = this;
                 /** @this {XMLHttpRequest} @param {ProgressEvent<EventTarget>} e  */
                 function onXMLHttpRequestLoad(e) {
+                    console.log(arguments);
                     if (Number(this.response) !== 0) {
                         for (const value of inputUserNameError)
                             value.innerText = input.getAttribute("invalid-isExisted") || "";
@@ -139,7 +140,9 @@ const ProfileEditor = ((_) => {
                 const xhttp = new XMLHttpRequest();
                 xhttp.addEventListener("load", onXMLHttpRequestLoad);
                 xhttp.open("POST", "/profile/checkUserName.php");
-                xhttp.send(JSON.stringify({ userName: this.value }));
+                let params = new URLSearchParams();
+                params.set("userName", this.value);
+                xhttp.send(params);
             }
 
             for (const value of inputUserName) {

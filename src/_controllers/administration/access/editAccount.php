@@ -73,10 +73,10 @@ if (!isset($reqm)) {
                                 $account = AccountDAO::getAccountByUid($id);
                                 $result = false;
                                 if (isset($account)) {
-                                    if (isset($userName))
+                                    if (!empty($userName))
                                         $account->userName = $userName;
                                     if (!empty($password))
-                                        $account->password = $userName;
+                                        $account->password = AccountDAO::encryptPassword($password);
                                     if (AccountDAO::updateAccount($account)) {
                                         header('Location: /administration/access/account.php');
                                         $result = true;
