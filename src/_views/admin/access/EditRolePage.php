@@ -124,6 +124,7 @@ class EditRolePage extends BaseHTMLDocumentPage
                                             $key = $this->role->getKey();
                                             for ($value = PermissionMinValue; $value <= PermissionMaxValue; ++$value) {
                                                 $permkey = getPermissionKey($value);
+                                                if($permkey == null) continue;
                                                 $permname = getPermissionName($value);
                                                 $permchecked = $key->isPermissionGranted($value) ? " checked" : "";
                                                 ?>
