@@ -84,7 +84,7 @@ class EditRolePage extends BaseHTMLDocumentPage
                             <div style="margin-top:24px; margin-bottom:24px;"></div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="/administration/access/editRole.php?add=<?= $this->add ? 1 : 0 ?>&roleid=<?= $this->role->getId() ?>" method="post">
+                                    <form id="form_edit_role" action="/administration/access/editRole.php?add=<?= $this->add ? 1 : 0 ?>&roleid=<?= $this->role->getId() ?>" method="post">
                                         <div class="mb-3 row m-1">
                                             <label for="name" class="mx-1"><b>Tên</b></label>
                                             <input type="text" class="form-control" id="name" name="name" placeholder="Tên" value="<?= $this->role->name ?>">
@@ -155,5 +155,47 @@ class EditRolePage extends BaseHTMLDocumentPage
             "/node_modules/sweetalert2/dist/sweetalert2.min.js",
             "/clients/js/admin/main.js",
         );
+        ?>
+        <script>
+            $(document).ready(function() {
+                // thêm summer note
+                $.validator.addMethod("notEmpty", function(value, element) {
+                    return value.trim().length > 0;
+                })
+                //thêm các validate rule cho form
+                $("#form_edit_role").validate({
+                    ignore: [],
+                    onkeyup: function(e) {
+                        $(e).valid()
+                    },
+                    onchange: function(e) {},
+                    errorPlacement: function() {},
+                    invalidHandler: function() {
+                        toastr.error("Vui lòng kiểm tra lại các trường dữ liệu", "Sửa vai trò : ")
+                    },
+                    rules: {
+                        name: {
+                            required: true,
+                            maxlength: 255,
+                            notEmpty: true,
+                        }
+                    },
+                    messages: {
+                        name: {
+                            required: "Vui lòng nhập tên",
+                            maxlength: "Tên không vượt quá 255 ký tự",
+                            notEmpty: "Vui lòng nhập tên"
+                        }
+                    },
+                    errorPlacement: function(error, element) {
+                        error.insertAfter(element); // Place error message after the input element
+                    },
+                    submitHandler: function(form) {
+                        form.submit()
+                    }
+                });
+            });
+        </script>
+        <?
     }
 }

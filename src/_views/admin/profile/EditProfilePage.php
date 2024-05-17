@@ -86,7 +86,7 @@ class EditProfilePage extends BaseHTMLDocumentPage
                             <div style="margin-top:24px; margin-bottom:24px;"></div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="/administration/profile/edit.php?add=<?= $this->add ? 1 : 0 ?>&profileid=<?= $this->profile->getId() ?><?= !$this->add ? "&profiletype=" . $this->profile->type : "" ?>" method="post">
+                                    <form id="form_edit_profile" action="/administration/profile/edit.php?add=<?= $this->add ? 1 : 0 ?>&profileid=<?= $this->profile->getId() ?><?= !$this->add ? "&profiletype=" . $this->profile->type : "" ?>" method="post">
                                         <div class="form-group m-1">
                                             <label for="lastName" class="mx-1"><b>Họ</b></label>
                                             <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Họ" value="<?= $this->profile->lastName ?>">
@@ -211,5 +211,81 @@ class EditProfilePage extends BaseHTMLDocumentPage
             "/node_modules/sweetalert2/dist/sweetalert2.min.js",
             "/clients/js/admin/main.js",
         );
+        ?>
+        <script>
+            $(document).ready(function() {
+                // thêm summer note
+                $.validator.addMethod("notEmpty", function(value, element) {
+                    return value.trim().length > 0;
+                })
+                //thêm các validate rule cho form
+                $("#form_edit_profile").validate({
+                    ignore: [],
+                    onkeyup: function(e) {
+                        $(e).valid()
+                    },
+                    onchange: function(e) {},
+                    errorPlacement: function() {},
+                    invalidHandler: function() {
+                        toastr.error("Vui lòng kiểm tra lại các trường dữ liệu", "Sửa hồ sơ : ")
+                    },
+                    rules: {
+                        lastName: {
+                            required: true,
+                            maxlength: 255,
+                            notEmpty: true,
+                        },
+                        firstName: {
+                            required: true,
+                            maxlength: 255,
+                            notEmpty: true,
+                        },
+                        gender: {
+                            required: true
+                        },
+                        birthday: {
+                            required: true
+                        },
+                        profiletype: {
+                            required: true
+                        },
+                        role: {
+                            required : true
+                        }
+                    },
+                    messages: {
+                        lastName: {
+                            required: "Vui lòng nhập họ.",
+                            maxlength: "Họ không vượt quá 255 ký tự.",
+                            notEmpty: "Vui lòng nhập họ."
+                        },
+                        firstName: {
+                            required: "Vui lòng nhập tên.",
+                            maxlength: "Tên không vượt quá 255 ký tự.",
+                            notEmpty: "Vui lòng nhập tên."
+                        },
+                        gender: {
+                            required: "Vui lòng chọn giới tính."
+                        },
+                        birthday: {
+                            required: "Vui lòng chọn ngày sinh."
+                        },
+                        profiletype: {
+                            required: "Vui lòng chọn loại hồ sơ."
+                        },
+                        role: {
+                            required : "Vui lòng chọn vai trò."
+                        }
+                    },
+                    errorPlacement: function(error, element) {
+                        error.insertAfter(element); // Place error message after the input element
+                    },
+                    submitHandler: function(form) {
+                        form.submit()
+                    }
+                });
+            });
+        </script>
+        <?
     }
 }
