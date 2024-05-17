@@ -31,11 +31,10 @@ if (!isset($reqm) || strtolower($reqm) !== "post") {
         $testUserName = &$data["userName"];
         if (isset($testUserName)) {
             $currentUserName = $account->userName;
-            if ($testUserName === $currentUserName || !AccountDAO::isUserNameExist($testUserName)) {
+            if ($testUserName == $currentUserName || !AccountDAO::isUserNameExist($testUserName)) {
                 $result = 0;
             }
         }
     }
     echo $result;
 }
-?>

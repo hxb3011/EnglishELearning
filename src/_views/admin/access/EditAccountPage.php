@@ -84,7 +84,7 @@ class EditAccountPage extends BaseHTMLDocumentPage
                             <div style="margin-top:24px; margin-bottom:24px;"></div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="/administration/access/editAccount.php?add=<?= $this->add ? 1 : 0 ?>&uid=<?= $this->account->getUid() ?>" method="post" id="accountForm">
+                                    <form id="form_edit_account" action="/administration/access/editAccount.php?add=<?= $this->add ? 1 : 0 ?>&uid=<?= $this->account->getUid() ?>" method="post">
                                         <div class="mb-3 row m-1">
                                             <label for="userName"><b>Tên người dùng</b></label>
                                             <input type="text" class="form-control" id="userName" name="userName" placeholder="Tên người dùng" value="<?= $this->account->userName ?>">
@@ -116,11 +116,14 @@ class EditAccountPage extends BaseHTMLDocumentPage
         ?>
         <script>
             $(document).ready(function() {
+                $.validator.addMethod("notEmpty", function(value, element) {
+                    return value.trim().length > 0;
+                });
+                $.validator.addMethod("password", function(value, element) {
+                    return (value.length === 0) || (/[a-z]/.test(value) && /[A-Z]/.test(value) && /[0-9]/.test(value) && /[^\w\s]/.test(value));
+                });
                 //thêm các validate rule cho form
-                $.validator.addMethod("notEmpty",function(value,element){
-                    return value.trim().length > 5;
-                })
-                $("#accountForm").validate({
+                $("#form_edit_account").validate({
                     ignore: [],
                     onkeyup: function(e) {
                         $(e).valid()
@@ -128,31 +131,44 @@ class EditAccountPage extends BaseHTMLDocumentPage
                     onchange: function(e) {},
                     errorPlacement: function() {},
                     invalidHandler: function() {
-                        toastr.error("Vui lòng kiểm tra lại các trường dữ liệu", "Thêm khóa học : ")
+                        toastr.error("Vui lòng kiểm tra lại các trường dữ liệu", "Sửa tài khoản : ")
                     },
                     rules: {
                         userName: {
-                            required:true,
+                            required: true,
+                            minlength: 6,
+                            maxlength: 255,
                             notEmpty: true
+                        },
+                        password: {
+                            required: false,
+                            minlength: 8,
+                            maxlength: 255,
+                            password: true,
                         }
-                        
                     },
                     messages: {
                         userName: {
-                            required:"Không được để trống",
-                            notEmpty: "Tên tài khoản không được quá ngắn (<5 kí tự)"
+                            required: "Vui lòng nhập tên đăng nhập.",
+                            minlength: "Tên đăng nhập phải đủ 6 ký tự.",
+                            maxlength: "Tên đăng nhập không vượt quá 255 ký tự.",
+                            notEmpty: "Vui lòng nhập tên đăng nhập."
+                        },
+                        password: {
+                            minlength: "Mật khẩu phải đủ 8 ký tự.",
+                            maxlength: "Mật khẩu không vượt quá 255 ký tự.",
+                            password: "Mật khẩu không hợp lệ.",
                         }
-                        
                     },
                     errorPlacement: function(error, element) {
-                        error.insertAfter(element);
+                        error.insertAfter(element); // Place error message after the input element
                     },
                     submitHandler: function(form) {
                         form.submit()
                     }
-                })
-            })
+                });
+            });
         </script>
-<?
+        <?
     }
 }

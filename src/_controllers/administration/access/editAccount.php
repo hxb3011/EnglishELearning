@@ -69,12 +69,20 @@ if (!isset($reqm)) {
                             $id = $_REQUEST["uid"];
                             $userName = $_REQUEST["userName"];
                             $password = $_REQUEST["password"];
-                            if (isset($id) && isset($userName) && isset($password)) {
-                                $password = AccountDAO::encryptPassword($password);
-                                $account = new Account($id, $userName, $password);
-                                if (AccountDAO::updateAccount($account)) {
-                                    header('Location: /administration/access/account.php');
-                                } else {
+                            if (isset($id)) {
+                                $account = AccountDAO::getAccountByUid($id);
+                                $result = false;
+                                if (isset($account)) {
+                                    if (isset($userName))
+                                        $account->userName = $userName;
+                                    if (!empty($password))
+                                        $account->password = $userName;
+                                    if (AccountDAO::updateAccount($account)) {
+                                        header('Location: /administration/access/account.php');
+                                        $result = true;
+                                    }
+                                }
+                                if (!$result) {
                                     header('Location: /administration/access/editAccount.php?add=' . $add . '&uid=' . $id);
                                 }
                                 $granted = true;
