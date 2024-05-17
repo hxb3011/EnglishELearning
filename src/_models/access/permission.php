@@ -200,29 +200,29 @@ function getPermissionKey(int $permissionValue)
     elseif ($permissionValue === Permission_AnswersDelete)
         return "answersdelete";
     elseif ($permissionValue === Permission_QAExtensionCompletion)
-        return "qaextensioncompletion";
+        return null;
     elseif ($permissionValue === Permission_QAExtensionMatching)
-        return "qaextensionmatching";
+        return null;
     elseif ($permissionValue === Permission_QAExtensionMultipleChoices)
-        return "qaextensionmultiplechoices";
+        return null;
     elseif ($permissionValue === Permission_BlogManage)
-        return "blogmanage";
+        return null;
     elseif ($permissionValue === Permission_PostCreate)
-        return "postcreate";
+        return null;
     elseif ($permissionValue === Permission_PostRead)
-        return "postread";
+        return null;
     elseif ($permissionValue === Permission_PostUpdate)
-        return "postupdate";
+        return null;
     elseif ($permissionValue === Permission_PostDelete)
-        return "postdelete";
+        return null;
     elseif ($permissionValue === Permission_CommentCreate)
-        return "commentcreate";
+        return null;
     elseif ($permissionValue === Permission_CommentRead)
-        return "commentread";
+        return null;
     elseif ($permissionValue === Permission_CommentUpdate)
-        return "commentupdate";
+        return null;
     elseif ($permissionValue === Permission_CommentDelete)
-        return "commentdelete";
+        return null;
     else
         return "undefined";
 }
