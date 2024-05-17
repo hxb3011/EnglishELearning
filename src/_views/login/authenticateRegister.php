@@ -6,7 +6,7 @@ final class AuthenticateRegisterPage extends BaseHTMLDocumentPage
 {
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct(NAV_PROF);
     }
 
     // public function beforeDocument()
