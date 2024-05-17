@@ -82,7 +82,7 @@ class EditAccountPage extends BaseHTMLDocumentPage
                             <div style="margin-top:24px; margin-bottom:24px;"></div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="/administration/access/editAccount.php?add=<?= $this->add ? 1 : 0 ?>&uid=<?= $this->account->getUid() ?>" method="post">
+                                    <form id="form_edit_account" action="/administration/access/editAccount.php?add=<?= $this->add ? 1 : 0 ?>&uid=<?= $this->account->getUid() ?>" method="post">
                                         <div class="mb-3 row m-1">
                                             <label for="userName"><b>Tên người dùng</b></label>
                                             <input type="text" class="form-control" id="userName" name="userName" placeholder="Tên người dùng" value="<?= $this->account->userName ?>">
@@ -111,5 +111,78 @@ class EditAccountPage extends BaseHTMLDocumentPage
             "/node_modules/sweetalert2/dist/sweetalert2.min.js",
             "/clients/js/admin/main.js",
         );
+        ?>
+        <script>
+            $(document).ready(function() {
+                $.validator.addMethod("notEmpty", function(value, element) {
+                    return value.trim().length > 0;
+                });
+                $.validator.addMethod("password", function(value, element) {
+                    return (value.length === 0) || (/[a-z]/.test(value) && /[A-Z]/.test(value) && /[0-9]/.test(value) && /[^\w\s]/.test(value));
+                });
+                //thêm các validate rule cho form
+                $("#form_edit_account").validate({
+                    ignore: [],
+                    onkeyup: function(e) {
+                        $(e).valid()
+                    },
+                    onchange: function(e) {},
+                    errorPlacement: function() {},
+                    invalidHandler: function() {
+                        toastr.error("Vui lòng kiểm tra lại các trường dữ liệu", "Sửa tài khoản : ")
+                    },
+                    rules: {
+                        userName: {
+                            required: true,
+                            minlength: 6,
+                            maxlength: 255,
+                            notEmpty: true,
+                            remote: {
+                                url: '/profile/checkUserName.php',
+                                method: 'POST',
+                                data: JSON.stringify({ userName: $("#userName").val() }),
+                                headers: {
+                                    'Access-Control-Allow-Origin': '*' // Thiết lập CORS header cho yêu cầu
+                                },
+                                success: function(response) {
+                                    console.log(this, this.message, response);
+                                    if (Number(response) !== 0) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
+                            }
+                        },
+                        password: {
+                            required: false,
+                            minlength: 8,
+                            maxlength: 255,
+                            password: true,
+                        }
+                    },
+                    messages: {
+                        userName: {
+                            required: "Vui lòng nhập tên đăng nhập.",
+                            minlength: "Tên đăng nhập phải đủ 6 ký tự.",
+                            maxlength: "Tên đăng nhập không vượt quá 255 ký tự.",
+                            notEmpty: "Vui lòng nhập tên đăng nhập.",
+                            remote: "Tên đăng nhập đã tồn tại"
+                        },
+                        password: {
+                            minlength: "Mật khẩu phải đủ 8 ký tự.",
+                            maxlength: "Mật khẩu không vượt quá 255 ký tự.",
+                            password: "Mật khẩu không hợp lệ.",
+                        }
+                    },
+                    errorPlacement: function(error, element) {
+                        error.insertAfter(element); // Place error message after the input element
+                    },
+                    submitHandler: function(form) {
+                        form.submit()
+                    }
+                });
+            });
+        </script>
+        <?
     }
 }
