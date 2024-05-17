@@ -60,10 +60,6 @@ function authenticate() {
     }
 }
 
-
-
-
-
 function register() {
     let username = sessionStorage.getItem("profiles") ? JSON.parse(sessionStorage.getItem("profiles")).username : $("#username-register").val();
     let password = sessionStorage.getItem("profiles") ? JSON.parse(sessionStorage.getItem("profiles")).password : $("#password-register").val();
