@@ -138,7 +138,8 @@ class EditAccountPage extends BaseHTMLDocumentPage
                             required: true,
                             minlength: 6,
                             maxlength: 255,
-                            notEmpty: true
+                            notEmpty: true,
+                            isUserExists : true
                         },
                         password: {
                             required: false,
@@ -152,7 +153,8 @@ class EditAccountPage extends BaseHTMLDocumentPage
                             required: "Vui lòng nhập tên đăng nhập.",
                             minlength: "Tên đăng nhập phải đủ 6 ký tự.",
                             maxlength: "Tên đăng nhập không vượt quá 255 ký tự.",
-                            notEmpty: "Vui lòng nhập tên đăng nhập."
+                            notEmpty: "Vui lòng nhập tên đăng nhập.",
+                            isUserExists : "Tài khoản đã tồn tại"
                         },
                         password: {
                             minlength: "Mật khẩu phải đủ 8 ký tự.",
