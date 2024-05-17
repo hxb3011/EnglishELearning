@@ -353,6 +353,9 @@ class EditCoursePage extends BaseHTMLDocumentPage
                 $.validator.addMethod("notEmpty", function(value, element) {
                     return value.trim().length > 0;
                 })
+                $.validator.addMethod("noWhitespaceAtBeginning",function(value,element){
+                    return  /^\S.*$/.test(value);
+                },"Không có khoảng trống ở đầu dòng")
                 //thêm các validate rule cho form
                 $("#form_edit_course").validate({
                     ignore: [],
@@ -369,6 +372,7 @@ class EditCoursePage extends BaseHTMLDocumentPage
                             required: true,
                             minlength: 5,
                             notEmpty: true,
+                            noWhitespaceAtBeginning : true,
                         },
                         description: {
                             required: true,
