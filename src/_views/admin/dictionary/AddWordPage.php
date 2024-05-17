@@ -208,7 +208,7 @@ $this->scripts(
                 //thêm các validate rule cho form
                 $("#form_add_word").validate({
                     ignore: [],
-                    onsubmit: function(e){
+                    onchange: function(e){
                         $(e).valid()
                     },
                     errorPlacement: function() {},
