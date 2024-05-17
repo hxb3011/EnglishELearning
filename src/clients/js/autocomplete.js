@@ -29,6 +29,7 @@ function autocomplete(inp, inp_save, url, positionAbsolute) {
         });
     });
 
+    
     //Xử lí bàn phím
     inp.addEventListener("keydown", function(e) {
         console.log(currentFocus);
