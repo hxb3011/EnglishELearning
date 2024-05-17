@@ -70,6 +70,7 @@ if (!isset($reqm)) {
                             $userName = $_REQUEST["userName"];
                             $password = $_REQUEST["password"];
                             if (isset($id) && isset($userName) && isset($password)) {
+                                $password = AccountDAO::encryptPassword($password);
                                 $account = new Account($id, $userName, $password);
                                 if (AccountDAO::updateAccount($account)) {
                                     header('Location: /administration/access/account.php');

@@ -47,12 +47,14 @@ class EditAccountPage extends BaseHTMLDocumentPage
             "/clients/css/admin/addcourse.css"
         );
         $this->scripts(
+            "/node_modules/jquery/dist/jquery.min.js",
             "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+            "/node_modules/jquery-validation/dist/jquery.validate.min.js",
         );
     }
     public function body()
     {
-        ?>
+?>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -82,7 +84,7 @@ class EditAccountPage extends BaseHTMLDocumentPage
                             <div style="margin-top:24px; margin-bottom:24px;"></div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="/administration/access/editAccount.php?add=<?= $this->add ? 1 : 0 ?>&uid=<?= $this->account->getUid() ?>" method="post">
+                                    <form action="/administration/access/editAccount.php?add=<?= $this->add ? 1 : 0 ?>&uid=<?= $this->account->getUid() ?>" method="post" id="accountForm">
                                         <div class="mb-3 row m-1">
                                             <label for="userName"><b>Tên người dùng</b></label>
                                             <input type="text" class="form-control" id="userName" name="userName" placeholder="Tên người dùng" value="<?= $this->account->userName ?>">
@@ -111,5 +113,46 @@ class EditAccountPage extends BaseHTMLDocumentPage
             "/node_modules/sweetalert2/dist/sweetalert2.min.js",
             "/clients/js/admin/main.js",
         );
+        ?>
+        <script>
+            $(document).ready(function() {
+                //thêm các validate rule cho form
+                $.validator.addMethod("notEmpty",function(value,element){
+                    return value.trim().length > 5;
+                })
+                $("#accountForm").validate({
+                    ignore: [],
+                    onkeyup: function(e) {
+                        $(e).valid()
+                    },
+                    onchange: function(e) {},
+                    errorPlacement: function() {},
+                    invalidHandler: function() {
+                        toastr.error("Vui lòng kiểm tra lại các trường dữ liệu", "Thêm khóa học : ")
+                    },
+                    rules: {
+                        userName: {
+                            required:true,
+                            notEmpty: true
+                        }
+                        
+                    },
+                    messages: {
+                        userName: {
+                            required:"Không được để trống",
+                            notEmpty: "Tên tài khoản không được quá ngắn (<5 kí tự)"
+                        }
+                        
+                    },
+                    errorPlacement: function(error, element) {
+                        error.insertAfter(element);
+                    },
+                    submitHandler: function(form) {
+                        form.submit()
+                    }
+                })
+            })
+        </script>
+<?
     }
 }
