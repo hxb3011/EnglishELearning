@@ -120,7 +120,6 @@ class Dictionary{
         else{
             $response['status'] = '404';
             $response['message'] = 'Cập nhật thất bại, Profile ID: '.$profileID;
-            
         }
         $jsonData = json_encode($response);
         echo $jsonData;
@@ -136,6 +135,7 @@ class Dictionary{
             echo $jsonData;
         }
     }
+
     public function search(){
         $response = array();
         $jsonData = "";
@@ -143,6 +143,28 @@ class Dictionary{
             $key = $_REQUEST['search_input'];
             $key_arr = [];
             $key_arr = $this->lemmaModel->liveSearch($key);
+            
+            if($key_arr){
+                $response['status'] = '204';
+                $response['items'] = $key_arr;
+                $jsonData = json_encode($response);
+                echo $jsonData;
+            }
+            else{
+                $response['status'] = '404';
+                // $response['message'] = 'Thêm thất bại';
+                $jsonData = json_encode($response);
+                echo $jsonData;
+            }
+        }
+    }
+    public function search_favorite($profileID){
+        $response = array();
+        $jsonData = "";
+        if (isset($_REQUEST['search_input'])) {
+            $key = $_REQUEST['search_input'];
+            $key_arr = [];
+            $key_arr = $this->lemmaModel->liveSearch_fav($profileID,$key);
             
             if($key_arr){
                 $response['status'] = '204';

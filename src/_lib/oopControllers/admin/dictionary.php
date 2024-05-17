@@ -93,7 +93,7 @@ class AdminDictionary
         if(isset($_REQUEST['input'])){
             $key = $_REQUEST['input'];
             $result = $this->lemmaModel->checkKeyExist($key);
-            if($result == true){
+            if($result[0]['exist'] == 1){
                 $response['status'] = '204';
             } else{
                 $response['status'] = '404';

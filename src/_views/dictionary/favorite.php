@@ -77,9 +77,10 @@ final class DictionaryFavoritePage extends BaseHTMLDocumentPage
             <div class="section-heading xx-large mtop-5">Favorite</div>
             <div class = " flashcard__container mtop-5">
                 <div class="margin-5">
-                    <form class="form-inline d-flex width-search round-5 mx-auto" autocomplete="off">
+                    <form class="form-inline d-flex width-search round-5 mx-auto" id="form_search" autocomplete="off">
                     <div class="autocomplete w-100">
                         <input class="form-control border border-dark mr-sm-2 search_bar" id="inp_search" type="search" placeholder=" Search..." aria-label="Search">
+                        <input type="hidden" id="inp_save">
                     </div>
                     <button class="btn btn-dark my-2 my-sm-0 rounded-0 rounded-end search_button" type="submit">
                         <i class="fas fa-search icon_search"></i>
@@ -115,7 +116,11 @@ final class DictionaryFavoritePage extends BaseHTMLDocumentPage
         <script>
             
         var currentFocus = -1;
-        autocomplete(document.getElementById("inp_search"),"inp_save",'ajax_call_action.php?action=search');
+        autocomplete(document.getElementById("inp_search"),document.getElementById("inp_save"),'ajax_call_action.php?action=search_favorite');
+        document.getElementById("form_search").addEventListener("submit",function (e){
+            e.preventDefault();
+            showDetail(document.getElementById("inp_save").value);
+        })
         function showDetail(lemmaID){
             let data = {
                 lemmaID : lemmaID,
