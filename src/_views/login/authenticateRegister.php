@@ -66,9 +66,9 @@ final class AuthenticateRegisterPage extends BaseHTMLDocumentPage
                         <a href="/authentication/forgetPassword.php" class="btn-link">Forgot password?</a>
                         <input type="submit" id="loginbtn" value="login" class="btn solid">
 
-                        <p class="text-lg">Or Sign in with social platforms</p>
-                        <div class="line-seperate"></div>
-                        <div class="social-media">
+                        <!-- <p class="text-lg">Or Sign in with social platforms</p>
+                        <div class="line-seperate"></div> -->
+                        <!-- <div class="social-media">
                             <a href="#" class="google-login-btn">
                                 <span class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 488 512">
@@ -77,7 +77,7 @@ final class AuthenticateRegisterPage extends BaseHTMLDocumentPage
                                 </span>
                                 Login with Google
                             </a>
-                        </div>
+                        </div> -->
                     </form>
 
                     <!-- Sign-up  -->
